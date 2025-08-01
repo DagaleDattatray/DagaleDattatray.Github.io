@@ -87,6 +87,15 @@
     });
   </script>
 </body>
+
+<!-- Back to Top Button -->
+<button id="backToTop"
+  onclick="window.scrollTo({ top: 0, behavior: 'smooth' });"
+  title="Back to Top"
+  class="hidden fixed bottom-6 right-6 z-50 p-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg hover:scale-110 transition-transform duration-300 ease-in-out">
+  ↑
+</button>
+  
 <!-- Scroll Progress Bar -->
 <div id="scroll-bar" class="fixed top-0 left-0 h-1 w-0 bg-gradient-to-r from-blue-500 to-purple-600 z-50"></div>
 
@@ -273,6 +282,19 @@
     const scrolled = window.scrollY;
     const width = (scrolled / scrollableHeight) * 100;
     scrollBar.style.width = width + '%';
+  });
+</script>
+
+
+<script>
+  const backToTopBtn = document.getElementById('backToTop');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTopBtn.classList.remove('hidden');
+    } else {
+      backToTopBtn.classList.add('hidden');
+    }
   });
 </script>
 

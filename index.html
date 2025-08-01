@@ -177,13 +177,19 @@
   </section>
 
   <!-- Blog Section -->
-  <section id="blog" class="bg-gray-800 py-16 px-6">
-    <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">📝 Blog</h2>
-    <div class="text-center" data-aos="fade-up">
-      <p class="text-gray-300 mb-4">I write about Economcs, finance, Indian history & governance and other stuff.</p>
-      <a href="https://dattatraydagale.blogspot.com" target="_blank" class="inline-block bg-orange-600 text-white px-6 py-2 rounded-full hover:bg-orange-700 transition">Visit My Blog</a>
-    </div>
-  </section>
+  <!-- Blog Section -->
+<section id="blog" class="bg-gray-800 py-16 px-6">
+  <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">📝 Blog</h2>
+
+  <!-- Blog intro & button -->
+  <div class="text-center" data-aos="fade-up">
+    <p class="text-gray-300 mb-4">I write about finance, SSC CGL prep, Indian history & governance.</p>
+    <a href="https://dattatraydagale.blogspot.com" target="_blank" class="inline-block bg-orange-600 text-white px-6 py-2 rounded-full hover:bg-orange-700 transition">Visit My Blog</a>
+  </div>
+
+  <!-- 👇 Paste this NEW block after the button -->
+  <div id="blog-posts" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12"></div>
+</section>
 
   <!-- Contact Section -->
   <section id="contact" class="bg-gray-900 py-16 px-6">
@@ -198,6 +204,41 @@
   <script>
     AOS.init({ once: true, duration: 800 });
   </script>
+
+
+<script>
+  function displayBlogPosts(data) {
+    const container = document.getElementById("blog-posts");
+    if (!data.feed.entry) {
+      container.innerHTML = "<p class='text-gray-400'>No blog posts found.</p>";
+      return;
+    }
+
+    const posts = data.feed.entry.slice(0, 3); // number of posts
+    posts.forEach(post => {
+      const title = post.title.$t;
+      const link = post.link.find(l => l.rel === "alternate").href;
+      const media = post.media$thumbnail ? post.media$thumbnail.url : "https://via.placeholder.com/300x200?text=No+Image";
+
+      const card = document.createElement("div");
+      card.className = "bg-gray-900 rounded-lg overflow-hidden shadow hover:shadow-blue-400 transition";
+
+      card.innerHTML = `
+        <img src="${media}" alt="${title}" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h3 class="text-lg font-semibold mb-2 text-white">${title}</h3>
+          <a href="${link}" target="_blank" class="text-blue-400 hover:underline">Read More</a>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+</script>
+
+<script src="https://dattatraydagale.blogspot.com/feeds/posts/default?alt=json-in-script&callback=displayBlogPosts&max-results=3"></script>
+
+
+
 </body>
 
 </html>

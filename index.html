@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dattatray Dagale - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    };
+  </script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .bar {
+      background: #2d2d2d;
+      height: 10px;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .fill {
+      background: #3b82f6;
+      height: 100%;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-900 text-white">
+  <!-- Navbar -->
+  <header class="fixed top-0 w-full bg-gray-900 shadow z-50">
+    <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Dattatray Dagale</h1>
+      <div class="space-x-4 text-sm">
+        <a href="#home" class="hover:text-blue-400">Home</a>
+        <a href="#about" class="hover:text-blue-400">About</a>
+        <a href="#education" class="hover:text-blue-400">Education</a>
+        <a href="#experience" class="hover:text-blue-400">Experience</a>
+        <a href="#skills" class="hover:text-blue-400">Skills</a>
+        <a href="#timeline" class="hover:text-blue-400">Milestones</a>
+        <a href="#projects" class="hover:text-blue-400">Projects</a>
+        <a href="#blog" class="hover:text-blue-400">Blog</a>
+        <a href="#contact" class="hover:text-blue-400">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="flex flex-col md:flex-row justify-center items-center text-center md:text-left min-h-screen pt-28 px-6 bg-gray-900">
+    <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
+      <h2 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">Hi, I'm <span class="text-blue-500">Dattatray Dagale</span></h2>
+      <p class="text-lg text-gray-300 mb-4">Finance Blogger | Ex-Financial Analyst | SSC CGL Aspirant</p>
+      <p class="text-gray-400">I simplify finance & share Indian heritage with the world 🌏</p>
+      <a href="#contact" class="inline-block mt-6 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Get in Touch</a>
+    </div>
+    <div class="md:w-1/2 flex justify-center" data-aos="fade-left">
+      <img src="/mnt/data/Dattatray.jpeg" alt="Dattatray Dagale" class="w-56 h-56 object-cover rounded-full shadow-lg border-4 border-blue-500" />
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="bg-gray-800 py-16 px-6">
+    <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">👤 About Me</h2>
+    <div class="max-w-3xl mx-auto text-gray-300 leading-relaxed text-lg" data-aos="fade-up">
+      <p>I am passionate about demystifying the complexities of Finance and Economics. With a background in finance and economics, I’m committed to sharing insights, analyses, and valuable information to foster a deeper understanding of these vital subjects.</p>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="bg-gray-900 py-16 px-6">
+    <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">🎓 Education</h2>
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-10" data-aos="fade-up">
+      <div class="bg-gray-800 p-6 rounded-lg shadow hover:shadow-blue-500 transition">
+        <h3 class="text-xl font-semibold">M.A. in Economics</h3>
+        <p class="text-sm text-gray-300">Mumbai University, 2022</p>
+        <p class="text-gray-400 mt-2">Focus: Governance, Public Policy, Research</p>
+      </div>
+      <div class="bg-gray-800 p-6 rounded-lg shadow hover:shadow-blue-500 transition">
+        <h3 class="text-xl font-semibold">B.A. in Economics</h3>
+        <p class="text-sm text-gray-300">Mumbai University, 2020</p>
+        <p class="text-gray-400 mt-2">Focus: Indian Economy, Statistics, Public Admin</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="bg-gray-800 py-16 px-6">
+    <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">💼 Experience</h2>
+    <div class="max-w-4xl mx-auto" data-aos="fade-up">
+      <div class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition">
+        <h3 class="text-xl font-semibold">Financial Analyst @ Atos Syntel</h3>
+        <p class="text-sm text-gray-300">2022–2023</p>
+        <p class="text-gray-400 mt-2">Worked on reconciliation, corporate actions, and Bloomberg data sets. Champ Award recipient.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="bg-gray-900 py-16 px-6">
+    <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">🛠️ Skills</h2>
+    <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-8" data-aos="fade-up">
+      <div><h3 class="font-semibold text-lg">Excel & Bloomberg</h3><div class="bar mt-2"><div class="fill w-11/12"></div></div></div>
+      <div><h3 class="font-semibold text-lg">Financial Research</h3><div class="bar mt-2"><div class="fill w-10/12"></div></div></div>
+      <div><h3 class="font-semibold text-lg">Data Analysis</h3><div class="bar mt-2"><div class="fill w-9/12"></div></div></div>
+      <div><h3 class="font-semibold text-lg">Public Policy & Governance</h3><div class="bar mt-2"><div class="fill w-10/12"></div></div></div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section id="timeline" class="bg-gray-800 py-16 px-6">
+    <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">📌 Milestones</h2>
+    <div class="max-w-4xl mx-auto space-y-8 border-l-2 border-blue-500 pl-6" data-aos="fade-up">
+      <div><h4 class="text-lg font-semibold">2023 – Champ Award @ Atos Syntel</h4><p class="text-gray-400">Recognized for commitment to quality & performance.</p></div>
+      <div><h4 class="text-lg font-semibold">2022 – Completed M.A. Economics</h4><p class="text-gray-400">Postgraduate in governance and policy studies.</p></div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="bg-gray-900 py-16 px-6">
+    <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">🏆 Projects & Achievements</h2>
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8" data-aos="fade-up">
+      <div class="bg-gray-800 p-6 rounded-xl shadow hover:shadow-blue-400 transition">
+        <h3 class="text-xl font-semibold mb-2">Champ Award – Atos Syntel</h3>
+        <p class="text-gray-400">Awarded in 2023 for outstanding financial analysis and dedication in project delivery.</p>
+      </div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow hover:shadow-blue-400 transition">
+        <h3 class="text-xl font-semibold mb-2">Finance & GS Blog</h3>
+        <p class="text-gray-400">Consistently writing impactful finance and civil services prep articles on Blogger.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section id="blog" class="bg-gray-800 py-16 px-6">
+    <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">📝 Blog</h2>
+    <div class="text-center" data-aos="fade-up">
+      <p class="text-gray-300 mb-4">I write about finance, SSC CGL prep, Indian history & governance.</p>
+      <a href="https://dattatraydagale.blogspot.com" target="_blank" class="inline-block bg-orange-600 text-white px-6 py-2 rounded-full hover:bg-orange-700 transition">Visit My Blog</a>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="bg-gray-900 py-16 px-6">
+    <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">📬 Contact</h2>
+    <div class="text-center text-gray-300 space-y-4" data-aos="fade-up">
+      <p>Email: <a href="mailto:dattatraydagale@gmail.com" class="text-blue-400 hover:underline">dattatraydagale@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/in/dattatraydagale" class="text-blue-400 hover:underline" target="_blank">dattatraydagale</a></p>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true, duration: 800 });
+  </script>
+</body>
+
+</html>

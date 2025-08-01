@@ -33,9 +33,6 @@
 </head>
 
 <body class="bg-gray-900 text-white">
- <!-- ✅ Scroll Progress Bar -->
-<div id="scroll-bar" class="fixed top-0 left-0 h-1 w-0 bg-gradient-to-r from-blue-500 to-purple-600 z-50 transition-all duration-300 ease-out"></div>
-
 
   <!-- Navbar -->
   <header class="fixed top-0 w-full bg-gray-900 shadow z-50">
@@ -266,17 +263,6 @@
 
 <script src="https://dattatraydagale.blogspot.com/feeds/posts/default?alt=json-in-script&callback=displayBlogPosts&max-results=3"></script>
 
-
-<!-- ✅ Scroll Progress Script -->
-<script>
-  document.addEventListener('scroll', () => {
-    const scrollBar = document.getElementById('scroll-bar');
-    const maxScroll = document.body.scrollHeight - window.innerHeight;
-    const scrollPosition = window.scrollY;
-    const scrollPercent = (scrollPosition / maxScroll) * 100;
-    scrollBar.style.width = scrollPercent + '%';
-  });
-</script>
 
 
 </body>

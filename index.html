@@ -33,6 +33,8 @@
 </head>
 
 <body class="bg-gray-900 text-white">
+  <div id="scroll-bar" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 z-50 transition-all duration-200 ease-out"></div>
+
   <!-- Navbar -->
   <header class="fixed top-0 w-full bg-gray-900 shadow z-50">
     <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -261,6 +263,14 @@
 </script>
 
 <script src="https://dattatraydagale.blogspot.com/feeds/posts/default?alt=json-in-script&callback=displayBlogPosts&max-results=3"></script>
+<script>
+  window.addEventListener('scroll', () => {
+    const scrollBar = document.getElementById('scroll-bar');
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (window.scrollY / height) * 100;
+    scrollBar.style.width = progress + '%';
+  });
+</script>
 
 </body>
 

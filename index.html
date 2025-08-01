@@ -198,7 +198,37 @@
     </div>
   </section>
 
-  <!-- Projects Section -->
+  
+<!-- Blog Bubble -->
+<div id="blogBubble" class="fixed bottom-20 left-4 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg border-l-4 border-indigo-600 max-w-xs z-50 animate-fade-in">
+  <div class="flex justify-between items-start">
+    <div>
+      <p class="text-sm text-gray-700 dark:text-gray-300">
+        ✨ New on my blog: <br>
+        <strong>How India’s Budget 2025 Impacts You</strong>
+      </p>
+      <a href="https://dattatraydagale.blogspot.com/" target="_blank" class="text-indigo-600 text-sm mt-2 inline-block hover:underline">
+        Read Now →
+      </a>
+    </div>
+    <!-- Close Button -->
+    <button onclick="document.getElementById('blogBubble').style.display='none'" class="ml-2 text-gray-400 hover:text-red-500 text-xl font-bold leading-none">&times;</button>
+  </div>
+</div>
+
+<!-- Animation Style -->
+<style>
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 1s ease-out;
+}
+</style>
+
+
+<!-- Projects Section -->
   <section id="projects" class="bg-gray-900 py-16 px-6">
     <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">🏆 Projects & Achievements</h2>
     <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8" data-aos="fade-up">

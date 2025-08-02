@@ -2,25 +2,6 @@
 <html lang="en">
 
 <head>
-  <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #000; /* This gives a true space feel */
-  }
-
-  canvas#galaxy-canvas {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-  }
-</style>
-
   <meta name="google-site-verification" content="a09CCDP0nmKuqThHeVHNzzG9xooWmojIsvIjxWwVPbU" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -51,26 +32,7 @@
   </style>
 </head>
 
-  <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #000; /* dark galaxy background */
-  }
-
-  canvas {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-  }
-</style>
-
-
 <body class="bg-gray-900 text-white">
-<canvas id="galaxy-canvas" style="position:fixed; top:0; left:0; z-index:-1;"></canvas>
   <!-- Navbar -->
   <header class="fixed top-0 w-full bg-gray-900 shadow z-50">
     <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -581,8 +543,6 @@
     }
   });
 </script>
-
-<script src="galaxy.js" defer></script>
 
 </body>
 

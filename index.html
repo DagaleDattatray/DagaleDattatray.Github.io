@@ -243,6 +243,73 @@
     </div>
   </section>
 
+<!-- Licenses & Certifications Section -->
+<section id="certifications" class="bg-gray-800 py-16 px-6">
+  <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">📜 Licenses & Certifications</h2>
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8" data-aos="fade-up">
+
+    <!-- Replace each href with your Google Drive certificate link -->
+    <a href="https://drive.google.com/file/d/1Vu58_JX6Sz24A86lOumZCX3JWC-MEn4x/view" target="_blank" class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition block">
+      <h3 class="text-xl font-semibold mb-2">Champ Award</h3>
+      <p class="text-gray-400">By Atos Syntel</p>
+    </a>
+
+    <a href="https://drive.google.com/file/d/1Bef1gGFJfH-kI6HCS59GruTBwhlY-XaD/view" target="_blank" class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition block">
+      <h3 class="text-xl font-semibold mb-2">LEAD 1</h3>
+      <p class="text-gray-400">By Atos Syntel</p>
+    </a>
+
+    <a href="https://drive.google.com/file/d/14G65DfMEGRDB9O7Ft6ojkatTrlVvkFKI/view" target="_blank" class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition block">
+      <h3 class="text-xl font-semibold mb-2">Python</h3>
+      <p class="text-gray-400">By GUVI</p>
+    </a>
+
+    <a href="https://certificates.mooc.fi/validate/f3tqtia9e28" target="_blank" class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition block">
+      <h3 class="text-xl font-semibold mb-2">Elements of AI</h3>
+      <p class="text-gray-400">University of Helsinki</p>
+    </a>
+
+      <a href="https://drive.google.com/file/d/13DcFlO5Jl_Ut7iTPtUXQvJnnFSkCtJ-q/view" target="_blank" class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition block">
+      <h3 class="text-xl font-semibold mb-2">Blockcahin Business Foundation</h3>
+      <p class="text-gray-400">Udemy</p>
+    </a>
+
+     <a href="https://drive.google.com/file/d/14ks6UoW59-IX82MCH_dSas-_VzHGWKwk/view" target="_blank" class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition block">
+      <h3 class="text-xl font-semibold mb-2">Managerial Economics</h3>
+      <p class="text-gray-400">Linkedin</p>
+    </a>
+
+  </div>
+</section>
+
+<!-- Languages Section -->
+<section id="languages" class="bg-gray-900 py-16 px-6">
+  <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">🌐 Languages</h2>
+  <div class="text-center text-lg text-white" data-aos="fade-up">
+
+    <p class="mb-4">I can <strong>read</strong>, <strong>write</strong>, and <strong>speak</strong> the following languages fluently:</p>
+
+    <!-- Animated Language List -->
+    <div class="text-2xl font-semibold animate-pulse text-blue-400">
+      <span id="languageText">English</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- JS Animation for Languages -->
+<script>
+  const langs = ["English", "Marathi", "Hindi"];
+  let langIndex = 0;
+  const langSpan = document.getElementById("languageText");
+
+  setInterval(() => {
+    langIndex = (langIndex + 1) % langs.length;
+    langSpan.textContent = langs[langIndex];
+  }, 2000);
+</script>
+
+
   <!-- Blog Section -->
   <!-- Blog Section -->
 <section id="blog" class="bg-gray-800 py-16 px-6">

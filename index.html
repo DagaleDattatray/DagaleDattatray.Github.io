@@ -32,6 +32,24 @@
   </style>
 </head>
 
+  <style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000; /* dark galaxy background */
+  }
+
+  canvas {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+</style>
+
+
 <body class="bg-gray-900 text-white">
 <canvas id="galaxy-canvas" style="position:fixed; top:0; left:0; z-index:-1;"></canvas>
   <!-- Navbar -->

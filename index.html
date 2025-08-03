@@ -440,6 +440,132 @@
   <div id="blog-posts" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12"></div>
 </section>
 
+<!-- CGL mock tracker -->
+<section id="ssc-tracker" style="padding: 60px 20px; background: #0a0a0a; text-align: center;">
+  <h2 style="color: #00ffcc; font-size: 2rem;">🎯 SSC CGL Mocks Tracker</h2>
+  <p style="color: #ccc; margin-bottom: 30px;">📅 <span id="daysLeft"></span> Days Left FOr Tier-I - Stay Hard 💪</p>
+
+  <!-- Progress Circle -->
+  <div style="position: relative; width: 200px; height: 200px; margin: 0 auto;">
+    <svg width="200" height="200">
+      <circle cx="100" cy="100" r="90" stroke="#333" stroke-width="15" fill="none" />
+      <circle id="progressCircle" cx="100" cy="100" r="90" stroke="#00ffc3" stroke-width="15" fill="none"
+        stroke-linecap="round" stroke-dasharray="565.48"
+        stroke-dashoffset="565.48"
+        style="transition: stroke-dashoffset 0.6s ease-out; filter: drop-shadow(0 0 6px #00ffcc);" />
+    </svg>
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #00ffcc;">
+      <div style="font-size: 1.8rem;"><span id="mockCount">0</span> / 1000</div>
+      <div style="font-size: 1rem;">Mocks Done</div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <button onclick="incrementMock()" style="margin-top: 30px; background: #00ffcc; color: #000; font-weight: bold; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">+1 Mock</button>
+  <button onclick="resetMock()" style="margin-top: 30px; margin-left: 10px; background: crimson; color: #fff; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">Reset</button>
+
+  <!-- Monthly Calendar -->
+  <div style="margin-top: 40px;">
+    <div style="color: white; font-size: 1.2rem; margin-bottom: 10px;" id="calendarTitle"></div>
+    <div style="margin-bottom: 15px;">
+      <button onclick="prevMonth()" style="margin-right: 10px;">⬅️ Prev</button>
+      <button onclick="nextMonth()">Next ➡️</button>
+    </div>
+    <div id="calendar" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; color: white;"></div>
+  </div>
+</section>
+
+<script>
+  const examDate = new Date("2026-06-01");
+  const today = new Date();
+  document.getElementById("daysLeft").textContent = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
+
+  const circle = document.getElementById("progressCircle");
+  const totalLength = 2 * Math.PI * 90;
+  const maxMocks = 1000;
+  const startDate = new Date("2025-08-04");
+  const calendarDataKey = "calendarMockData";
+
+  let calendarData = JSON.parse(localStorage.getItem(calendarDataKey)) || {};
+  let viewMonth = startDate.getMonth();
+  let viewYear = startDate.getFullYear();
+
+  function updateProgress() {
+    const count = Object.values(calendarData).filter(Boolean).length;
+    document.getElementById("mockCount").textContent = count;
+    const pct = Math.min(count / maxMocks, 1);
+    circle.style.strokeDashoffset = totalLength * (1 - pct);
+  }
+
+  function incrementMock() {
+    const key = new Date().toISOString().split('T')[0];
+    calendarData[key] = true;
+    localStorage.setItem(calendarDataKey, JSON.stringify(calendarData));
+    updateProgress();
+    renderCalendar();
+  }
+
+  function resetMock() {
+    if (confirm("Reset your mock progress and calendar?")) {
+      localStorage.removeItem(calendarDataKey);
+      calendarData = {};
+      updateProgress();
+      renderCalendar();
+    }
+  }
+
+  function renderCalendar() {
+    const calendar = document.getElementById("calendar");
+    const calendarTitle = document.getElementById("calendarTitle");
+    calendar.innerHTML = "";
+
+    const monthStart = new Date(viewYear, viewMonth, 1);
+    const monthEnd = new Date(viewYear, viewMonth + 1, 0);
+    calendarTitle.textContent = monthStart.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+    const startDay = monthStart.getDay();
+    for (let i = 0; i < startDay; i++) {
+      const empty = document.createElement("div");
+      calendar.appendChild(empty);
+    }
+
+    for (let d = 1; d <= monthEnd.getDate(); d++) {
+      const dayDate = new Date(viewYear, viewMonth, d);
+      const key = dayDate.toISOString().split('T')[0];
+      const isDone = calendarData[key];
+      const box = document.createElement("div");
+      box.style.border = "1px solid #333";
+      box.style.borderRadius = "6px";
+      box.style.padding = "8px";
+      box.style.background = "#111";
+      box.innerHTML = `<strong style="color:#00ffc3">${d}</strong><br>${isDone ? "✅" : "❌"}`;
+      calendar.appendChild(box);
+    }
+  }
+
+  function nextMonth() {
+    viewMonth++;
+    if (viewMonth > 11) {
+      viewMonth = 0;
+      viewYear++;
+    }
+    renderCalendar();
+  }
+
+  function prevMonth() {
+    viewMonth--;
+    if (viewMonth < 0) {
+      viewMonth = 11;
+      viewYear--;
+    }
+    renderCalendar();
+  }
+
+  updateProgress();
+  renderCalendar();
+</script>
+
+
   <!-- Contact Section -->
   <!-- Contact / Social Section -->
 <section id="contact" class="bg-gray-100 dark:bg-gray-900 py-12">

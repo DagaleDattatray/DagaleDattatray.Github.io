@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dagaledattatray.github.io/sitemap.xml

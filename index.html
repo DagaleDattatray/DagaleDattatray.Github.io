@@ -156,6 +156,73 @@
     <div class="md:w-1/2 flex justify-center" data-aos="fade-left">
       <img src="Img/Datta.jpeg" alt="Dattatray Dagale" class="w-56 h-56 object-cover rounded-full shadow-lg border-4 border-blue-500" />
     </div>
+    <style>
+    .btn-group-wrapper {
+        display: flex;
+        flex-wrap: wrap; /* Allows buttons to stack on small mobile screens */
+        gap: 15px;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    /* Style for the Learn Hub & Notes Links */
+    .custom-repo-link {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05); /* Subtle dark background */
+        transition: transform 0.2s, background 0.2s;
+        border: 1px solid transparent;
+    }
+
+    .custom-repo-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+        border-color: #e3b341;
+    }
+
+    .link-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .link-text {
+        color: #e3b341; /* Gold color from your screenshot */
+        font-family: "Times New Roman", Times, serif;
+        font-size: 1.2rem;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    /* Mobile Responsive adjustments */
+    @media (max-width: 600px) {
+        .btn-group-wrapper {
+            justify-content: center;
+        }
+        .link-text {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<div class="btn-group-wrapper">
+    <a href="https://dagaledattatray.github.io/learn.html" class="custom-repo-link">
+        <span class="link-icon">📚</span>
+        <span class="link-text">Learn Hub</span>
+    </a>
+
+    <a href="https://dagaledattatray.github.io/notes.html" class="custom-repo-link">
+        <span class="link-icon">📓</span>
+        <span class="link-text">Learning Notes</span>
+    </a>
+</div>
   </section>
 
   <!-- ✅ About Section (Final Version with Interests & What I'm Doing) -->

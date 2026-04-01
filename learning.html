@@ -469,6 +469,10 @@
   }
 
   function deleteNote(id) {
+    if (!canDelete) {
+        alert("Deletion is locked!");
+        return;
+    }
     if (!confirm('Delete this note?')) return;
     allNotes = allNotes.filter(n => n.id !== id);
     saveToStorage();

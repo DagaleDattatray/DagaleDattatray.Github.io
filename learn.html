@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Learn Hub – Dattatray Dagale</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:#090e1a; --surf:#0f1623; --card:#141d2e; --border:#1e2d45;
+  --accent:#f0c060; --blue:#5b9cf6; --green:#4ecb8d; --pink:#f06090;
+  --purple:#a78bfa; --orange:#fb923c;
+  --text:#dde4f0; --muted:#5a6a85; --dim:#8899aa;
+  --code-bg:#0a1020;
+  --r:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;line-height:1.7;min-height:100vh}
+
+/* NAV */
+nav{background:rgba(9,14,26,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;height:58px;display:flex;align-items:center;padding:0 1.5rem;gap:1rem}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1rem;color:var(--accent);text-decoration:none;white-space:nowrap}
+.nav-spacer{flex:1}
+.nav-back{color:var(--muted);text-decoration:none;font-size:.82rem;border:1px solid var(--border);padding:.3rem .8rem;border-radius:5px;transition:all .2s}
+.nav-back:hover{color:var(--accent);border-color:var(--accent)}
+
+/* HERO */
+.hero{padding:4rem 1.5rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(91,156,246,.08),transparent 60%);pointer-events:none}
+.hero-badge{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:.8rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3rem);line-height:1.2;margin-bottom:.8rem}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--dim);max-width:540px;margin:0 auto}
+
+/* COURSE TABS */
+.course-tabs{display:flex;gap:.5rem;overflow-x:auto;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:var(--surf);scrollbar-width:none}
+.course-tabs::-webkit-scrollbar{display:none}
+.tab-btn{white-space:nowrap;padding:.5rem 1.1rem;border-radius:20px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;transition:all .2s;display:flex;align-items:center;gap:.4rem}
+.tab-btn:hover{color:var(--text);border-color:var(--dim)}
+.tab-btn.active{background:var(--accent);color:#09090e;border-color:var(--accent);font-weight:700}
+
+/* MAIN */
+.main{max-width:1080px;margin:0 auto;padding:2rem 1.5rem 5rem}
+
+/* COURSE PANEL */
+.course-panel{display:none}
+.course-panel.active{display:block}
+
+/* LESSON LAYOUT */
+.course-grid{display:grid;grid-template-columns:220px 1fr;gap:1.5rem;align-items:start}
+@media(max-width:700px){.course-grid{grid-template-columns:1fr}}
+
+/* TOC SIDEBAR */
+.toc{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);padding:1rem;position:sticky;top:70px}
+.toc-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-bottom:.7rem;font-weight:600}
+.toc-item{display:block;padding:.38rem .6rem;border-radius:6px;color:var(--dim);font-size:.82rem;cursor:pointer;transition:all .15s;border:none;background:none;text-align:left;width:100%;font-family:'Outfit',sans-serif}
+.toc-item:hover{color:var(--text);background:var(--border)}
+.toc-item.active{color:var(--accent);background:rgba(240,192,96,.08)}
+
+/* LESSONS */
+.lesson{display:none;animation:fadeIn .3s ease}
+.lesson.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.lesson-header{margin-bottom:1.5rem}
+.lesson-num{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--blue);font-weight:600;margin-bottom:.3rem}
+.lesson-title{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--text);margin-bottom:.5rem}
+.lesson-desc{color:var(--dim);font-size:.93rem}
+
+/* CONTENT BLOCKS */
+.prose{color:var(--text);font-size:.93rem;line-height:1.8;margin-bottom:1.2rem}
+.prose strong{color:var(--accent);font-weight:600}
+
+.section-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);font-weight:600;margin:1.8rem 0 .6rem}
+
+/* CONCEPT CARDS */
+.concept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem;margin-bottom:1.4rem}
+.concept-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1rem;transition:border-color .2s}
+.concept-card:hover{border-color:var(--blue)}
+.concept-icon{font-size:1.4rem;margin-bottom:.4rem}
+.concept-name{font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:.3rem}
+.concept-desc{font-size:.78rem;color:var(--dim);line-height:1.5}
+
+/* CODE BLOCK */
+.code-block{background:var(--code-bg);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin:1rem 0}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:.5rem 1rem;background:rgba(255,255,255,.03);border-bottom:1px solid var(--border)}
+.code-lang{font-size:.7rem;color:var(--blue);font-family:'JetBrains Mono',monospace;font-weight:600}
+.copy-btn{font-size:.7rem;color:var(--muted);background:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:color .2s}
+.copy-btn:hover{color:var(--accent)}
+.code-body{padding:1rem 1.2rem;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.8;overflow-x:auto;white-space:pre}
+.kw{color:#c792ea}.fn{color:#82aaff}.str{color:#c3e88d}.num{color:#f78c6c}.cm{color:#546e7a;font-style:italic}.op{color:#89ddff}.type{color:#ffcb6b}.var{color:#f07178}
+
+/* SQL RUNNER */
+.sql-runner{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin:1rem 0;overflow:hidden}
+.sql-runner-head{padding:.6rem 1rem;background:rgba(91,156,246,.06);border-bottom:1px solid var(--border);font-size:.75rem;font-weight:600;color:var(--blue);display:flex;align-items:center;gap:.5rem}
+.sql-editor{width:100%;background:var(--code-bg);border:none;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.82rem;padding:1rem;resize:vertical;min-height:90px;outline:none;line-height:1.7}
+.sql-toolbar{display:flex;gap:.6rem;padding:.6rem 1rem;border-top:1px solid var(--border)}
+.run-btn{background:var(--green);color:#09090e;border:none;padding:.4rem 1rem;border-radius:5px;font-weight:700;cursor:pointer;font-size:.8rem;font-family:'Outfit',sans-serif;transition:opacity .2s}
+.run-btn:hover{opacity:.85}
+.reset-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:.4rem .9rem;border-radius:5px;cursor:pointer;font-size:.8rem;font-family:'Outfit',sans-serif}
+.sql-result{overflow-x:auto;padding:.8rem 1rem}
+.result-table{width:100%;border-collapse:collapse;font-size:.8rem}
+.result-table th{background:rgba(255,255,255,.04);color:var(--blue);padding:.4rem .7rem;text-align:left;font-weight:600;border-bottom:1px solid var(--border)}
+.result-table td{padding:.4rem .7rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text)}
+.result-table tr:last-child td{border-bottom:none}
+.result-msg{color:var(--dim);font-size:.82rem;font-style:italic}
+
+/* PYTHON REPL */
+.py-repl{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin:1rem 0;overflow:hidden}
+.py-head{padding:.6rem 1rem;background:rgba(78,203,141,.06);border-bottom:1px solid var(--border);font-size:.75rem;font-weight:600;color:var(--green);display:flex;align-items:center;gap:.5rem}
+.py-editor{width:100%;background:var(--code-bg);border:none;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.82rem;padding:1rem;resize:vertical;min-height:100px;outline:none;line-height:1.7}
+.py-output{background:rgba(0,0,0,.3);padding:.8rem 1rem;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--green);min-height:36px;white-space:pre-wrap;border-top:1px solid var(--border)}
+.py-output.err{color:var(--pink)}
+
+/* CHARTS / VISUALIZATIONS */
+.viz-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin:1rem 0}
+.viz-title{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:.8rem}
+canvas{max-width:100%;border-radius:6px}
+
+/* QUIZ */
+.quiz-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.4rem;margin:1.5rem 0}
+.quiz-q{font-weight:600;color:var(--text);margin-bottom:1rem;font-size:.93rem}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem}
+.quiz-opt{background:var(--surf);border:1px solid var(--border);border-radius:7px;padding:.65rem .9rem;cursor:pointer;font-size:.85rem;color:var(--dim);transition:all .2s;font-family:'Outfit',sans-serif;text-align:left}
+.quiz-opt:hover{border-color:var(--blue);color:var(--text)}
+.quiz-opt.correct{border-color:var(--green);background:rgba(78,203,141,.1);color:var(--green)}
+.quiz-opt.wrong{border-color:var(--pink);background:rgba(240,96,144,.1);color:var(--pink)}
+.quiz-feedback{margin-top:.8rem;font-size:.82rem;padding:.5rem .8rem;border-radius:6px;display:none}
+.quiz-feedback.show{display:block}
+.quiz-feedback.ok{background:rgba(78,203,141,.1);color:var(--green)}
+.quiz-feedback.no{background:rgba(240,96,144,.1);color:var(--pink)}
+
+/* INFO BOX */
+.info-box{border-left:3px solid var(--blue);background:rgba(91,156,246,.07);padding:.8rem 1rem;border-radius:0 8px 8px 0;margin:1rem 0;font-size:.86rem;color:var(--dim)}
+.info-box.tip{border-color:var(--green);background:rgba(78,203,141,.07)}
+.info-box.warn{border-color:var(--orange);background:rgba(251,146,60,.07)}
+.info-box strong{color:var(--text)}
+
+/* BALANCE SHEET VIZ */
+.bs-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+@media(max-width:600px){.bs-grid{grid-template-columns:1fr}}
+.bs-col{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.bs-col-head{padding:.7rem 1rem;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.bs-col-head.assets{background:rgba(78,203,141,.15);color:var(--green)}
+.bs-col-head.liab{background:rgba(240,96,144,.15);color:var(--pink)}
+.bs-row{display:flex;justify-content:space-between;padding:.45rem 1rem;font-size:.82rem;border-bottom:1px solid rgba(255,255,255,.04)}
+.bs-row:last-child{border-bottom:none;font-weight:700;background:rgba(255,255,255,.03)}
+.bs-row span:last-child{color:var(--accent);font-family:'JetBrains Mono',monospace}
+
+/* NAV BUTTONS */
+.lesson-nav{display:flex;justify-content:space-between;margin-top:2rem;gap:1rem}
+.nav-lesson-btn{background:var(--card);border:1px solid var(--border);color:var(--dim);padding:.6rem 1.2rem;border-radius:7px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.85rem;transition:all .2s}
+.nav-lesson-btn:hover{border-color:var(--accent);color:var(--accent)}
+.nav-lesson-btn.next{background:var(--accent);color:#09090e;border-color:var(--accent);font-weight:700}
+.nav-lesson-btn.next:hover{opacity:.88}
+
+/* PROGRESS */
+.progress-bar-wrap{background:var(--border);border-radius:20px;height:5px;margin-bottom:1.5rem;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--orange));border-radius:20px;transition:width .4s ease}
+
+/* FORMULA BOX */
+.formula{background:var(--code-bg);border:1px solid var(--border);border-radius:8px;padding:.8rem 1.2rem;margin:.8rem 0;font-family:'JetBrains Mono',monospace;font-size:.88rem;color:var(--accent);text-align:center}
+
+/* TAGS */
+.tag-pill{display:inline-block;font-size:.68rem;font-weight:600;padding:2px 8px;border-radius:20px;margin-right:.3rem;margin-bottom:.3rem}
+.tag-sql{background:rgba(91,156,246,.15);color:var(--blue)}
+.tag-py{background:rgba(78,203,141,.15);color:var(--green)}
+.tag-eco{background:rgba(240,192,96,.15);color:var(--accent)}
+.tag-fin{background:rgba(167,139,250,.15);color:var(--purple)}
+.tag-fs{background:rgba(240,96,144,.15);color:var(--pink)}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:.83rem;margin:1rem 0}
+.data-table th{background:rgba(255,255,255,.05);color:var(--blue);padding:.5rem .8rem;text-align:left;border-bottom:1px solid var(--border);font-weight:600}
+.data-table td{padding:.45rem .8rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text)}
+.data-table tr:hover td{background:rgba(255,255,255,.02)}
+
+/* BAR CHART DIV */
+.bar-chart{display:flex;flex-direction:column;gap:.5rem;margin:1rem 0}
+.bar-row{display:flex;align-items:center;gap:.7rem;font-size:.8rem}
+.bar-label{width:120px;color:var(--dim);text-align:right;flex-shrink:0}
+.bar-fill-wrap{flex:1;background:var(--border);border-radius:20px;height:20px;overflow:hidden}
+.bar-fill{height:100%;border-radius:20px;display:flex;align-items:center;justify-content:flex-end;padding-right:.5rem;font-size:.72rem;font-weight:700;color:#09090e;transition:width 1s ease}
+
+/* FLOW DIAGRAM */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+.flow-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.5rem .9rem;font-size:.82rem;color:var(--text)}
+.flow-arrow{color:var(--muted);font-size:1rem}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">📚 Learn Hub</a>
+  <div class="nav-spacer"></div>
+  <a class="nav-back" href="learning.html">← My Notes</a>
+  <a class="nav-back" href="https://dagaledattatray.github.io/" style="margin-left:.4rem">🏠 Portfolio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Complete Learning Courses</div>
+  <h1>Your Personal <em>Academy</em></h1>
+  <p>5 comprehensive courses with interactive exercises, visualizations & quizzes — learn at your own pace.</p>
+</div>
+
+<div class="course-tabs">
+  <button class="tab-btn active" onclick="showCourse('sql',this)">🗃️ SQL</button>
+  <button class="tab-btn" onclick="showCourse('python',this)">🐍 Python</button>
+  <button class="tab-btn" onclick="showCourse('econ',this)">📈 Economics</button>
+  <button class="tab-btn" onclick="showCourse('finance',this)">💰 Finance</button>
+  <button class="tab-btn" onclick="showCourse('fs',this)">📊 Financial Statements</button>
+</div>
+
+<div class="main">
+
+<!-- ═══════════════════════════════════════════ SQL COURSE ══ -->
+<div class="course-panel active" id="panel-sql">
+<div class="course-grid">
+<aside class="toc">
+  <div class="toc-title">SQL Course</div>
+  <button class="toc-item active" onclick="showLesson('sql',0,this)">1. What is SQL?</button>
+  <button class="toc-item" onclick="showLesson('sql',1,this)">2. SELECT & FROM</button>
+  <button class="toc-item" onclick="showLesson('sql',2,this)">3. WHERE & Filters</button>
+  <button class="toc-item" onclick="showLesson('sql',3,this)">4. ORDER BY & LIMIT</button>
+  <button class="toc-item" onclick="showLesson('sql',4,this)">5. Aggregate Functions</button>
+  <button class="toc-item" onclick="showLesson('sql',5,this)">6. GROUP BY & HAVING</button>
+  <button class="toc-item" onclick="showLesson('sql',6,this)">7. JOINs</button>
+  <button class="toc-item" onclick="showLesson('sql',7,this)">8. Subqueries</button>
+  <button class="toc-item" onclick="showLesson('sql',8,this)">9. INSERT / UPDATE / DELETE</button>
+  <button class="toc-item" onclick="showLesson('sql',9,this)">10. Window Functions</button>
+</aside>
+<div>
+<div class="progress-bar-wrap"><div class="progress-bar" id="prog-sql" style="width:10%"></div></div>
+
+<!-- L0 -->
+<div class="lesson active" id="sql-0">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 1 · SQL</div>
+    <div class="lesson-title">What is SQL?</div>
+    <div class="lesson-desc">Understand databases, tables, and why SQL is the #1 skill for data work.</div>
+  </div>
+  <p class="prose">SQL stands for <strong>Structured Query Language</strong>. It is the standard language used to communicate with relational databases. Think of a database as a collection of Excel sheets — each sheet is a <strong>table</strong>, each column is a <strong>field</strong>, and each row is a <strong>record</strong>.</p>
+  <div class="section-label">Core concepts</div>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">🗄️</div><div class="concept-name">Database</div><div class="concept-desc">A structured collection of related tables (like a folder)</div></div>
+    <div class="concept-card"><div class="concept-icon">📋</div><div class="concept-name">Table</div><div class="concept-desc">Rows & columns of data — like a spreadsheet</div></div>
+    <div class="concept-card"><div class="concept-icon">📝</div><div class="concept-name">Row / Record</div><div class="concept-desc">A single entry — one employee, one sale</div></div>
+    <div class="concept-card"><div class="concept-icon">📌</div><div class="concept-name">Column / Field</div><div class="concept-desc">An attribute — name, age, salary</div></div>
+    <div class="concept-card"><div class="concept-icon">🔑</div><div class="concept-name">Primary Key</div><div class="concept-desc">A unique ID for each row (no duplicates)</div></div>
+    <div class="concept-card"><div class="concept-icon">🔗</div><div class="concept-name">Foreign Key</div><div class="concept-desc">Links one table to another</div></div>
+  </div>
+  <div class="info-box"><strong>Real-world use:</strong> Every company uses SQL — from querying sales data at Morningstar to finding customer trends at Amazon.</div>
+  <div class="section-label">Sample Database we'll use</div>
+  <p class="prose">Throughout this course we'll use a simple <strong>company database</strong> with these tables:</p>
+  <table class="data-table">
+    <tr><th>Table</th><th>Columns</th><th>Description</th></tr>
+    <tr><td>employees</td><td>id, name, dept, salary, hire_date, city</td><td>Company staff</td></tr>
+    <tr><td>departments</td><td>id, name, budget, manager_id</td><td>Company departments</td></tr>
+    <tr><td>sales</td><td>id, emp_id, amount, sale_date, product</td><td>Sales records</td></tr>
+  </table>
+  <div class="quiz-box">
+    <div class="quiz-q">Quick Check: What does SQL stand for?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="quiz(this,'wrong','SQL Lesson 1')">Simple Query List</button>
+      <button class="quiz-opt" onclick="quiz(this,'correct','SQL Lesson 1')">Structured Query Language</button>
+      <button class="quiz-opt" onclick="quiz(this,'wrong','SQL Lesson 1')">Sequential Query Logic</button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+  <div class="lesson-nav"><span></span><button class="nav-lesson-btn next" onclick="showLesson('sql',1)">Next: SELECT & FROM →</button></div>
+</div>
+
+<!-- L1 -->
+<div class="lesson" id="sql-1">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 2 · SQL</div>
+    <div class="lesson-title">SELECT & FROM</div>
+    <div class="lesson-desc">The bread and butter of SQL — retrieving data from tables.</div>
+  </div>
+  <p class="prose">The <strong>SELECT</strong> statement retrieves data. <strong>FROM</strong> tells SQL which table to look in. Together they form the foundation of every query.</p>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="code-body"><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> employees;          <span class="cm">-- * means all columns</span>
+
+<span class="kw">SELECT</span> name, salary <span class="kw">FROM</span> employees;  <span class="cm">-- specific columns</span>
+
+<span class="kw">SELECT</span> name <span class="kw">AS</span> employee_name,           <span class="cm">-- AS renames the column</span>
+       salary <span class="kw">AS</span> monthly_pay
+<span class="kw">FROM</span> employees;</div>
+  </div>
+  <div class="info-box tip"><strong>Tip:</strong> Always specify columns instead of SELECT * in production — it's faster and clearer.</div>
+  <div class="section-label">🧪 Try it yourself — Interactive SQL</div>
+  <div class="sql-runner">
+    <div class="sql-runner-head">⚡ SQL Playground — employees table</div>
+    <textarea class="sql-editor" id="sql-ed-1">SELECT name, dept, salary FROM employees;</textarea>
+    <div class="sql-toolbar">
+      <button class="run-btn" onclick="runSQL('sql-ed-1','sql-res-1')">▶ Run Query</button>
+      <button class="reset-btn" onclick="resetSQL('sql-ed-1','SELECT name, dept, salary FROM employees;')">Reset</button>
+    </div>
+    <div class="sql-result" id="sql-res-1"><span class="result-msg">Click ▶ Run to see results</span></div>
+  </div>
+  <div class="quiz-box">
+    <div class="quiz-q">Which query selects ONLY the name and city columns from employees?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="quiz(this,'wrong')">SELECT * FROM employees;</button>
+      <button class="quiz-opt" onclick="quiz(this,'correct')">SELECT name, city FROM employees;</button>
+      <button class="quiz-opt" onclick="quiz(this,'wrong')">SELECT employees(name, city);</button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('sql',0)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('sql',2)">Next: WHERE →</button>
+  </div>
+</div>
+
+<!-- L2 -->
+<div class="lesson" id="sql-2">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 3 · SQL</div>
+    <div class="lesson-title">WHERE & Filters</div>
+    <div class="lesson-desc">Filter rows using conditions — the most powerful concept in SQL.</div>
+  </div>
+  <p class="prose">The <strong>WHERE</strong> clause filters rows based on conditions. You can use comparison operators, logical operators, and pattern matching.</p>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="code-body"><span class="cm">-- Comparison operators</span>
+<span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> employees <span class="kw">WHERE</span> salary <span class="op">></span> <span class="num">50000</span>;
+<span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> employees <span class="kw">WHERE</span> dept <span class="op">=</span> <span class="str">'Finance'</span>;
+<span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> employees <span class="kw">WHERE</span> salary <span class="op">!=</span> <span class="num">30000</span>;
+
+<span class="cm">-- Logical operators</span>
+<span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> dept <span class="op">=</span> <span class="str">'Finance'</span> <span class="kw">AND</span> salary <span class="op">></span> <span class="num">60000</span>;
+
+<span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> city <span class="op">=</span> <span class="str">'Mumbai'</span> <span class="kw">OR</span> city <span class="op">=</span> <span class="str">'Pune'</span>;
+
+<span class="cm">-- IN, BETWEEN, LIKE</span>
+<span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> city <span class="kw">IN</span> (<span class="str">'Mumbai'</span>, <span class="str">'Pune'</span>, <span class="str">'Delhi'</span>);
+
+<span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> salary <span class="kw">BETWEEN</span> <span class="num">40000</span> <span class="kw">AND</span> <span class="num">80000</span>;
+
+<span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="str">'A%'</span>;  <span class="cm">-- names starting with A</span></div>
+  </div>
+  <div class="sql-runner">
+    <div class="sql-runner-head">⚡ Try filtering — change the condition!</div>
+    <textarea class="sql-editor" id="sql-ed-2">SELECT name, dept, salary FROM employees WHERE salary > 55000;</textarea>
+    <div class="sql-toolbar">
+      <button class="run-btn" onclick="runSQL('sql-ed-2','sql-res-2')">▶ Run Query</button>
+      <button class="reset-btn" onclick="resetSQL('sql-ed-2',`SELECT name, dept, salary FROM employees WHERE salary > 55000;`)">Reset</button>
+    </div>
+    <div class="sql-result" id="sql-res-2"><span class="result-msg">Click ▶ Run to see results</span></div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('sql',1)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('sql',3)">Next: ORDER BY →</button>
+  </div>
+</div>
+
+<!-- L3 -->
+<div class="lesson" id="sql-3">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 4 · SQL</div>
+    <div class="lesson-title">ORDER BY & LIMIT</div>
+    <div class="lesson-desc">Sort results and control how many rows you return.</div>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="code-body"><span class="cm">-- Sort by salary highest to lowest</span>
+<span class="kw">SELECT</span> name, salary <span class="kw">FROM</span> employees 
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>;
+
+<span class="cm">-- Sort alphabetically</span>
+<span class="kw">SELECT</span> name <span class="kw">FROM</span> employees <span class="kw">ORDER BY</span> name <span class="kw">ASC</span>;
+
+<span class="cm">-- Top 3 earners</span>
+<span class="kw">SELECT</span> name, salary <span class="kw">FROM</span> employees 
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span> <span class="kw">LIMIT</span> <span class="num">3</span>;</div>
+  </div>
+  <div class="sql-runner">
+    <div class="sql-runner-head">⚡ Find the top 3 earners</div>
+    <textarea class="sql-editor" id="sql-ed-3">SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 3;</textarea>
+    <div class="sql-toolbar">
+      <button class="run-btn" onclick="runSQL('sql-ed-3','sql-res-3')">▶ Run</button>
+      <button class="reset-btn" onclick="resetSQL('sql-ed-3',`SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 3;`)">Reset</button>
+    </div>
+    <div class="sql-result" id="sql-res-3"><span class="result-msg">Click ▶ Run</span></div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('sql',2)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('sql',4)">Next: Aggregates →</button>
+  </div>
+</div>
+
+<!-- L4 -->
+<div class="lesson" id="sql-4">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 5 · SQL</div>
+    <div class="lesson-title">Aggregate Functions</div>
+    <div class="lesson-desc">Summarize data — count, sum, average, min, max.</div>
+  </div>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">🔢</div><div class="concept-name">COUNT()</div><div class="concept-desc">Count number of rows</div></div>
+    <div class="concept-card"><div class="concept-icon">➕</div><div class="concept-name">SUM()</div><div class="concept-desc">Total of numeric column</div></div>
+    <div class="concept-card"><div class="concept-icon">📊</div><div class="concept-name">AVG()</div><div class="concept-desc">Average / mean value</div></div>
+    <div class="concept-card"><div class="concept-icon">⬇️</div><div class="concept-name">MIN()</div><div class="concept-desc">Smallest value</div></div>
+    <div class="concept-card"><div class="concept-icon">⬆️</div><div class="concept-name">MAX()</div><div class="concept-desc">Largest value</div></div>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="code-body"><span class="kw">SELECT</span> <span class="fn">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> total_employees <span class="kw">FROM</span> employees;
+<span class="kw">SELECT</span> <span class="fn">SUM</span>(salary) <span class="kw">AS</span> total_payroll <span class="kw">FROM</span> employees;
+<span class="kw">SELECT</span> <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_salary <span class="kw">FROM</span> employees;
+<span class="kw">SELECT</span> <span class="fn">MIN</span>(salary), <span class="fn">MAX</span>(salary) <span class="kw">FROM</span> employees;</div>
+  </div>
+  <div class="sql-runner">
+    <div class="sql-runner-head">⚡ Explore aggregates</div>
+    <textarea class="sql-editor" id="sql-ed-4">SELECT COUNT(*) AS total, AVG(salary) AS avg_sal, MAX(salary) AS top_sal FROM employees;</textarea>
+    <div class="sql-toolbar">
+      <button class="run-btn" onclick="runSQL('sql-ed-4','sql-res-4')">▶ Run</button>
+      <button class="reset-btn" onclick="resetSQL('sql-ed-4',`SELECT COUNT(*) AS total, AVG(salary) AS avg_sal, MAX(salary) AS top_sal FROM employees;`)">Reset</button>
+    </div>
+    <div class="sql-result" id="sql-res-4"><span class="result-msg">Click ▶ Run</span></div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('sql',3)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('sql',5)">Next: GROUP BY →</button>
+  </div>
+</div>
+
+<!-- L5 -->
+<div class="lesson" id="sql-5">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 6 · SQL</div>
+    <div class="lesson-title">GROUP BY & HAVING</div>
+    <div class="lesson-desc">Group rows to compute summaries per category.</div>
+  </div>
+  <p class="prose"><strong>GROUP BY</strong> groups rows with the same value so you can aggregate per group. <strong>HAVING</strong> is like WHERE but for groups (after aggregation).</p>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="code-body"><span class="cm">-- Average salary by department</span>
+<span class="kw">SELECT</span> dept, <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_sal, <span class="fn">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> headcount
+<span class="kw">FROM</span> employees
+<span class="kw">GROUP BY</span> dept;
+
+<span class="cm">-- Only departments with avg salary > 55000</span>
+<span class="kw">SELECT</span> dept, <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_sal
+<span class="kw">FROM</span> employees
+<span class="kw">GROUP BY</span> dept
+<span class="kw">HAVING</span> <span class="fn">AVG</span>(salary) <span class="op">></span> <span class="num">55000</span>;</div>
+  </div>
+  <div class="sql-runner">
+    <div class="sql-runner-head">⚡ Group by department</div>
+    <textarea class="sql-editor" id="sql-ed-5">SELECT dept, AVG(salary) AS avg_sal, COUNT(*) AS headcount FROM employees GROUP BY dept ORDER BY avg_sal DESC;</textarea>
+    <div class="sql-toolbar">
+      <button class="run-btn" onclick="runSQL('sql-ed-5','sql-res-5')">▶ Run</button>
+      <button class="reset-btn" onclick="resetSQL('sql-ed-5',`SELECT dept, AVG(salary) AS avg_sal, COUNT(*) AS headcount FROM employees GROUP BY dept ORDER BY avg_sal DESC;`)">Reset</button>
+    </div>
+    <div class="sql-result" id="sql-res-5"><span class="result-msg">Click ▶ Run</span></div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('sql',4)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('sql',6)">Next: JOINs →</button>
+  </div>
+</div>
+
+<!-- L6 -->
+<div class="lesson" id="sql-6">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 7 · SQL</div>
+    <div class="lesson-title">JOINs — Combining Tables</div>
+    <div class="lesson-desc">Connect multiple tables using common keys.</div>
+  </div>
+  <div class="viz-box">
+    <div class="viz-title">Visual: Types of JOINs</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem">
+      <div style="background:var(--surf);border:1px solid var(--border);border-radius:8px;padding:.8rem;font-size:.8rem">
+        <div style="color:var(--blue);font-weight:700;margin-bottom:.3rem">INNER JOIN</div>
+        <div style="color:var(--dim)">Only matching rows in BOTH tables</div>
+        <div style="margin-top:.5rem;display:flex;gap:.3rem;justify-content:center">
+          <div style="width:50px;height:50px;border-radius:50%;background:rgba(91,156,246,.3);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--blue)">A</div>
+          <div style="width:50px;height:50px;border-radius:50%;background:rgba(78,203,141,.3);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--green);margin-left:-15px">B</div>
+        </div>
+      </div>
+      <div style="background:var(--surf);border:1px solid var(--border);border-radius:8px;padding:.8rem;font-size:.8rem">
+        <div style="color:var(--accent);font-weight:700;margin-bottom:.3rem">LEFT JOIN</div>
+        <div style="color:var(--dim)">All of A + matching rows from B</div>
+      </div>
+      <div style="background:var(--surf);border:1px solid var(--border);border-radius:8px;padding:.8rem;font-size:.8rem">
+        <div style="color:var(--pink);font-weight:700;margin-bottom:.3rem">RIGHT JOIN</div>
+        <div style="color:var(--dim)">All of B + matching rows from A</div>
+      </div>
+      <div style="background:var(--surf);border:1px solid var(--border);border-radius:8px;padding:.8rem;font-size:.8rem">
+        <div style="color:var(--purple);font-weight:700;margin-bottom:.3rem">FULL OUTER JOIN</div>
+        <div style="color:var(--dim)">All rows from both tables</div>
+      </div>
+    </div>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="code-body"><span class="kw">SELECT</span> e.name, e.salary, d.name <span class="kw">AS</span> department
+<span class="kw">FROM</span> employees e
+<span class="kw">INNER JOIN</span> departments d <span class="kw">ON</span> e.dept <span class="op">=</span> d.name;
+
+<span class="cm">-- LEFT JOIN: keep all employees even if no dept match</span>
+<span class="kw">SELECT</span> e.name, d.name <span class="kw">AS</span> dept_name
+<span class="kw">FROM</span> employees e
+<span class="kw">LEFT JOIN</span> departments d <span class="kw">ON</span> e.dept <span class="op">=</span> d.name;</div>
+  </div>
+  <div class="sql-runner">
+    <div class="sql-runner-head">⚡ JOIN employees with departments</div>
+    <textarea class="sql-editor" id="sql-ed-6">SELECT e.name, e.salary, d.budget FROM employees e INNER JOIN departments d ON e.dept = d.name ORDER BY d.budget DESC;</textarea>
+    <div class="sql-toolbar">
+      <button class="run-btn" onclick="runSQL('sql-ed-6','sql-res-6')">▶ Run</button>
+      <button class="reset-btn" onclick="resetSQL('sql-ed-6',`SELECT e.name, e.salary, d.budget FROM employees e INNER JOIN departments d ON e.dept = d.name ORDER BY d.budget DESC;`)">Reset</button>
+    </div>
+    <div class="sql-result" id="sql-res-6"><span class="result-msg">Click ▶ Run</span></div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('sql',5)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('sql',7)">Next: Subqueries →</button>
+  </div>
+</div>
+
+<!-- L7 -->
+<div class="lesson" id="sql-7">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 8 · SQL</div>
+    <div class="lesson-title">Subqueries</div>
+    <div class="lesson-desc">Queries inside queries — powerful for complex filtering.</div>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="code-body"><span class="cm">-- Employees earning above average salary</span>
+<span class="kw">SELECT</span> name, salary <span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> salary <span class="op">></span> (<span class="kw">SELECT</span> <span class="fn">AVG</span>(salary) <span class="kw">FROM</span> employees);
+
+<span class="cm">-- Subquery in FROM clause (derived table)</span>
+<span class="kw">SELECT</span> dept, avg_sal <span class="kw">FROM</span> (
+  <span class="kw">SELECT</span> dept, <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_sal
+  <span class="kw">FROM</span> employees
+  <span class="kw">GROUP BY</span> dept
+) <span class="kw">AS</span> dept_summary
+<span class="kw">WHERE</span> avg_sal <span class="op">></span> <span class="num">50000</span>;</div>
+  </div>
+  <div class="sql-runner">
+    <div class="sql-runner-head">⚡ Above average salary</div>
+    <textarea class="sql-editor" id="sql-ed-7">SELECT name, salary FROM employees WHERE salary > (SELECT AVG(salary) FROM employees);</textarea>
+    <div class="sql-toolbar">
+      <button class="run-btn" onclick="runSQL('sql-ed-7','sql-res-7')">▶ Run</button>
+      <button class="reset-btn" onclick="resetSQL('sql-ed-7',`SELECT name, salary FROM employees WHERE salary > (SELECT AVG(salary) FROM employees);`)">Reset</button>
+    </div>
+    <div class="sql-result" id="sql-res-7"><span class="result-msg">Click ▶ Run</span></div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('sql',6)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('sql',8)">Next: DML →</button>
+  </div>
+</div>
+
+<!-- L8 -->
+<div class="lesson" id="sql-8">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 9 · SQL</div>
+    <div class="lesson-title">INSERT / UPDATE / DELETE</div>
+    <div class="lesson-desc">Modify data — add, change, or remove records.</div>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="code-body"><span class="cm">-- INSERT: add a new row</span>
+<span class="kw">INSERT INTO</span> employees (name, dept, salary, city)
+<span class="kw">VALUES</span> (<span class="str">'Dattatray'</span>, <span class="str">'Data'</span>, <span class="num">75000</span>, <span class="str">'Mumbai'</span>);
+
+<span class="cm">-- UPDATE: change existing data</span>
+<span class="kw">UPDATE</span> employees
+<span class="kw">SET</span> salary <span class="op">=</span> <span class="num">80000</span>
+<span class="kw">WHERE</span> name <span class="op">=</span> <span class="str">'Dattatray'</span>;
+
+<span class="cm">-- DELETE: remove rows (always use WHERE!)</span>
+<span class="kw">DELETE FROM</span> employees
+<span class="kw">WHERE</span> id <span class="op">=</span> <span class="num">5</span>;</div>
+  </div>
+  <div class="info-box warn"><strong>Warning:</strong> Always use WHERE with DELETE and UPDATE. Without it, ALL rows are affected! Always test with SELECT first.</div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('sql',7)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('sql',9)">Next: Window Functions →</button>
+  </div>
+</div>
+
+<!-- L9 -->
+<div class="lesson" id="sql-9">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 10 · SQL</div>
+    <div class="lesson-title">Window Functions</div>
+    <div class="lesson-desc">Advanced SQL — rank, running totals, and more without collapsing rows.</div>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="code-body"><span class="cm">-- Rank employees by salary within each department</span>
+<span class="kw">SELECT</span> name, dept, salary,
+  <span class="fn">RANK</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> dept <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> dept_rank,
+  <span class="fn">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> overall_rank
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- Running total of salary</span>
+<span class="kw">SELECT</span> name, salary,
+  <span class="fn">SUM</span>(salary) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> salary) <span class="kw">AS</span> running_total
+<span class="kw">FROM</span> employees;</div>
+  </div>
+  <div class="sql-runner">
+    <div class="sql-runner-head">⚡ Rank employees by salary</div>
+    <textarea class="sql-editor" id="sql-ed-9">SELECT name, dept, salary, RANK() OVER (PARTITION BY dept ORDER BY salary DESC) AS dept_rank FROM employees;</textarea>
+    <div class="sql-toolbar">
+      <button class="run-btn" onclick="runSQL('sql-ed-9','sql-res-9')">▶ Run</button>
+      <button class="reset-btn" onclick="resetSQL('sql-ed-9',`SELECT name, dept, salary, RANK() OVER (PARTITION BY dept ORDER BY salary DESC) AS dept_rank FROM employees;`)">Reset</button>
+    </div>
+    <div class="sql-result" id="sql-res-9"><span class="result-msg">Click ▶ Run</span></div>
+  </div>
+  <div class="info-box tip"><strong>🎉 You've completed the SQL course!</strong> You now know SELECT, WHERE, JOINs, aggregates, subqueries, and window functions — the full toolkit of a data analyst.</div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('sql',8)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showCourse('python',document.querySelector('.tab-btn:nth-child(2))'))">🐍 Start Python →</button>
+  </div>
+</div>
+
+</div><!-- end content -->
+</div><!-- end grid -->
+</div>
+
+<!-- ═══════════════════════════════════════════ PYTHON COURSE ══ -->
+<div class="course-panel" id="panel-python">
+<div class="course-grid">
+<aside class="toc">
+  <div class="toc-title">Python Course</div>
+  <button class="toc-item active" onclick="showLesson('python',0,this)">1. Python Basics</button>
+  <button class="toc-item" onclick="showLesson('python',1,this)">2. Variables & Types</button>
+  <button class="toc-item" onclick="showLesson('python',2,this)">3. Lists & Dicts</button>
+  <button class="toc-item" onclick="showLesson('python',3,this)">4. Control Flow</button>
+  <button class="toc-item" onclick="showLesson('python',4,this)">5. Functions</button>
+  <button class="toc-item" onclick="showLesson('python',5,this)">6. File Handling</button>
+  <button class="toc-item" onclick="showLesson('python',6,this)">7. Pandas Basics</button>
+  <button class="toc-item" onclick="showLesson('python',7,this)">8. Data Analysis</button>
+</aside>
+<div>
+<div class="progress-bar-wrap"><div class="progress-bar" id="prog-python" style="width:12.5%"></div></div>
+
+<div class="lesson active" id="python-0">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 1 · Python</div>
+    <div class="lesson-title">Welcome to Python</div>
+    <div class="lesson-desc">Why Python is the #1 language for data science, finance & automation.</div>
+  </div>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">📊</div><div class="concept-name">Data Analysis</div><div class="concept-desc">Pandas, NumPy for crunching numbers</div></div>
+    <div class="concept-card"><div class="concept-icon">🤖</div><div class="concept-name">Machine Learning</div><div class="concept-desc">scikit-learn, TensorFlow</div></div>
+    <div class="concept-card"><div class="concept-icon">🌐</div><div class="concept-name">Web Scraping</div><div class="concept-desc">BeautifulSoup, Requests</div></div>
+    <div class="concept-card"><div class="concept-icon">⚙️</div><div class="concept-name">Automation</div><div class="concept-desc">Automate Excel, emails, reports</div></div>
+    <div class="concept-card"><div class="concept-icon">💰</div><div class="concept-name">Finance</div><div class="concept-desc">yfinance, quantitative analysis</div></div>
+    <div class="concept-card"><div class="concept-icon">📈</div><div class="concept-name">Visualization</div><div class="concept-desc">Matplotlib, Seaborn, Plotly</div></div>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Python</span></div>
+    <div class="code-body"><span class="cm"># Your first Python program</span>
+<span class="fn">print</span>(<span class="str">"Hello, Dattatray! Let's learn Python 🐍"</span>)
+
+<span class="cm"># Python is readable like English</span>
+name = <span class="str">"Dattatray"</span>
+age = <span class="num">25</span>
+<span class="fn">print</span>(<span class="fn">f</span><span class="str">"My name is {name} and I am {age} years old"</span>)</div>
+  </div>
+  <div class="py-repl">
+    <div class="py-head">🐍 Python Simulator — Edit and run!</div>
+    <textarea class="py-editor" id="py-ed-0">print("Hello, Dattatray!")
+name = "Python"
+print(f"Welcome to {name} programming!")</textarea>
+    <div class="sql-toolbar">
+      <button class="run-btn" onclick="runPython('py-ed-0','py-out-0')" style="background:var(--green)">▶ Run</button>
+    </div>
+    <div class="py-output" id="py-out-0">Output will appear here...</div>
+  </div>
+  <div class="lesson-nav"><span></span><button class="nav-lesson-btn next" onclick="showLesson('python',1)">Next: Variables →</button></div>
+</div>
+
+<div class="lesson" id="python-1">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 2 · Python</div>
+    <div class="lesson-title">Variables & Data Types</div>
+    <div class="lesson-desc">How Python stores different kinds of data.</div>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Python</span></div>
+    <div class="code-body"><span class="cm"># Integer (whole numbers)</span>
+age = <span class="num">28</span>
+salary = <span class="num">75000</span>
+
+<span class="cm"># Float (decimal numbers)</span>
+gpa = <span class="num">9.90</span>
+interest_rate = <span class="num">0.065</span>
+
+<span class="cm"># String (text)</span>
+name = <span class="str">"Dattatray Dagale"</span>
+city = <span class="str">'Mumbai'</span>
+
+<span class="cm"># Boolean (True/False)</span>
+is_analyst = <span class="kw">True</span>
+is_retired = <span class="kw">False</span>
+
+<span class="cm"># Check the type</span>
+<span class="fn">print</span>(<span class="fn">type</span>(salary))    <span class="cm"># <class 'int'></span>
+<span class="fn">print</span>(<span class="fn">type</span>(gpa))       <span class="cm"># <class 'float'></span>
+<span class="fn">print</span>(<span class="fn">type</span>(name))      <span class="cm"># <class 'str'></span></div>
+  </div>
+  <div class="py-repl">
+    <div class="py-head">🐍 Try variables</div>
+    <textarea class="py-editor" id="py-ed-1">salary = 75000
+tax_rate = 0.30
+tax = salary * tax_rate
+take_home = salary - tax
+print(f"Salary: ₹{salary}")
+print(f"Tax (30%): ₹{tax}")
+print(f"Take-home: ₹{take_home}")</textarea>
+    <div class="sql-toolbar"><button class="run-btn" onclick="runPython('py-ed-1','py-out-1')" style="background:var(--green)">▶ Run</button></div>
+    <div class="py-output" id="py-out-1">Output will appear here...</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('python',0)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('python',2)">Next: Lists →</button>
+  </div>
+</div>
+
+<div class="lesson" id="python-2">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 3 · Python</div>
+    <div class="lesson-title">Lists & Dictionaries</div>
+    <div class="lesson-desc">Python's most important data structures for storing collections.</div>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Python</span></div>
+    <div class="code-body"><span class="cm"># LIST — ordered, changeable collection</span>
+stocks = [<span class="str">"INFY"</span>, <span class="str">"TCS"</span>, <span class="str">"WIPRO"</span>, <span class="str">"HDFC"</span>]
+prices = [<span class="num">1450</span>, <span class="num">3800</span>, <span class="num">430</span>, <span class="num">1600</span>]
+
+<span class="fn">print</span>(stocks[<span class="num">0</span>])         <span class="cm"># "INFY"  (index starts at 0)</span>
+<span class="fn">print</span>(stocks[-<span class="num">1</span>])        <span class="cm"># "HDFC"  (last item)</span>
+<span class="fn">print</span>(<span class="fn">len</span>(stocks))       <span class="cm"># 4</span>
+stocks.append(<span class="str">"RELIANCE"</span>)
+
+<span class="cm"># DICTIONARY — key:value pairs</span>
+employee = {
+    <span class="str">"name"</span>: <span class="str">"Dattatray"</span>,
+    <span class="str">"dept"</span>: <span class="str">"Data Analysis"</span>,
+    <span class="str">"salary"</span>: <span class="num">75000</span>,
+    <span class="str">"skills"</span>: [<span class="str">"SQL"</span>, <span class="str">"Python"</span>, <span class="str">"Excel"</span>]
+}
+<span class="fn">print</span>(employee[<span class="str">"name"</span>])        <span class="cm"># Dattatray</span>
+<span class="fn">print</span>(employee[<span class="str">"skills"</span>][<span class="num">0</span>])   <span class="cm"># SQL</span></div>
+  </div>
+  <div class="py-repl">
+    <div class="py-head">🐍 Work with lists</div>
+    <textarea class="py-editor" id="py-ed-2">scores = [85, 92, 78, 96, 88]
+print(f"Scores: {scores}")
+print(f"Highest: {max(scores)}")
+print(f"Lowest: {min(scores)}")
+print(f"Average: {sum(scores)/len(scores):.1f}")</textarea>
+    <div class="sql-toolbar"><button class="run-btn" onclick="runPython('py-ed-2','py-out-2')" style="background:var(--green)">▶ Run</button></div>
+    <div class="py-output" id="py-out-2">Output will appear here...</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('python',1)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('python',3)">Next: Control Flow →</button>
+  </div>
+</div>
+
+<div class="lesson" id="python-3">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 4 · Python</div>
+    <div class="lesson-title">Control Flow — if / for / while</div>
+    <div class="lesson-desc">Make decisions and repeat actions in your programs.</div>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Python</span></div>
+    <div class="code-body"><span class="cm"># IF / ELIF / ELSE</span>
+salary = <span class="num">75000</span>
+<span class="kw">if</span> salary <span class="op">></span> <span class="num">100000</span>:
+    <span class="fn">print</span>(<span class="str">"High income bracket"</span>)
+<span class="kw">elif</span> salary <span class="op">></span> <span class="num">50000</span>:
+    <span class="fn">print</span>(<span class="str">"Middle income bracket"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Lower income bracket"</span>)
+
+<span class="cm"># FOR LOOP — iterate over a list</span>
+stocks = [<span class="str">"INFY"</span>, <span class="str">"TCS"</span>, <span class="str">"WIPRO"</span>]
+<span class="kw">for</span> stock <span class="kw">in</span> stocks:
+    <span class="fn">print</span>(<span class="fn">f</span><span class="str">"Analysing: {stock}"</span>)
+
+<span class="cm"># FOR LOOP with range</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">6</span>):
+    <span class="fn">print</span>(<span class="fn">f</span><span class="str">"Year {i}: ₹{1000 * (1.1**i):.0f}"</span>)  <span class="cm"># compound interest!</span></div>
+  </div>
+  <div class="py-repl">
+    <div class="py-head">🐍 Compound Interest Calculator</div>
+    <textarea class="py-editor" id="py-ed-3">principal = 10000
+rate = 0.08  # 8% annual
+years = 10
+
+print("Year | Amount")
+print("-" * 20)
+for year in range(1, years+1):
+    amount = principal * (1 + rate) ** year
+    print(f"  {year:2d}  | ₹{amount:,.0f}")</textarea>
+    <div class="sql-toolbar"><button class="run-btn" onclick="runPython('py-ed-3','py-out-3')" style="background:var(--green)">▶ Run</button></div>
+    <div class="py-output" id="py-out-3">Output will appear here...</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('python',2)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('python',4)">Next: Functions →</button>
+  </div>
+</div>
+
+<div class="lesson" id="python-4">
+  <div class="lesson-header">
+    <div class="lesson-num">Lesson 5 · Python</div>
+    <div class="lesson-title">Functions</div>
+    <div class="lesson-desc">Reusable blocks of code — the building blocks of every program.</div>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Python</span></div>
+    <div class="code-body"><span class="cm"># Define a function</span>
+<span class="kw">def</span> <span class="fn">calculate_tax</span>(income, rate=<span class="num">0.30</span>):
+    <span class="str">"""Calculate income tax."""</span>
+    tax = income <span class="op">*</span> rate
+    <span class="kw">return</span> tax
+
+<span class="cm"># Call the function</span>
+tax = <span class="fn">calculate_tax</span>(<span class="num">75000</span>)
+<span class="fn">print</span>(<span class="fn">f</span><span class="str">"Tax: ₹{tax}"</span>)
+
+<span class="cm"># Function with multiple returns</span>
+<span class="kw">def</span> <span class="fn">salary_breakdown</span>(gross):
+    tax = gross <span class="op">*</span> <span class="num">0.30</span>
+    pf = gross <span class="op">*</span> <span class="num">0.12</span>
+    net = gross <span class="op">-</span> tax <span class="op">-</span> pf
+    <span class="kw">return</span> net, tax, pf
+
+net, tax, pf = <span class="fn">salary_breakdown</span>(<span class="num">100000</span>)
+<span class="fn">print</span>(<span class="fn">f</span><span class="str">"Net: ₹{net}, Tax: ₹{tax}, PF: ₹{pf}"</span>)</div>
+  </div>
+  <div class="py-repl">
+    <div class="py-head">🐍 Build a financial calculator function</div>
+    <textarea class="py-editor" id="py-ed-4">def future_value(present, rate, years):
+    """Calculate future value with compound interest"""
+    return present * (1 + rate) ** years
+
+def loan_emi(principal, annual_rate, months):
+    """Calculate monthly EMI"""
+    r = annual_rate / 12
+    emi = (principal * r * (1+r)**months) / ((1+r)**months - 1)
+    return emi
+
+fv = future_value(100000, 0.12, 10)
+print(f"₹1 lakh at 12% for 10 years = ₹{fv:,.0f}")
+
+emi = loan_emi(500000, 0.09, 60)
+print(f"₹5 lakh loan at 9% for 5 years = EMI ₹{emi:,.0f}")</textarea>
+    <div class="sql-toolbar"><button class="run-btn" onclick="runPython('py-ed-4','py-out-4')" style="background:var(--green)">▶ Run</button></div>
+    <div class="py-output" id="py-out-4">Output will appear here...</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('python',3)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('python',5)">Next: Files →</button>
+  </div>
+</div>
+
+<div class="lesson" id="python-5">
+  <div class="lesson-header"><div class="lesson-num">Lesson 6</div><div class="lesson-title">File Handling & CSV</div><div class="lesson-desc">Read and write files — essential for data work.</div></div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Python</span></div>
+    <div class="code-body"><span class="kw">import</span> csv
+
+<span class="cm"># Read a CSV file</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="str">'sales.csv'</span>, <span class="str">'r'</span>) <span class="kw">as</span> f:
+    reader = csv.<span class="fn">DictReader</span>(f)
+    <span class="kw">for</span> row <span class="kw">in</span> reader:
+        <span class="fn">print</span>(row[<span class="str">'product'</span>], row[<span class="str">'amount'</span>])
+
+<span class="cm"># Write to a CSV</span>
+data = [
+    {<span class="str">'name'</span>: <span class="str">'Laptop'</span>, <span class="str">'price'</span>: <span class="num">55000</span>},
+    {<span class="str">'name'</span>: <span class="str">'Phone'</span>,  <span class="str">'price'</span>: <span class="num">25000</span>},
+]
+<span class="kw">with</span> <span class="fn">open</span>(<span class="str">'output.csv'</span>, <span class="str">'w'</span>, newline=<span class="str">''</span>) <span class="kw">as</span> f:
+    writer = csv.<span class="fn">DictWriter</span>(f, fieldnames=[<span class="str">'name'</span>,<span class="str">'price'</span>])
+    writer.<span class="fn">writeheader</span>()
+    writer.<span class="fn">writerows</span>(data)</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('python',4)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('python',6)">Next: Pandas →</button>
+  </div>
+</div>
+
+<div class="lesson" id="python-6">
+  <div class="lesson-header"><div class="lesson-num">Lesson 7</div><div class="lesson-title">Pandas — Data Analysis Library</div><div class="lesson-desc">The most important Python library for data analysts.</div></div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Python</span></div>
+    <div class="code-body"><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="cm"># Create a DataFrame (like a table)</span>
+df = pd.<span class="fn">DataFrame</span>({
+    <span class="str">'name'</span>:   [<span class="str">'Alice'</span>,<span class="str">'Bob'</span>,<span class="str">'Carol'</span>,<span class="str">'Dave'</span>],
+    <span class="str">'dept'</span>:   [<span class="str">'Finance'</span>,<span class="str">'Data'</span>,<span class="str">'Finance'</span>,<span class="str">'Data'</span>],
+    <span class="str">'salary'</span>: [<span class="num">60000</span>,<span class="num">75000</span>,<span class="num">68000</span>,<span class="num">72000</span>]
+})
+
+<span class="fn">print</span>(df.head())           <span class="cm"># first 5 rows</span>
+<span class="fn">print</span>(df.describe())       <span class="cm"># summary stats</span>
+<span class="fn">print</span>(df[<span class="str">'salary'</span>].mean()) <span class="cm"># average salary</span>
+
+<span class="cm"># Filter like SQL WHERE</span>
+finance = df[df[<span class="str">'dept'</span>] <span class="op">==</span> <span class="str">'Finance'</span>]
+
+<span class="cm"># Group like SQL GROUP BY</span>
+dept_avg = df.<span class="fn">groupby</span>(<span class="str">'dept'</span>)[<span class="str">'salary'</span>].<span class="fn">mean</span>()</div>
+  </div>
+  <div class="info-box tip"><strong>Pandas ↔ SQL:</strong> df[df['salary']>50000] = WHERE salary>50000 | groupby() = GROUP BY | merge() = JOIN</div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('python',5)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('python',7)">Next: Data Analysis →</button>
+  </div>
+</div>
+
+<div class="lesson" id="python-7">
+  <div class="lesson-header"><div class="lesson-num">Lesson 8</div><div class="lesson-title">Real Data Analysis Example</div><div class="lesson-desc">Put it all together — analyse a financial dataset.</div></div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Python</span></div>
+    <div class="code-body"><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="cm"># Simulated stock price analysis</span>
+data = {
+    <span class="str">'date'</span>: pd.<span class="fn">date_range</span>(<span class="str">'2024-01-01'</span>, periods=<span class="num">12</span>, freq=<span class="str">'ME'</span>),
+    <span class="str">'INFY'</span>: [<span class="num">1400</span>,<span class="num">1450</span>,<span class="num">1380</span>,<span class="num">1500</span>,<span class="num">1520</span>,<span class="num">1490</span>,<span class="num">1600</span>,<span class="num">1650</span>,<span class="num">1580</span>,<span class="num">1700</span>,<span class="num">1680</span>,<span class="num">1750</span>],
+    <span class="str">'TCS'</span>:  [<span class="num">3600</span>,<span class="num">3750</span>,<span class="num">3700</span>,<span class="num">3900</span>,<span class="num">3850</span>,<span class="num">4000</span>,<span class="num">4100</span>,<span class="num">4050</span>,<span class="num">4200</span>,<span class="num">4300</span>,<span class="num">4250</span>,<span class="num">4400</span>]
+}
+df = pd.<span class="fn">DataFrame</span>(data)
+df[<span class="str">'INFY_return'</span>] = df[<span class="str">'INFY'</span>].<span class="fn">pct_change</span>() <span class="op">*</span> <span class="num">100</span>
+<span class="fn">print</span>(df[[<span class="str">'date'</span>,<span class="str">'INFY'</span>,<span class="str">'INFY_return'</span>]].tail(<span class="num">5</span>))
+<span class="fn">print</span>(<span class="fn">f</span><span class="str">"\nINFY annual return: {(df['INFY'].iloc[-1]/df['INFY'].iloc[0]-1)*100:.1f}%"</span>)</div>
+  </div>
+  <div class="viz-box">
+    <div class="viz-title">Python Stock Price Visualization (Simulated)</div>
+    <canvas id="stockChart" height="200"></canvas>
+  </div>
+  <div class="info-box tip"><strong>🎉 Python Complete!</strong> You now know variables, lists, loops, functions, file I/O, and Pandas — you're ready for real data analysis!</div>
+  <div class="lesson-nav"><button class="nav-lesson-btn" onclick="showLesson('python',6)">← Prev</button></div>
+</div>
+
+</div></div></div>
+
+<!-- ═══════════════════════════════════════════ ECONOMICS COURSE ══ -->
+<div class="course-panel" id="panel-econ">
+<div class="course-grid">
+<aside class="toc">
+  <div class="toc-title">Economics</div>
+  <button class="toc-item active" onclick="showLesson('econ',0,this)">1. Demand & Supply</button>
+  <button class="toc-item" onclick="showLesson('econ',1,this)">2. Elasticity</button>
+  <button class="toc-item" onclick="showLesson('econ',2,this)">3. GDP & Growth</button>
+  <button class="toc-item" onclick="showLesson('econ',3,this)">4. Inflation</button>
+  <button class="toc-item" onclick="showLesson('econ',4,this)">5. Monetary Policy</button>
+  <button class="toc-item" onclick="showLesson('econ',5,this)">6. Fiscal Policy</button>
+  <button class="toc-item" onclick="showLesson('econ',6,this)">7. Trade & Globalisation</button>
+</aside>
+<div>
+<div class="progress-bar-wrap"><div class="progress-bar" id="prog-econ" style="width:14%"></div></div>
+
+<div class="lesson active" id="econ-0">
+  <div class="lesson-header"><div class="lesson-num">Lesson 1 · Economics</div><div class="lesson-title">Demand & Supply</div><div class="lesson-desc">The foundation of all economics — how prices are determined.</div></div>
+  <p class="prose">Economics at its core is about <strong>scarcity</strong> and <strong>choice</strong>. The Law of Demand says: as price rises, quantity demanded falls (and vice versa). The Law of Supply says: as price rises, quantity supplied rises.</p>
+  <div class="viz-box">
+    <div class="viz-title">📊 Supply & Demand Curve — Interactive</div>
+    <canvas id="sdChart" height="220"></canvas>
+    <div style="display:flex;gap:1rem;margin-top:.8rem;flex-wrap:wrap">
+      <div style="font-size:.8rem;color:var(--dim)"><span style="color:var(--blue)">●</span> Demand: P = 100 - 2Q</div>
+      <div style="font-size:.8rem;color:var(--dim)"><span style="color:var(--green)">●</span> Supply: P = 10 + 2Q</div>
+      <div style="font-size:.8rem;color:var(--accent)">⊕ Equilibrium: P=55, Q=22.5</div>
+    </div>
+  </div>
+  <div class="section-label">Demand Shifters</div>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">💸</div><div class="concept-name">Income</div><div class="concept-desc">Higher income → more demand for normal goods</div></div>
+    <div class="concept-card"><div class="concept-icon">🔄</div><div class="concept-name">Substitutes</div><div class="concept-desc">Price of tea rises → demand for coffee rises</div></div>
+    <div class="concept-card"><div class="concept-icon">🎯</div><div class="concept-name">Preferences</div><div class="concept-desc">Fashion, trends shift demand curves</div></div>
+    <div class="concept-card"><div class="concept-icon">🔮</div><div class="concept-name">Expectations</div><div class="concept-desc">Expected price rise → buy more now</div></div>
+  </div>
+  <div class="quiz-box">
+    <div class="quiz-q">If petrol prices rise, what happens to the demand for electric vehicles?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="quiz(this,'correct')">Demand increases (EVs are a substitute)</button>
+      <button class="quiz-opt" onclick="quiz(this,'wrong')">Demand decreases</button>
+      <button class="quiz-opt" onclick="quiz(this,'wrong')">No effect</button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+  <div class="lesson-nav"><span></span><button class="nav-lesson-btn next" onclick="showLesson('econ',1)">Next: Elasticity →</button></div>
+</div>
+
+<div class="lesson" id="econ-1">
+  <div class="lesson-header"><div class="lesson-num">Lesson 2</div><div class="lesson-title">Elasticity</div><div class="lesson-desc">How sensitive is quantity to price changes?</div></div>
+  <p class="prose"><strong>Price Elasticity of Demand (PED)</strong> measures how much quantity demanded changes in response to a price change.</p>
+  <div class="formula">PED = % Change in Quantity Demanded ÷ % Change in Price</div>
+  <table class="data-table">
+    <tr><th>PED Value</th><th>Type</th><th>Example</th></tr>
+    <tr><td>|PED| > 1</td><td style="color:var(--blue)">Elastic</td><td>Luxury goods, holidays</td></tr>
+    <tr><td>|PED| = 1</td><td style="color:var(--accent)">Unit elastic</td><td>—</td></tr>
+    <tr><td>|PED| < 1</td><td style="color:var(--green)">Inelastic</td><td>Salt, petrol, medicines</td></tr>
+    <tr><td>PED = 0</td><td style="color:var(--pink)">Perfectly inelastic</td><td>Insulin, life-saving drugs</td></tr>
+  </table>
+  <div class="info-box"><strong>Real Example:</strong> India's petrol demand is largely inelastic — even if prices rise, people still buy it. This is why governments can collect high excise duty without losing much volume.</div>
+  <div class="viz-box">
+    <div class="viz-title">Elasticity Comparison</div>
+    <div class="bar-chart" id="elas-bars">
+      <div class="bar-row"><div class="bar-label">Insulin</div><div class="bar-fill-wrap"><div class="bar-fill" style="width:5%;background:var(--pink)">0.05</div></div></div>
+      <div class="bar-row"><div class="bar-label">Petrol</div><div class="bar-fill-wrap"><div class="bar-fill" style="width:20%;background:var(--orange)">0.2</div></div></div>
+      <div class="bar-row"><div class="bar-label">Food</div><div class="bar-fill-wrap"><div class="bar-fill" style="width:35%;background:var(--accent)">0.5</div></div></div>
+      <div class="bar-row"><div class="bar-label">Clothing</div><div class="bar-fill-wrap"><div class="bar-fill" style="width:60%;background:var(--blue)">0.9</div></div></div>
+      <div class="bar-row"><div class="bar-label">Holidays</div><div class="bar-fill-wrap"><div class="bar-fill" style="width:90%;background:var(--green)">1.8</div></div></div>
+    </div>
+    <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">← Inelastic &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Elastic →</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('econ',0)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('econ',2)">Next: GDP →</button>
+  </div>
+</div>
+
+<div class="lesson" id="econ-2">
+  <div class="lesson-header"><div class="lesson-num">Lesson 3</div><div class="lesson-title">GDP & Economic Growth</div><div class="lesson-desc">How we measure the size and health of an economy.</div></div>
+  <p class="prose"><strong>GDP (Gross Domestic Product)</strong> is the total monetary value of all goods and services produced in a country in a year. It's the most widely used measure of economic output.</p>
+  <div class="formula">GDP = C + I + G + (X - M)</div>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">🛍️</div><div class="concept-name">C — Consumption</div><div class="concept-desc">Household spending (largest component ~60%)</div></div>
+    <div class="concept-card"><div class="concept-icon">🏗️</div><div class="concept-name">I — Investment</div><div class="concept-desc">Business capital spending, construction</div></div>
+    <div class="concept-card"><div class="concept-icon">🏛️</div><div class="concept-name">G — Government</div><div class="concept-desc">Public spending on services, infrastructure</div></div>
+    <div class="concept-card"><div class="concept-icon">🌐</div><div class="concept-name">X-M — Net Exports</div><div class="concept-desc">Exports minus imports</div></div>
+  </div>
+  <div class="viz-box">
+    <div class="viz-title">India GDP Growth Rate (approximate)</div>
+    <canvas id="gdpChart" height="200"></canvas>
+  </div>
+  <div class="quiz-box">
+    <div class="quiz-q">In the GDP formula C+I+G+(X-M), what does "M" stand for?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="quiz(this,'wrong')">Manufacturing</button>
+      <button class="quiz-opt" onclick="quiz(this,'correct')">Imports</button>
+      <button class="quiz-opt" onclick="quiz(this,'wrong')">Money supply</button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('econ',1)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('econ',3)">Next: Inflation →</button>
+  </div>
+</div>
+
+<div class="lesson" id="econ-3">
+  <div class="lesson-header"><div class="lesson-num">Lesson 4</div><div class="lesson-title">Inflation</div><div class="lesson-desc">Why prices rise and how it affects you.</div></div>
+  <p class="prose"><strong>Inflation</strong> is the general rise in prices over time. It erodes purchasing power. If inflation is 6% and your salary grows 4%, you're effectively earning less.</p>
+  <div class="formula">Real Return = Nominal Return − Inflation Rate</div>
+  <div class="section-label">Types of Inflation</div>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">📈</div><div class="concept-name">Demand-Pull</div><div class="concept-desc">"Too much money chasing too few goods" — economy overheating</div></div>
+    <div class="concept-card"><div class="concept-icon">⚙️</div><div class="concept-name">Cost-Push</div><div class="concept-desc">Rising production costs (oil, wages) push up prices</div></div>
+    <div class="concept-card"><div class="concept-icon">💵</div><div class="concept-name">Built-In</div><div class="concept-desc">Wage-price spiral — wages rise, costs rise, prices rise</div></div>
+  </div>
+  <div class="viz-box">
+    <div class="viz-title">₹100 Purchasing Power Over Time at 6% Inflation</div>
+    <canvas id="inflChart" height="180"></canvas>
+  </div>
+  <div class="info-box warn"><strong>Stagflation:</strong> When inflation is high AND growth is slow — the worst of both worlds. India faced this in the early 1990s before the liberalisation reforms.</div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('econ',2)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('econ',4)">Next: Monetary Policy →</button>
+  </div>
+</div>
+
+<div class="lesson" id="econ-4">
+  <div class="lesson-header"><div class="lesson-num">Lesson 5</div><div class="lesson-title">Monetary Policy & RBI</div><div class="lesson-desc">How the central bank controls money supply and interest rates.</div></div>
+  <p class="prose">The <strong>Reserve Bank of India (RBI)</strong> uses monetary policy to control inflation and support growth. Its main tool is the <strong>Repo Rate</strong> — the rate at which it lends to commercial banks.</p>
+  <div class="flow">
+    <div class="flow-box" style="background:rgba(240,96,144,.1);border-color:var(--pink)">RBI raises Repo Rate</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">Banks borrow at higher cost</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">Loans become expensive</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">Spending falls</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box" style="background:rgba(78,203,141,.1);border-color:var(--green)">Inflation cools ✓</div>
+  </div>
+  <div class="section-label">Key RBI Tools</div>
+  <table class="data-table">
+    <tr><th>Tool</th><th>Definition</th><th>Current Rate (approx)</th></tr>
+    <tr><td>Repo Rate</td><td>RBI lends to banks</td><td>6.50%</td></tr>
+    <tr><td>Reverse Repo</td><td>Banks park money with RBI</td><td>3.35%</td></tr>
+    <tr><td>CRR</td><td>Cash Reserve Ratio — % deposits kept with RBI</td><td>4.00%</td></tr>
+    <tr><td>SLR</td><td>Statutory Liquidity Ratio — govt securities</td><td>18.00%</td></tr>
+  </table>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('econ',3)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('econ',5)">Next: Fiscal Policy →</button>
+  </div>
+</div>
+
+<div class="lesson" id="econ-5">
+  <div class="lesson-header"><div class="lesson-num">Lesson 6</div><div class="lesson-title">Fiscal Policy</div><div class="lesson-desc">How government uses spending and taxes to manage the economy.</div></div>
+  <p class="prose"><strong>Fiscal Policy</strong> is the use of government spending (G) and taxation (T) to influence the economy. It is decided by the <strong>Union Budget</strong> each year.</p>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">📈</div><div class="concept-name">Expansionary</div><div class="concept-desc">Increase spending + cut taxes → stimulate growth (during recession)</div></div>
+    <div class="concept-card"><div class="concept-icon">📉</div><div class="concept-name">Contractionary</div><div class="concept-desc">Cut spending + raise taxes → cool inflation (during overheating)</div></div>
+    <div class="concept-card"><div class="concept-icon">📊</div><div class="concept-name">Fiscal Deficit</div><div class="concept-desc">Government spending > revenue. India's target: ~5% of GDP</div></div>
+    <div class="concept-card"><div class="concept-icon">⚖️</div><div class="concept-name">Multiplier Effect</div><div class="concept-desc">₹1 govt spending can create >₹1 of GDP growth</div></div>
+  </div>
+  <div class="info-box"><strong>Budget 2025 Key Insight:</strong> India's fiscal deficit was targeted at 4.9% of GDP. Infrastructure spending (capex) was raised to boost the multiplier effect on growth.</div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('econ',4)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('econ',6)">Next: Trade →</button>
+  </div>
+</div>
+
+<div class="lesson" id="econ-6">
+  <div class="lesson-header"><div class="lesson-num">Lesson 7</div><div class="lesson-title">Trade & Globalisation</div><div class="lesson-desc">Why countries trade and how it benefits everyone.</div></div>
+  <p class="prose"><strong>Comparative Advantage</strong> (Ricardo) explains trade: each country should specialise in what it produces most efficiently, then trade. Even if one country is better at everything, trade still benefits both.</p>
+  <div class="viz-box">
+    <div class="viz-title">India's Trade Balance (Approximate, $ Billion)</div>
+    <canvas id="tradeChart" height="180"></canvas>
+  </div>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">🤝</div><div class="concept-name">Free Trade</div><div class="concept-desc">No barriers — max efficiency, lower prices for consumers</div></div>
+    <div class="concept-card"><div class="concept-icon">🛡️</div><div class="concept-name">Protectionism</div><div class="concept-desc">Tariffs, quotas — protect domestic industries</div></div>
+    <div class="concept-card"><div class="concept-icon">🌐</div><div class="concept-name">WTO</div><div class="concept-desc">World Trade Organization — sets global trade rules</div></div>
+    <div class="concept-card"><div class="concept-icon">📜</div><div class="concept-name">FTA</div><div class="concept-desc">Free Trade Agreements between countries (eg. India-UAE CEPA)</div></div>
+  </div>
+  <div class="info-box tip"><strong>🎉 Economics Complete!</strong> You now understand the key forces shaping every economy — demand, inflation, monetary & fiscal policy, and trade.</div>
+  <div class="lesson-nav"><button class="nav-lesson-btn" onclick="showLesson('econ',5)">← Prev</button></div>
+</div>
+
+</div></div></div>
+
+<!-- ═══════════════════════════════════════════ FINANCE COURSE ══ -->
+<div class="course-panel" id="panel-finance">
+<div class="course-grid">
+<aside class="toc">
+  <div class="toc-title">Finance</div>
+  <button class="toc-item active" onclick="showLesson('finance',0,this)">1. Time Value of Money</button>
+  <button class="toc-item" onclick="showLesson('finance',1,this)">2. Interest & Compounding</button>
+  <button class="toc-item" onclick="showLesson('finance',2,this)">3. Risk & Return</button>
+  <button class="toc-item" onclick="showLesson('finance',3,this)">4. Stocks & Bonds</button>
+  <button class="toc-item" onclick="showLesson('finance',4,this)">5. Valuation Basics</button>
+  <button class="toc-item" onclick="showLesson('finance',5,this)">6. Portfolio & Diversification</button>
+  <button class="toc-item" onclick="showLesson('finance',6,this)">7. Banking & Credit</button>
+</aside>
+<div>
+<div class="progress-bar-wrap"><div class="progress-bar" id="prog-finance" style="width:14%"></div></div>
+
+<div class="lesson active" id="finance-0">
+  <div class="lesson-header"><div class="lesson-num">Lesson 1 · Finance</div><div class="lesson-title">Time Value of Money</div><div class="lesson-desc">The most fundamental concept in all of finance.</div></div>
+  <p class="prose"><strong>₹100 today is worth more than ₹100 tomorrow.</strong> This is the core principle. Money now can be invested to earn returns. Inflation erodes future money's value.</p>
+  <div class="formula">Future Value = PV × (1 + r)ⁿ &nbsp;&nbsp;&nbsp;&nbsp; Present Value = FV ÷ (1 + r)ⁿ</div>
+  <div class="viz-box">
+    <div class="viz-title">₹1,00,000 invested at 12% — How it grows</div>
+    <canvas id="tvmChart" height="200"></canvas>
+  </div>
+  <div class="section-label">Interactive Calculator</div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin:1rem 0">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:.8rem">
+      <div><label style="font-size:.75rem;color:var(--muted)">Principal (₹)</label><input type="number" id="tvm-pv" value="100000" style="margin-top:.3rem;padding:.4rem .6rem;font-size:.88rem"></div>
+      <div><label style="font-size:.75rem;color:var(--muted)">Rate (%/yr)</label><input type="number" id="tvm-rate" value="12" style="margin-top:.3rem;padding:.4rem .6rem;font-size:.88rem"></div>
+      <div><label style="font-size:.75rem;color:var(--muted)">Years</label><input type="number" id="tvm-years" value="10" style="margin-top:.3rem;padding:.4rem .6rem;font-size:.88rem"></div>
+    </div>
+    <button class="run-btn" onclick="calcTVM()">Calculate Future Value</button>
+    <div id="tvm-result" style="margin-top:.8rem;font-size:1rem;color:var(--accent);font-weight:700"></div>
+  </div>
+  <div class="quiz-box">
+    <div class="quiz-q">You invest ₹10,000 at 10% for 2 years. What is the future value?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="quiz(this,'wrong')">₹12,000</button>
+      <button class="quiz-opt" onclick="quiz(this,'correct')">₹12,100</button>
+      <button class="quiz-opt" onclick="quiz(this,'wrong')">₹12,200</button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+  <div class="lesson-nav"><span></span><button class="nav-lesson-btn next" onclick="showLesson('finance',1)">Next: Compounding →</button></div>
+</div>
+
+<div class="lesson" id="finance-1">
+  <div class="lesson-header"><div class="lesson-num">Lesson 2</div><div class="lesson-title">Interest & Compounding</div><div class="lesson-desc">Why Einstein called compound interest the "eighth wonder of the world."</div></div>
+  <div class="formula">A = P × (1 + r/n)^(n×t)</div>
+  <div class="viz-box">
+    <div class="viz-title">Simple vs Compound Interest — ₹1 Lakh at 10%</div>
+    <canvas id="compChart" height="200"></canvas>
+  </div>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">📅</div><div class="concept-name">Rule of 72</div><div class="concept-desc">72 ÷ interest rate = years to double money. At 12%: 72÷12 = 6 years!</div></div>
+    <div class="concept-card"><div class="concept-icon">📆</div><div class="concept-name">Compounding Frequency</div><div class="concept-desc">Daily > Monthly > Quarterly > Annually</div></div>
+    <div class="concept-card"><div class="concept-icon">⏰</div><div class="concept-name">Start Early</div><div class="concept-desc">₹5000/month at 25 vs 35 — the 25-year-old ends up with 3× more!</div></div>
+  </div>
+  <div class="py-repl">
+    <div class="py-head">💰 SIP Calculator (Python)</div>
+    <textarea class="py-editor" id="py-sip">monthly = 5000      # monthly SIP
+rate = 0.12 / 12    # 12% annual → monthly
+months = 120        # 10 years
+
+total = 0
+invested = 0
+for m in range(1, months + 1):
+    total = (total + monthly) * (1 + rate)
+    invested += monthly
+
+print(f"Total Invested: ₹{invested:,.0f}")
+print(f"Final Value:    ₹{total:,.0f}")
+print(f"Wealth Gained:  ₹{total-invested:,.0f}")
+print(f"Return:         {(total/invested-1)*100:.1f}%")</textarea>
+    <div class="sql-toolbar"><button class="run-btn" onclick="runPython('py-sip','py-sip-out')" style="background:var(--green)">▶ Calculate</button></div>
+    <div class="py-output" id="py-sip-out">Click Calculate to see your SIP results...</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('finance',0)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('finance',2)">Next: Risk & Return →</button>
+  </div>
+</div>
+
+<div class="lesson" id="finance-2">
+  <div class="lesson-header"><div class="lesson-num">Lesson 3</div><div class="lesson-title">Risk & Return</div><div class="lesson-desc">The golden rule: higher return always means higher risk.</div></div>
+  <div class="viz-box">
+    <div class="viz-title">Risk vs Return — Asset Classes</div>
+    <div class="bar-chart">
+      <div class="bar-row"><div class="bar-label">Savings A/C</div><div class="bar-fill-wrap"><div class="bar-fill" style="width:15%;background:var(--green)">3.5%</div></div></div>
+      <div class="bar-row"><div class="bar-label">FD / Bonds</div><div class="bar-fill-wrap"><div class="bar-fill" style="width:30%;background:var(--blue)">7%</div></div></div>
+      <div class="bar-row"><div class="bar-label">Mutual Funds</div><div class="bar-fill-wrap"><div class="bar-fill" style="width:50%;background:var(--accent)">12%</div></div></div>
+      <div class="bar-row"><div class="bar-label">Direct Stocks</div><div class="bar-fill-wrap"><div class="bar-fill" style="width:70%;background:var(--orange)">15-20%</div></div></div>
+      <div class="bar-row"><div class="bar-label">Crypto</div><div class="bar-fill-wrap"><div class="bar-fill" style="width:95%;background:var(--pink)">Very High</div></div></div>
+    </div>
+    <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">← Lower Risk &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Higher Risk →</div>
+  </div>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">📉</div><div class="concept-name">Systematic Risk</div><div class="concept-desc">Market risk — affects all stocks (war, recession). Cannot be diversified away.</div></div>
+    <div class="concept-card"><div class="concept-icon">🏢</div><div class="concept-name">Unsystematic Risk</div><div class="concept-desc">Company-specific risk (fraud, bad mgmt). CAN be reduced by diversification.</div></div>
+    <div class="concept-card"><div class="concept-icon">📐</div><div class="concept-name">Beta (β)</div><div class="concept-desc">Measures stock's sensitivity to market. β>1 = riskier than market</div></div>
+    <div class="concept-card"><div class="concept-icon">🎯</div><div class="concept-name">Sharpe Ratio</div><div class="concept-desc">Return per unit of risk. Higher = better risk-adjusted return</div></div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('finance',1)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('finance',3)">Next: Stocks & Bonds →</button>
+  </div>
+</div>
+
+<div class="lesson" id="finance-3">
+  <div class="lesson-header"><div class="lesson-num">Lesson 4</div><div class="lesson-title">Stocks & Bonds</div><div class="lesson-desc">The two main financial instruments — understand them deeply.</div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+    <div style="background:rgba(78,203,141,.07);border:1px solid rgba(78,203,141,.2);border-radius:var(--r);padding:1rem">
+      <div style="color:var(--green);font-weight:700;margin-bottom:.6rem">📈 Stocks (Equity)</div>
+      <ul style="color:var(--dim);font-size:.82rem;list-style:none;line-height:2">
+        <li>✓ Ownership in a company</li>
+        <li>✓ Potential for high returns</li>
+        <li>✓ Dividends + capital gains</li>
+        <li>✗ Higher risk, volatile</li>
+        <li>✗ Last to be paid if company fails</li>
+      </ul>
+    </div>
+    <div style="background:rgba(91,156,246,.07);border:1px solid rgba(91,156,246,.2);border-radius:var(--r);padding:1rem">
+      <div style="color:var(--blue);font-weight:700;margin-bottom:.6rem">📋 Bonds (Debt)</div>
+      <ul style="color:var(--dim);font-size:.82rem;list-style:none;line-height:2">
+        <li>✓ Fixed interest (coupon)</li>
+        <li>✓ Lower risk than stocks</li>
+        <li>✓ First to be paid if company fails</li>
+        <li>✗ Lower returns</li>
+        <li>✗ Inflation erodes real return</li>
+      </ul>
+    </div>
+  </div>
+  <div class="formula">Stock Price ≈ EPS × P/E Ratio &nbsp;&nbsp;&nbsp; Bond Price ↑ when Interest Rates ↓</div>
+  <div class="info-box"><strong>Key insight for data analysts:</strong> At Morningstar, you're extracting financial data that helps analysts calculate these valuations. Understanding what P/E, EPS, and yield mean helps you validate and contextualise the data you work with.</div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('finance',2)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('finance',4)">Next: Valuation →</button>
+  </div>
+</div>
+
+<div class="lesson" id="finance-4">
+  <div class="lesson-header"><div class="lesson-num">Lesson 5</div><div class="lesson-title">Valuation Basics</div><div class="lesson-desc">How to estimate what a company is really worth.</div></div>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">📊</div><div class="concept-name">P/E Ratio</div><div class="concept-desc">Price / Earnings per share. Market pays ₹X for ₹1 of earnings</div></div>
+    <div class="concept-card"><div class="concept-icon">📖</div><div class="concept-name">P/B Ratio</div><div class="concept-desc">Price / Book Value. Compares market price to accounting value</div></div>
+    <div class="concept-card"><div class="concept-icon">💰</div><div class="concept-name">DCF</div><div class="concept-desc">Discounted Cash Flow — sum of all future cash flows in today's money</div></div>
+    <div class="concept-card"><div class="concept-icon">🔄</div><div class="concept-name">EV/EBITDA</div><div class="concept-desc">Enterprise Value vs operating profit — used to compare companies</div></div>
+  </div>
+  <div class="formula">Intrinsic Value = Σ (Future Cash Flow / (1+r)ⁿ)</div>
+  <div class="info-box tip"><strong>Rule of thumb:</strong> P/E &lt; 15 might be undervalued. P/E > 30 is expensive. But always compare within the same industry!</div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('finance',3)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('finance',5)">Next: Portfolio →</button>
+  </div>
+</div>
+
+<div class="lesson" id="finance-5">
+  <div class="lesson-header"><div class="lesson-num">Lesson 6</div><div class="lesson-title">Portfolio & Diversification</div><div class="lesson-desc">Don't put all eggs in one basket — the science of spreading risk.</div></div>
+  <div class="viz-box">
+    <div class="viz-title">Sample Diversified Portfolio Allocation</div>
+    <canvas id="portChart" height="200"></canvas>
+  </div>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">🔀</div><div class="concept-name">Diversification</div><div class="concept-desc">Spreading across assets, sectors, and geographies to reduce risk</div></div>
+    <div class="concept-card"><div class="concept-icon">📐</div><div class="concept-name">Correlation</div><div class="concept-desc">Assets with low/negative correlation together reduce portfolio volatility</div></div>
+    <div class="concept-card"><div class="concept-icon">🏆</div><div class="concept-name">Modern Portfolio Theory</div><div class="concept-desc">Markowitz (1952) — optimal portfolio maximises return for given risk level</div></div>
+    <div class="concept-card"><div class="concept-icon">📉</div><div class="concept-name">Asset Allocation</div><div class="concept-desc">Rule of thumb: 100 - your age = % in stocks (rest in bonds/FD)</div></div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('finance',4)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('finance',6)">Next: Banking →</button>
+  </div>
+</div>
+
+<div class="lesson" id="finance-6">
+  <div class="lesson-header"><div class="lesson-num">Lesson 7</div><div class="lesson-title">Banking & Credit</div><div class="lesson-desc">How banks work and everything about loans, EMIs, and credit scores.</div></div>
+  <div class="flow" style="flex-direction:column;align-items:flex-start">
+    <div style="font-size:.8rem;color:var(--muted);margin-bottom:.3rem">How banks create money (fractional reserve banking):</div>
+    <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+      <div class="flow-box">You deposit ₹100</div><div class="flow-arrow">→</div>
+      <div class="flow-box">Bank keeps ₹4 (CRR)</div><div class="flow-arrow">→</div>
+      <div class="flow-box">Lends ₹96</div><div class="flow-arrow">→</div>
+      <div class="flow-box">Borrower deposits ₹96</div><div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:var(--accent);color:var(--accent)">Cycle repeats!</div>
+    </div>
+  </div>
+  <div class="formula">EMI = [P × r × (1+r)ⁿ] / [(1+r)ⁿ - 1]</div>
+  <div class="py-repl">
+    <div class="py-head">💳 EMI Calculator</div>
+    <textarea class="py-editor" id="py-emi">def emi_calculator(principal, annual_rate, months):
+    r = annual_rate / (12 * 100)
+    emi = (principal * r * (1+r)**months) / ((1+r)**months - 1)
+    total = emi * months
+    interest = total - principal
+    return emi, total, interest
+
+# Home loan example
+p, rate, n = 3000000, 8.5, 240  # ₹30L, 8.5%, 20 years
+emi, total, interest = emi_calculator(p, rate, n)
+print(f"Loan: ₹{p:,.0f} @ {rate}% for {n//12} years")
+print(f"Monthly EMI: ₹{emi:,.0f}")
+print(f"Total Payment: ₹{total:,.0f}")
+print(f"Total Interest: ₹{interest:,.0f}")</textarea>
+    <div class="sql-toolbar"><button class="run-btn" onclick="runPython('py-emi','py-emi-out')" style="background:var(--green)">▶ Calculate</button></div>
+    <div class="py-output" id="py-emi-out">Click to calculate EMI...</div>
+  </div>
+  <div class="info-box tip"><strong>🎉 Finance Complete!</strong> TVM, compounding, risk-return, stocks, bonds, valuation, and portfolio theory — you now think like a financial professional.</div>
+  <div class="lesson-nav"><button class="nav-lesson-btn" onclick="showLesson('finance',5)">← Prev</button></div>
+</div>
+
+</div></div></div>
+
+<!-- ═══════════════════════════════════════════ FINANCIAL STATEMENTS ══ -->
+<div class="course-panel" id="panel-fs">
+<div class="course-grid">
+<aside class="toc">
+  <div class="toc-title">Financial Statements</div>
+  <button class="toc-item active" onclick="showLesson('fs',0,this)">1. Overview</button>
+  <button class="toc-item" onclick="showLesson('fs',1,this)">2. Income Statement</button>
+  <button class="toc-item" onclick="showLesson('fs',2,this)">3. Balance Sheet</button>
+  <button class="toc-item" onclick="showLesson('fs',3,this)">4. Cash Flow Statement</button>
+  <button class="toc-item" onclick="showLesson('fs',4,this)">5. Key Ratios</button>
+  <button class="toc-item" onclick="showLesson('fs',5,this)">6. Reading a Real Report</button>
+</aside>
+<div>
+<div class="progress-bar-wrap"><div class="progress-bar" id="prog-fs" style="width:17%"></div></div>
+
+<div class="lesson active" id="fs-0">
+  <div class="lesson-header"><div class="lesson-num">Lesson 1 · Financial Statements</div><div class="lesson-title">The Big Three</div><div class="lesson-desc">Every company tells its story through three financial statements.</div></div>
+  <div class="concept-grid">
+    <div class="concept-card" style="border-color:rgba(78,203,141,.3)"><div class="concept-icon">📈</div><div class="concept-name" style="color:var(--green)">Income Statement</div><div class="concept-desc">Shows Profit & Loss over a period. "Did we make money?"</div></div>
+    <div class="concept-card" style="border-color:rgba(91,156,246,.3)"><div class="concept-icon">⚖️</div><div class="concept-name" style="color:var(--blue)">Balance Sheet</div><div class="concept-desc">Snapshot of assets, liabilities & equity. "What do we own & owe?"</div></div>
+    <div class="concept-card" style="border-color:rgba(240,192,96,.3)"><div class="concept-icon">💰</div><div class="concept-name" style="color:var(--accent)">Cash Flow Statement</div><div class="concept-desc">Actual cash movement. "Where did the cash come from & go?"</div></div>
+  </div>
+  <div class="flow" style="flex-direction:column">
+    <div style="font-size:.8rem;color:var(--muted);margin-bottom:.5rem">How the three statements connect:</div>
+    <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+      <div class="flow-box" style="border-color:var(--green)">Net Income (P&L)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:var(--blue)">Retained Earnings (B/S)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:var(--accent)">Cash position (CFS)</div>
+    </div>
+  </div>
+  <div class="info-box"><strong>At Morningstar/Lumonic:</strong> You extract data from exactly these three statements — Balance Sheet, Income Statement, and Cash Flow. Understanding what each number means is crucial to catch errors and map them correctly.</div>
+  <div class="lesson-nav"><span></span><button class="nav-lesson-btn next" onclick="showLesson('fs',1)">Next: Income Statement →</button></div>
+</div>
+
+<div class="lesson" id="fs-1">
+  <div class="lesson-header"><div class="lesson-num">Lesson 2</div><div class="lesson-title">Income Statement (P&L)</div><div class="lesson-desc">Measures profitability over a time period (quarter or year).</div></div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin:1rem 0">
+    <div style="background:rgba(78,203,141,.15);padding:.7rem 1rem;font-weight:700;color:var(--green);font-size:.88rem">📈 Income Statement — XYZ Ltd (FY 2024) in ₹ Crore</div>
+    <div style="padding:.3rem 0">
+      <div class="bs-row"><span>Revenue (Net Sales)</span><span style="color:var(--green)">₹ 5,000</span></div>
+      <div class="bs-row"><span style="color:var(--dim)">(-) Cost of Goods Sold (COGS)</span><span style="color:var(--pink)">(-) 3,000</span></div>
+      <div class="bs-row" style="background:rgba(255,255,255,.04)"><span><strong>Gross Profit</strong></span><span><strong>₹ 2,000</strong></span></div>
+      <div class="bs-row"><span style="color:var(--dim)">(-) Operating Expenses (SG&A)</span><span style="color:var(--pink)">(-) 800</span></div>
+      <div class="bs-row"><span style="color:var(--dim)">(-) Depreciation & Amortisation</span><span style="color:var(--pink)">(-) 200</span></div>
+      <div class="bs-row" style="background:rgba(255,255,255,.04)"><span><strong>EBIT (Operating Profit)</strong></span><span><strong>₹ 1,000</strong></span></div>
+      <div class="bs-row"><span style="color:var(--dim)">(-) Interest Expense</span><span style="color:var(--pink)">(-) 150</span></div>
+      <div class="bs-row" style="background:rgba(255,255,255,.04)"><span><strong>EBT (Profit Before Tax)</strong></span><span><strong>₹ 850</strong></span></div>
+      <div class="bs-row"><span style="color:var(--dim)">(-) Tax @ 25%</span><span style="color:var(--pink)">(-) 212</span></div>
+      <div class="bs-row" style="background:rgba(78,203,141,.08)"><span><strong>Net Profit (PAT)</strong></span><span style="color:var(--green)"><strong>₹ 638</strong></span></div>
+    </div>
+  </div>
+  <div class="concept-grid">
+    <div class="concept-card"><div class="concept-icon">📊</div><div class="concept-name">Gross Margin</div><div class="concept-desc">Gross Profit / Revenue = 40%. How much is left after making the product.</div></div>
+    <div class="concept-card"><div class="concept-icon">⚙️</div><div class="concept-name">EBITDA</div><div class="concept-desc">EBIT + D&A. Used to compare companies across industries (removes financing differences)</div></div>
+    <div class="concept-card"><div class="concept-icon">💹</div><div class="concept-name">Net Margin</div><div class="concept-desc">Net Profit / Revenue = 12.76%. Bottom-line profitability.</div></div>
+    <div class="concept-card"><div class="concept-icon">📐</div><div class="concept-name">EPS</div><div class="concept-desc">Net Profit / Shares Outstanding. Earnings per share for investors.</div></div>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('fs',0)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('fs',2)">Next: Balance Sheet →</button>
+  </div>
+</div>
+
+<div class="lesson" id="fs-2">
+  <div class="lesson-header"><div class="lesson-num">Lesson 3</div><div class="lesson-title">Balance Sheet</div><div class="lesson-desc">A snapshot of everything a company owns and owes on a specific date.</div></div>
+  <div class="formula">Assets = Liabilities + Shareholders' Equity</div>
+  <div class="bs-grid">
+    <div class="bs-col">
+      <div class="bs-col-head assets">ASSETS — What We Own</div>
+      <div style="padding:.3rem 0">
+        <div style="padding:.4rem 1rem;font-size:.72rem;text-transform:uppercase;color:var(--muted);letter-spacing:.08em">Current Assets</div>
+        <div class="bs-row"><span style="padding-left:.5rem">Cash & Equivalents</span><span>₹ 500</span></div>
+        <div class="bs-row"><span style="padding-left:.5rem">Accounts Receivable</span><span>₹ 800</span></div>
+        <div class="bs-row"><span style="padding-left:.5rem">Inventory</span><span>₹ 600</span></div>
+        <div style="padding:.4rem 1rem;font-size:.72rem;text-transform:uppercase;color:var(--muted);letter-spacing:.08em">Non-Current Assets</div>
+        <div class="bs-row"><span style="padding-left:.5rem">Property, Plant & Equipment</span><span>₹ 2,000</span></div>
+        <div class="bs-row"><span style="padding-left:.5rem">Intangibles / Goodwill</span><span>₹ 400</span></div>
+        <div class="bs-row"><span><strong>TOTAL ASSETS</strong></span><span><strong>₹ 4,300</strong></span></div>
+      </div>
+    </div>
+    <div class="bs-col">
+      <div class="bs-col-head liab">LIABILITIES + EQUITY — How Funded</div>
+      <div style="padding:.3rem 0">
+        <div style="padding:.4rem 1rem;font-size:.72rem;text-transform:uppercase;color:var(--muted);letter-spacing:.08em">Current Liabilities</div>
+        <div class="bs-row"><span style="padding-left:.5rem">Accounts Payable</span><span>₹ 400</span></div>
+        <div class="bs-row"><span style="padding-left:.5rem">Short-term Debt</span><span>₹ 300</span></div>
+        <div style="padding:.4rem 1rem;font-size:.72rem;text-transform:uppercase;color:var(--muted);letter-spacing:.08em">Long-term Liabilities</div>
+        <div class="bs-row"><span style="padding-left:.5rem">Long-term Debt</span><span>₹ 1,200</span></div>
+        <div style="padding:.4rem 1rem;font-size:.72rem;text-transform:uppercase;color:var(--muted);letter-spacing:.08em">Shareholders' Equity</div>
+        <div class="bs-row"><span style="padding-left:.5rem">Share Capital</span><span>₹ 1,000</span></div>
+        <div class="bs-row"><span style="padding-left:.5rem">Retained Earnings</span><span>₹ 1,400</span></div>
+        <div class="bs-row"><span><strong>TOTAL L + E</strong></span><span><strong>₹ 4,300</strong></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="viz-box">
+    <div class="viz-title">Balance Sheet Visual Breakdown</div>
+    <canvas id="bsChart" height="180"></canvas>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('fs',1)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('fs',3)">Next: Cash Flow →</button>
+  </div>
+</div>
+
+<div class="lesson" id="fs-3">
+  <div class="lesson-header"><div class="lesson-num">Lesson 4</div><div class="lesson-title">Cash Flow Statement</div><div class="lesson-desc">The most honest financial statement — cash doesn't lie.</div></div>
+  <p class="prose">A company can show <strong>profit</strong> on the income statement but still go bankrupt if it runs out of <strong>cash</strong>. The CFS shows actual money movement — not accounting profit.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1rem 0">
+    <div style="background:rgba(78,203,141,.07);border:1px solid rgba(78,203,141,.2);border-radius:8px;padding:.8rem">
+      <div style="color:var(--green);font-weight:700;font-size:.82rem;margin-bottom:.5rem">🏭 Operating Activities</div>
+      <div style="color:var(--dim);font-size:.78rem;line-height:1.7">Net Income<br>(+) Depreciation<br>(±) Working Capital changes<br><br><strong style="color:var(--green)">Core business cash</strong></div>
+    </div>
+    <div style="background:rgba(240,192,96,.07);border:1px solid rgba(240,192,96,.2);border-radius:8px;padding:.8rem">
+      <div style="color:var(--accent);font-weight:700;font-size:.82rem;margin-bottom:.5rem">🏗️ Investing Activities</div>
+      <div style="color:var(--dim);font-size:.78rem;line-height:1.7">(-) CAPEX (buying assets)<br>(+) Asset sales<br>(±) Acquisitions<br><br><strong style="color:var(--accent)">Growth spending</strong></div>
+    </div>
+    <div style="background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.2);border-radius:8px;padding:.8rem">
+      <div style="color:var(--purple);font-weight:700;font-size:.82rem;margin-bottom:.5rem">🏦 Financing Activities</div>
+      <div style="color:var(--dim);font-size:.78rem;line-height:1.7">(+) Debt raised<br>(-) Debt repaid<br>(-) Dividends paid<br><br><strong style="color:var(--purple)">How funded/distributed</strong></div>
+    </div>
+  </div>
+  <div class="info-box warn"><strong>Red Flag:</strong> If Operating Cash Flow is consistently negative while Net Income is positive — the company may be manipulating profits through accounting. <em>Enron did exactly this!</em></div>
+  <div class="formula">Free Cash Flow = Operating Cash Flow − Capital Expenditure</div>
+  <div class="viz-box">
+    <div class="viz-title">Cash Flow Waterfall Chart — XYZ Ltd</div>
+    <canvas id="cfChart" height="200"></canvas>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('fs',2)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('fs',4)">Next: Key Ratios →</button>
+  </div>
+</div>
+
+<div class="lesson" id="fs-4">
+  <div class="lesson-header"><div class="lesson-num">Lesson 5</div><div class="lesson-title">Key Financial Ratios</div><div class="lesson-desc">How to analyse and compare companies using ratios.</div></div>
+  <div class="section-label">Profitability Ratios</div>
+  <table class="data-table">
+    <tr><th>Ratio</th><th>Formula</th><th>What it tells you</th></tr>
+    <tr><td>Gross Margin</td><td>Gross Profit / Revenue</td><td>Production efficiency</td></tr>
+    <tr><td>Net Margin</td><td>Net Profit / Revenue</td><td>Overall profitability</td></tr>
+    <tr><td>ROE</td><td>Net Profit / Equity</td><td>Returns to shareholders</td></tr>
+    <tr><td>ROA</td><td>Net Profit / Assets</td><td>How well assets generate profit</td></tr>
+    <tr><td>ROCE</td><td>EBIT / Capital Employed</td><td>Return on total capital</td></tr>
+  </table>
+  <div class="section-label">Liquidity & Solvency Ratios</div>
+  <table class="data-table">
+    <tr><th>Ratio</th><th>Formula</th><th>Healthy benchmark</th></tr>
+    <tr><td>Current Ratio</td><td>Current Assets / Current Liabilities</td><td>> 1.5 (can pay short-term debts)</td></tr>
+    <tr><td>Quick Ratio</td><td>(Current Assets - Inventory) / CL</td><td>> 1.0</td></tr>
+    <tr><td>Debt-to-Equity</td><td>Total Debt / Equity</td><td>< 2 for most industries</td></tr>
+    <tr><td>Interest Coverage</td><td>EBIT / Interest Expense</td><td>> 3× (can service debt)</td></tr>
+  </table>
+  <div class="viz-box">
+    <div class="viz-title">Ratio Comparison: XYZ vs Industry Average</div>
+    <canvas id="ratioChart" height="200"></canvas>
+  </div>
+  <div class="lesson-nav">
+    <button class="nav-lesson-btn" onclick="showLesson('fs',3)">← Prev</button>
+    <button class="nav-lesson-btn next" onclick="showLesson('fs',5)">Next: Real Report →</button>
+  </div>
+</div>
+
+<div class="lesson" id="fs-5">
+  <div class="lesson-header"><div class="lesson-num">Lesson 6</div><div class="lesson-title">Reading a Real Annual Report</div><div class="lesson-desc">How to analyse a real company step-by-step.</div></div>
+  <p class="prose">When reading an annual report (like those you work with at Morningstar), follow this systematic process:</p>
+  <div style="counter-reset:step">
+  <div style="display:flex;gap:.8rem;margin-bottom:.8rem;align-items:flex-start">
+    <div style="background:var(--accent);color:#09090e;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;flex-shrink:0">1</div>
+    <div><div style="font-weight:600;color:var(--text);margin-bottom:.2rem">Read the Auditor's Report first</div><div style="color:var(--dim);font-size:.83rem">Look for "qualified opinion" or "going concern" warnings — immediate red flags.</div></div>
+  </div>
+  <div style="display:flex;gap:.8rem;margin-bottom:.8rem;align-items:flex-start">
+    <div style="background:var(--blue);color:#09090e;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;flex-shrink:0">2</div>
+    <div><div style="font-weight:600;color:var(--text);margin-bottom:.2rem">Check Revenue trend (3–5 years)</div><div style="color:var(--dim);font-size:.83rem">Is revenue growing consistently? Is growth accelerating or slowing?</div></div>
+  </div>
+  <div style="display:flex;gap:.8rem;margin-bottom:.8rem;align-items:flex-start">
+    <div style="background:var(--green);color:#09090e;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;flex-shrink:0">3</div>
+    <div><div style="font-weight:600;color:var(--text);margin-bottom:.2rem">Compare Profit vs Cash Flow</div><div style="color:var(--dim);font-size:.83rem">Profit growing but cash flow shrinking? Investigate further.</div></div>
+  </div>
+  <div style="display:flex;gap:.8rem;margin-bottom:.8rem;align-items:flex-start">
+    <div style="background:var(--purple);color:#09090e;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;flex-shrink:0">4</div>
+    <div><div style="font-weight:600;color:var(--text);margin-bottom:.2rem">Check Debt levels</div><div style="color:var(--dim);font-size:.83rem">Rising debt without rising profits is dangerous. Check interest coverage ratio.</div></div>
+  </div>
+  <div style="display:flex;gap:.8rem;margin-bottom:.8rem;align-items:flex-start">
+    <div style="background:var(--orange);color:#09090e;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;flex-shrink:0">5</div>
+    <div><div style="font-weight:600;color:var(--text);margin-bottom:.2rem">Calculate Key Ratios</div><div style="color:var(--dim);font-size:.83rem">P/E, ROE, Current Ratio, Debt/Equity — compare with industry peers.</div></div>
+  </div>
+  </div>
+  <div class="py-repl">
+    <div class="py-head">📊 Quick Financial Health Checker (Python)</div>
+    <textarea class="py-editor" id="py-fs">revenue = 5000
+gross_profit = 2000
+net_profit = 638
+total_assets = 4300
+equity = 2400
+current_assets = 1900
+current_liabilities = 700
+total_debt = 1500
+ebit = 1000
+interest = 150
+
+# Calculate ratios
+gross_margin = gross_profit / revenue * 100
+net_margin = net_profit / revenue * 100
+roe = net_profit / equity * 100
+roa = net_profit / total_assets * 100
+current_ratio = current_assets / current_liabilities
+de_ratio = total_debt / equity
+int_coverage = ebit / interest
+
+print("=== FINANCIAL HEALTH REPORT ===")
+print(f"Gross Margin:       {gross_margin:.1f}%")
+print(f"Net Margin:         {net_margin:.1f}%")
+print(f"ROE:                {roe:.1f}%")
+print(f"ROA:                {roa:.1f}%")
+print(f"Current Ratio:      {current_ratio:.2f}x")
+print(f"Debt/Equity:        {de_ratio:.2f}x")
+print(f"Interest Coverage:  {int_coverage:.1f}x")</textarea>
+    <div class="sql-toolbar"><button class="run-btn" onclick="runPython('py-fs','py-fs-out')" style="background:var(--green)">▶ Analyse</button></div>
+    <div class="py-output" id="py-fs-out">Click Analyse to see the report...</div>
+  </div>
+  <div class="info-box tip"><strong>🎉 Financial Statements Complete!</strong> You can now read a Balance Sheet, Income Statement & Cash Flow Statement — and calculate the ratios that matter. This is exactly what you do at Morningstar!</div>
+  <div class="lesson-nav"><button class="nav-lesson-btn" onclick="showLesson('fs',4)">← Prev</button></div>
+</div>
+
+</div></div></div>
+
+</div><!-- end main -->
+
+<footer style="text-align:center;padding:2rem;border-top:1px solid var(--border);color:var(--muted);font-size:.82rem">
+  Made with ❤️ by <a href="https://dagaledattatray.github.io/" style="color:var(--accent);text-decoration:none">Dattatray Dagale</a>
+  &nbsp;|&nbsp; <a href="learning.html" style="color:var(--dim);text-decoration:none">My Notes</a>
+</footer>
+
+<script>
+// ─── DATABASE FOR SQL ───────────────────────────────────
+const DB = {
+  employees: [
+    {id:1, name:'Anika Sharma', dept:'Finance', salary:72000, city:'Mumbai', hire_date:'2021-03-15'},
+    {id:2, name:'Rahul Verma', dept:'Data', salary:85000, city:'Pune', hire_date:'2020-06-01'},
+    {id:3, name:'Priya Singh', dept:'Finance', salary:61000, city:'Delhi', hire_date:'2022-01-10'},
+    {id:4, name:'Arjun Nair', dept:'HR', salary:48000, city:'Mumbai', hire_date:'2019-09-20'},
+    {id:5, name:'Sneha Patel', dept:'Data', salary:79000, city:'Bangalore', hire_date:'2021-11-05'},
+    {id:6, name:'Vikram Das', dept:'HR', salary:52000, city:'Pune', hire_date:'2023-02-14'},
+    {id:7, name:'Meera Iyer', dept:'Finance', salary:67000, city:'Chennai', hire_date:'2020-07-22'},
+    {id:8, name:'Rohan Gupta', dept:'Data', salary:93000, city:'Bangalore', hire_date:'2019-05-11'},
+    {id:9, name:'Kavya Rao', dept:'Operations', salary:55000, city:'Hyderabad', hire_date:'2022-08-30'},
+    {id:10, name:'Amit Joshi', dept:'Operations', salary:58000, city:'Delhi', hire_date:'2021-04-17'},
+  ],
+  departments: [
+    {id:1, name:'Finance', budget:500000, manager_id:1},
+    {id:2, name:'Data', budget:750000, manager_id:2},
+    {id:3, name:'HR', budget:300000, manager_id:4},
+    {id:4, name:'Operations', budget:400000, manager_id:9},
+  ],
+  sales: [
+    {id:1, emp_id:1, amount:125000, sale_date:'2024-01-15', product:'Analytics Suite'},
+    {id:2, emp_id:2, amount:230000, sale_date:'2024-02-20', product:'Data Platform'},
+    {id:3, emp_id:3, amount:98000, sale_date:'2024-01-30', product:'Reporting Tool'},
+    {id:4, emp_id:5, amount:310000, sale_date:'2024-03-10', product:'Data Platform'},
+    {id:5, emp_id:7, amount:145000, sale_date:'2024-03-25', product:'Analytics Suite'},
+  ]
+};
+
+// ─── MINI SQL ENGINE ─────────────────────────────────────
+function runSQL(edId, resId) {
+  const query = document.getElementById(edId).value.trim();
+  const resEl = document.getElementById(resId);
+  try {
+    const result = executeSQL(query);
+    if (result.length === 0) { resEl.innerHTML = '<span class="result-msg">Query executed. No rows returned.</span>'; return; }
+    const cols = Object.keys(result[0]);
+    let html = '<table class="result-table"><thead><tr>' + cols.map(c=>`<th>${c}</th>`).join('') + '</tr></thead><tbody>';
+    result.forEach(row => { html += '<tr>' + cols.map(c=>`<td>${row[c]===null||row[c]===undefined?'NULL':row[c]}</td>`).join('') + '</tr>'; });
+    html += `</tbody></table><div style="font-size:.72rem;color:var(--muted);padding:.3rem .7rem">${result.length} row(s) returned</div>`;
+    resEl.innerHTML = html;
+  } catch(e) { resEl.innerHTML = `<span class="result-msg" style="color:var(--pink)">⚠ ${e.message}</span>`; }
+}
+
+function executeSQL(q) {
+  q = q.trim().replace(/;$/, '');
+  const upper = q.toUpperCase();
+
+  // --- SELECT ---
+  if (!upper.startsWith('SELECT')) throw new Error('Only SELECT queries are supported in the playground.');
+
+  // Parse FROM
+  const fromMatch = q.match(/\bFROM\s+(\w+)(?:\s+(?:AS\s+)?(\w+))?/i);
+  if (!fromMatch) throw new Error('Missing FROM clause');
+  const tableName = fromMatch[1].toLowerCase();
+  const tableAlias = fromMatch[2] || tableName;
+  if (!DB[tableName]) throw new Error(`Table "${tableName}" not found`);
+  let rows = DB[tableName].map(r=>({...r}));
+
+  // JOIN
+  const joinMatch = q.match(/(?:INNER\s+)?JOIN\s+(\w+)(?:\s+(?:AS\s+)?(\w+))?\s+ON\s+([\w.]+)\s*=\s*([\w.]+)/i);
+  if (joinMatch) {
+    const t2 = joinMatch[1].toLowerCase(), a2 = joinMatch[2]||t2;
+    if (!DB[t2]) throw new Error(`Table "${t2}" not found`);
+    const [,, lk, rk] = joinMatch;
+    const lf = lk.split('.').pop(), rf = rk.split('.').pop();
+    const joined = [];
+    rows.forEach(lr => {
+      DB[t2].forEach(rr => {
+        if (lr[lf] == rr[rf] || rr[lf] == lr[rf]) {
+          const merged = {};
+          Object.keys(lr).forEach(k=>merged[`${tableAlias}.${k}`]=lr[k]);
+          Object.keys(rr).forEach(k=>merged[`${a2}.${k}`]=rr[k]);
+          Object.assign(merged, lr, rr);
+          joined.push(merged);
+        }
+      });
+    });
+    rows = joined;
+  }
+
+  // WHERE
+  const whereMatch = q.match(/\bWHERE\b(.+?)(?:\bGROUP\b|\bHAVING\b|\bORDER\b|\bLIMIT\b|$)/is);
+  if (whereMatch) {
+    const cond = whereMatch[1].trim();
+    rows = rows.filter(row => evalWhere(cond, row));
+  }
+
+  // SELECT columns
+  const selectMatch = q.match(/^SELECT\s+([\s\S]+?)\s+FROM/i);
+  const selectStr = selectMatch[1].trim();
+
+  // GROUP BY
+  const groupMatch = q.match(/\bGROUP\s+BY\s+([\w.,\s]+?)(?:\bHAVING\b|\bORDER\b|\bLIMIT\b|$)/i);
+  if (groupMatch) {
+    const gCols = groupMatch[1].trim().split(',').map(c=>c.trim());
+    const groups = {};
+    rows.forEach(row => {
+      const key = gCols.map(c=>row[c]??row[c.split('.').pop()]).join('|');
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(row);
+    });
+    rows = Object.values(groups).map(grp => {
+      const out = {};
+      gCols.forEach(c => out[c.split('.').pop()] = grp[0][c]??grp[0][c.split('.').pop()]);
+      // Resolve aggregate columns
+      const aggParts = selectStr.split(',');
+      aggParts.forEach(part => {
+        part = part.trim();
+        const aggM = part.match(/(COUNT|SUM|AVG|MIN|MAX)\s*\(\s*(\*|\w+)\s*\)(?:\s+AS\s+(\w+))?/i);
+        if (aggM) {
+          const fn=aggM[1].toUpperCase(), col=aggM[2], alias=aggM[3]||part.trim();
+          const vals = grp.map(r=>parseFloat(r[col]??r[col.split('.').pop()])).filter(v=>!isNaN(v));
+          let v;
+          if(fn==='COUNT') v=grp.length;
+          else if(fn==='SUM') v=vals.reduce((a,b)=>a+b,0);
+          else if(fn==='AVG') v=vals.length?Math.round(vals.reduce((a,b)=>a+b,0)/vals.length):0;
+          else if(fn==='MIN') v=Math.min(...vals);
+          else if(fn==='MAX') v=Math.max(...vals);
+          out[alias.split('.').pop()] = v;
+        }
+      });
+      return out;
+    });
+  }
+
+  // HAVING
+  const havingMatch = q.match(/\bHAVING\b(.+?)(?:\bORDER\b|\bLIMIT\b|$)/is);
+  if (havingMatch) {
+    const cond = havingMatch[1].trim();
+    rows = rows.filter(row => evalWhere(cond, row));
+  }
+
+  // ORDER BY
+  const orderMatch = q.match(/\bORDER\s+BY\s+([\w.,\s]+?)(?:\bLIMIT\b|$)/i);
+  if (orderMatch) {
+    const parts = orderMatch[1].trim().split(',');
+    rows.sort((a,b) => {
+      for (const p of parts) {
+        const [col, dir='ASC'] = p.trim().split(/\s+/);
+        const c = col.split('.').pop();
+        const va = a[c], vb = b[c];
+        const d = dir.toUpperCase()==='DESC' ? -1 : 1;
+        if (va < vb) return -d; if (va > vb) return d;
+      }
+      return 0;
+    });
+  }
+
+  // LIMIT
+  const limitMatch = q.match(/\bLIMIT\s+(\d+)/i);
+  if (limitMatch) rows = rows.slice(0, parseInt(limitMatch[1]));
+
+  // Resolve SELECT columns
+  if (selectStr.trim() === '*') return rows;
+
+  // Handle window functions + aggregates in select
+  const aggGlobal = selectStr.match(/(COUNT|SUM|AVG|MIN|MAX)\s*\(\s*(\*|\w+)\s*\)(?:\s+AS\s+(\w+))?/i);
+  if (aggGlobal && !groupMatch) {
+    const fn=aggGlobal[1].toUpperCase(), col=aggGlobal[2], alias=aggGlobal[3]||fn;
+    const vals = rows.map(r=>parseFloat(r[col])).filter(v=>!isNaN(v));
+    let v;
+    if(fn==='COUNT') v=rows.length;
+    else if(fn==='SUM') v=vals.reduce((a,b)=>a+b,0);
+    else if(fn==='AVG') v=Math.round(vals.reduce((a,b)=>a+b,0)/vals.length*100)/100;
+    else if(fn==='MIN') v=Math.min(...vals);
+    else if(fn==='MAX') v=Math.max(...vals);
+    const result = {}; result[alias] = v;
+    // check for multiple aggs
+    const allAggs = [...selectStr.matchAll(/(COUNT|SUM|AVG|MIN|MAX)\s*\(\s*(\*|\w+)\s*\)(?:\s+AS\s+(\w+))?/gi)];
+    if (allAggs.length > 1) {
+      const out = {};
+      allAggs.forEach(m => {
+        const fn=m[1].toUpperCase(), col=m[2], alias=m[3]||fn;
+        const vals2 = rows.map(r=>parseFloat(r[col])).filter(v=>!isNaN(v));
+        if(fn==='COUNT') out[alias]=rows.length;
+        else if(fn==='SUM') out[alias]=vals2.reduce((a,b)=>a+b,0);
+        else if(fn==='AVG') out[alias]=Math.round(vals2.reduce((a,b)=>a+b,0)/vals2.length*100)/100;
+        else if(fn==='MIN') out[alias]=Math.min(...vals2);
+        else if(fn==='MAX') out[alias]=Math.max(...vals2);
+      });
+      return [out];
+    }
+    return [result];
+  }
+
+  // Window functions
+  const rankMatch = selectStr.match(/(RANK|ROW_NUMBER|SUM)\s*\(\)\s*OVER\s*\(([^)]*)\)/gi);
+  if (rankMatch) {
+    // process PARTITION BY & ORDER BY inside OVER
+    rows = applyWindowFunctions(rows, selectStr);
+  }
+
+  const cols = selectStr.split(',').map(c => {
+    c = c.trim();
+    const asM = c.match(/^(.+?)\s+AS\s+(\w+)$/i);
+    if (asM) return {expr: asM[1].trim(), alias: asM[2]};
+    const dotM = c.match(/^[\w]+\.(\w+)$/);
+    if (dotM) return {expr: c, alias: dotM[1]};
+    return {expr: c, alias: c};
+  });
+
+  return rows.map(row => {
+    const out = {};
+    cols.forEach(({expr, alias}) => {
+      const parts = expr.split('.');
+      const key = parts[parts.length-1];
+      // window fn already resolved
+      if (alias in row) { out[alias] = row[alias]; return; }
+      out[alias] = row[key] !== undefined ? row[key] : (row[expr] !== undefined ? row[expr] : null);
+    });
+    return out;
+  });
+}
+
+function applyWindowFunctions(rows, selectStr) {
+  const fns = [...selectStr.matchAll(/(RANK|ROW_NUMBER|SUM)\s*\(\s*[^)]*\)\s*OVER\s*\(([^)]*)\)(?:\s+AS\s+(\w+))?/gi)];
+  fns.forEach(match => {
+    const fn = match[1].toUpperCase(), over = match[2], alias = match[3] || fn.toLowerCase();
+    const partMatch = over.match(/PARTITION\s+BY\s+([\w,\s]+?)(?:\s+ORDER|\s*$)/i);
+    const ordMatch = over.match(/ORDER\s+BY\s+([\w\s,]+?)(?:\s*$)/i);
+    const partCols = partMatch ? partMatch[1].split(',').map(c=>c.trim()) : [];
+    const ordCols = ordMatch ? ordMatch[1].trim().split(',') : [];
+
+    const groups = {};
+    rows.forEach(r => {
+      const key = partCols.map(c=>r[c]).join('|') || 'all';
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(r);
+    });
+
+    Object.values(groups).forEach(grp => {
+      if (ordCols.length) {
+        grp.sort((a,b)=>{
+          for(const p of ordCols){const [c,d='ASC']=p.trim().split(/\s+/);const diff=a[c]<b[c]?-1:a[c]>b[c]?1:0;return d.toUpperCase()==='DESC'?-diff:diff;}
+          return 0;
+        });
+      }
+      grp.forEach((r,i) => { r[alias] = i+1; });
+    });
+  });
+  return rows;
+}
+
+function evalWhere(cond, row) {
+  cond = cond.replace(/\bIN\s*\(([^)]+)\)/gi, (_, vals) => {
+    const list = vals.split(',').map(v=>v.trim().replace(/^['"]|['"]$/g,''));
+    return `__IN__[${list.join('|')}]`;
+  });
+  cond = cond.replace(/\bBETWEEN\s+([\d.]+)\s+AND\s+([\d.]+)/gi, (_, a, b) => `__BETWEEN__${a}__${b}`);
+  cond = cond.replace(/\bLIKE\s+'([^']+)'/gi, (_, p) => `__LIKE__${p}`);
+
+  const andParts = cond.split(/\bAND\b/i);
+  return andParts.every(part => {
+    const orParts = part.split(/\bOR\b/i);
+    return orParts.some(p => evalSingle(p.trim(), row));
+  });
+}
+
+function evalSingle(expr, row) {
+  const inM = expr.match(/^([\w.]+)\s+__IN__\[([^\]]+)\]$/i);
+  if (inM) {
+    const col = inM[1].split('.').pop(), vals = inM[2].split('|');
+    return vals.includes(String(row[col]));
+  }
+  const btM = expr.match(/^([\w.]+)\s+__BETWEEN__([^_]+)__(.+)$/i);
+  if (btM) {
+    const col=btM[1].split('.').pop(), v=parseFloat(row[col]);
+    return v >= parseFloat(btM[2]) && v <= parseFloat(btM[3]);
+  }
+  const likeM = expr.match(/^([\w.]+)\s+__LIKE__(.+)$/i);
+  if (likeM) {
+    const col=likeM[1].split('.').pop();
+    const pattern = likeM[2].replace(/%/g,'.*').replace(/_/g,'.');
+    return new RegExp('^'+pattern+'$','i').test(String(row[col]||''));
+  }
+  const m = expr.match(/^([\w.]+)\s*(=|!=|<>|>=|<=|>|<)\s*(.+)$/i);
+  if (m) {
+    const col=m[1].split('.').pop(), op=m[2];
+    let rv = m[3].trim().replace(/^['"]|['"]$/g,'');
+    let lv = row[col]; if (!isNaN(rv) && !isNaN(lv)) { rv=parseFloat(rv); lv=parseFloat(lv); }
+    switch(op){case'=':return lv==rv;case'!=':case'<>':return lv!=rv;case'>':return lv>rv;case'<':return lv<rv;case'>=':return lv>=rv;case'<=':return lv<=rv;}
+  }
+  return true;
+}
+
+function resetSQL(id, val) { document.getElementById(id).value = val; }
+
+// ─── PYTHON SIMULATOR ────────────────────────────────────
+function runPython(edId, outId) {
+  const code = document.getElementById(edId).value;
+  const outEl = document.getElementById(outId);
+  outEl.className = 'py-output';
+  const lines = [];
+  const fakePrint = (...args) => lines.push(args.map(a=>formatPy(a)).join(' '));
+
+  try {
+    const pyCode = code
+      .replace(/print\s*\(/g, '__print__(')
+      .replace(/f"([^"]*)"/g, (_, t) => '`' + t.replace(/\{([^}]+)\}/g, '${$1}') + '`')
+      .replace(/f'([^']*)'/g, (_, t) => '`' + t.replace(/\{([^}]+)\}/g, '${$1}') + '`')
+      .replace(/\bTrue\b/g, 'true').replace(/\bFalse\b/g, 'false').replace(/\bNone\b/g, 'null')
+      .replace(/#[^\n]*/g, '')
+      .replace(/def (\w+)\s*\(([^)]*)\)\s*:/g, 'function $1($2) {')
+      .replace(/"""[^"""]*"""/g, '')
+      .replace(/for (\w+) in range\((\d+),\s*(\d+)(?:,\s*(-?\d+))?\)\s*:/g, 'for(let $1=$2;$1<$3;$1+=$4||1) {')
+      .replace(/for (\w+) in range\((\d+)\)\s*:/g, 'for(let $1=0;$1<$2;$1++) {')
+      .replace(/for (\w+) in (\w+)\s*:/g, 'for(const $1 of $2) {')
+      .replace(/if (.+?)\s*:/g, 'if ($1) {')
+      .replace(/elif (.+?)\s*:/g, '} else if ($1) {')
+      .replace(/else\s*:/g, '} else {')
+      .replace(/\blen\((\w+)\)/g, '$1.length')
+      .replace(/\bmax\(([^)]+)\)/g, 'Math.max(...$1)')
+      .replace(/\bmin\(([^)]+)\)/g, 'Math.min(...$1)')
+      .replace(/\bsum\(([^)]+)\)/g, '$1.reduce((a,b)=>a+b,0)')
+      .replace(/\babs\(([^)]+)\)/g, 'Math.abs($1)')
+      .replace(/\bint\(([^)]+)\)/g, 'parseInt($1)')
+      .replace(/\bfloat\(([^)]+)\)/g, 'parseFloat($1)')
+      .replace(/\bstr\(([^)]+)\)/g, 'String($1)')
+      .replace(/\btype\(([^)]+)\)/g, '"<class \'"+typeof $1+"\'>"')
+      .replace(/:([,\n\r])/g, '$1');
+
+    const fn = new Function('__print__', pyCode + '\nreturn null;');
+    fn(fakePrint);
+    outEl.textContent = lines.join('\n') || '(no output)';
+  } catch(e) {
+    outEl.className = 'py-output err';
+    outEl.textContent = 'Error: ' + e.message;
+  }
+}
+
+function formatPy(v) {
+  if (typeof v === 'number') {
+    if (Number.isInteger(v)) return String(v);
+    return v.toFixed(2).replace(/\.?0+$/, '');
+  }
+  return String(v);
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────
+function showCourse(id, btn) {
+  document.querySelectorAll('.course-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  else {
+    const idx = {sql:0,python:1,econ:2,finance:3,fs:4}[id];
+    document.querySelectorAll('.tab-btn')[idx]?.classList.add('active');
+  }
+  const counts = {sql:10,python:8,econ:7,finance:7,fs:6};
+  drawChartsFor(id);
+}
+
+function showLesson(course, idx, btn) {
+  const lessons = document.querySelectorAll(`#panel-${course} .lesson`);
+  lessons.forEach(l=>l.classList.remove('active'));
+  const tl = document.querySelector(`#panel-${course}`).querySelectorAll('.toc-item');
+  tl.forEach(b=>b.classList.remove('active'));
+
+  const target = document.getElementById(`${course}-${idx}`);
+  if (target) target.classList.add('active');
+  if (btn) btn.classList.add('active');
+  else tl[idx]?.classList.add('active');
+
+  const total = {sql:10,python:8,econ:7,finance:7,fs:6}[course];
+  const pct = Math.round(((idx+1)/total)*100);
+  document.getElementById(`prog-${course}`).style.width = pct+'%';
+  window.scrollTo({top:200,behavior:'smooth'});
+}
+
+// ─── QUIZ ────────────────────────────────────────────────
+function quiz(btn, result) {
+  const box = btn.closest('.quiz-box');
+  box.querySelectorAll('.quiz-opt').forEach(b=>b.disabled=true);
+  btn.classList.add(result);
+  const fb = box.querySelector('.quiz-feedback');
+  fb.classList.add('show', result==='correct'?'ok':'no');
+  fb.textContent = result==='correct' ? '✓ Correct! Well done.' : '✗ Not quite — try reviewing the lesson.';
+}
+
+// ─── COPY CODE ──────────────────────────────────────────
+function copyCode(btn) {
+  const text = btn.closest('.code-block').querySelector('.code-body').textContent;
+  navigator.clipboard.writeText(text).then(()=>{btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',2000);});
+}
+
+// ─── TVM CALCULATOR ─────────────────────────────────────
+function calcTVM() {
+  const pv = parseFloat(document.getElementById('tvm-pv').value);
+  const r  = parseFloat(document.getElementById('tvm-rate').value)/100;
+  const n  = parseFloat(document.getElementById('tvm-years').value);
+  const fv = pv * Math.pow(1+r, n);
+  document.getElementById('tvm-result').textContent =
+    `Future Value = ₹${fv.toLocaleString('en-IN', {maximumFractionDigits:0})}  (${((fv/pv-1)*100).toFixed(1)}% total return)`;
+}
+
+// ─── CHARTS ─────────────────────────────────────────────
+let chartInstances = {};
+function makeChart(id, config) {
+  if (chartInstances[id]) chartInstances[id].destroy();
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  chartInstances[id] = new Chart(ctx, config);
+}
+
+function drawChartsFor(course) {
+  if (course === 'python') drawStockChart();
+  if (course === 'econ') { drawSDChart(); drawGDPChart(); drawInflChart(); drawTradeChart(); }
+  if (course === 'finance') { drawTVMChart(); drawCompChart(); drawPortChart(); }
+  if (course === 'fs') { drawBSChart(); drawCFChart(); drawRatioChart(); }
+}
+
+function drawSDChart() {
+  const labels = Array.from({length:20},(_,i)=>i*5);
+  const demand = labels.map(q=>Math.max(0,100-2*q));
+  const supply = labels.map(q=>10+2*q);
+  makeChart('sdChart',{type:'line',data:{labels,datasets:[
+    {label:'Demand (P=100-2Q)',data:demand,borderColor:'#5b9cf6',backgroundColor:'rgba(91,156,246,.1)',tension:.4,fill:true},
+    {label:'Supply (P=10+2Q)',data:supply,borderColor:'#4ecb8d',backgroundColor:'rgba(78,203,141,.1)',tension:.4,fill:true}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#8899aa',font:{size:11}}}},scales:{x:{title:{display:true,text:'Quantity',color:'#5a6a85'},ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}},y:{title:{display:true,text:'Price',color:'#5a6a85'},ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}}}}});
+}
+
+function drawGDPChart() {
+  makeChart('gdpChart',{type:'bar',data:{labels:['2017','2018','2019','2020','2021','2022','2023','2024'],datasets:[{label:'GDP Growth Rate (%)',data:[6.8,6.5,5.0,-7.3,8.7,7.2,8.2,7.8],backgroundColor:d=>d.raw<0?'rgba(240,96,144,.7)':'rgba(78,203,141,.7)',borderColor:d=>d.raw<0?'#f06090':'#4ecb8d',borderWidth:1}]},options:{responsive:true,plugins:{legend:{labels:{color:'#8899aa'}}},scales:{x:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}},y:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'},title:{display:true,text:'%',color:'#5a6a85'}}}}});
+}
+
+function drawInflChart() {
+  const yrs = Array.from({length:21},(_,i)=>2024+i);
+  const pwr = yrs.map(y=>+(100*Math.pow(0.94,y-2024)).toFixed(1));
+  makeChart('inflChart',{type:'line',data:{labels:yrs,datasets:[{label:'₹100 purchasing power',data:pwr,borderColor:'#f0c060',backgroundColor:'rgba(240,192,96,.1)',fill:true,tension:.4}]},options:{responsive:true,plugins:{legend:{labels:{color:'#8899aa'}}},scales:{x:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}},y:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}}}}});
+}
+
+function drawTradeChart() {
+  makeChart('tradeChart',{type:'bar',data:{labels:['2019','2020','2021','2022','2023','2024'],datasets:[{label:'Exports',data:[314,270,290,421,447,452],backgroundColor:'rgba(78,203,141,.7)'},{label:'Imports',data:[467,360,394,710,679,678],backgroundColor:'rgba(240,96,144,.7)'}]},options:{responsive:true,plugins:{legend:{labels:{color:'#8899aa'}}},scales:{x:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}},y:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}}}}});
+}
+
+function drawTVMChart() {
+  const yrs = [0,2,4,6,8,10,12,15,20];
+  const vals = yrs.map(y=>(100000*Math.pow(1.12,y)).toFixed(0));
+  makeChart('tvmChart',{type:'line',data:{labels:yrs.map(y=>'Year '+y),datasets:[{label:'Value of ₹1 Lakh at 12%',data:vals,borderColor:'#f0c060',backgroundColor:'rgba(240,192,96,.15)',fill:true,tension:.4,pointBackgroundColor:'#f0c060'}]},options:{responsive:true,plugins:{legend:{labels:{color:'#8899aa'}}},scales:{x:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}},y:{ticks:{color:'#5a6a85',callback:v=>'₹'+Number(v).toLocaleString('en-IN')},grid:{color:'#1e2d45'}}}}});
+}
+
+function drawCompChart() {
+  const yrs = Array.from({length:21},(_,i)=>i);
+  const simple = yrs.map(y=>100000+100000*0.10*y);
+  const compound = yrs.map(y=>Math.round(100000*Math.pow(1.10,y)));
+  makeChart('compChart',{type:'line',data:{labels:yrs.map(y=>'Y'+y),datasets:[{label:'Simple Interest',data:simple,borderColor:'#5b9cf6',tension:.3},{label:'Compound Interest',data:compound,borderColor:'#f0c060',backgroundColor:'rgba(240,192,96,.1)',fill:true,tension:.3}]},options:{responsive:true,plugins:{legend:{labels:{color:'#8899aa'}}},scales:{x:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}},y:{ticks:{color:'#5a6a85',callback:v=>'₹'+Number(v).toLocaleString('en-IN')},grid:{color:'#1e2d45'}}}}});
+}
+
+function drawPortChart() {
+  makeChart('portChart',{type:'doughnut',data:{labels:['Indian Equities','US Stocks / ETFs','Gold','Fixed Deposits','Real Estate','Crypto'],datasets:[{data:[35,20,15,20,8,2],backgroundColor:['#5b9cf6','#4ecb8d','#f0c060','#a78bfa','#fb923c','#f06090'],hoverOffset:4}]},options:{responsive:true,plugins:{legend:{position:'right',labels:{color:'#8899aa',font:{size:11},boxWidth:12}}}}});
+}
+
+function drawBSChart() {
+  makeChart('bsChart',{type:'bar',data:{labels:['Current Assets','Non-Current Assets','Current Liab.','Long-term Debt','Equity'],datasets:[{label:'₹ Crore',data:[1900,2400,700,1200,2400],backgroundColor:['#4ecb8d','#5b9cf6','#f06090','#fb923c','#a78bfa']}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}},y:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}}}}});
+}
+
+function drawCFChart() {
+  makeChart('cfChart',{type:'bar',data:{labels:['Net Income','Dep.Add-back','WC Changes','Operating CF','CAPEX','Investing CF','Debt Repaid','Financing CF','Net Change'],datasets:[{data:[638,200,-100,738,-400,-380,-120,-180,178],backgroundColor:d=>d.raw>=0?'rgba(78,203,141,.75)':'rgba(240,96,144,.75)',borderColor:d=>d.raw>=0?'#4ecb8d':'#f06090',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#5a6a85',font:{size:10}},grid:{color:'#1e2d45'}},y:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}}}}});
+}
+
+function drawRatioChart() {
+  makeChart('ratioChart',{type:'radar',data:{labels:['Gross Margin','Net Margin','ROE','Current Ratio','Int.Coverage','Debt/Equity'],datasets:[{label:'XYZ Ltd',data:[40,12.8,26.6,2.7,6.7,62],borderColor:'#f0c060',backgroundColor:'rgba(240,192,96,.15)',pointBackgroundColor:'#f0c060'},{label:'Industry Avg',data:[35,10,20,2,4,80],borderColor:'#5b9cf6',backgroundColor:'rgba(91,156,246,.1)',pointBackgroundColor:'#5b9cf6'}]},options:{responsive:true,plugins:{legend:{labels:{color:'#8899aa'}}},scales:{r:{ticks:{color:'#5a6a85',backdropColor:'transparent'},grid:{color:'#1e2d45'},pointLabels:{color:'#8899aa'}}}}});
+}
+
+function drawStockChart() {
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  makeChart('stockChart',{type:'line',data:{labels:months,datasets:[{label:'INFY',data:[1400,1450,1380,1500,1520,1490,1600,1650,1580,1700,1680,1750],borderColor:'#5b9cf6',backgroundColor:'rgba(91,156,246,.1)',tension:.4,fill:true},{label:'TCS',data:[3600,3750,3700,3900,3850,4000,4100,4050,4200,4300,4250,4400],borderColor:'#f0c060',tension:.4}]},options:{responsive:true,plugins:{legend:{labels:{color:'#8899aa'}}},scales:{x:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}},y:{ticks:{color:'#5a6a85'},grid:{color:'#1e2d45'}}}}});
+}
+
+// Initial chart draw for SQL (active panel)
+setTimeout(()=>{ /* SQL panel has no charts */ }, 100);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</body>
+</html>

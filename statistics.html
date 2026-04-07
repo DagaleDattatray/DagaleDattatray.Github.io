@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Statistics – Complete Course | Dattatray Dagale</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#07080d;--surf:#0d0f17;--card:#111520;--card2:#161b28;--border:#1d2438;
+  --c1:#e05c5c;--c2:#f0a04e;--c3:#f0e060;--c4:#5ecf8a;--c5:#5ab4f5;--c6:#a07af5;--c7:#f06090;
+  --text:#dde6f0;--muted:#4e5f7a;--dim:#7a8fa8;
+  --mono:'IBM Plex Mono',monospace;
+  --serif:'Lora',serif;
+  --sans:'Syne',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7;overflow-x:hidden}
+
+/* GRAIN OVERLAY */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:.4}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(7,8,13,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.5rem;height:56px;gap:1rem}
+.nav-logo{font-size:1rem;font-weight:800;letter-spacing:-.02em;background:linear-gradient(135deg,var(--c1),var(--c2),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap;text-decoration:none}
+.nav-spacer{flex:1}
+.nav-link{color:var(--muted);text-decoration:none;font-size:.78rem;font-weight:600;border:1px solid var(--border);padding:.28rem .75rem;border-radius:4px;letter-spacing:.04em;transition:all .2s}
+.nav-link:hover{color:var(--c3);border-color:var(--c3)}
+
+/* HERO */
+.hero{padding:5rem 1.5rem 3rem;position:relative;overflow:hidden;text-align:center}
+.hero-glow{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(224,92,92,.07) 0%,rgba(240,224,96,.05) 40%,transparent 70%);pointer-events:none}
+.hero-label{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--c1);font-weight:700;margin-bottom:1rem}
+.hero h1{font-size:clamp(2.2rem,6vw,4rem);font-weight:800;letter-spacing:-.04em;line-height:1.05;margin-bottom:1rem}
+.hero h1 .hi{color:var(--c3)}
+.hero h1 .lo{color:var(--c5)}
+.hero-sub{color:var(--dim);font-family:var(--serif);font-size:1.05rem;max-width:500px;margin:0 auto 2rem;font-style:italic}
+.module-pills{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+.pill{font-size:.72rem;font-weight:700;letter-spacing:.05em;padding:.3rem .8rem;border-radius:20px;border:1px solid;cursor:pointer;transition:all .2s}
+.pill:hover,.pill.active{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+
+/* MODULE NAV */
+.mod-nav{display:flex;overflow-x:auto;padding:.8rem 1.5rem;background:var(--surf);border-bottom:1px solid var(--border);gap:.4rem;scrollbar-width:none;position:sticky;top:56px;z-index:90}
+.mod-nav::-webkit-scrollbar{display:none}
+.mod-btn{white-space:nowrap;padding:.42rem 1rem;border-radius:6px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:var(--sans);font-size:.78rem;font-weight:600;transition:all .2s;letter-spacing:.02em;display:flex;align-items:center;gap:.4rem}
+.mod-btn:hover{color:var(--text);border-color:var(--dim)}
+.mod-btn.active{color:#07080d;border-color:transparent;font-weight:700}
+
+/* MAIN */
+.main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 6rem}
+.module{display:none}
+.module.active{display:block;animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* MODULE HEADER */
+.mod-header{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.mod-num{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;margin-bottom:.4rem}
+.mod-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:.6rem}
+.mod-desc{color:var(--dim);font-family:var(--serif);font-style:italic;font-size:.98rem}
+
+/* TOPIC GRID */
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin:1.5rem 0}
+.topic-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem;cursor:pointer;transition:all .2s}
+.topic-card:hover{border-color:var(--dim);transform:translateY(-2px)}
+.topic-card.active{border-color:currentColor}
+.tc-icon{font-size:1.5rem;margin-bottom:.5rem}
+.tc-name{font-size:.88rem;font-weight:700;margin-bottom:.25rem}
+.tc-desc{font-size:.76rem;color:var(--muted);line-height:1.5}
+
+/* CONTENT SECTION */
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+.sec-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.2em;font-weight:700;margin-bottom:.6rem}
+.sec-title{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.8rem}
+.prose{font-family:var(--serif);color:var(--text);font-size:.93rem;line-height:1.85;margin-bottom:1rem}
+.prose strong{font-family:var(--sans);font-weight:700;color:var(--c3)}
+.prose em{color:var(--dim)}
+
+/* FORMULA BOX */
+.formula{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--c3);border-radius:0 8px 8px 0;padding:1rem 1.4rem;margin:1rem 0;font-family:var(--mono);font-size:.9rem;color:var(--c3);line-height:1.8}
+.formula .label{font-size:.7rem;color:var(--muted);margin-bottom:.3rem;font-family:var(--sans);letter-spacing:.1em;text-transform:uppercase}
+
+/* DATA TABLE */
+.dtable{width:100%;border-collapse:collapse;font-size:.83rem;margin:1rem 0}
+.dtable th{background:rgba(255,255,255,.04);color:var(--c5);padding:.5rem .8rem;text-align:left;border-bottom:1px solid var(--border);font-weight:600;font-family:var(--sans)}
+.dtable td{padding:.45rem .8rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text);font-family:var(--mono);font-size:.8rem}
+.dtable tr:last-child td{border-bottom:none;font-weight:700;color:var(--c3)}
+.dtable tr:hover td{background:rgba(255,255,255,.02)}
+
+/* INFO BOXES */
+.info{border-radius:8px;padding:.85rem 1.1rem;margin:.8rem 0;font-size:.86rem;line-height:1.7;font-family:var(--serif)}
+.info strong{font-family:var(--sans);font-weight:700}
+.info.blue{border-left:3px solid var(--c5);background:rgba(90,180,245,.07);color:var(--dim)}
+.info.green{border-left:3px solid var(--c4);background:rgba(94,207,138,.07);color:var(--dim)}
+.info.yellow{border-left:3px solid var(--c3);background:rgba(240,224,96,.07);color:var(--dim)}
+.info.red{border-left:3px solid var(--c1);background:rgba(224,92,92,.07);color:var(--dim)}
+.info.purple{border-left:3px solid var(--c6);background:rgba(160,122,245,.07);color:var(--dim)}
+
+/* CANVAS CONTAINERS */
+.viz{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin:1rem 0}
+.viz-head{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:.8rem;display:flex;align-items:center;justify-content:space-between}
+canvas{max-width:100%;border-radius:6px}
+
+/* INTERACTIVE CALC */
+.calc-box{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:1.4rem;margin:1rem 0}
+.calc-title{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:1rem}
+.calc-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:.8rem;align-items:center}
+.calc-row label{font-size:.78rem;color:var(--muted);font-weight:600;white-space:nowrap}
+.calc-row input,.calc-row select{background:var(--surf);border:1px solid var(--border);color:var(--text);padding:.45rem .7rem;border-radius:6px;font-family:var(--mono);font-size:.83rem;outline:none;transition:border-color .2s;flex:1;min-width:120px}
+.calc-row input:focus,.calc-row select:focus{border-color:var(--c5)}
+.run-btn{background:var(--c4);color:#07080d;border:none;padding:.5rem 1.2rem;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.82rem;cursor:pointer;transition:opacity .2s;white-space:nowrap}
+.run-btn:hover{opacity:.85}
+.calc-out{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:.8rem;font-family:var(--mono);font-size:.82rem;line-height:1.9;min-height:60px;color:var(--c4)}
+.calc-out.empty{color:var(--muted);font-style:italic}
+
+/* QUIZ */
+.quiz{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:1.4rem;margin:1.5rem 0}
+.quiz-q{font-weight:700;font-size:.92rem;margin-bottom:1rem;color:var(--text)}
+.quiz-opts{display:flex;flex-direction:column;gap:.5rem}
+.qopt{background:var(--surf);border:1px solid var(--border);border-radius:7px;padding:.6rem .9rem;cursor:pointer;font-size:.84rem;color:var(--dim);transition:all .2s;text-align:left;font-family:var(--sans);font-weight:500}
+.qopt:hover{border-color:var(--c5);color:var(--text)}
+.qopt.correct{border-color:var(--c4);background:rgba(94,207,138,.1);color:var(--c4)}
+.qopt.wrong{border-color:var(--c1);background:rgba(224,92,92,.1);color:var(--c1)}
+.quiz-fb{margin-top:.7rem;font-size:.82rem;padding:.5rem .8rem;border-radius:6px;display:none;font-family:var(--serif)}
+.quiz-fb.show{display:block}
+.quiz-fb.ok{background:rgba(94,207,138,.1);color:var(--c4);border:1px solid rgba(94,207,138,.2)}
+.quiz-fb.no{background:rgba(224,92,92,.1);color:var(--c1);border:1px solid rgba(224,92,92,.2)}
+
+/* CONCEPT GRID */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.8rem;margin:1rem 0}
+.ccard{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:.95rem;transition:all .2s}
+.ccard:hover{border-color:var(--dim)}
+.ccard-icon{font-size:1.3rem;margin-bottom:.4rem}
+.ccard-name{font-size:.82rem;font-weight:700;margin-bottom:.25rem}
+.ccard-text{font-size:.75rem;color:var(--muted);line-height:1.55}
+
+/* DOT PLOT DIV */
+.dot-row{display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem;font-size:.78rem}
+.dot-val{width:36px;color:var(--muted);text-align:right;font-family:var(--mono)}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:1px}
+
+/* BAR */
+.bar-chart-d{display:flex;flex-direction:column;gap:.5rem;margin:1rem 0}
+.bar-d-row{display:flex;align-items:center;gap:.7rem;font-size:.8rem}
+.bar-d-label{width:110px;color:var(--dim);text-align:right;flex-shrink:0;font-family:var(--mono)}
+.bar-d-wrap{flex:1;background:var(--border);border-radius:20px;height:22px;overflow:hidden;position:relative}
+.bar-d-fill{height:100%;border-radius:20px;display:flex;align-items:center;padding-left:.5rem;font-size:.7rem;font-weight:700;color:#07080d;transition:width 1.2s cubic-bezier(.16,1,.3,1)}
+.bar-d-num{width:40px;color:var(--dim);font-family:var(--mono);font-size:.76rem}
+
+/* STEP BOX */
+.steps{counter-reset:step}
+.step{display:flex;gap:.9rem;margin-bottom:1rem;align-items:flex-start}
+.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.78rem;flex-shrink:0;color:#07080d}
+.step-body{flex:1}
+.step-title{font-weight:700;font-size:.88rem;margin-bottom:.2rem}
+.step-text{font-size:.82rem;color:var(--dim);font-family:var(--serif);line-height:1.6}
+
+/* COMPARISON TABLE */
+.cmp-table{width:100%;border-collapse:collapse;font-size:.82rem;margin:1rem 0}
+.cmp-table th{padding:.55rem .8rem;text-align:left;border-bottom:2px solid var(--border);font-weight:700;font-family:var(--sans)}
+.cmp-table td{padding:.5rem .8rem;border-bottom:1px solid rgba(255,255,255,.04);font-family:var(--serif)}
+.cmp-table tr:hover td{background:rgba(255,255,255,.02)}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--muted)}
+
+/* FOOTER */
+footer{text-align:center;padding:2.5rem;border-top:1px solid var(--border);color:var(--muted);font-size:.8rem}
+footer a{color:var(--c3);text-decoration:none}
+
+/* RESP */
+@media(max-width:640px){.calc-row{flex-direction:column}.calc-row input{min-width:100%}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Σ Statistics</a>
+  <div class="nav-spacer"></div>
+  <a class="nav-link" href="learn.html">📚 Learn Hub</a>
+  <a class="nav-link" href="https://dagaledattatray.github.io/" style="margin-left:.3rem">🏠 Portfolio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-label">Complete Statistics Course</div>
+  <h1>The Language of <span class="hi">Data</span><br>& <span class="lo">Uncertainty</span></h1>
+  <p class="hero-sub">From central tendency to regression — every concept you need, with interactive visualizations.</p>
+  <div class="module-pills">
+    <span class="pill" style="color:var(--c1);border-color:rgba(224,92,92,.4)">📊 Central Tendency</span>
+    <span class="pill" style="color:var(--c2);border-color:rgba(240,160,78,.4)">📏 Dispersion</span>
+    <span class="pill" style="color:var(--c3);border-color:rgba(240,224,96,.4)">🔔 Distributions</span>
+    <span class="pill" style="color:var(--c4);border-color:rgba(94,207,138,.4)">🎲 Probability</span>
+    <span class="pill" style="color:var(--c5);border-color:rgba(90,180,245,.4)">🔗 Correlation</span>
+    <span class="pill" style="color:var(--c6);border-color:rgba(160,122,245,.4)">📈 Regression</span>
+    <span class="pill" style="color:var(--c7);border-color:rgba(240,96,144,.4)">🧪 Hypothesis Testing</span>
+  </div>
+</div>
+
+<!-- MODULE NAV -->
+<div class="mod-nav" id="modNav">
+  <button class="mod-btn active" onclick="showMod('m1',this)" style="--ac:var(--c1)">📊 1. Central Tendency</button>
+  <button class="mod-btn" onclick="showMod('m2',this)">📏 2. Dispersion</button>
+  <button class="mod-btn" onclick="showMod('m3',this)">🔔 3. Distributions</button>
+  <button class="mod-btn" onclick="showMod('m4',this)">🎲 4. Probability</button>
+  <button class="mod-btn" onclick="showMod('m5',this)">🔗 5. Correlation</button>
+  <button class="mod-btn" onclick="showMod('m6',this)">📈 6. Regression</button>
+  <button class="mod-btn" onclick="showMod('m7',this)">🧪 7. Hypothesis Testing</button>
+  <button class="mod-btn" onclick="showMod('m8',this)">📦 8. Sampling</button>
+  <button class="mod-btn" onclick="showMod('m9',this)">📉 9. Time Series</button>
+  <button class="mod-btn" onclick="showMod('m10',this)">🔢 10. Index Numbers</button>
+</div>
+
+<div class="main">
+
+<!-- ═══════════════ MODULE 1: CENTRAL TENDENCY ══════════════════ -->
+<div class="module active" id="m1">
+  <div class="mod-header">
+    <div class="mod-num" style="color:var(--c1)">Module 01 · Central Tendency</div>
+    <div class="mod-title">Measures of <span style="color:var(--c1)">Central Tendency</span></div>
+    <div class="mod-desc">Where does the data "centre" itself? Mean, Median, Mode — and when to use each.</div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="section">
+    <div class="sec-label" style="color:var(--c1)">Concept Overview</div>
+    <div class="sec-title">What is Central Tendency?</div>
+    <p class="prose">A measure of central tendency gives us a <strong>single representative value</strong> that summarises an entire dataset. It answers: <em>"What is the typical or central value?"</em> The three main measures are the <strong>Mean</strong>, <strong>Median</strong>, and <strong>Mode</strong> — each with unique strengths and use-cases.</p>
+    <div class="cgrid">
+      <div class="ccard" style="border-color:rgba(224,92,92,.3)"><div class="ccard-icon">➗</div><div class="ccard-name" style="color:var(--c1)">Arithmetic Mean</div><div class="ccard-text">Sum of all values ÷ count. Most common, sensitive to outliers.</div></div>
+      <div class="ccard" style="border-color:rgba(94,207,138,.3)"><div class="ccard-icon">⚖️</div><div class="ccard-name" style="color:var(--c4)">Median</div><div class="ccard-text">Middle value when sorted. Robust to outliers. Best for income data.</div></div>
+      <div class="ccard" style="border-color:rgba(90,180,245,.3)"><div class="ccard-icon">👑</div><div class="ccard-name" style="color:var(--c5)">Mode</div><div class="ccard-text">Most frequent value. Used for categorical data & shoe sizes.</div></div>
+      <div class="ccard" style="border-color:rgba(240,160,78,.3)"><div class="ccard-icon">📐</div><div class="ccard-name" style="color:var(--c2)">Geometric Mean</div><div class="ccard-text">ⁿ√(x₁×x₂×…×xₙ). Used for growth rates, investment returns.</div></div>
+      <div class="ccard" style="border-color:rgba(240,224,96,.3)"><div class="ccard-icon">🔄</div><div class="ccard-name" style="color:var(--c3)">Harmonic Mean</div><div class="ccard-text">n ÷ Σ(1/xᵢ). Used for rates and speeds.</div></div>
+      <div class="ccard" style="border-color:rgba(160,122,245,.3)"><div class="ccard-icon">⚡</div><div class="ccard-name" style="color:var(--c6)">Weighted Mean</div><div class="ccard-text">Mean where values have different importance weights.</div></div>
+    </div>
+  </div>
+
+  <!-- ARITHMETIC MEAN -->
+  <div class="section">
+    <div class="sec-label" style="color:var(--c1)">Measure 1</div>
+    <div class="sec-title">Arithmetic Mean (AM) — The Average</div>
+    <p class="prose">The arithmetic mean is the <strong>sum of all observations divided by the number of observations</strong>. It is the most widely used measure and is the "balance point" of a distribution.</p>
+    <div class="formula">
+      <div class="label">Arithmetic Mean</div>
+      x̄ = (x₁ + x₂ + ... + xₙ) / n = Σxᵢ / n<br><br>
+      <span style="color:var(--dim)">For Grouped Data:</span>  x̄ = Σ(fᵢ × mᵢ) / Σfᵢ
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num" style="background:var(--c1)">1</div><div class="step-body"><div class="step-title">List all values</div><div class="step-text">Dataset: 12, 18, 25, 30, 15 → n = 5</div></div></div>
+      <div class="step"><div class="step-num" style="background:var(--c1)">2</div><div class="step-body"><div class="step-title">Sum all values</div><div class="step-text">Σx = 12 + 18 + 25 + 30 + 15 = 100</div></div></div>
+      <div class="step"><div class="step-num" style="background:var(--c1)">3</div><div class="step-body"><div class="step-title">Divide by count</div><div class="step-text">x̄ = 100 / 5 = <strong style="color:var(--c1)">20</strong></div></div></div>
+    </div>
+    <div class="info red"><strong>⚠ Outlier Problem:</strong> Salaries: ₹20k, ₹22k, ₹19k, ₹21k, ₹500k. Mean = ₹116.4k — completely misleading! One CEO salary skews the entire picture. This is why India's <em>median</em> household income is always reported alongside mean.</div>
+    <div class="viz">
+      <div class="viz-head"><span style="color:var(--c1)">📊 Mean as Balance Point — Interactive</span></div>
+      <canvas id="meanChart" height="180"></canvas>
+    </div>
+    <!-- MEAN CALCULATOR -->
+    <div class="calc-box">
+      <div class="calc-title" style="color:var(--c1)">🧮 Mean Calculator</div>
+      <div class="calc-row">
+        <label>Enter values (comma-separated):</label>
+        <input type="text" id="mean-inp" value="12, 18, 25, 30, 15, 22" placeholder="e.g. 10, 20, 30"/>
+        <button class="run-btn" onclick="calcMean()">Calculate</button>
+      </div>
+      <div class="calc-out empty" id="mean-out">Results will appear here...</div>
+    </div>
+  </div>
+
+  <!-- MEDIAN -->
+  <div class="section">
+    <div class="sec-label" style="color:var(--c4)">Measure 2</div>
+    <div class="sec-title">Median — The Middle Value</div>
+    <p class="prose">The median is the <strong>middle value</strong> when data is arranged in ascending order. For an even number of observations, it's the mean of the two middle values. The median is <strong>not affected by extreme values</strong> (outliers), making it ideal for skewed distributions like income and house prices.</p>
+    <div class="formula">
+      <div class="label">Median — Ungrouped Data</div>
+      Odd n:   Median = value at position (n+1)/2<br>
+      Even n:  Median = average of values at n/2 and (n/2)+1<br><br>
+      <span style="color:var(--dim)">For Grouped Data (Ogive method):</span><br>
+      Median = L + [(n/2 − cf) / f] × h
+    </div>
+    <div class="info green"><strong>Grouped Data Formula Legend:</strong> L = lower boundary of median class | n = total frequency | cf = cumulative frequency before median class | f = frequency of median class | h = class width</div>
+    <div class="calc-box">
+      <div class="calc-title" style="color:var(--c4)">⚖️ Median Calculator</div>
+      <div class="calc-row">
+        <label>Enter values:</label>
+        <input type="text" id="med-inp" value="3, 1, 7, 8, 2, 9, 4" placeholder="e.g. 5, 2, 8, 1"/>
+        <button class="run-btn" onclick="calcMedian()">Calculate</button>
+      </div>
+      <div class="calc-out empty" id="med-out">Results will appear here...</div>
+    </div>
+    <div class="viz">
+      <div class="viz-head"><span style="color:var(--c4)">Mean vs Median in Skewed Data</span></div>
+      <canvas id="skewChart" height="180"></canvas>
+    </div>
+  </div>
+
+  <!-- MODE -->
+  <div class="section">
+    <div class="sec-label" style="color:var(--c5)">Measure 3</div>
+    <div class="sec-title">Mode — The Most Frequent Value</div>
+    <p class="prose">The mode is the value that <strong>appears most often</strong> in a dataset. A distribution can be <strong>unimodal</strong> (one mode), <strong>bimodal</strong> (two modes), or <strong>multimodal</strong>. Mode is the only measure applicable to <em>categorical/nominal data</em> (e.g., most popular colour, most common occupation).</p>
+    <div class="formula">
+      <div class="label">Mode — Grouped Data (Czuprow's Formula)</div>
+      Mode = L + [f₁ − f₀ / (2f₁ − f₀ − f₂)] × h<br><br>
+      <span style="color:var(--dim)">L=lower boundary of modal class | f₁=modal class freq | f₀=preceding class freq | f₂=succeeding class freq | h=class width</span>
+    </div>
+    <div class="info blue"><strong>Real Example:</strong> Shoe sizes: 7, 8, 7, 9, 7, 8, 6, 7. Mode = 7. The manufacturer should produce the most size-7 shoes. Mean (7.4) is useless here — you can't make size 7.4 shoes!</div>
+    <div class="calc-box">
+      <div class="calc-title" style="color:var(--c5)">👑 Mode Finder</div>
+      <div class="calc-row">
+        <label>Enter values:</label>
+        <input type="text" id="mode-inp" value="2, 4, 4, 4, 5, 5, 7, 9" placeholder="e.g. 1, 2, 2, 3"/>
+        <button class="run-btn" onclick="calcMode()">Find Mode</button>
+      </div>
+      <div class="calc-out empty" id="mode-out">Results will appear here...</div>
+    </div>
+  </div>
+
+  <!-- GEOMETRIC MEAN -->
+  <div class="section">
+    <div class="sec-label" style="color:var(--c2)">Measure 4</div>
+    <div class="sec-title">Geometric Mean — For Growth Rates</div>
+    <p class="prose">The geometric mean is the <strong>nth root of the product of n values</strong>. It is used when values are multiplicative in nature — like compound interest, population growth rates, and investment returns. It is always ≤ Arithmetic Mean (AM–GM inequality).</p>
+    <div class="formula">
+      <div class="label">Geometric Mean</div>
+      GM = ⁿ√(x₁ × x₂ × ... × xₙ) = (∏xᵢ)^(1/n)<br><br>
+      <span style="color:var(--dim)">Equivalent using logarithms:</span><br>
+      log(GM) = [log(x₁) + log(x₂) + ... + log(xₙ)] / n
+    </div>
+    <div class="info yellow"><strong>Example:</strong> Nifty 50 returns: Year 1 = +20%, Year 2 = −10%, Year 3 = +15%.<br>
+    Using values: 1.20, 0.90, 1.15 → GM = ∛(1.20 × 0.90 × 1.15) = ∛1.242 ≈ 1.075 → <strong>7.5% CAGR</strong>.<br>
+    Arithmetic mean gives (20−10+15)/3 = 8.33% — which overstates returns!</div>
+    <div class="calc-box">
+      <div class="calc-title" style="color:var(--c2)">📐 Geometric Mean Calculator</div>
+      <div class="calc-row">
+        <label>Enter values (positive):</label>
+        <input type="text" id="gm-inp" value="1.20, 0.90, 1.15, 1.08" placeholder="growth multipliers"/>
+        <button class="run-btn" onclick="calcGM()">Calculate</button>
+      </div>
+      <div class="calc-out empty" id="gm-out">Results will appear here...</div>
+    </div>
+  </div>
+
+  <!-- HARMONIC MEAN -->
+  <div class="section">
+    <div class="sec-label" style="color:var(--c3)">Measure 5</div>
+    <div class="sec-title">Harmonic Mean — For Rates & Speeds</div>
+    <p class="prose">The harmonic mean is the <strong>reciprocal of the arithmetic mean of the reciprocals</strong>. It's used when dealing with <em>rates</em> — speed, frequency, P/E ratios in finance. It gives more weight to smaller values.</p>
+    <div class="formula">
+      <div class="label">Harmonic Mean</div>
+      HM = n / Σ(1/xᵢ) = n / (1/x₁ + 1/x₂ + ... + 1/xₙ)
+    </div>
+    <div class="info purple"><strong>Classic Speed Problem:</strong> A car travels 60 km at 30 km/h and 60 km at 60 km/h. Average speed = HM(30, 60) = 2/(1/30+1/60) = 2/(3/60) = <strong>40 km/h</strong>. Arithmetic mean gives 45 km/h — wrong!</div>
+    <div class="info blue"><strong>Finance Use:</strong> Averaging P/E ratios across stocks in a portfolio — HM is more appropriate than AM because P/E is a ratio (price per unit of earnings).</div>
+    <div class="formula" style="color:var(--c5)"><div class="label">Relationship: AM ≥ GM ≥ HM (for positive values)</div>
+    Example: Values 2, 8 → AM = 5, GM = 4, HM = 3.2</div>
+  </div>
+
+  <!-- WEIGHTED MEAN -->
+  <div class="section">
+    <div class="sec-label" style="color:var(--c6)">Measure 6</div>
+    <div class="sec-title">Weighted Mean — Importance Matters</div>
+    <p class="prose">When different values carry <strong>different levels of importance (weights)</strong>, we use the weighted mean. It is the foundation of index numbers, GPA calculations, and portfolio return calculations.</p>
+    <div class="formula">
+      <div class="label">Weighted Arithmetic Mean</div>
+      x̄w = Σ(wᵢ × xᵢ) / Σwᵢ
+    </div>
+    <div class="calc-box">
+      <div class="calc-title" style="color:var(--c6)">⚡ GPA / Weighted Mean Calculator</div>
+      <p style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem">Example: Marks(Values) and Credits(Weights) for 4 subjects</p>
+      <div class="calc-row"><label>Values (marks):</label><input type="text" id="wm-vals" value="85, 72, 90, 65" placeholder="values"/></div>
+      <div class="calc-row"><label>Weights (credits):</label><input type="text" id="wm-wts" value="4, 3, 4, 2" placeholder="weights"/></div>
+      <div class="calc-row"><button class="run-btn" onclick="calcWM()">Calculate Weighted Mean</button></div>
+      <div class="calc-out empty" id="wm-out">Results will appear here...</div>
+    </div>
+    <table class="dtable">
+      <tr><th>Subject</th><th>Marks (xᵢ)</th><th>Credits (wᵢ)</th><th>wᵢ × xᵢ</th></tr>
+      <tr><td>Economics</td><td>85</td><td>4</td><td>340</td></tr>
+      <tr><td>Statistics</td><td>72</td><td>3</td><td>216</td></tr>
+      <tr><td>Finance</td><td>90</td><td>4</td><td>360</td></tr>
+      <tr><td>History</td><td>65</td><td>2</td><td>130</td></tr>
+      <tr><td><strong>Total</strong></td><td>—</td><td><strong>13</strong></td><td><strong>1046</strong></td></tr>
+    </table>
+    <div class="formula" style="color:var(--c6)">Weighted Mean = 1046 / 13 = <strong>80.46</strong> (Simple mean = 78 — different!)</div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div class="section">
+    <div class="sec-label" style="color:var(--c3)">Summary</div>
+    <div class="sec-title">When to Use Which Measure?</div>
+    <table class="cmp-table">
+      <tr><th style="color:var(--c3)">Situation</th><th style="color:var(--c5)">Best Measure</th><th style="color:var(--muted)">Why</th></tr>
+      <tr><td>Exam scores, heights, temperatures</td><td style="color:var(--c1)">Arithmetic Mean</td><td style="color:var(--muted)">Symmetric, no outliers</td></tr>
+      <tr><td>Income, house prices, wealth</td><td style="color:var(--c4)">Median</td><td style="color:var(--muted)">Skewed distribution, outliers</td></tr>
+      <tr><td>Shoe sizes, favourite colour, most common profession</td><td style="color:var(--c5)">Mode</td><td style="color:var(--muted)">Categorical / nominal data</td></tr>
+      <tr><td>Investment returns, population growth, CAGR</td><td style="color:var(--c2)">Geometric Mean</td><td style="color:var(--muted)">Multiplicative growth</td></tr>
+      <tr><td>Speeds, rates, P/E ratio averaging</td><td style="color:var(--c3)">Harmonic Mean</td><td style="color:var(--muted)">Rate-based data</td></tr>
+      <tr><td>GPA, portfolio returns, index numbers</td><td style="color:var(--c6)">Weighted Mean</td><td style="color:var(--muted)">Unequal importance</td></tr>
+    </table>
+    <div class="viz">
+      <div class="viz-head"><span style="color:var(--c3)">All Three on One Distribution — Symmetric vs Skewed</span></div>
+      <canvas id="ctChart" height="200"></canvas>
+    </div>
+    <div class="quiz">
+      <div class="quiz-q">A dataset has values: 2, 4, 4, 4, 5, 5, 7, 9. Which statement is TRUE?</div>
+      <div class="quiz-opts">
+        <button class="qopt" onclick="qz(this,'wrong')">Mean = Median = Mode (symmetric)</button>
+        <button class="qopt" onclick="qz(this,'correct')">Mode (4) &lt; Median (4.5) &lt; Mean (5)</button>
+        <button class="qopt" onclick="qz(this,'wrong')">Mode is undefined as two values repeat</button>
+        <button class="qopt" onclick="qz(this,'wrong')">Median = 5</button>
+      </div>
+      <div class="quiz-fb"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODULE 2: DISPERSION ══════════════════ -->
+<div class="module" id="m2">
+  <div class="mod-header">
+    <div class="mod-num" style="color:var(--c2)">Module 02 · Measures of Dispersion</div>
+    <div class="mod-title">How Spread Out is the <span style="color:var(--c2)">Data?</span></div>
+    <div class="mod-desc">Central tendency tells where data centres. Dispersion tells how much it varies.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-label" style="color:var(--c2)">Core Concept</div>
+    <div class="sec-title">Why Dispersion Matters</div>
+    <p class="prose">Two datasets can have the <strong>same mean but completely different spreads</strong>. Student A scores: 48, 50, 50, 52 (Mean=50). Student B scores: 10, 50, 90, 50 (Mean=50). Same mean — but Student B is wildly inconsistent!</p>
+    <div class="cgrid">
+      <div class="ccard"><div class="ccard-icon">📏</div><div class="ccard-name" style="color:var(--c2)">Range</div><div class="ccard-text">Max − Min. Simple but affected by outliers.</div></div>
+      <div class="ccard"><div class="ccard-icon">🎯</div><div class="ccard-name" style="color:var(--c2)">Mean Deviation</div><div class="ccard-text">Average of |deviations from mean|. More informative than range.</div></div>
+      <div class="ccard"><div class="ccard-icon">📐</div><div class="ccard-name" style="color:var(--c2)">Variance</div><div class="ccard-text">Average of squared deviations. Foundation of statistics.</div></div>
+      <div class="ccard"><div class="ccard-icon">σ</div><div class="ccard-name" style="color:var(--c2)">Standard Deviation</div><div class="ccard-text">√Variance. Most used measure of spread.</div></div>
+      <div class="ccard"><div class="ccard-icon">📊</div><div class="ccard-name" style="color:var(--c2)">IQR</div><div class="ccard-text">Q3 − Q1. Middle 50% range. Robust to outliers.</div></div>
+      <div class="ccard"><div class="ccard-icon">%</div><div class="ccard-name" style="color:var(--c2)">CV</div><div class="ccard-text">CV = (σ/x̄) × 100. Compares spread across datasets.</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Range & Mean Deviation</div>
+    <div class="formula"><div class="label">Range & Mean Deviation</div>
+      Range = Xmax − Xmin<br>
+      Mean Deviation (from mean) = Σ|xᵢ − x̄| / n<br>
+      Mean Deviation (from median) = Σ|xᵢ − M| / n</div>
+    <div class="info blue"><strong>Mean Deviation is more representative than Range</strong> because Range uses only 2 values while MD uses all values. MD from Median is always ≤ MD from Mean.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Variance & Standard Deviation</div>
+    <p class="prose">Standard deviation is the <strong>most important measure of dispersion</strong> in statistics. It quantifies the average spread of data around the mean. Population vs Sample formulas differ by the denominator (N vs n−1).</p>
+    <div class="formula"><div class="label">Variance & Standard Deviation</div>
+      Population Variance:  σ² = Σ(xᵢ − μ)² / N<br>
+      Sample Variance:      s² = Σ(xᵢ − x̄)² / (n−1)  ← Bessel's correction<br>
+      Standard Deviation:   σ = √[Σ(xᵢ − μ)² / N]<br><br>
+      <span style="color:var(--dim)">Shortcut formula:</span>  σ² = Σxᵢ²/N − (Σxᵢ/N)²  =  E(X²) − [E(X)]²</div>
+    <div class="calc-box">
+      <div class="calc-title" style="color:var(--c2)">📐 Variance & SD Calculator</div>
+      <div class="calc-row">
+        <label>Enter values:</label>
+        <input type="text" id="sd-inp" value="14, 18, 11, 13, 6, 8, 2, 16, 4" placeholder="e.g. 10, 20, 30"/>
+        <select id="sd-type"><option value="pop">Population (÷N)</option><option value="samp" selected>Sample (÷n−1)</option></select>
+        <button class="run-btn" onclick="calcSD()">Calculate</button>
+      </div>
+      <div class="calc-out empty" id="sd-out">Results will appear here...</div>
+    </div>
+    <div class="viz">
+      <div class="viz-head"><span style="color:var(--c2)">Standard Deviation: Low vs High Spread</span></div>
+      <canvas id="sdChart" height="200"></canvas>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">IQR & Box Plot</div>
+    <p class="prose">The <strong>Interquartile Range (IQR)</strong> is the range of the middle 50% of data. Q1 (25th percentile), Q2 (Median), Q3 (75th percentile). A <strong>box plot</strong> visualises these five-number statistics: Min, Q1, Median, Q3, Max.</p>
+    <div class="formula"><div class="label">Quartiles & IQR</div>
+      Q1 = value at (n+1)/4 position<br>
+      Q3 = value at 3(n+1)/4 position<br>
+      IQR = Q3 − Q1<br>
+      Outlier bounds: &lt; Q1 − 1.5×IQR  or  &gt; Q3 + 1.5×IQR</div>
+    <div class="viz">
+      <div class="viz-head"><span style="color:var(--c2)">📦 Box Plot Visualisation</span></div>
+      <canvas id="boxChart" height="180"></canvas>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Coefficient of Variation (CV)</div>
+    <p class="prose">CV allows comparison of spread <strong>across datasets with different units or scales</strong>. It expresses standard deviation as a percentage of the mean. Lower CV = more consistent.</p>
+    <div class="formula"><div class="label">Coefficient of Variation</div>CV = (σ / x̄) × 100%</div>
+    <div class="info yellow"><strong>Example:</strong> Stock A: Mean return 10%, SD = 2% → CV = 20%. Stock B: Mean return 20%, SD = 8% → CV = 40%. Stock A is more consistent relative to its return — better risk-adjusted investment!</div>
+    <div class="quiz">
+      <div class="quiz-q">Which measure of dispersion is most useful for comparing variability between two datasets with different units (e.g., height in cm vs weight in kg)?</div>
+      <div class="quiz-opts">
+        <button class="qopt" onclick="qz(this,'wrong')">Standard Deviation</button>
+        <button class="qopt" onclick="qz(this,'wrong')">Range</button>
+        <button class="qopt" onclick="qz(this,'correct')">Coefficient of Variation (CV)</button>
+        <button class="qopt" onclick="qz(this,'wrong')">Variance</button>
+      </div>
+      <div class="quiz-fb"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODULE 3: DISTRIBUTIONS ══════════════════ -->
+<div class="module" id="m3">
+  <div class="mod-header">
+    <div class="mod-num" style="color:var(--c3)">Module 03 · Probability Distributions</div>
+    <div class="mod-title">The Shape of <span style="color:var(--c3)">Data</span></div>
+    <div class="mod-desc">Normal, binomial, Poisson — the mathematical models behind real-world phenomena.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Normal Distribution — The Bell Curve</div>
+    <p class="prose">The normal distribution is the most important distribution in statistics. Many natural phenomena — heights, exam scores, measurement errors — follow it. It is <strong>symmetric, bell-shaped</strong>, and completely defined by its mean (μ) and standard deviation (σ).</p>
+    <div class="formula"><div class="label">Normal Distribution PDF</div>
+      f(x) = (1/σ√2π) × e^[−(x−μ)²/2σ²]<br><br>
+      <span style="color:var(--dim)">Empirical Rule (68-95-99.7 Rule):</span><br>
+      μ ± 1σ  covers  68.27% of data<br>
+      μ ± 2σ  covers  95.45% of data<br>
+      μ ± 3σ  covers  99.73% of data</div>
+    <div class="viz">
+      <div class="viz-head"><span style="color:var(--c3)">🔔 Normal Distribution — 68-95-99.7 Rule</span></div>
+      <canvas id="normChart" height="220"></canvas>
+    </div>
+    <div class="info green"><strong>Z-Score (Standardisation):</strong> z = (x − μ) / σ. Transforms any normal distribution to Standard Normal (μ=0, σ=1). Used to find probabilities using Z-tables.</div>
+    <div class="calc-box">
+      <div class="calc-title" style="color:var(--c3)">🔔 Z-Score Calculator</div>
+      <div class="calc-row"><label>Value (x):</label><input type="number" id="z-x" value="75"/></div>
+      <div class="calc-row"><label>Mean (μ):</label><input type="number" id="z-mu" value="65"/></div>
+      <div class="calc-row"><label>Std Dev (σ):</label><input type="number" id="z-sd" value="10"/>
+        <button class="run-btn" onclick="calcZ()">Calculate Z</button></div>
+      <div class="calc-out empty" id="z-out">Results will appear here...</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Skewness & Kurtosis</div>
+    <p class="prose"><strong>Skewness</strong> measures asymmetry. <strong>Kurtosis</strong> measures the "tailedness" — how heavy the tails are compared to a normal distribution.</p>
+    <div class="formula"><div class="label">Pearson's Coefficient of Skewness</div>
+      Sk = 3(Mean − Median) / σ<br><br>
+      Positive Skew (right): Mean &gt; Median &gt; Mode  →  long right tail<br>
+      Negative Skew (left):  Mean &lt; Median &lt; Mode  →  long left tail<br>
+      Symmetric:             Mean = Median = Mode</div>
+    <div class="viz">
+      <div class="viz-head"><span style="color:var(--c3)">Negative | Symmetric | Positive Skew</span></div>
+      <canvas id="skewShape" height="200"></canvas>
+    </div>
+    <div class="info yellow"><strong>Kurtosis:</strong> Leptokurtic (K&gt;3) = heavy tails, sharp peak (riskier in finance). Platykurtic (K&lt;3) = light tails, flat peak. Mesokurtic (K=3) = normal distribution baseline.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Binomial Distribution</div>
+    <p class="prose">Models the number of <strong>successes in n independent Bernoulli trials</strong>, where each trial has probability p of success. Used for quality control, election polling, medical trials.</p>
+    <div class="formula"><div class="label">Binomial Distribution</div>
+      P(X = k) = C(n,k) × p^k × (1−p)^(n−k)<br>
+      Mean = np    |    Variance = np(1−p)    |    SD = √[np(1−p)]</div>
+    <div class="calc-box">
+      <div class="calc-title" style="color:var(--c3)">🎲 Binomial Probability Calculator</div>
+      <div class="calc-row"><label>n (trials):</label><input type="number" id="bn-n" value="10"/></div>
+      <div class="calc-row"><label>p (success prob):</label><input type="number" id="bn-p" value="0.4" step="0.01" min="0" max="1"/></div>
+      <div class="calc-row"><label>k (successes):</label><input type="number" id="bn-k" value="4"/>
+        <button class="run-btn" onclick="calcBinom()">Calculate P(X=k)</button></div>
+      <div class="calc-out empty" id="bn-out">Results will appear here...</div>
+    </div>
+    <div class="viz"><div class="viz-head"><span style="color:var(--c3)">Binomial Distribution (n=10, p=0.4)</span></div>
+      <canvas id="binomChart" height="180"></canvas></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Poisson Distribution</div>
+    <p class="prose">Models the number of <strong>events occurring in a fixed interval</strong> of time or space, when events occur at a constant average rate (λ). Used for: calls per hour, accidents per day, typos per page.</p>
+    <div class="formula"><div class="label">Poisson Distribution</div>
+      P(X = k) = (e^−λ × λ^k) / k!<br>
+      Mean = λ    |    Variance = λ    |    (Mean = Variance is a key property!)</div>
+    <div class="info blue"><strong>Example:</strong> A call centre receives 3 calls/minute on average (λ=3). P(exactly 5 calls in a minute) = (e⁻³ × 3⁵) / 5! = (0.0498 × 243) / 120 ≈ <strong>0.1008 (10.08%)</strong></div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODULE 4: PROBABILITY ══════════════════ -->
+<div class="module" id="m4">
+  <div class="mod-header">
+    <div class="mod-num" style="color:var(--c4)">Module 04 · Probability Theory</div>
+    <div class="mod-title">The Mathematics of <span style="color:var(--c4)">Chance</span></div>
+    <div class="mod-desc">Foundation of statistics, finance, and decision making under uncertainty.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Basic Probability Concepts</div>
+    <p class="prose">Probability is a <strong>number between 0 and 1</strong> that measures how likely an event is to occur. P=0 means impossible, P=1 means certain.</p>
+    <div class="formula"><div class="label">Classical Probability (Laplace)</div>
+      P(A) = Number of favourable outcomes / Total possible outcomes<br><br>
+      P(A') = 1 − P(A)   (Complement Rule)<br>
+      0 ≤ P(A) ≤ 1       (Axiom of Probability)</div>
+    <div class="cgrid">
+      <div class="ccard"><div class="ccard-icon">➕</div><div class="ccard-name" style="color:var(--c4)">Addition Rule</div><div class="ccard-text">P(A∪B) = P(A) + P(B) − P(A∩B). For mutually exclusive: P(A∪B) = P(A) + P(B).</div></div>
+      <div class="ccard"><div class="ccard-icon">✖️</div><div class="ccard-name" style="color:var(--c4)">Multiplication Rule</div><div class="ccard-text">P(A∩B) = P(A) × P(B|A). For independent: P(A∩B) = P(A) × P(B).</div></div>
+      <div class="ccard"><div class="ccard-icon">🔀</div><div class="ccard-name" style="color:var(--c4)">Conditional Probability</div><div class="ccard-text">P(A|B) = P(A∩B) / P(B). "Probability of A given B has occurred."</div></div>
+      <div class="ccard"><div class="ccard-icon">🧬</div><div class="ccard-name" style="color:var(--c4)">Bayes' Theorem</div><div class="ccard-text">P(A|B) = P(B|A)×P(A) / P(B). Updates beliefs with new evidence.</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Bayes' Theorem — Deep Dive</div>
+    <p class="prose">Bayes' theorem is one of the most powerful ideas in all of statistics. It tells us how to <strong>update our prior beliefs</strong> when we receive new evidence.</p>
+    <div class="formula"><div class="label">Bayes' Theorem</div>
+      P(H|E) = P(E|H) × P(H) / P(E)<br><br>
+      P(H|E) = Posterior  (belief after evidence)<br>
+      P(H)   = Prior      (initial belief)<br>
+      P(E|H) = Likelihood (how well H explains E)<br>
+      P(E)   = Marginal   (total probability of E)</div>
+    <div class="info green"><strong>Medical Test Example:</strong> Disease prevalence = 1% (Prior P(D)=0.01). Test is 99% accurate. You test positive. What's the actual probability you have the disease?<br><br>
+    P(D|+) = P(+|D)×P(D) / P(+) = (0.99×0.01) / (0.99×0.01 + 0.01×0.99) = 0.0099/0.0198 = <strong>50%</strong>! Not 99% as most people intuitively assume.</div>
+    <div class="viz">
+      <div class="viz-head"><span style="color:var(--c4)">Probability Tree — Medical Test</span></div>
+      <canvas id="bayesChart" height="200"></canvas>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Expected Value & Variance of a Random Variable</div>
+    <div class="formula"><div class="label">Expected Value (Discrete)</div>
+      E(X) = Σ xᵢ × P(xᵢ)<br>
+      Var(X) = E(X²) − [E(X)]² = Σ xᵢ² × P(xᵢ) − μ²<br>
+      SD(X) = √Var(X)</div>
+    <div class="info yellow"><strong>Portfolio Expected Return:</strong> Stock A: 20% return, 60% probability. Stock B: −5% return, 40% probability. E(return) = 0.20×0.60 + (−0.05)×0.40 = 0.12 − 0.02 = <strong>10% expected return</strong>.</div>
+    <div class="calc-box">
+      <div class="calc-title" style="color:var(--c4)">🎲 Expected Value Calculator</div>
+      <div class="calc-row"><label>Values (x):</label><input type="text" id="ev-x" value="-5, 0, 5, 10, 20" placeholder="outcomes"/></div>
+      <div class="calc-row"><label>Probabilities P(x):</label><input type="text" id="ev-p" value="0.1, 0.2, 0.3, 0.25, 0.15" placeholder="must sum to 1"/>
+        <button class="run-btn" onclick="calcEV()">Calculate E(X)</button></div>
+      <div class="calc-out empty" id="ev-out">Results will appear here...</div>
+    </div>
+    <div class="quiz">
+      <div class="quiz-q">A fair die is rolled. What is the Expected Value?</div>
+      <div class="quiz-opts">
+        <button class="qopt" onclick="qz(this,'wrong')">3</button>
+        <button class="qopt" onclick="qz(this,'correct')">3.5</button>
+        <button class="qopt" onclick="qz(this,'wrong')">4</button>
+        <button class="qopt" onclick="qz(this,'wrong')">2.5</button>
+      </div>
+      <div class="quiz-fb"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODULE 5: CORRELATION ══════════════════ -->
+<div class="module" id="m5">
+  <div class="mod-header">
+    <div class="mod-num" style="color:var(--c5)">Module 05 · Correlation Analysis</div>
+    <div class="mod-title">How Variables <span style="color:var(--c5)">Move Together</span></div>
+    <div class="mod-desc">Pearson, Spearman, and the golden rule: correlation ≠ causation.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Pearson's Correlation Coefficient (r)</div>
+    <p class="prose">Pearson's r measures the <strong>strength and direction of a linear relationship</strong> between two continuous variables. It ranges from −1 to +1.</p>
+    <div class="formula"><div class="label">Pearson's r</div>
+      r = Σ[(xᵢ−x̄)(yᵢ−ȳ)] / √[Σ(xᵢ−x̄)² × Σ(yᵢ−ȳ)²]<br>
+      r = [nΣxy − ΣxΣy] / √{[nΣx² − (Σx)²][nΣy² − (Σy)²]}</div>
+    <div class="bar-chart-d">
+      <div class="bar-d-row"><div class="bar-d-label">r = +1.0</div><div class="bar-d-wrap"><div class="bar-d-fill" style="width:100%;background:var(--c4)">Perfect +ve</div></div></div>
+      <div class="bar-d-row"><div class="bar-d-label">r = +0.7</div><div class="bar-d-wrap"><div class="bar-d-fill" style="width:85%;background:var(--c5)">Strong +ve</div></div></div>
+      <div class="bar-d-row"><div class="bar-d-label">r = +0.3</div><div class="bar-d-wrap"><div class="bar-d-fill" style="width:65%;background:var(--c2)">Weak +ve</div></div></div>
+      <div class="bar-d-row"><div class="bar-d-label">r = 0.0</div><div class="bar-d-wrap"><div class="bar-d-fill" style="width:45%;background:var(--muted)">No correlation</div></div></div>
+      <div class="bar-d-row"><div class="bar-d-label">r = −0.7</div><div class="bar-d-wrap"><div class="bar-d-fill" style="width:65%;background:var(--c2)">Strong −ve</div></div></div>
+      <div class="bar-d-row"><div class="bar-d-label">r = −1.0</div><div class="bar-d-wrap"><div class="bar-d-fill" style="width:100%;background:var(--c1)">Perfect −ve</div></div></div>
+    </div>
+    <div class="viz">
+      <div class="viz-head"><span style="color:var(--c5)">Scatter Plots — Different r Values</span></div>
+      <canvas id="corrChart" height="200"></canvas>
+    </div>
+    <div class="calc-box">
+      <div class="calc-title" style="color:var(--c5)">🔗 Pearson Correlation Calculator</div>
+      <div class="calc-row"><label>X values:</label><input type="text" id="cor-x" value="2, 4, 5, 6, 8, 9, 10, 12"/></div>
+      <div class="calc-row"><label>Y values:</label><input type="text" id="cor-y" value="3, 7, 8, 9, 15, 16, 17, 22"/>
+        <button class="run-btn" onclick="calcCorr()">Calculate r</button></div>
+      <div class="calc-out empty" id="cor-out">Results will appear here...</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Spearman's Rank Correlation</div>
+    <p class="prose">Spearman's ρ (rho) is a <strong>non-parametric measure</strong> based on the ranks of data. Use it when data is ordinal, or when the relationship is monotonic but not necessarily linear.</p>
+    <div class="formula"><div class="label">Spearman's Rank Correlation</div>
+      ρ = 1 − [6 × Σdᵢ²] / [n(n² − 1)]<br>
+      where dᵢ = rank(xᵢ) − rank(yᵢ)</div>
+    <div class="info blue"><strong>Use Spearman when:</strong> Data is ordinal (ranks, ratings) | Outliers are present | The relationship is monotonic but not linear | You're comparing rankings (e.g., judges' rankings in a competition).</div>
+    <div class="info red"><strong>Correlation ≠ Causation!</strong> Ice cream sales and drowning deaths are highly correlated (r≈0.9) — but ice cream doesn't cause drowning! Both are caused by a <em>confounding variable</em>: hot summer weather.</div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODULE 6: REGRESSION ══════════════════ -->
+<div class="module" id="m6">
+  <div class="mod-header">
+    <div class="mod-num" style="color:var(--c6)">Module 06 · Regression Analysis</div>
+    <div class="mod-title">Predicting with <span style="color:var(--c6)">Lines & Curves</span></div>
+    <div class="mod-desc">Build mathematical models that predict one variable from another.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Simple Linear Regression</div>
+    <p class="prose">Regression finds the <strong>best-fit line</strong> through data points. The "Ordinary Least Squares" (OLS) method minimises the sum of squared residuals (vertical distances from points to the line).</p>
+    <div class="formula"><div class="label">Regression Line: Y on X</div>
+      ŷ = a + bx<br>
+      b (slope) = [nΣxy − ΣxΣy] / [nΣx² − (Σx)²]  =  r × (σy/σx)<br>
+      a (intercept) = ȳ − b×x̄<br><br>
+      <span style="color:var(--dim)">Note: Regression line always passes through (x̄, ȳ)</span></div>
+    <div class="info green"><strong>R² (Coefficient of Determination):</strong> R² = r² tells what % of variance in Y is explained by X. R²=0.81 means 81% of variation in Y is explained by the regression model.</div>
+    <div class="calc-box">
+      <div class="calc-title" style="color:var(--c6)">📈 Linear Regression Calculator</div>
+      <div class="calc-row"><label>X values:</label><input type="text" id="reg-x" value="1, 2, 3, 4, 5, 6, 7, 8"/></div>
+      <div class="calc-row"><label>Y values:</label><input type="text" id="reg-y" value="2.1, 3.9, 6.2, 7.8, 9.3, 11.2, 13.1, 14.8"/>
+        <button class="run-btn" onclick="calcReg()">Calculate</button></div>
+      <div class="calc-out empty" id="reg-out">Results will appear here...</div>
+    </div>
+    <div class="viz">
+      <div class="viz-head"><span style="color:var(--c6)">Regression Line — Scatter + Best Fit</span></div>
+      <canvas id="regChart" height="220"></canvas>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Two Regression Lines</div>
+    <p class="prose">In statistics, there are <strong>two regression lines</strong>: Y on X (used to predict Y given X), and X on Y (used to predict X given Y). They are different unless r = ±1.</p>
+    <div class="formula"><div class="label">Two Regression Lines</div>
+      Y on X: (y−ȳ) = r(σy/σx)(x−x̄)     → use to predict Y<br>
+      X on Y: (x−x̄) = r(σx/σy)(y−ȳ)     → use to predict X<br><br>
+      Both lines intersect at the point (x̄, ȳ)<br>
+      Product of regression coefficients = r²  →  byx × bxy = r²</div>
+    <div class="info yellow"><strong>Finding r from regression coefficients:</strong> If byx = 0.8 and bxy = 0.2, then r = √(0.8 × 0.2) = √0.16 = 0.4. Note: r has the same sign as both coefficients.</div>
+    <div class="quiz">
+      <div class="quiz-q">The regression coefficient of Y on X is 1.6 and of X on Y is 0.4. What is the correlation coefficient r?</div>
+      <div class="quiz-opts">
+        <button class="qopt" onclick="qz(this,'wrong')">0.64</button>
+        <button class="qopt" onclick="qz(this,'correct')">0.8</button>
+        <button class="qopt" onclick="qz(this,'wrong')">2.0</button>
+        <button class="qopt" onclick="qz(this,'wrong')">0.4</button>
+      </div>
+      <div class="quiz-fb"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODULE 7: HYPOTHESIS TESTING ══════════════════ -->
+<div class="module" id="m7">
+  <div class="mod-header">
+    <div class="mod-num" style="color:var(--c7)">Module 07 · Hypothesis Testing</div>
+    <div class="mod-title">Is it Real or Just <span style="color:var(--c7)">Random Chance?</span></div>
+    <div class="mod-desc">The framework of scientific decision-making under uncertainty.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">The Hypothesis Testing Framework</div>
+    <p class="prose">Hypothesis testing is a formal procedure to decide whether sample data provides enough evidence to reject a <strong>null hypothesis (H₀)</strong>. We never "prove" H₀ true — we only reject it or fail to reject it.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num" style="background:var(--c7)">1</div><div class="step-body"><div class="step-title">State Hypotheses</div><div class="step-text">H₀ (null): No effect / status quo. H₁ (alternative): There is an effect.</div></div></div>
+      <div class="step"><div class="step-num" style="background:var(--c7)">2</div><div class="step-body"><div class="step-title">Choose Significance Level</div><div class="step-text">α = 0.05 (5%) is most common. This is the probability of rejecting H₀ when it's true (Type I error).</div></div></div>
+      <div class="step"><div class="step-num" style="background:var(--c7)">3</div><div class="step-body"><div class="step-title">Choose & Calculate Test Statistic</div><div class="step-text">Z-test, t-test, chi-square, F-test — depends on data type and sample size.</div></div></div>
+      <div class="step"><div class="step-num" style="background:var(--c7)">4</div><div class="step-body"><div class="step-title">Find p-value or Critical Value</div><div class="step-text">p-value = probability of getting results as extreme as observed, assuming H₀ is true.</div></div></div>
+      <div class="step"><div class="step-num" style="background:var(--c7)">5</div><div class="step-body"><div class="step-title">Make Decision</div><div class="step-text">If p-value &lt; α → Reject H₀. If p-value ≥ α → Fail to reject H₀.</div></div></div>
+    </div>
+    <div class="formula"><div class="label">Common Test Statistics</div>
+      Z-test (known σ, large n): z = (x̄ − μ₀) / (σ/√n)<br>
+      t-test (unknown σ, small n): t = (x̄ − μ₀) / (s/√n),  df = n−1<br>
+      Chi-square (goodness of fit): χ² = Σ[(O−E)²/E]</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Type I & Type II Errors</div>
+    <table class="cmp-table">
+      <tr><th></th><th style="color:var(--c4)">H₀ is TRUE</th><th style="color:var(--c1)">H₀ is FALSE</th></tr>
+      <tr><td style="font-weight:700">Reject H₀</td><td style="color:var(--c1)">Type I Error (α) — False Positive</td><td style="color:var(--c4)">Correct Decision (Power = 1−β)</td></tr>
+      <tr><td style="font-weight:700">Fail to Reject H₀</td><td style="color:var(--c4)">Correct Decision (1−α)</td><td style="color:var(--c2)">Type II Error (β) — False Negative</td></tr>
+    </table>
+    <div class="info red"><strong>Type I Error (α):</strong> Convicting an innocent person. Rejecting H₀ when it's true. We control this directly with α.</div>
+    <div class="info yellow"><strong>Type II Error (β):</strong> Acquitting a guilty person. Failing to detect a real effect. Minimise by increasing sample size.</div>
+    <div class="viz"><div class="viz-head"><span style="color:var(--c7)">Critical Region — One Tailed vs Two Tailed</span></div>
+      <canvas id="critChart" height="200"></canvas></div>
+    <div class="quiz">
+      <div class="quiz-q">A drug company claims their drug works. The null hypothesis H₀ is "the drug has no effect." If the drug works but the test fails to detect it, this is a:</div>
+      <div class="quiz-opts">
+        <button class="qopt" onclick="qz(this,'wrong')">Type I Error</button>
+        <button class="qopt" onclick="qz(this,'correct')">Type II Error (β)</button>
+        <button class="qopt" onclick="qz(this,'wrong')">Correct Decision</button>
+        <button class="qopt" onclick="qz(this,'wrong')">p-value error</button>
+      </div>
+      <div class="quiz-fb"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODULE 8: SAMPLING ══════════════════ -->
+<div class="module" id="m8">
+  <div class="mod-header">
+    <div class="mod-num" style="color:var(--c2)">Module 08 · Sampling Theory</div>
+    <div class="mod-title">The Art of <span style="color:var(--c2)">Representative Selection</span></div>
+    <div class="mod-desc">How to draw conclusions about a population from a sample.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Population vs Sample</div>
+    <p class="prose">A <strong>population</strong> is the entire group of interest. A <strong>sample</strong> is a subset drawn from it. Statistics (from sample) are used to estimate Parameters (of population).</p>
+    <table class="cmp-table">
+      <tr><th>Measure</th><th style="color:var(--c5)">Population (Parameter)</th><th style="color:var(--c4)">Sample (Statistic)</th></tr>
+      <tr><td>Mean</td><td>μ (mu)</td><td>x̄ (x-bar)</td></tr>
+      <tr><td>Variance</td><td>σ² (sigma squared)</td><td>s²</td></tr>
+      <tr><td>Std Dev</td><td>σ (sigma)</td><td>s</td></tr>
+      <tr><td>Size</td><td>N</td><td>n</td></tr>
+      <tr><td>Proportion</td><td>P</td><td>p̂</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Sampling Methods</div>
+    <div class="cgrid">
+      <div class="ccard"><div class="ccard-icon">🎲</div><div class="ccard-name" style="color:var(--c4)">Simple Random</div><div class="ccard-text">Every member has equal chance. Like a lottery draw.</div></div>
+      <div class="ccard"><div class="ccard-icon">📋</div><div class="ccard-name" style="color:var(--c5)">Systematic</div><div class="ccard-text">Select every kth element. Simple but may have periodicity bias.</div></div>
+      <div class="ccard"><div class="ccard-icon">🗂️</div><div class="ccard-name" style="color:var(--c6)">Stratified</div><div class="ccard-text">Divide into strata (groups), sample proportionally from each.</div></div>
+      <div class="ccard"><div class="ccard-icon">📍</div><div class="ccard-name" style="color:var(--c2)">Cluster</div><div class="ccard-text">Divide into clusters, randomly select entire clusters.</div></div>
+      <div class="ccard"><div class="ccard-icon">⚠️</div><div class="ccard-name" style="color:var(--c1)">Convenience</div><div class="ccard-text">Use what's easiest. Fast but biased — not recommended.</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Central Limit Theorem (CLT) — The Most Important Theorem</div>
+    <p class="prose">The CLT states that the <strong>sampling distribution of the sample mean approaches a normal distribution</strong> as the sample size increases (n ≥ 30), regardless of the shape of the population distribution. This is why the normal distribution is everywhere!</p>
+    <div class="formula"><div class="label">Sampling Distribution of x̄</div>
+      E(x̄) = μ     (sample mean is unbiased estimator of population mean)<br>
+      SE(x̄) = σ/√n  (Standard Error of the Mean)<br><br>
+      As n → ∞,  x̄ ~ N(μ, σ²/n)</div>
+    <div class="viz"><div class="viz-head"><span style="color:var(--c2)">Central Limit Theorem — Sample Size Effect</span></div>
+      <canvas id="cltChart" height="200"></canvas></div>
+    <div class="info green"><strong>Confidence Interval:</strong> x̄ ± z × (σ/√n). For 95% CI, z = 1.96. This means: we are 95% confident the true population mean lies within this range.</div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODULE 9: TIME SERIES ══════════════════ -->
+<div class="module" id="m9">
+  <div class="mod-header">
+    <div class="mod-num" style="color:var(--c5)">Module 09 · Time Series Analysis</div>
+    <div class="mod-title">Patterns Through <span style="color:var(--c5)">Time</span></div>
+    <div class="mod-desc">Decompose trends, seasonality, and cycles in temporal data.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Components of Time Series</div>
+    <div class="cgrid">
+      <div class="ccard"><div class="ccard-icon">📈</div><div class="ccard-name" style="color:var(--c5)">Trend (T)</div><div class="ccard-text">Long-term upward/downward movement. GDP growing over decades.</div></div>
+      <div class="ccard"><div class="ccard-icon">📅</div><div class="ccard-name" style="color:var(--c4)">Seasonal (S)</div><div class="ccard-text">Regular pattern that repeats within a year. Ice cream sales in summer.</div></div>
+      <div class="ccard"><div class="ccard-icon">🔄</div><div class="ccard-name" style="color:var(--c2)">Cyclical (C)</div><div class="ccard-text">Irregular fluctuations over 2–10 years. Business cycles.</div></div>
+      <div class="ccard"><div class="ccard-icon">⚡</div><div class="ccard-name" style="color:var(--c1)">Irregular (I)</div><div class="ccard-text">Random, unpredictable variations. Natural disasters, wars.</div></div>
+    </div>
+    <div class="formula"><div class="label">Time Series Decomposition Models</div>
+      Additive:         Y = T + S + C + I      (when seasonal variation is constant)<br>
+      Multiplicative:   Y = T × S × C × I     (when seasonal variation grows with trend)</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Moving Averages</div>
+    <p class="prose">A moving average smooths out short-term fluctuations to reveal the underlying trend. A <strong>3-year moving average</strong> replaces each value with the average of it and its two neighbours.</p>
+    <div class="viz"><div class="viz-head"><span style="color:var(--c5)">Moving Average Smoothing</span></div>
+      <canvas id="maChart" height="200"></canvas></div>
+    <div class="formula"><div class="label">Simple Moving Average (3-period)</div>
+      MA₃ = (Yt−1 + Yt + Yt+1) / 3<br><br>
+      <span style="color:var(--dim)">For even-period MAs (e.g. 4-point), a second centring average is needed.</span></div>
+    <div class="info yellow"><strong>Exponential Smoothing:</strong> Gives more weight to recent observations. St = αXt + (1−α)St−1 where α is the smoothing constant (0&lt;α&lt;1). Higher α = more responsive to recent changes.</div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODULE 10: INDEX NUMBERS ══════════════════ -->
+<div class="module" id="m10">
+  <div class="mod-header">
+    <div class="mod-num" style="color:var(--c3)">Module 10 · Index Numbers</div>
+    <div class="mod-title">Measuring <span style="color:var(--c3)">Change Over Time</span></div>
+    <div class="mod-desc">The mathematics behind CPI, WPI, Sensex, and cost-of-living indices.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">What are Index Numbers?</div>
+    <p class="prose">Index numbers are <strong>specialised averages that measure relative change</strong> in a variable (or group of variables) over time or between places. They reduce complex data to a single comparable number. The <strong>Consumer Price Index (CPI)</strong> measures inflation; the <strong>Sensex</strong> measures stock market performance.</p>
+    <div class="formula"><div class="label">Simple Price Index</div>
+      P₀₁ = (P₁ / P₀) × 100<br>
+      where P₀ = price in base year, P₁ = price in current year</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Weighted Index Numbers</div>
+    <div class="cgrid">
+      <div class="ccard"><div class="ccard-icon">📊</div><div class="ccard-name" style="color:var(--c3)">Laspeyres Index</div><div class="ccard-text">Uses BASE YEAR quantities as weights. Tends to overstate inflation.</div></div>
+      <div class="ccard"><div class="ccard-icon">📐</div><div class="ccard-name" style="color:var(--c5)">Paasche Index</div><div class="ccard-text">Uses CURRENT YEAR quantities as weights. Understates inflation.</div></div>
+      <div class="ccard"><div class="ccard-icon">⚖️</div><div class="ccard-name" style="color:var(--c4)">Fisher's Ideal Index</div><div class="ccard-text">Geometric mean of Laspeyres & Paasche. Called "ideal" as it satisfies all tests.</div></div>
+    </div>
+    <div class="formula"><div class="label">Key Index Formulas</div>
+      Laspeyres:  L = [Σ(P₁Q₀) / Σ(P₀Q₀)] × 100<br>
+      Paasche:    Pa = [Σ(P₁Q₁) / Σ(P₀Q₁)] × 100<br>
+      Fisher:     F = √(L × Pa)    ← Geometric Mean of L and Pa</div>
+    <div class="calc-box">
+      <div class="calc-title" style="color:var(--c3)">🧮 Index Number Calculator (Laspeyres & Paasche)</div>
+      <p style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem">Enter prices and quantities for 3 commodities</p>
+      <div class="calc-row"><label>P₀ (base prices):</label><input type="text" id="idx-p0" value="10, 20, 30" placeholder="base year prices"/></div>
+      <div class="calc-row"><label>P₁ (current prices):</label><input type="text" id="idx-p1" value="12, 25, 35" placeholder="current prices"/></div>
+      <div class="calc-row"><label>Q₀ (base quantities):</label><input type="text" id="idx-q0" value="50, 30, 20" placeholder="base quantities"/></div>
+      <div class="calc-row"><label>Q₁ (current quantities):</label><input type="text" id="idx-q1" value="55, 28, 22" placeholder="current quantities"/>
+        <button class="run-btn" onclick="calcIndex()">Calculate</button></div>
+      <div class="calc-out empty" id="idx-out">Results will appear here...</div>
+    </div>
+    <div class="info blue"><strong>Tests for Index Numbers (Fisher's tests):</strong><br>
+    • <strong>Unit Test:</strong> Index should be independent of units of measurement.<br>
+    • <strong>Time Reversal Test:</strong> P₀₁ × P₁₀ = 1. Fisher satisfies this; Laspeyres & Paasche don't.<br>
+    • <strong>Factor Reversal Test:</strong> Price index × Quantity index = Value index. Only Fisher satisfies this.</div>
+    <div class="viz"><div class="viz-head"><span style="color:var(--c3)">India CPI Trend (approximate)</span></div>
+      <canvas id="cpiChart" height="180"></canvas></div>
+    <div class="quiz">
+      <div class="quiz-q">Which index number is called Fisher's "Ideal" Index?</div>
+      <div class="quiz-opts">
+        <button class="qopt" onclick="qz(this,'wrong')">Laspeyres Index</button>
+        <button class="qopt" onclick="qz(this,'wrong')">Paasche Index</button>
+        <button class="qopt" onclick="qz(this,'correct')">Geometric mean of Laspeyres and Paasche</button>
+        <button class="qopt" onclick="qz(this,'wrong')">Arithmetic mean of Laspeyres and Paasche</button>
+      </div>
+      <div class="quiz-fb"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<footer>
+  Made with ❤️ by <a href="https://dagaledattatray.github.io/">Dattatray Dagale</a>
+  &nbsp;·&nbsp; <a href="learn.html">Learn Hub</a>
+  &nbsp;·&nbsp; <a href="learning.html">My Notes</a>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+// ─── MODULE NAVIGATION ─────────────────────────────────
+const COLORS={m1:'#e05c5c',m2:'#f0a04e',m3:'#f0e060',m4:'#5ecf8a',m5:'#5ab4f5',m6:'#a07af5',m7:'#f06090',m8:'#f0a04e',m9:'#5ab4f5',m10:'#f0e060'};
+function showMod(id,btn){
+  document.querySelectorAll('.module').forEach(m=>m.classList.remove('active'));
+  document.querySelectorAll('.mod-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const c=COLORS[id];
+  btn.classList.add('active');
+  btn.style.background=c;
+  btn.style.color='#07080d';
+  document.querySelectorAll('.mod-btn:not(.active)').forEach(b=>{b.style.background='';b.style.color='';});
+  window.scrollTo({top:100,behavior:'smooth'});
+  setTimeout(()=>drawCharts(id),100);
+}
+// init first button
+document.querySelector('.mod-btn').style.background=COLORS.m1;
+document.querySelector('.mod-btn').style.color='#07080d';
+setTimeout(()=>drawCharts('m1'),200);
+
+// ─── QUIZ ──────────────────────────────────────────────
+function qz(btn,result){
+  const box=btn.closest('.quiz');
+  box.querySelectorAll('.qopt').forEach(b=>b.disabled=true);
+  btn.classList.add(result);
+  const fb=box.querySelector('.quiz-fb');
+  fb.classList.add('show',result==='correct'?'ok':'no');
+  fb.textContent=result==='correct'?'✓ Correct! Excellent understanding.':'✗ Not quite. Review the concept above and try again.';
+}
+
+// ─── CALCULATORS ───────────────────────────────────────
+function parseNums(id){return document.getElementById(id).value.split(',').map(v=>parseFloat(v.trim())).filter(v=>!isNaN(v));}
+function fmt(n,d=2){return typeof n==='number'?n.toFixed(d):n;}
+
+function calcMean(){
+  const d=parseNums('mean-inp');if(!d.length){return;}
+  const n=d.length,s=d.reduce((a,b)=>a+b,0),mean=s/n;
+  document.getElementById('mean-out').className='calc-out';
+  document.getElementById('mean-out').innerHTML=
+    `Count (n): ${n}\nSum (Σx): ${fmt(s,2)}\nArithmetic Mean (x̄): ${fmt(mean,4)}\nValues sorted: [${[...d].sort((a,b)=>a-b).join(', ')}]`;
+}
+
+function calcMedian(){
+  const d=parseNums('med-inp');if(!d.length)return;
+  const sorted=[...d].sort((a,b)=>a-b),n=sorted.length;
+  let med;
+  if(n%2===1){med=sorted[(n-1)/2];}
+  else{med=(sorted[n/2-1]+sorted[n/2])/2;}
+  document.getElementById('med-out').className='calc-out';
+  document.getElementById('med-out').innerHTML=
+    `Sorted: [${sorted.join(', ')}]\nCount (n): ${n}\n${n%2===1?`Middle position: ${(n+1)/2} → `:`Average of positions ${n/2} & ${n/2+1} → `}Median = ${fmt(med,4)}`;
+}
+
+function calcMode(){
+  const d=parseNums('mode-inp');if(!d.length)return;
+  const freq={};d.forEach(v=>{freq[v]=(freq[v]||0)+1;});
+  const maxF=Math.max(...Object.values(freq));
+  const modes=Object.keys(freq).filter(k=>freq[k]===maxF).map(Number);
+  let type=modes.length===1?'Unimodal':modes.length===2?'Bimodal':'Multimodal';
+  if(maxF===1)type='No mode (all values appear once)';
+  document.getElementById('mode-out').className='calc-out';
+  document.getElementById('mode-out').innerHTML=
+    `Frequency table: ${Object.entries(freq).map(([v,f])=>`${v}(×${f})`).join(', ')}\nMax frequency: ${maxF}\nMode(s): ${maxF===1?'None':modes.join(', ')}\nType: ${type}`;
+}
+
+function calcGM(){
+  const d=parseNums('gm-inp');if(!d.some(v=>v>0))return;
+  const positive=d.filter(v=>v>0);
+  const logSum=positive.reduce((a,b)=>a+Math.log(b),0);
+  const gm=Math.exp(logSum/positive.length);
+  const am=positive.reduce((a,b)=>a+b,0)/positive.length;
+  const hm=positive.length/positive.reduce((a,b)=>a+1/b,0);
+  document.getElementById('gm-out').className='calc-out';
+  document.getElementById('gm-out').innerHTML=
+    `n: ${positive.length}\nGeometric Mean (GM): ${fmt(gm,6)}\nArithmetic Mean (AM): ${fmt(am,6)}\nHarmonic Mean (HM): ${fmt(hm,6)}\n\nVerification AM ≥ GM ≥ HM: ${am>=gm&&gm>=hm?'✓ Confirmed':'✗ Check input'}\n${d.length>1?`CAGR interpretation: ${fmt((gm-1)*100,2)}% per period`:''}`;
+}
+
+function calcWM(){
+  const vals=parseNums('wm-vals'),wts=parseNums('wm-wts');
+  if(!vals.length||vals.length!==wts.length){document.getElementById('wm-out').textContent='Error: Values and weights must have same count.';return;}
+  const wSum=wts.reduce((a,b)=>a+b,0);
+  const wxSum=vals.reduce((s,v,i)=>s+v*wts[i],0);
+  const wm=wxSum/wSum;
+  const am=vals.reduce((a,b)=>a+b,0)/vals.length;
+  document.getElementById('wm-out').className='calc-out';
+  document.getElementById('wm-out').innerHTML=
+    `Σwᵢxᵢ = ${fmt(wxSum,2)}\nΣwᵢ = ${fmt(wSum,2)}\nWeighted Mean = ${fmt(wm,4)}\nSimple Mean = ${fmt(am,4)}\nDifference = ${fmt(Math.abs(wm-am),4)}`;
+}
+
+function calcSD(){
+  const d=parseNums('sd-inp'),type=document.getElementById('sd-type').value;
+  if(d.length<2)return;
+  const n=d.length,mean=d.reduce((a,b)=>a+b,0)/n;
+  const sq=d.reduce((s,v)=>s+(v-mean)**2,0);
+  const variance=type==='pop'?sq/n:sq/(n-1);
+  const sd=Math.sqrt(variance);
+  const min=Math.min(...d),max=Math.max(...d),range=max-min;
+  const cv=(sd/mean)*100;
+  document.getElementById('sd-out').className='calc-out';
+  document.getElementById('sd-out').innerHTML=
+    `Mean (x̄): ${fmt(mean,4)}\nVariance (${type==='pop'?'σ²':'s²'}): ${fmt(variance,4)}\nStd Deviation (${type==='pop'?'σ':'s'}): ${fmt(sd,4)}\nRange: ${range}\nCoefficient of Variation: ${fmt(cv,2)}%\n\nData spread: ${mean.toFixed(2)} ± ${sd.toFixed(2)}\n[${fmt(mean-sd,2)} to ${fmt(mean+sd,2)}] covers ≈68% if normal`;
+}
+
+function calcZ(){
+  const x=parseFloat(document.getElementById('z-x').value);
+  const mu=parseFloat(document.getElementById('z-mu').value);
+  const sd=parseFloat(document.getElementById('z-sd').value);
+  if(isNaN(x)||isNaN(mu)||isNaN(sd)||sd<=0)return;
+  const z=(x-mu)/sd;
+  const pct=normalCDF(z)*100;
+  document.getElementById('z-out').className='calc-out';
+  document.getElementById('z-out').innerHTML=
+    `Z-Score = (${x} − ${mu}) / ${sd} = ${fmt(z,4)}\nP(X < ${x}) ≈ ${fmt(pct,2)}%\nP(X > ${x}) ≈ ${fmt(100-pct,2)}%\nPercentile rank: ${fmt(pct,1)}th percentile\n\nInterpretation: ${x} is ${fmt(Math.abs(z),2)} standard deviations ${z>=0?'above':'below'} the mean`;
+}
+
+function normalCDF(z){
+  const t=1/(1+0.2316419*Math.abs(z));
+  const d=0.3989423*Math.exp(-z*z/2);
+  const p=d*t*(0.3193815+t*(-0.3565638+t*(1.7814779+t*(-1.8212560+t*1.3302744))));
+  return z>=0?1-p:p;
+}
+
+function calcBinom(){
+  const n=parseInt(document.getElementById('bn-n').value);
+  const p=parseFloat(document.getElementById('bn-p').value);
+  const k=parseInt(document.getElementById('bn-k').value);
+  if(isNaN(n)||isNaN(p)||isNaN(k)||p<0||p>1||k>n)return;
+  const prob=binomPMF(n,k,p);
+  const cumul=Array.from({length:k+1},(_,i)=>binomPMF(n,i,p)).reduce((a,b)=>a+b,0);
+  document.getElementById('bn-out').className='calc-out';
+  document.getElementById('bn-out').innerHTML=
+    `P(X = ${k}) = C(${n},${k}) × ${p}^${k} × ${(1-p).toFixed(2)}^${n-k}\nP(X = ${k}) = ${fmt(prob,6)} = ${fmt(prob*100,2)}%\nP(X ≤ ${k}) = ${fmt(cumul,4)} (cumulative)\nMean (np) = ${n*p}\nVariance = ${fmt(n*p*(1-p),4)}\nSD = ${fmt(Math.sqrt(n*p*(1-p)),4)}`;
+}
+
+function binomPMF(n,k,p){
+  return comb(n,k)*Math.pow(p,k)*Math.pow(1-p,n-k);
+}
+function comb(n,k){
+  if(k===0||k===n)return 1;
+  let r=1;for(let i=0;i<k;i++){r=r*(n-i)/(i+1);}return Math.round(r);
+}
+
+function calcEV(){
+  const x=parseNums('ev-x'),p=parseNums('ev-p');
+  if(x.length!==p.length)return;
+  const pSum=p.reduce((a,b)=>a+b,0);
+  const ev=x.reduce((s,v,i)=>s+v*p[i],0);
+  const ex2=x.reduce((s,v,i)=>s+v*v*p[i],0);
+  const variance=ex2-ev*ev;
+  document.getElementById('ev-out').className='calc-out';
+  document.getElementById('ev-out').innerHTML=
+    `Sum of probabilities: ${fmt(pSum,4)} ${Math.abs(pSum-1)<0.01?'✓':'⚠ should be 1'}\nE(X) = ${fmt(ev,4)}\nE(X²) = ${fmt(ex2,4)}\nVar(X) = E(X²) − [E(X)]² = ${fmt(variance,4)}\nSD(X) = ${fmt(Math.sqrt(Math.max(0,variance)),4)}`;
+}
+
+function calcCorr(){
+  const x=parseNums('cor-x'),y=parseNums('cor-y');
+  if(x.length!==y.length||x.length<2)return;
+  const n=x.length;
+  const mx=x.reduce((a,b)=>a+b,0)/n,my=y.reduce((a,b)=>a+b,0)/n;
+  const num=x.reduce((s,v,i)=>s+(v-mx)*(y[i]-my),0);
+  const dx=Math.sqrt(x.reduce((s,v)=>s+(v-mx)**2,0));
+  const dy=Math.sqrt(y.reduce((s,v)=>s+(v-my)**2,0));
+  const r=num/(dx*dy);
+  const r2=r*r;
+  let strength=Math.abs(r)>=0.9?'Very Strong':Math.abs(r)>=0.7?'Strong':Math.abs(r)>=0.4?'Moderate':Math.abs(r)>=0.2?'Weak':'Very Weak';
+  let direction=r>0?'Positive':'Negative';
+  document.getElementById('cor-out').className='calc-out';
+  document.getElementById('cor-out').innerHTML=
+    `Pearson r = ${fmt(r,4)}\nR² = ${fmt(r2,4)} (${fmt(r2*100,1)}% of variance explained)\nStrength: ${strength} ${direction} Correlation\n\nMean X: ${fmt(mx,2)} | Mean Y: ${fmt(my,2)}`;
+  drawCorrChartLive(x,y,r);
+}
+
+function calcReg(){
+  const x=parseNums('reg-x'),y=parseNums('reg-y');
+  if(x.length!==y.length||x.length<2)return;
+  const n=x.length;
+  const sx=x.reduce((a,b)=>a+b,0),sy=y.reduce((a,b)=>a+b,0);
+  const sxy=x.reduce((s,v,i)=>s+v*y[i],0);
+  const sx2=x.reduce((s,v)=>s+v*v,0);
+  const b=(n*sxy-sx*sy)/(n*sx2-sx*sx);
+  const a=(sy-b*sx)/n;
+  const mx=sx/n,my=sy/n;
+  const r2=Math.pow((n*sxy-sx*sy)/Math.sqrt((n*sx2-sx*sx)*(n*y.reduce((s,v)=>s+v*v,0)-sy*sy)),2);
+  document.getElementById('reg-out').className='calc-out';
+  document.getElementById('reg-out').innerHTML=
+    `Regression line: ŷ = ${fmt(a,4)} + ${fmt(b,4)}x\nSlope (b): ${fmt(b,4)} — Y increases by ${fmt(b,4)} for each unit increase in X\nIntercept (a): ${fmt(a,4)}\nR² = ${fmt(r2,4)} (${fmt(r2*100,1)}% variance explained)\n\nPrediction: If x = ${Math.round(mx)}, ŷ = ${fmt(a+b*Math.round(mx),2)}`;
+  drawRegChartLive(x,y,a,b);
+}
+
+function calcIndex(){
+  const p0=parseNums('idx-p0'),p1=parseNums('idx-p1'),q0=parseNums('idx-q0'),q1=parseNums('idx-q1');
+  if(p0.length!==p1.length||p0.length!==q0.length||p0.length!==q1.length)return;
+  const sp1q0=p1.reduce((s,v,i)=>s+v*q0[i],0);
+  const sp0q0=p0.reduce((s,v,i)=>s+v*q0[i],0);
+  const sp1q1=p1.reduce((s,v,i)=>s+v*q1[i],0);
+  const sp0q1=p0.reduce((s,v,i)=>s+v*q1[i],0);
+  const L=(sp1q0/sp0q0)*100;
+  const Pa=(sp1q1/sp0q1)*100;
+  const F=Math.sqrt(L*Pa);
+  document.getElementById('idx-out').className='calc-out';
+  document.getElementById('idx-out').innerHTML=
+    `Σ(P₁Q₀) = ${fmt(sp1q0,2)}  |  Σ(P₀Q₀) = ${fmt(sp0q0,2)}\nΣ(P₁Q₁) = ${fmt(sp1q1,2)}  |  Σ(P₀Q₁) = ${fmt(sp0q1,2)}\n\nLaspeyres Index  = ${fmt(L,2)}\nPaasche Index    = ${fmt(Pa,2)}\nFisher's Index   = √(${fmt(L,2)} × ${fmt(Pa,2)}) = ${fmt(F,2)}\n\nInflation = ${fmt(F-100,2)}% by Fisher's Ideal`;
+}
+
+// ─── CHARTS ─────────────────────────────────────────────
+let CC={};
+function mk(id,cfg){if(CC[id]){CC[id].destroy();}const c=document.getElementById(id);if(!c)return;CC[id]=new Chart(c,cfg);}
+
+function drawCharts(mod){
+  if(mod==='m1'){drawMeanChart();drawSkewChart();drawCTChart();}
+  if(mod==='m2'){drawSDViz();drawBoxPlot();}
+  if(mod==='m3'){drawNormChart();drawSkewShape();drawBinomChart();}
+  if(mod==='m4'){drawBayesChart();}
+  if(mod==='m5'){drawCorrChart();}
+  if(mod==='m6'){drawRegChart();}
+  if(mod==='m7'){drawCritChart();}
+  if(mod==='m8'){drawCLTChart();}
+  if(mod==='m9'){drawMAChart();}
+  if(mod==='m10'){drawCPIChart();}
+}
+
+// Normal distribution helper
+function norm(x,mu=0,sd=1){return Math.exp(-0.5*((x-mu)/sd)**2)/(sd*Math.sqrt(2*Math.PI));}
+function linspace(a,b,n){return Array.from({length:n},(_,i)=>a+(b-a)*i/(n-1));}
+
+function drawMeanChart(){
+  const data=[22,19,31,25,28,21,18,35,24,20];
+  const mean=data.reduce((a,b)=>a+b,0)/data.length;
+  mk('meanChart',{type:'bar',data:{labels:data.map((_,i)=>`x${i+1}`),datasets:[
+    {label:'Data Values',data,backgroundColor:data.map(v=>v>mean?'rgba(90,180,245,.7)':'rgba(224,92,92,.7)'),borderWidth:0},
+    {label:'Mean',type:'line',data:Array(data.length).fill(mean),borderColor:'#f0e060',borderWidth:2,pointRadius:0,borderDash:[6,4]}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8',font:{size:11}}}},scales:{x:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}},y:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}}}}});
+}
+
+function drawSkewChart(){
+  const x=linspace(-4,10,100);
+  const rightSkew=x.map(v=>v>0?Math.exp(-v/2)*v/4:0);
+  const symmetric=x.map(v=>norm(v,3,1.2));
+  mk('skewChart',{type:'line',data:{labels:x.map(v=>v.toFixed(1)),datasets:[
+    {label:'Right Skewed',data:rightSkew,borderColor:'#e05c5c',backgroundColor:'rgba(224,92,92,.1)',fill:true,tension:.4,pointRadius:0},
+    {label:'Symmetric',data:symmetric,borderColor:'#5ecf8a',backgroundColor:'rgba(94,207,138,.1)',fill:true,tension:.4,pointRadius:0}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8'}}},scales:{x:{display:false},y:{display:false}}}});
+}
+
+function drawCTChart(){
+  const mu=0,sd=1.5;
+  const x=linspace(-5,8,200);
+  const skewed=x.map(v=>{if(v<-1)return 0;return norm(v-1.5,0,1.8)*1.5+norm(v,2,0.8)*0.5;});
+  // approximate mean=2.5, median=2.0, mode=0.8 visually
+  mk('ctChart',{type:'line',data:{labels:x.map(v=>v.toFixed(1)),datasets:[
+    {label:'Distribution',data:skewed,borderColor:'#5ab4f5',backgroundColor:'rgba(90,180,245,.12)',fill:true,tension:.4,pointRadius:0},
+  ]},options:{responsive:true,plugins:{legend:{display:false},annotation:{annotations:{
+  }}},scales:{x:{ticks:{color:'#4e5f7a',maxTicksLimit:8},grid:{color:'#1d2438'}},y:{display:false}}}});
+}
+
+function drawSDViz(){
+  const x=linspace(-4,4,100);
+  const low=x.map(v=>norm(v,0,0.7));
+  const hi=x.map(v=>norm(v,0,1.8));
+  mk('sdChart',{type:'line',data:{labels:x.map(v=>v.toFixed(1)),datasets:[
+    {label:'Low SD (σ=0.7)',data:low,borderColor:'#5ecf8a',backgroundColor:'rgba(94,207,138,.12)',fill:true,tension:.4,pointRadius:0},
+    {label:'High SD (σ=1.8)',data:hi,borderColor:'#e05c5c',backgroundColor:'rgba(224,92,92,.1)',fill:true,tension:.4,pointRadius:0}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8'}}},scales:{x:{ticks:{color:'#4e5f7a',maxTicksLimit:9},grid:{color:'#1d2438'}},y:{display:false}}}});
+}
+
+function drawBoxPlot(){
+  // Simulate a box plot using a horizontal bar chart
+  // Dataset: 2,5,7,8,9,10,12,14,15,18,19,22,25 -- Q1=7.5,Median=12,Q3=18.5,IQR=11,outliers>35
+  const data=[2,5,7,8,9,10,12,14,15,18,19,22,25];
+  mk('boxChart',{type:'bar',data:{labels:data.map((_,i)=>`${data[i]}`),datasets:[{
+    label:'Values',data:data.map(()=>1),backgroundColor:data.map(v=>{
+      if(v<=7.5)return'rgba(224,92,92,.5)';
+      if(v<=12)return'rgba(90,180,245,.6)';
+      if(v<=18.5)return'rgba(94,207,138,.6)';
+      return'rgba(240,160,78,.5)';
+    }),borderWidth:0
+  }]},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`Value: ${c.label}`}}},scales:{x:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'},title:{display:true,text:'← Q1 | Q2 (Median) | Q3 →',color:'#4e5f7a'}},y:{display:false}}}});
+}
+
+function drawNormChart(){
+  const x=linspace(-4,4,200);
+  const y=x.map(v=>norm(v));
+  mk('normChart',{type:'line',data:{labels:x.map(v=>v.toFixed(2)),datasets:[
+    {label:'Normal Distribution',data:y,borderColor:'#f0e060',backgroundColor:'rgba(240,224,96,.08)',fill:true,tension:.4,pointRadius:0},
+    {label:'±1σ (68%)',data:x.map(v=>Math.abs(v)<=1?norm(v):null),backgroundColor:'rgba(94,207,138,.25)',fill:true,tension:.4,pointRadius:0,borderWidth:0},
+    {label:'±2σ (95%)',data:x.map(v=>Math.abs(v)<=2&&Math.abs(v)>1?norm(v):null),backgroundColor:'rgba(90,180,245,.2)',fill:true,tension:.4,pointRadius:0,borderWidth:0},
+    {label:'±3σ (99.7%)',data:x.map(v=>Math.abs(v)<=3&&Math.abs(v)>2?norm(v):null),backgroundColor:'rgba(240,160,78,.2)',fill:true,tension:.4,pointRadius:0,borderWidth:0}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8',font:{size:10}}}},scales:{x:{ticks:{color:'#4e5f7a',maxTicksLimit:9},grid:{color:'#1d2438'},title:{display:true,text:'Standard Deviations (σ)',color:'#4e5f7a'}},y:{display:false}}}});
+}
+
+function drawSkewShape(){
+  const x=linspace(0,10,150);
+  const leftSkew=x.map(v=>norm(10-v,3,1.2));
+  const sym=x.map(v=>norm(v,5,1.2));
+  const rightSkew=x.map(v=>norm(v,3,1.2));
+  mk('skewShape',{type:'line',data:{labels:x.map(v=>v.toFixed(1)),datasets:[
+    {label:'Negative Skew',data:leftSkew,borderColor:'#e05c5c',fill:false,tension:.4,pointRadius:0},
+    {label:'Symmetric (Normal)',data:sym,borderColor:'#5ecf8a',fill:false,tension:.4,pointRadius:0},
+    {label:'Positive Skew',data:rightSkew,borderColor:'#f0a04e',fill:false,tension:.4,pointRadius:0}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8'}}},scales:{x:{display:false},y:{display:false}}}});
+}
+
+function drawBinomChart(){
+  const n=10,p=0.4;
+  const ks=Array.from({length:n+1},(_,k)=>k);
+  const probs=ks.map(k=>binomPMF(n,k,p)*100);
+  mk('binomChart',{type:'bar',data:{labels:ks.map(k=>`k=${k}`),datasets:[{label:'P(X=k) %',data:probs,backgroundColor:ks.map(k=>k===4?'#f0e060':'rgba(90,180,245,.6)'),borderWidth:0}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#4e5f7a',font:{size:10}},grid:{color:'#1d2438'}},y:{ticks:{color:'#4e5f7a',callback:v=>v+'%'},grid:{color:'#1d2438'}}}}});
+}
+
+function drawBayesChart(){
+  mk('bayesChart',{type:'doughnut',data:{labels:['True Positive (TP)','False Positive (FP)','False Negative (FN)','True Negative (TN)'],datasets:[{data:[99,99,1,9801],backgroundColor:['#5ecf8a','#e05c5c','#f0a04e','rgba(90,180,245,.4)'],hoverOffset:4}]},options:{responsive:true,plugins:{legend:{position:'right',labels:{color:'#7a8fa8',font:{size:10},boxWidth:12}},tooltip:{callbacks:{label:c=>`${c.label}: ${c.raw} out of 10,000`}}}}});
+}
+
+function drawCorrChart(){
+  const seed=(n,r)=>{const x=[],y=[];for(let i=0;i<n;i++){const xv=Math.random()*10;x.push(xv);y.push(r*xv+(1-Math.abs(r))*Math.random()*10);}return{x,y};};
+  const d1=seed(30,0.95),d2=seed(30,0.0),d3=seed(30,-0.9);
+  mk('corrChart',{type:'scatter',data:{datasets:[
+    {label:'r≈+0.95',data:d1.x.map((v,i)=>({x:v,y:d1.y[i]})),backgroundColor:'rgba(94,207,138,.7)',pointRadius:4},
+    {label:'r≈0.0',data:d2.x.map((v,i)=>({x:v,y:d2.y[i]})),backgroundColor:'rgba(90,180,245,.6)',pointRadius:4},
+    {label:'r≈−0.9',data:d3.x.map((v,i)=>({x:v,y:d3.y[i]})),backgroundColor:'rgba(224,92,92,.7)',pointRadius:4}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8',font:{size:10}}}},scales:{x:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}},y:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}}}}});
+}
+
+function drawCorrChartLive(x,y,r){
+  mk('corrChart',{type:'scatter',data:{datasets:[{label:`r = ${r.toFixed(3)}`,data:x.map((v,i)=>({x:v,y:y[i]})),backgroundColor:'rgba(240,224,96,.8)',pointRadius:5}]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8'}}},scales:{x:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}},y:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}}}}});
+}
+
+function drawRegChart(){
+  const x=[1,2,3,4,5,6,7,8],y=[2.1,3.9,6.2,7.8,9.3,11.2,13.1,14.8];
+  const n=x.length,sx=x.reduce((a,b)=>a+b,0),sy=y.reduce((a,b)=>a+b,0);
+  const sxy=x.reduce((s,v,i)=>s+v*y[i],0),sx2=x.reduce((s,v)=>s+v*v,0);
+  const b=(n*sxy-sx*sy)/(n*sx2-sx*sx),a=(sy-b*sx)/n;
+  const lineX=[0,9],lineY=[a,a+b*9];
+  mk('regChart',{type:'scatter',data:{datasets:[
+    {label:'Data Points',data:x.map((v,i)=>({x:v,y:y[i]})),backgroundColor:'#5ab4f5',pointRadius:6},
+    {label:`ŷ = ${a.toFixed(2)} + ${b.toFixed(2)}x`,data:lineX.map((v,i)=>({x:v,y:lineY[i]})),type:'line',borderColor:'#f0e060',backgroundColor:'transparent',pointRadius:0,borderWidth:2}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8'}}},scales:{x:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}},y:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}}}}});
+}
+
+function drawRegChartLive(x,y,a,b){
+  const minX=Math.min(...x),maxX=Math.max(...x);
+  mk('regChart',{type:'scatter',data:{datasets:[
+    {label:'Data Points',data:x.map((v,i)=>({x:v,y:y[i]})),backgroundColor:'#5ab4f5',pointRadius:6},
+    {label:`ŷ=${a.toFixed(2)}+${b.toFixed(2)}x`,data:[{x:minX,y:a+b*minX},{x:maxX,y:a+b*maxX}],type:'line',borderColor:'#f0e060',backgroundColor:'transparent',pointRadius:0,borderWidth:2.5}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8'}}},scales:{x:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}},y:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}}}}});
+}
+
+function drawCritChart(){
+  const x=linspace(-4,4,200);
+  const y=x.map(v=>norm(v));
+  mk('critChart',{type:'line',data:{labels:x.map(v=>v.toFixed(2)),datasets:[
+    {label:'Null Distribution',data:y,borderColor:'#5ab4f5',backgroundColor:'rgba(90,180,245,.08)',fill:true,tension:.4,pointRadius:0},
+    {label:'Rejection Region (α=5%)',data:x.map(v=>Math.abs(v)>1.96?norm(v):null),backgroundColor:'rgba(240,96,144,.4)',fill:true,tension:.4,pointRadius:0,borderWidth:0}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8'}}},scales:{x:{ticks:{color:'#4e5f7a',maxTicksLimit:9},grid:{color:'#1d2438'},title:{display:true,text:'Z-score  |  ±1.96 = critical values at α=0.05',color:'#4e5f7a'}},y:{display:false}}}});
+}
+
+function drawCLTChart(){
+  const x=linspace(-4,4,150);
+  mk('cltChart',{type:'line',data:{labels:x.map(v=>v.toFixed(1)),datasets:[
+    {label:'n=1 (original pop.)',data:x.map(v=>norm(v,0,2)),borderColor:'#e05c5c',fill:false,tension:.4,pointRadius:0,borderDash:[6,3]},
+    {label:'n=5',data:x.map(v=>norm(v,0,1.5)),borderColor:'#f0a04e',fill:false,tension:.4,pointRadius:0},
+    {label:'n=30',data:x.map(v=>norm(v,0,0.8)),borderColor:'#f0e060',fill:false,tension:.4,pointRadius:0},
+    {label:'n=100 (→ Normal!)',data:x.map(v=>norm(v,0,0.4)),borderColor:'#5ecf8a',backgroundColor:'rgba(94,207,138,.1)',fill:true,tension:.4,pointRadius:0}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8',font:{size:10}}}},scales:{x:{ticks:{color:'#4e5f7a',maxTicksLimit:9},grid:{color:'#1d2438'}},y:{display:false}}}});
+}
+
+function drawMAChart(){
+  const raw=[120,132,141,160,148,175,163,190,178,210,195,220,215,240,230,255];
+  const ma3=raw.map((v,i)=>i>=1&&i<raw.length-1?(raw[i-1]+v+raw[i+1])/3:null);
+  const labels=raw.map((_,i)=>`T${i+1}`);
+  mk('maChart',{type:'line',data:{labels,datasets:[
+    {label:'Original Data',data:raw,borderColor:'rgba(90,180,245,.5)',backgroundColor:'rgba(90,180,245,.05)',fill:true,tension:.3,pointRadius:3},
+    {label:'3-Period Moving Average',data:ma3,borderColor:'#f0e060',fill:false,tension:.4,pointRadius:0,borderWidth:2.5}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8'}}},scales:{x:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}},y:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}}}}});
+}
+
+function drawCPIChart(){
+  const years=['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'];
+  const cpi=[100,104.9,109.5,113.6,116.3,120.8,126.1,135.9,143.2,150.8];
+  mk('cpiChart',{type:'line',data:{labels:years,datasets:[{label:'India CPI (Base 2015=100)',data:cpi,borderColor:'#f0e060',backgroundColor:'rgba(240,224,96,.1)',fill:true,tension:.4,pointBackgroundColor:'#f0e060',pointRadius:4}]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a8fa8'}}},scales:{x:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}},y:{ticks:{color:'#4e5f7a'},grid:{color:'#1d2438'}}}}});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Mastery — Complete Beginner to Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#08080c;--bg2:#0e0e14;--bg3:#16161f;--bg4:#1e1e2a;
+  --text:#e8e6e1;--text2:#a09d95;--text3:#6b6860;
+  --py:#f7c948;--py2:#e8922f;--py3:#3b82f6;--py4:#10b981;--py5:#ef4444;
+  --border:#252530;--glow:0 0 40px rgba(247,201,72,.08);
+  --code-bg:#0b0b12;
+  --radius:10px;
+  --font-display:'Playfair Display',serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'Fira Code',monospace;
+}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--py) var(--bg2)}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.75;overflow-x:hidden}
+::selection{background:var(--py);color:var(--bg)}
+
+/* === AMBIENT BG === */
+body::after{content:'';position:fixed;top:-50%;right:-30%;width:800px;height:800px;
+  background:radial-gradient(circle,rgba(247,201,72,.04) 0%,transparent 70%);pointer-events:none;z-index:0}
+body::before{content:'';position:fixed;bottom:-30%;left:-20%;width:700px;height:700px;
+  background:radial-gradient(circle,rgba(59,130,246,.03) 0%,transparent 70%);pointer-events:none;z-index:0}
+
+/* === SIDEBAR === */
+.sidebar{position:fixed;left:0;top:0;width:290px;height:100vh;background:var(--bg2);
+  border-right:1px solid var(--border);z-index:100;overflow-y:auto;transition:transform .3s ease;
+  display:flex;flex-direction:column}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--py);border-radius:99px}
+.sb-header{padding:24px 20px;border-bottom:1px solid var(--border)}
+.sb-header h1{font-family:var(--font-display);font-size:1.5rem;font-weight:900;color:var(--py);
+  display:flex;align-items:center;gap:8px}
+.sb-header h1 .snake{font-size:1.6rem}
+.sb-header p{font-size:.68rem;color:var(--text2);margin-top:4px;text-transform:uppercase;
+  letter-spacing:3px;font-family:var(--font-mono);font-weight:500}
+.sb-progress{padding:16px 20px 4px}
+.prog-bar{height:3px;background:var(--bg4);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--py),var(--py2));
+  border-radius:99px;transition:width .6s cubic-bezier(.16,1,.3,1)}
+.prog-label{font-size:.68rem;color:var(--text3);margin-top:6px;font-family:var(--font-mono)}
+.sb-nav{flex:1;overflow-y:auto;padding:8px 0}
+.nav-group{margin-bottom:2px}
+.nav-group-title{padding:14px 20px 6px;font-size:.6rem;text-transform:uppercase;
+  letter-spacing:2.5px;color:var(--text3);font-weight:700;font-family:var(--font-mono)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:7px 20px;font-size:.82rem;
+  color:var(--text2);cursor:pointer;transition:all .2s;border-left:2px solid transparent;
+  text-decoration:none}
+.nav-item:hover{color:var(--py);background:rgba(247,201,72,.03);border-left-color:rgba(247,201,72,.3)}
+.nav-item.active{color:var(--py);background:rgba(247,201,72,.05);border-left-color:var(--py);font-weight:600}
+.nav-item .ni{font-family:var(--font-mono);font-size:.65rem;opacity:.5;min-width:20px}
+
+/* === MAIN === */
+.main{margin-left:290px;position:relative;z-index:1;min-height:100vh}
+.chapter{display:none;padding:56px 72px 120px;max-width:920px;animation:revealUp .5s ease}
+.chapter.active{display:block}
+@keyframes revealUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* === TYPOGRAPHY === */
+.ch-eyebrow{font-size:.62rem;text-transform:uppercase;letter-spacing:4px;color:var(--py2);
+  font-family:var(--font-mono);font-weight:600;margin-bottom:10px}
+.ch-title{font-family:var(--font-display);font-size:2.8rem;font-weight:900;letter-spacing:-.5px;
+  line-height:1.1;color:#fff;margin-bottom:10px}
+.ch-desc{font-size:1.05rem;color:var(--text2);max-width:580px;margin-bottom:48px;font-weight:300}
+h2{font-family:var(--font-body);font-size:1.6rem;font-weight:800;margin:44px 0 16px;color:#fff;
+  letter-spacing:-.3px}
+h2::before{content:'';display:inline-block;width:3px;height:22px;background:var(--py);
+  margin-right:12px;border-radius:2px;vertical-align:middle}
+h3{font-size:1.1rem;font-weight:700;margin:28px 0 10px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2);font-size:.92rem}
+strong{color:var(--text);font-weight:600}
+code{font-family:var(--font-mono);font-size:.84rem;background:var(--bg3);padding:2px 7px;
+  border-radius:4px;color:var(--py)}
+
+/* === CARDS === */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:24px;margin:20px 0;position:relative;overflow:hidden}
+.card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--py),transparent)}
+.card h3{margin-top:0;color:var(--py)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:20px 0}
+.gcard{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px;transition:all .25s}
+.gcard:hover{border-color:rgba(247,201,72,.3);transform:translateY(-2px);box-shadow:var(--glow)}
+.gcard .ic{font-size:1.6rem;margin-bottom:8px}
+.gcard h4{font-size:.9rem;font-weight:700;margin-bottom:4px;color:#fff}
+.gcard p{font-size:.8rem;margin:0}
+
+/* === CODE === */
+.codeblock{background:var(--code-bg);border:1px solid var(--border);border-radius:var(--radius);
+  margin:18px 0;overflow:hidden;position:relative}
+.codeblock .cb-top{display:flex;align-items:center;justify-content:space-between;
+  padding:8px 14px;background:rgba(247,201,72,.04);border-bottom:1px solid var(--border)}
+.cb-dots{display:flex;gap:5px}
+.cb-dots span{width:9px;height:9px;border-radius:50%}
+.cb-dots span:nth-child(1){background:#ef4444}
+.cb-dots span:nth-child(2){background:#f7c948}
+.cb-dots span:nth-child(3){background:#10b981}
+.cb-lang{font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--py);
+  font-family:var(--font-mono);font-weight:600}
+.cb-copy{background:none;border:1px solid var(--border);color:var(--text3);padding:3px 10px;
+  border-radius:5px;font-size:.65rem;cursor:pointer;font-family:var(--font-mono);transition:all .2s}
+.cb-copy:hover{border-color:var(--py);color:var(--py)}
+pre{padding:18px;overflow-x:auto;font-family:var(--font-mono);font-size:.82rem;line-height:1.9;color:var(--text)}
+
+/* Python Syntax */
+.k{color:#c084fc;font-weight:500}
+.f{color:#60a5fa}
+.s{color:#34d399}
+.c{color:#4b5563;font-style:italic}
+.n{color:#fbbf24}
+.o{color:#f87171}
+.b{color:#60a5fa;font-weight:600}
+.d{color:#818cf8}
+.t{color:var(--text2)}
+
+/* === OUTPUT BOX === */
+.output{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);
+  margin:12px 0 20px;padding:14px 18px;font-family:var(--font-mono);font-size:.82rem}
+.output::before{content:'>>> Output';display:block;font-size:.62rem;text-transform:uppercase;
+  letter-spacing:2px;color:var(--py2);margin-bottom:8px;font-weight:600}
+.output .out{color:var(--py4)}
+
+/* === TIPS === */
+.tip{padding:14px 18px;border-radius:var(--radius);margin:18px 0;font-size:.85rem;
+  display:flex;gap:10px;align-items:flex-start}
+.tip.amber{background:rgba(247,201,72,.05);border-left:3px solid var(--py)}
+.tip.blue{background:rgba(59,130,246,.05);border-left:3px solid var(--py3)}
+.tip.green{background:rgba(16,185,129,.05);border-left:3px solid var(--py4)}
+.tip.red{background:rgba(239,68,68,.05);border-left:3px solid var(--py5)}
+.tip p{margin:0;color:var(--text2)}
+
+/* === EXERCISE === */
+.exercise{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  margin:28px 0;overflow:hidden}
+.ex-head{padding:14px 20px;background:linear-gradient(135deg,rgba(247,201,72,.06),rgba(59,130,246,.04));
+  border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.ex-badge{background:var(--py);color:var(--bg);font-size:.6rem;padding:3px 10px;border-radius:99px;
+  font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.ex-head h4{font-size:.92rem;font-weight:700;color:#fff}
+.ex-body{padding:20px}
+.editor{width:100%;min-height:90px;background:var(--code-bg);border:1px solid var(--border);
+  border-radius:8px;padding:14px;font-family:var(--font-mono);font-size:.82rem;color:var(--text);
+  resize:vertical;outline:none;transition:border-color .2s;line-height:1.8}
+.editor:focus{border-color:var(--py)}
+.btns{display:flex;gap:8px;margin-top:10px}
+.btn{padding:9px 20px;border-radius:7px;font-family:var(--font-mono);font-size:.78rem;
+  font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-go{background:var(--py);color:var(--bg)}
+.btn-go:hover{box-shadow:0 0 24px rgba(247,201,72,.3);transform:translateY(-1px)}
+.btn-hint{background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
+.btn-hint:hover{border-color:var(--py);color:var(--py)}
+.result{margin-top:12px;padding:12px 16px;border-radius:7px;font-family:var(--font-mono);
+  font-size:.8rem;display:none}
+.result.ok{display:block;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);color:var(--py4)}
+.result.err{display:block;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:var(--py5)}
+.result.info{display:block;background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);color:var(--py3)}
+
+/* === VISUAL === */
+.vis{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px;margin:24px 0;text-align:center}
+.vis .vl{font-size:.62rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text3);margin-bottom:14px}
+
+/* === TABLE === */
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:.82rem}
+.tbl th{background:var(--bg3);padding:10px 14px;text-align:left;color:var(--py);
+  font-weight:600;border-bottom:2px solid var(--py);font-size:.7rem;text-transform:uppercase;
+  letter-spacing:1px;font-family:var(--font-mono)}
+.tbl td{padding:8px 14px;border-bottom:1px solid var(--border);color:var(--text2);font-family:var(--font-mono);font-size:.8rem}
+.tbl tr:hover td{background:rgba(247,201,72,.02)}
+
+/* === FLOW === */
+.flow{display:flex;align-items:center;justify-content:center;gap:0;margin:20px 0;flex-wrap:wrap}
+.flow-s{background:var(--bg3);border:1px solid var(--border);border-radius:8px;
+  padding:12px 18px;font-size:.8rem;font-weight:600;color:var(--text);text-align:center}
+.flow-a{color:var(--py);font-size:1.2rem;margin:0 6px}
+
+/* === QUIZ === */
+.quiz{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:20px 0}
+.quiz h4{color:var(--py3);margin-bottom:12px;font-size:.95rem}
+.qo{display:block;padding:9px 14px;margin:5px 0;background:var(--bg3);border:1px solid var(--border);
+  border-radius:7px;cursor:pointer;transition:all .2s;font-size:.85rem;color:var(--text2)}
+.qo:hover{border-color:var(--py3);color:var(--text)}
+.qo.right{border-color:var(--py4);background:rgba(16,185,129,.07);color:var(--py4)}
+.qo.wrong{border-color:var(--py5);background:rgba(239,68,68,.07);color:var(--py5)}
+.qfb{margin-top:10px;padding:8px 12px;border-radius:6px;font-size:.8rem;display:none}
+
+/* === NAV === */
+.ch-nav{display:flex;justify-content:space-between;margin-top:56px;padding-top:28px;
+  border-top:1px solid var(--border)}
+.ch-btn{display:flex;align-items:center;gap:8px;padding:12px 22px;border-radius:8px;
+  background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-size:.84rem;
+  cursor:pointer;transition:all .2s;font-family:var(--font-body)}
+.ch-btn:hover{border-color:var(--py);color:var(--py);transform:translateY(-2px)}
+
+/* === HAMBURGER === */
+.ham{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(--bg2);
+  border:1px solid var(--border);width:42px;height:42px;border-radius:8px;cursor:pointer;
+  align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.ham span{display:block;width:18px;height:2px;background:var(--text)}
+
+@media(max-width:860px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .ham{display:flex}
+  .main{margin-left:0}
+  .chapter{padding:56px 20px 100px}
+  .ch-title{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<button class="ham" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+  <span></span><span></span><span></span>
+</button>
+
+<nav class="sidebar" id="sidebar">
+  <div class="sb-header">
+    <h1><span class="snake">🐍</span> Python Mastery</h1>
+    <p>Zero to Pro</p>
+  </div>
+  <div class="sb-progress">
+    <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+    <div class="prog-label" id="progLabel">0 / 14 completed</div>
+  </div>
+  <div class="sb-nav" id="sbNav">
+
+    <div class="nav-group">
+      <div class="nav-group-title">Foundations</div>
+      <a class="nav-item active" onclick="go(0)"><span class="ni">01</span> Welcome to Python</a>
+      <a class="nav-item" onclick="go(1)"><span class="ni">02</span> Variables & Types</a>
+      <a class="nav-item" onclick="go(2)"><span class="ni">03</span> Strings</a>
+      <a class="nav-item" onclick="go(3)"><span class="ni">04</span> Operators & Input</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Control Flow</div>
+      <a class="nav-item" onclick="go(4)"><span class="ni">05</span> Conditionals</a>
+      <a class="nav-item" onclick="go(5)"><span class="ni">06</span> Loops</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Data Structures</div>
+      <a class="nav-item" onclick="go(6)"><span class="ni">07</span> Lists & Tuples</a>
+      <a class="nav-item" onclick="go(7)"><span class="ni">08</span> Dictionaries & Sets</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Functions & Modules</div>
+      <a class="nav-item" onclick="go(8)"><span class="ni">09</span> Functions</a>
+      <a class="nav-item" onclick="go(9)"><span class="ni">10</span> Modules & Packages</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">OOP & Advanced</div>
+      <a class="nav-item" onclick="go(10)"><span class="ni">11</span> Classes & OOP</a>
+      <a class="nav-item" onclick="go(11)"><span class="ni">12</span> File Handling</a>
+      <a class="nav-item" onclick="go(12)"><span class="ni">13</span> Error Handling</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Capstone</div>
+      <a class="nav-item" onclick="go(13)"><span class="ni">14</span> Final Projects</a>
+    </div>
+
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ===== CH 0: Welcome ===== -->
+<section class="chapter active" id="ch0">
+  <div class="ch-eyebrow">Chapter 01</div>
+  <div class="ch-title">Welcome to Python</div>
+  <div class="ch-desc">The world's most popular programming language — loved for its simplicity and power.</div>
+
+  <h2>Why Python?</h2>
+  <p>Python is the go-to language for beginners and professionals alike. It reads almost like English, has an enormous ecosystem of libraries, and is used across every domain of technology.</p>
+
+  <div class="grid">
+    <div class="gcard"><div class="ic">🌐</div><h4>Web Development</h4><p>Django, Flask, FastAPI</p></div>
+    <div class="gcard"><div class="ic">🤖</div><h4>AI & Machine Learning</h4><p>TensorFlow, PyTorch, scikit-learn</p></div>
+    <div class="gcard"><div class="ic">📊</div><h4>Data Science</h4><p>Pandas, NumPy, Matplotlib</p></div>
+    <div class="gcard"><div class="ic">⚙️</div><h4>Automation</h4><p>Scripting, DevOps, web scraping</p></div>
+  </div>
+
+  <h2>Your First Program</h2>
+  <p>The classic first step — let's print something to the screen:</p>
+
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># Your very first Python program!</span>
+<span class="f">print</span>(<span class="s">"Hello, World!"</span>)</code></pre>
+  </div>
+  <div class="output"><span class="out">Hello, World!</span></div>
+
+  <div class="tip amber">
+    <span>💡</span>
+    <p><strong>How to run Python:</strong> Install Python from <a href="https://python.org" style="color:var(--py)" target="_blank">python.org</a>, then open a terminal and type <code>python3 filename.py</code>. You can also use the interactive shell by just typing <code>python3</code>.</p>
+  </div>
+
+  <h2>Python's Philosophy</h2>
+  <p>Python has a set of guiding principles known as "The Zen of Python." Here are the key ones:</p>
+  <div class="card">
+    <h3>✨ Core Principles</h3>
+    <p><strong>Beautiful is better than ugly.</strong> — Write clean, readable code.<br>
+    <strong>Simple is better than complex.</strong> — Don't over-engineer.<br>
+    <strong>Readability counts.</strong> — Code is read more than it's written.<br>
+    <strong>There should be one obvious way to do it.</strong> — Pythonic patterns exist for a reason.</p>
+  </div>
+
+  <h2>How Python Runs Code</h2>
+  <div class="flow">
+    <div class="flow-s">📝 .py File</div>
+    <div class="flow-a">→</div>
+    <div class="flow-s">⚙️ Python Interpreter</div>
+    <div class="flow-a">→</div>
+    <div class="flow-s">🔢 Bytecode</div>
+    <div class="flow-a">→</div>
+    <div class="flow-s">🖥️ Output</div>
+  </div>
+
+  <div class="tip blue">
+    <span>📌</span>
+    <p>Python is <strong>interpreted</strong>, not compiled. This means you can run code line-by-line in the interactive shell — great for learning and experimenting!</p>
+  </div>
+
+  <h2>Comments</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># This is a single-line comment</span>
+
+<span class="c">"""
+This is a multi-line comment
+(technically a docstring).
+Great for longer explanations.
+"""</span>
+
+<span class="f">print</span>(<span class="s">"Comments are ignored by Python"</span>)  <span class="c"># inline comment</span></code></pre>
+  </div>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p style="margin-bottom:10px">Which function is used to display output in Python?</p>
+    <div class="qo" onclick="qCheck(this,'right')">print()</div>
+    <div class="qo" onclick="qCheck(this,'wrong')">echo()</div>
+    <div class="qo" onclick="qCheck(this,'wrong')">console.log()</div>
+    <div class="qo" onclick="qCheck(this,'wrong')">display()</div>
+    <div class="qfb"></div>
+  </div>
+
+  <div class="ch-nav"><div></div><button class="ch-btn" onclick="go(1)">Next: Variables & Types →</button></div>
+</section>
+
+<!-- ===== CH 1: Variables & Types ===== -->
+<section class="chapter" id="ch1">
+  <div class="ch-eyebrow">Chapter 02</div>
+  <div class="ch-title">Variables & Data Types</div>
+  <div class="ch-desc">Store data, understand types, and perform conversions.</div>
+
+  <h2>Creating Variables</h2>
+  <p>In Python, you don't need to declare types. Just assign a value and Python figures it out:</p>
+
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># Python infers the type automatically</span>
+name = <span class="s">"Alice"</span>          <span class="c"># str (string)</span>
+age = <span class="n">25</span>                 <span class="c"># int (integer)</span>
+height = <span class="n">5.7</span>             <span class="c"># float (decimal)</span>
+is_student = <span class="b">True</span>        <span class="c"># bool (boolean)</span>
+
+<span class="f">print</span>(name, age, height, is_student)</code></pre>
+  </div>
+  <div class="output"><span class="out">Alice 25 5.7 True</span></div>
+
+  <h2>Core Data Types</h2>
+  <table class="tbl">
+    <tr><th>Type</th><th>Example</th><th>Description</th></tr>
+    <tr><td><code>int</code></td><td>42, -7, 0</td><td>Whole numbers (no limit in size!)</td></tr>
+    <tr><td><code>float</code></td><td>3.14, -0.5</td><td>Decimal numbers</td></tr>
+    <tr><td><code>str</code></td><td>"hello", 'world'</td><td>Text — single or double quotes</td></tr>
+    <tr><td><code>bool</code></td><td>True, False</td><td>Boolean — always capitalized</td></tr>
+    <tr><td><code>NoneType</code></td><td>None</td><td>Represents "nothing" or "no value"</td></tr>
+  </table>
+
+  <h2>Checking & Converting Types</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>x = <span class="s">"42"</span>
+<span class="f">print</span>(<span class="f">type</span>(x))         <span class="c"># &lt;class 'str'&gt;</span>
+
+x = <span class="f">int</span>(x)              <span class="c"># Convert string to int</span>
+<span class="f">print</span>(<span class="f">type</span>(x))         <span class="c"># &lt;class 'int'&gt;</span>
+<span class="f">print</span>(x + <span class="n">8</span>)           <span class="c"># 50</span>
+
+<span class="c"># Other conversions</span>
+<span class="f">float</span>(<span class="s">"3.14"</span>)           <span class="c"># 3.14</span>
+<span class="f">str</span>(<span class="n">100</span>)                <span class="c"># "100"</span>
+<span class="f">bool</span>(<span class="n">0</span>)                 <span class="c"># False (0 is falsy)</span>
+<span class="f">bool</span>(<span class="n">1</span>)                 <span class="c"># True  (non-zero is truthy)</span></code></pre>
+  </div>
+
+  <h2>Variable Naming Rules</h2>
+  <div class="card">
+    <h3>📏 Rules & Conventions</h3>
+    <p><strong>Must</strong> start with a letter or underscore: <code>name</code>, <code>_private</code> ✅<br>
+    <strong>Cannot</strong> start with a number: <code>2name</code> ❌<br>
+    <strong>Can</strong> contain letters, numbers, underscores: <code>user_age_2</code> ✅<br>
+    <strong>Case-sensitive</strong>: <code>Name</code> and <code>name</code> are different<br>
+    <strong>Convention</strong>: Use <code>snake_case</code> for variables and functions: <code>first_name</code></p>
+  </div>
+
+  <div class="tip red">
+    <span>🚫</span>
+    <p><strong>Avoid reserved words</strong> as variable names: <code>if</code>, <code>for</code>, <code>class</code>, <code>return</code>, <code>import</code>, <code>True</code>, <code>False</code>, <code>None</code>, etc.</p>
+  </div>
+
+  <h2>Multiple Assignment</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># Assign multiple variables at once</span>
+a, b, c = <span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>
+
+<span class="c"># Swap values (no temp variable needed!)</span>
+a, b = b, a
+<span class="f">print</span>(a, b)  <span class="c"># 2 1</span></code></pre>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-head"><span class="ex-badge">Practice</span><h4>Variable Creation</h4></div>
+    <div class="ex-body">
+      <p>Create a variable called <code>price</code> set to <code>19.99</code> and a variable called <code>item</code> set to <code>"notebook"</code>. Then print both.</p>
+      <textarea class="editor" id="ex0" placeholder="Write your Python here..."></textarea>
+      <div class="btns">
+        <button class="btn btn-go" onclick="exCheck('ex0',['price','19.99','item','notebook','print'])">Check</button>
+        <button class="btn btn-hint" onclick="exHint('ex0','price = 19.99\nitem = \"notebook\"\nprint(price, item)')">Hint</button>
+      </div>
+      <div class="result" id="ex0-r"></div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(0)">← Previous</button>
+    <button class="ch-btn" onclick="go(2)">Next: Strings →</button>
+  </div>
+</section>
+
+<!-- ===== CH 2: Strings ===== -->
+<section class="chapter" id="ch2">
+  <div class="ch-eyebrow">Chapter 03</div>
+  <div class="ch-title">Strings</div>
+  <div class="ch-desc">Master text manipulation — one of the most used skills in any program.</div>
+
+  <h2>Creating Strings</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>single = <span class="s">'Hello'</span>
+double = <span class="s">"World"</span>
+multi = <span class="s">"""This is a
+multi-line string"""</span>
+
+<span class="c"># String concatenation</span>
+full = single + <span class="s">" "</span> + double
+<span class="f">print</span>(full)  <span class="c"># Hello World</span></code></pre>
+  </div>
+
+  <h2>f-Strings (Formatted Strings)</h2>
+  <p>The modern, preferred way to embed variables in strings (Python 3.6+):</p>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>name = <span class="s">"Alice"</span>
+age = <span class="n">25</span>
+
+<span class="c"># f-string — note the f before the quote</span>
+message = <span class="s">f"My name is <span class="n">{name}</span> and I am <span class="n">{age}</span> years old."</span>
+<span class="f">print</span>(message)
+
+<span class="c"># You can put expressions inside {}</span>
+<span class="f">print</span>(<span class="s">f"Next year I'll be <span class="n">{age + 1}</span>"</span>)
+<span class="f">print</span>(<span class="s">f"Name uppercase: <span class="n">{name.upper()}</span>"</span>)</code></pre>
+  </div>
+  <div class="output"><span class="out">My name is Alice and I am 25 years old.<br>Next year I'll be 26<br>Name uppercase: ALICE</span></div>
+
+  <h2>String Indexing & Slicing</h2>
+  <div class="vis">
+    <div class="vl">Index Positions</div>
+    <div style="font-family:var(--font-mono);font-size:.9rem;display:inline-block;text-align:center">
+      <div style="display:flex;gap:2px;margin-bottom:4px">
+        <span style="width:32px;padding:6px;background:var(--bg3);border-radius:4px;color:var(--py)">P</span>
+        <span style="width:32px;padding:6px;background:var(--bg3);border-radius:4px;color:var(--py)">y</span>
+        <span style="width:32px;padding:6px;background:var(--bg3);border-radius:4px;color:var(--py)">t</span>
+        <span style="width:32px;padding:6px;background:var(--bg3);border-radius:4px;color:var(--py)">h</span>
+        <span style="width:32px;padding:6px;background:var(--bg3);border-radius:4px;color:var(--py)">o</span>
+        <span style="width:32px;padding:6px;background:var(--bg3);border-radius:4px;color:var(--py)">n</span>
+      </div>
+      <div style="display:flex;gap:2px;font-size:.7rem;color:var(--text3)">
+        <span style="width:32px">0</span><span style="width:32px">1</span><span style="width:32px">2</span>
+        <span style="width:32px">3</span><span style="width:32px">4</span><span style="width:32px">5</span>
+      </div>
+      <div style="display:flex;gap:2px;font-size:.7rem;color:var(--py5);margin-top:2px">
+        <span style="width:32px">-6</span><span style="width:32px">-5</span><span style="width:32px">-4</span>
+        <span style="width:32px">-3</span><span style="width:32px">-2</span><span style="width:32px">-1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>s = <span class="s">"Python"</span>
+
+<span class="f">print</span>(s[<span class="n">0</span>])      <span class="c"># P   (first character)</span>
+<span class="f">print</span>(s[-<span class="n">1</span>])     <span class="c"># n   (last character)</span>
+<span class="f">print</span>(s[<span class="n">0</span>:<span class="n">3</span>])    <span class="c"># Pyt (index 0,1,2 — end is exclusive)</span>
+<span class="f">print</span>(s[<span class="n">2</span>:])     <span class="c"># thon (from index 2 to end)</span>
+<span class="f">print</span>(s[::<span class="n">2</span>])     <span class="c"># Pto (every 2nd character)</span>
+<span class="f">print</span>(s[::-<span class="n">1</span>])    <span class="c"># nohtyP (reversed!)</span></code></pre>
+  </div>
+
+  <h2>Essential String Methods</h2>
+  <table class="tbl">
+    <tr><th>Method</th><th>Example</th><th>Result</th></tr>
+    <tr><td><code>.upper()</code></td><td>"hello".upper()</td><td>"HELLO"</td></tr>
+    <tr><td><code>.lower()</code></td><td>"HELLO".lower()</td><td>"hello"</td></tr>
+    <tr><td><code>.strip()</code></td><td>" hi ".strip()</td><td>"hi"</td></tr>
+    <tr><td><code>.replace()</code></td><td>"cat".replace("c","b")</td><td>"bat"</td></tr>
+    <tr><td><code>.split()</code></td><td>"a,b,c".split(",")</td><td>['a','b','c']</td></tr>
+    <tr><td><code>.join()</code></td><td>"-".join(["a","b"])</td><td>"a-b"</td></tr>
+    <tr><td><code>.startswith()</code></td><td>"hello".startswith("he")</td><td>True</td></tr>
+    <tr><td><code>.find()</code></td><td>"hello".find("ll")</td><td>2</td></tr>
+    <tr><td><code>len()</code></td><td>len("hello")</td><td>5</td></tr>
+  </table>
+
+  <div class="tip amber">
+    <span>💡</span>
+    <p><strong>Strings are immutable!</strong> Methods like <code>.upper()</code> return a <em>new</em> string — they don't change the original. You need to reassign: <code>s = s.upper()</code></p>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-head"><span class="ex-badge">Practice</span><h4>Reverse a String</h4></div>
+    <div class="ex-body">
+      <p>Given <code>word = "python"</code>, print it reversed using slicing.</p>
+      <textarea class="editor" id="ex1" placeholder="Write your Python here..."></textarea>
+      <div class="btns">
+        <button class="btn btn-go" onclick="exCheck('ex1',['word','python','[::-1]','print'])">Check</button>
+        <button class="btn btn-hint" onclick="exHint('ex1','word = \"python\"\nprint(word[::-1])')">Hint</button>
+      </div>
+      <div class="result" id="ex1-r"></div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(1)">← Previous</button>
+    <button class="ch-btn" onclick="go(3)">Next: Operators & Input →</button>
+  </div>
+</section>
+
+<!-- ===== CH 3: Operators & Input ===== -->
+<section class="chapter" id="ch3">
+  <div class="ch-eyebrow">Chapter 04</div>
+  <div class="ch-title">Operators & Input</div>
+  <div class="ch-desc">Math, comparisons, logic, and reading user input.</div>
+
+  <h2>Arithmetic Operators</h2>
+  <table class="tbl">
+    <tr><th>Operator</th><th>Name</th><th>Example</th><th>Result</th></tr>
+    <tr><td><code>+</code></td><td>Addition</td><td>10 + 3</td><td>13</td></tr>
+    <tr><td><code>-</code></td><td>Subtraction</td><td>10 - 3</td><td>7</td></tr>
+    <tr><td><code>*</code></td><td>Multiplication</td><td>10 * 3</td><td>30</td></tr>
+    <tr><td><code>/</code></td><td>Division</td><td>10 / 3</td><td>3.333...</td></tr>
+    <tr><td><code>//</code></td><td>Floor Division</td><td>10 // 3</td><td>3</td></tr>
+    <tr><td><code>%</code></td><td>Modulus</td><td>10 % 3</td><td>1</td></tr>
+    <tr><td><code>**</code></td><td>Exponent</td><td>2 ** 10</td><td>1024</td></tr>
+  </table>
+
+  <h2>Comparison Operators</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="f">print</span>(<span class="n">5</span> == <span class="n">5</span>)     <span class="c"># True  (equal)</span>
+<span class="f">print</span>(<span class="n">5</span> != <span class="n">3</span>)     <span class="c"># True  (not equal)</span>
+<span class="f">print</span>(<span class="n">5</span> > <span class="n">3</span>)      <span class="c"># True  (greater than)</span>
+<span class="f">print</span>(<span class="n">5</span> &lt;= <span class="n">5</span>)    <span class="c"># True  (less than or equal)</span></code></pre>
+  </div>
+
+  <h2>Logical Operators</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>x = <span class="n">15</span>
+<span class="f">print</span>(x > <span class="n">10</span> <span class="k">and</span> x &lt; <span class="n">20</span>)   <span class="c"># True  (both true)</span>
+<span class="f">print</span>(x > <span class="n">20</span> <span class="k">or</span> x &lt; <span class="n">5</span>)    <span class="c"># False (neither true)</span>
+<span class="f">print</span>(<span class="k">not</span> (x > <span class="n">20</span>))         <span class="c"># True  (negation)</span></code></pre>
+  </div>
+
+  <h2>User Input</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># input() always returns a string!</span>
+name = <span class="f">input</span>(<span class="s">"What's your name? "</span>)
+<span class="f">print</span>(<span class="s">f"Hello, <span class="n">{name}</span>!"</span>)
+
+<span class="c"># Convert to number for math</span>
+age = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Enter your age: "</span>))
+<span class="f">print</span>(<span class="s">f"You'll be <span class="n">{age + 1}</span> next year!"</span>)</code></pre>
+  </div>
+
+  <div class="tip red">
+    <span>🚫</span>
+    <p><strong>Common Bug:</strong> Forgetting to convert <code>input()</code> to <code>int()</code> or <code>float()</code> before doing math. <code>"5" + "3"</code> gives <code>"53"</code> (concatenation), not <code>8</code>!</p>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-head"><span class="ex-badge">Practice</span><h4>Simple Calculator</h4></div>
+    <div class="ex-body">
+      <p>Write code that takes two numbers and prints their sum. Use <code>input()</code> and <code>int()</code>.</p>
+      <textarea class="editor" id="ex2" placeholder="Write your Python here..."></textarea>
+      <div class="btns">
+        <button class="btn btn-go" onclick="exCheck('ex2',['input','int','print','+'])">Check</button>
+        <button class="btn btn-hint" onclick="exHint('ex2','a = int(input(\"First number: \"))\nb = int(input(\"Second number: \"))\nprint(f\"Sum: {a + b}\")')">Hint</button>
+      </div>
+      <div class="result" id="ex2-r"></div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(2)">← Previous</button>
+    <button class="ch-btn" onclick="go(4)">Next: Conditionals →</button>
+  </div>
+</section>
+
+<!-- ===== CH 4: Conditionals ===== -->
+<section class="chapter" id="ch4">
+  <div class="ch-eyebrow">Chapter 05</div>
+  <div class="ch-title">Conditionals</div>
+  <div class="ch-desc">Make decisions in your code with if, elif, and else.</div>
+
+  <h2>if / elif / else</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>score = <span class="n">85</span>
+
+<span class="k">if</span> score >= <span class="n">90</span>:
+    <span class="f">print</span>(<span class="s">"Grade: A"</span>)
+<span class="k">elif</span> score >= <span class="n">80</span>:
+    <span class="f">print</span>(<span class="s">"Grade: B"</span>)
+<span class="k">elif</span> score >= <span class="n">70</span>:
+    <span class="f">print</span>(<span class="s">"Grade: C"</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Grade: F"</span>)</code></pre>
+  </div>
+  <div class="output"><span class="out">Grade: B</span></div>
+
+  <div class="tip amber">
+    <span>💡</span>
+    <p><strong>Indentation matters!</strong> Python uses indentation (4 spaces) to define code blocks — not curly braces. Wrong indentation = error.</p>
+  </div>
+
+  <h2>Ternary (One-Line If)</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>age = <span class="n">20</span>
+status = <span class="s">"adult"</span> <span class="k">if</span> age >= <span class="n">18</span> <span class="k">else</span> <span class="s">"minor"</span>
+<span class="f">print</span>(status)  <span class="c"># adult</span></code></pre>
+  </div>
+
+  <h2>Truthy & Falsy Values</h2>
+  <div class="card">
+    <h3>⚡ What evaluates to False?</h3>
+    <p><code>False</code>, <code>0</code>, <code>0.0</code>, <code>""</code> (empty string), <code>[]</code> (empty list), <code>{}</code> (empty dict), <code>None</code><br>
+    <strong>Everything else is truthy</strong> — including <code>"0"</code>, <code>[0]</code>, negative numbers.</p>
+  </div>
+
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>name = <span class="s">""</span>
+<span class="k">if</span> name:
+    <span class="f">print</span>(<span class="s">f"Hello, <span class="n">{name}</span>"</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Name is empty!"</span>)  <span class="c"># This runs</span></code></pre>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-head"><span class="ex-badge">Practice</span><h4>Even or Odd?</h4></div>
+    <div class="ex-body">
+      <p>Write code that checks if a number is even or odd using the modulus operator <code>%</code>.</p>
+      <textarea class="editor" id="ex3" placeholder="Write your Python here..."></textarea>
+      <div class="btns">
+        <button class="btn btn-go" onclick="exCheck('ex3',['if','%','2','==','print'])">Check</button>
+        <button class="btn btn-hint" onclick="exHint('ex3','num = 7\nif num % 2 == 0:\n    print(f\"{num} is even\")\nelse:\n    print(f\"{num} is odd\")')">Hint</button>
+      </div>
+      <div class="result" id="ex3-r"></div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(3)">← Previous</button>
+    <button class="ch-btn" onclick="go(5)">Next: Loops →</button>
+  </div>
+</section>
+
+<!-- ===== CH 5: Loops ===== -->
+<section class="chapter" id="ch5">
+  <div class="ch-eyebrow">Chapter 06</div>
+  <div class="ch-title">Loops</div>
+  <div class="ch-desc">Repeat actions with for loops and while loops.</div>
+
+  <h2>for Loop</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># Loop through a list</span>
+fruits = [<span class="s">"apple"</span>, <span class="s">"banana"</span>, <span class="s">"cherry"</span>]
+<span class="k">for</span> fruit <span class="k">in</span> fruits:
+    <span class="f">print</span>(fruit)
+
+<span class="c"># Loop with range()</span>
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">5</span>):        <span class="c"># 0, 1, 2, 3, 4</span>
+    <span class="f">print</span>(i)
+
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">2</span>, <span class="n">10</span>, <span class="n">2</span>):  <span class="c"># 2, 4, 6, 8 (start, stop, step)</span>
+    <span class="f">print</span>(i)
+
+<span class="c"># enumerate() — get index AND value</span>
+<span class="k">for</span> i, fruit <span class="k">in</span> <span class="f">enumerate</span>(fruits):
+    <span class="f">print</span>(<span class="s">f"<span class="n">{i}</span>: <span class="n">{fruit}</span>"</span>)</code></pre>
+  </div>
+
+  <h2>while Loop</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>count = <span class="n">0</span>
+<span class="k">while</span> count &lt; <span class="n">5</span>:
+    <span class="f">print</span>(<span class="s">f"Count: <span class="n">{count}</span>"</span>)
+    count += <span class="n">1</span>  <span class="c"># Don't forget this — or infinite loop!</span></code></pre>
+  </div>
+
+  <h2>break, continue, else</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># break — exit loop immediately</span>
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">10</span>):
+    <span class="k">if</span> i == <span class="n">5</span>:
+        <span class="k">break</span>
+    <span class="f">print</span>(i)  <span class="c"># prints 0, 1, 2, 3, 4</span>
+
+<span class="c"># continue — skip this iteration</span>
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">5</span>):
+    <span class="k">if</span> i == <span class="n">2</span>:
+        <span class="k">continue</span>
+    <span class="f">print</span>(i)  <span class="c"># prints 0, 1, 3, 4 (skips 2)</span></code></pre>
+  </div>
+
+  <h2>List Comprehensions</h2>
+  <p>A powerful, Pythonic way to create lists in one line:</p>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># Traditional way</span>
+squares = []
+<span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(<span class="n">10</span>):
+    squares.append(x ** <span class="n">2</span>)
+
+<span class="c"># List comprehension — same result, one line!</span>
+squares = [x ** <span class="n">2</span> <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(<span class="n">10</span>)]
+
+<span class="c"># With a filter</span>
+evens = [x <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(<span class="n">20</span>) <span class="k">if</span> x % <span class="n">2</span> == <span class="n">0</span>]
+<span class="f">print</span>(evens)  <span class="c"># [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]</span></code></pre>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-head"><span class="ex-badge">Practice</span><h4>FizzBuzz</h4></div>
+    <div class="ex-body">
+      <p>Print numbers 1-20. For multiples of 3 print "Fizz", multiples of 5 print "Buzz", both print "FizzBuzz".</p>
+      <textarea class="editor" id="ex4" placeholder="Write your Python here..."></textarea>
+      <div class="btns">
+        <button class="btn btn-go" onclick="exCheck('ex4',['for','range','if','%','print'])">Check</button>
+        <button class="btn btn-hint" onclick="exHint('ex4','for i in range(1, 21):\n    if i % 3 == 0 and i % 5 == 0:\n        print(\"FizzBuzz\")\n    elif i % 3 == 0:\n        print(\"Fizz\")\n    elif i % 5 == 0:\n        print(\"Buzz\")\n    else:\n        print(i)')">Hint</button>
+      </div>
+      <div class="result" id="ex4-r"></div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(4)">← Previous</button>
+    <button class="ch-btn" onclick="go(6)">Next: Lists & Tuples →</button>
+  </div>
+</section>
+
+<!-- ===== CH 6: Lists & Tuples ===== -->
+<section class="chapter" id="ch6">
+  <div class="ch-eyebrow">Chapter 07</div>
+  <div class="ch-title">Lists & Tuples</div>
+  <div class="ch-desc">Ordered collections — the backbone of Python data handling.</div>
+
+  <h2>Lists</h2>
+  <p>Ordered, mutable (changeable) collections that can hold any type:</p>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># Creating lists</span>
+fruits = [<span class="s">"apple"</span>, <span class="s">"banana"</span>, <span class="s">"cherry"</span>]
+numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>]
+mixed = [<span class="n">1</span>, <span class="s">"hello"</span>, <span class="b">True</span>, <span class="n">3.14</span>]
+
+<span class="c"># Accessing elements (same as strings)</span>
+<span class="f">print</span>(fruits[<span class="n">0</span>])     <span class="c"># apple</span>
+<span class="f">print</span>(fruits[-<span class="n">1</span>])    <span class="c"># cherry</span>
+<span class="f">print</span>(fruits[<span class="n">1</span>:<span class="n">3</span>])   <span class="c"># ['banana', 'cherry']</span></code></pre>
+  </div>
+
+  <h2>List Methods</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>fruits = [<span class="s">"apple"</span>, <span class="s">"banana"</span>]
+
+fruits.<span class="f">append</span>(<span class="s">"cherry"</span>)        <span class="c"># Add to end</span>
+fruits.<span class="f">insert</span>(<span class="n">1</span>, <span class="s">"blueberry"</span>)  <span class="c"># Add at index 1</span>
+fruits.<span class="f">remove</span>(<span class="s">"banana"</span>)        <span class="c"># Remove by value</span>
+popped = fruits.<span class="f">pop</span>()           <span class="c"># Remove & return last</span>
+fruits.<span class="f">sort</span>()                   <span class="c"># Sort in place</span>
+fruits.<span class="f">reverse</span>()                <span class="c"># Reverse in place</span>
+<span class="f">print</span>(<span class="f">len</span>(fruits))              <span class="c"># Length</span>
+<span class="f">print</span>(<span class="s">"apple"</span> <span class="k">in</span> fruits)       <span class="c"># True (membership test)</span></code></pre>
+  </div>
+
+  <h2>Tuples</h2>
+  <p>Like lists, but <strong>immutable</strong> (cannot be changed after creation). Use for data that shouldn't change.</p>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>point = (<span class="n">10</span>, <span class="n">20</span>)
+rgb = (<span class="n">255</span>, <span class="n">128</span>, <span class="n">0</span>)
+
+<span class="f">print</span>(point[<span class="n">0</span>])  <span class="c"># 10</span>
+
+<span class="c"># Tuple unpacking</span>
+x, y = point
+<span class="f">print</span>(x, y)      <span class="c"># 10 20</span>
+
+<span class="c"># point[0] = 5    # ❌ TypeError! Tuples are immutable</span></code></pre>
+  </div>
+
+  <div class="card">
+    <h3>📊 List vs Tuple</h3>
+    <p><strong>List [ ]</strong> — Mutable, use when data will change (shopping cart, to-dos)<br>
+    <strong>Tuple ( )</strong> — Immutable, use for fixed data (coordinates, RGB colors, DB records)</p>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(5)">← Previous</button>
+    <button class="ch-btn" onclick="go(7)">Next: Dictionaries & Sets →</button>
+  </div>
+</section>
+
+<!-- ===== CH 7: Dicts & Sets ===== -->
+<section class="chapter" id="ch7">
+  <div class="ch-eyebrow">Chapter 08</div>
+  <div class="ch-title">Dictionaries & Sets</div>
+  <div class="ch-desc">Key-value pairs and unique collections — fast and powerful.</div>
+
+  <h2>Dictionaries</h2>
+  <p>Store data as <strong>key: value</strong> pairs. Lightning-fast lookups.</p>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>person = {
+    <span class="s">"name"</span>: <span class="s">"Alice"</span>,
+    <span class="s">"age"</span>: <span class="n">25</span>,
+    <span class="s">"city"</span>: <span class="s">"Mumbai"</span>
+}
+
+<span class="c"># Access values</span>
+<span class="f">print</span>(person[<span class="s">"name"</span>])         <span class="c"># Alice</span>
+<span class="f">print</span>(person.<span class="f">get</span>(<span class="s">"age"</span>))      <span class="c"># 25 (safer — returns None if missing)</span>
+
+<span class="c"># Modify</span>
+person[<span class="s">"age"</span>] = <span class="n">26</span>            <span class="c"># Update</span>
+person[<span class="s">"email"</span>] = <span class="s">"a@b.com"</span>  <span class="c"># Add new key</span>
+<span class="k">del</span> person[<span class="s">"city"</span>]             <span class="c"># Delete key</span>
+
+<span class="c"># Loop through a dict</span>
+<span class="k">for</span> key, value <span class="k">in</span> person.<span class="f">items</span>():
+    <span class="f">print</span>(<span class="s">f"<span class="n">{key}</span>: <span class="n">{value}</span>"</span>)</code></pre>
+  </div>
+
+  <h2>Dict Methods</h2>
+  <table class="tbl">
+    <tr><th>Method</th><th>Description</th></tr>
+    <tr><td><code>.keys()</code></td><td>All keys</td></tr>
+    <tr><td><code>.values()</code></td><td>All values</td></tr>
+    <tr><td><code>.items()</code></td><td>All key-value pairs as tuples</td></tr>
+    <tr><td><code>.get(key, default)</code></td><td>Safe access with fallback</td></tr>
+    <tr><td><code>.update(other)</code></td><td>Merge another dict into this one</td></tr>
+    <tr><td><code>.pop(key)</code></td><td>Remove key and return value</td></tr>
+  </table>
+
+  <h2>Sets</h2>
+  <p>Unordered collection of <strong>unique</strong> elements. Great for removing duplicates and set operations.</p>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>colors = {<span class="s">"red"</span>, <span class="s">"blue"</span>, <span class="s">"green"</span>, <span class="s">"red"</span>}
+<span class="f">print</span>(colors)  <span class="c"># {'red', 'blue', 'green'} — no duplicates!</span>
+
+<span class="c"># Remove duplicates from a list</span>
+nums = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">3</span>, <span class="n">3</span>]
+unique = <span class="f">list</span>(<span class="f">set</span>(nums))  <span class="c"># [1, 2, 3]</span>
+
+<span class="c"># Set operations</span>
+a = {<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>}
+b = {<span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>}
+<span class="f">print</span>(a | b)   <span class="c"># {1, 2, 3, 4, 5}  — union</span>
+<span class="f">print</span>(a & b)   <span class="c"># {3}              — intersection</span>
+<span class="f">print</span>(a - b)   <span class="c"># {1, 2}           — difference</span></code></pre>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(6)">← Previous</button>
+    <button class="ch-btn" onclick="go(8)">Next: Functions →</button>
+  </div>
+</section>
+
+<!-- ===== CH 8: Functions ===== -->
+<section class="chapter" id="ch8">
+  <div class="ch-eyebrow">Chapter 09</div>
+  <div class="ch-title">Functions</div>
+  <div class="ch-desc">Write reusable blocks of code — the foundation of clean programming.</div>
+
+  <h2>Defining Functions</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="k">def</span> <span class="f">greet</span>(name):
+    <span class="s">"""Greet a person by name."""</span>
+    <span class="k">return</span> <span class="s">f"Hello, <span class="n">{name}</span>!"</span>
+
+message = <span class="f">greet</span>(<span class="s">"Alice"</span>)
+<span class="f">print</span>(message)  <span class="c"># Hello, Alice!</span></code></pre>
+  </div>
+
+  <h2>Parameters & Arguments</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># Default parameters</span>
+<span class="k">def</span> <span class="f">power</span>(base, exponent=<span class="n">2</span>):
+    <span class="k">return</span> base ** exponent
+
+<span class="f">print</span>(<span class="f">power</span>(<span class="n">3</span>))       <span class="c"># 9   (uses default exponent=2)</span>
+<span class="f">print</span>(<span class="f">power</span>(<span class="n">3</span>, <span class="n">3</span>))    <span class="c"># 27</span>
+
+<span class="c"># Keyword arguments</span>
+<span class="f">print</span>(<span class="f">power</span>(exponent=<span class="n">4</span>, base=<span class="n">2</span>))  <span class="c"># 16</span>
+
+<span class="c"># *args — variable number of arguments</span>
+<span class="k">def</span> <span class="f">add_all</span>(*numbers):
+    <span class="k">return</span> <span class="f">sum</span>(numbers)
+
+<span class="f">print</span>(<span class="f">add_all</span>(<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>))  <span class="c"># 10</span>
+
+<span class="c"># **kwargs — variable keyword arguments</span>
+<span class="k">def</span> <span class="f">build_profile</span>(**info):
+    <span class="k">return</span> info
+
+<span class="f">print</span>(<span class="f">build_profile</span>(name=<span class="s">"Alice"</span>, age=<span class="n">25</span>))
+<span class="c"># {'name': 'Alice', 'age': 25}</span></code></pre>
+  </div>
+
+  <h2>Lambda Functions</h2>
+  <p>Anonymous, one-line functions for simple operations:</p>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code>square = <span class="k">lambda</span> x: x ** <span class="n">2</span>
+<span class="f">print</span>(<span class="f">square</span>(<span class="n">5</span>))   <span class="c"># 25</span>
+
+<span class="c"># Useful with sorted(), map(), filter()</span>
+names = [<span class="s">"charlie"</span>, <span class="s">"alice"</span>, <span class="s">"bob"</span>]
+<span class="f">print</span>(<span class="f">sorted</span>(names, key=<span class="k">lambda</span> n: <span class="f">len</span>(n)))
+<span class="c"># ['bob', 'alice', 'charlie']</span></code></pre>
+  </div>
+
+  <h2>Scope</h2>
+  <div class="tip blue">
+    <span>📌</span>
+    <p>Variables defined <strong>inside</strong> a function are <strong>local</strong> — they don't exist outside it. Variables defined outside are <strong>global</strong> and accessible everywhere (but avoid modifying them from inside functions — use <code>return</code> instead).</p>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-head"><span class="ex-badge">Practice</span><h4>Write a Function</h4></div>
+    <div class="ex-body">
+      <p>Create a function <code>is_palindrome(text)</code> that returns <code>True</code> if the text reads the same forwards and backwards.</p>
+      <textarea class="editor" id="ex5" placeholder="Write your Python here..."></textarea>
+      <div class="btns">
+        <button class="btn btn-go" onclick="exCheck('ex5',['def','is_palindrome','return','[::-1]'])">Check</button>
+        <button class="btn btn-hint" onclick="exHint('ex5','def is_palindrome(text):\n    text = text.lower()\n    return text == text[::-1]\n\nprint(is_palindrome(\"racecar\"))  # True\nprint(is_palindrome(\"hello\"))    # False')">Hint</button>
+      </div>
+      <div class="result" id="ex5-r"></div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(7)">← Previous</button>
+    <button class="ch-btn" onclick="go(9)">Next: Modules & Packages →</button>
+  </div>
+</section>
+
+<!-- ===== CH 9: Modules ===== -->
+<section class="chapter" id="ch9">
+  <div class="ch-eyebrow">Chapter 10</div>
+  <div class="ch-title">Modules & Packages</div>
+  <div class="ch-desc">Organize your code and leverage Python's massive standard library.</div>
+
+  <h2>Importing Modules</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># Import entire module</span>
+<span class="k">import</span> math
+<span class="f">print</span>(math.<span class="f">sqrt</span>(<span class="n">16</span>))     <span class="c"># 4.0</span>
+<span class="f">print</span>(math.pi)            <span class="c"># 3.14159...</span>
+
+<span class="c"># Import specific things</span>
+<span class="k">from</span> random <span class="k">import</span> randint, choice
+<span class="f">print</span>(<span class="f">randint</span>(<span class="n">1</span>, <span class="n">100</span>))   <span class="c"># Random int between 1-100</span>
+
+<span class="c"># Import with alias</span>
+<span class="k">import</span> datetime <span class="k">as</span> dt
+today = dt.date.<span class="f">today</span>()
+<span class="f">print</span>(today)              <span class="c"># 2026-04-08</span></code></pre>
+  </div>
+
+  <h2>Essential Standard Library Modules</h2>
+  <div class="grid">
+    <div class="gcard"><div class="ic">🔢</div><h4>math</h4><p>sqrt, ceil, floor, pi, sin, cos</p></div>
+    <div class="gcard"><div class="ic">🎲</div><h4>random</h4><p>randint, choice, shuffle, sample</p></div>
+    <div class="gcard"><div class="ic">📅</div><h4>datetime</h4><p>Date, time, timedelta operations</p></div>
+    <div class="gcard"><div class="ic">📁</div><h4>os / pathlib</h4><p>File system operations, paths</p></div>
+    <div class="gcard"><div class="ic">📋</div><h4>json</h4><p>Parse and write JSON data</p></div>
+    <div class="gcard"><div class="ic">🌐</div><h4>urllib</h4><p>HTTP requests, URL handling</p></div>
+  </div>
+
+  <h2>Creating Your Own Module</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">helpers.py</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># helpers.py — your custom module</span>
+<span class="k">def</span> <span class="f">celsius_to_fahrenheit</span>(c):
+    <span class="k">return</span> c * <span class="n">9</span>/<span class="n">5</span> + <span class="n">32</span>
+
+<span class="k">def</span> <span class="f">fahrenheit_to_celsius</span>(f):
+    <span class="k">return</span> (f - <span class="n">32</span>) * <span class="n">5</span>/<span class="n">9</span></code></pre>
+  </div>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">main.py</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># main.py — use your module</span>
+<span class="k">from</span> helpers <span class="k">import</span> celsius_to_fahrenheit
+
+<span class="f">print</span>(<span class="f">celsius_to_fahrenheit</span>(<span class="n">37</span>))  <span class="c"># 98.6</span></code></pre>
+  </div>
+
+  <h2>Installing Packages with pip</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Terminal</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># Install a package</span>
+pip install requests
+
+<span class="c"># Then use it</span>
+<span class="k">import</span> requests
+response = requests.<span class="f">get</span>(<span class="s">"https://api.github.com"</span>)
+<span class="f">print</span>(response.status_code)  <span class="c"># 200</span></code></pre>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(8)">← Previous</button>
+    <button class="ch-btn" onclick="go(10)">Next: Classes & OOP →</button>
+  </div>
+</section>
+
+<!-- ===== CH 10: Classes & OOP ===== -->
+<section class="chapter" id="ch10">
+  <div class="ch-eyebrow">Chapter 11</div>
+  <div class="ch-title">Classes & OOP</div>
+  <div class="ch-desc">Object-Oriented Programming — model real-world things in code.</div>
+
+  <h2>Creating a Class</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="k">class</span> <span class="d">Dog</span>:
+    <span class="c"># Constructor — runs when you create an instance</span>
+    <span class="k">def</span> <span class="f">__init__</span>(self, name, breed):
+        self.name = name       <span class="c"># Instance attribute</span>
+        self.breed = breed
+        self.energy = <span class="n">100</span>
+
+    <span class="c"># Method</span>
+    <span class="k">def</span> <span class="f">bark</span>(self):
+        <span class="k">return</span> <span class="s">f"<span class="n">{self.name}</span> says Woof!"</span>
+
+    <span class="k">def</span> <span class="f">play</span>(self):
+        self.energy -= <span class="n">20</span>
+        <span class="k">return</span> <span class="s">f"<span class="n">{self.name}</span> plays! Energy: <span class="n">{self.energy}</span>"</span>
+
+<span class="c"># Create instances (objects)</span>
+rex = <span class="d">Dog</span>(<span class="s">"Rex"</span>, <span class="s">"Labrador"</span>)
+bella = <span class="d">Dog</span>(<span class="s">"Bella"</span>, <span class="s">"Poodle"</span>)
+
+<span class="f">print</span>(rex.<span class="f">bark</span>())     <span class="c"># Rex says Woof!</span>
+<span class="f">print</span>(bella.<span class="f">play</span>())   <span class="c"># Bella plays! Energy: 80</span></code></pre>
+  </div>
+
+  <h2>Inheritance</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="k">class</span> <span class="d">Animal</span>:
+    <span class="k">def</span> <span class="f">__init__</span>(self, name, species):
+        self.name = name
+        self.species = species
+
+    <span class="k">def</span> <span class="f">speak</span>(self):
+        <span class="k">return</span> <span class="s">f"<span class="n">{self.name}</span> makes a sound."</span>
+
+<span class="k">class</span> <span class="d">Cat</span>(<span class="d">Animal</span>):    <span class="c"># Cat inherits from Animal</span>
+    <span class="k">def</span> <span class="f">__init__</span>(self, name, indoor=<span class="b">True</span>):
+        <span class="f">super</span>().<span class="f">__init__</span>(name, <span class="s">"Cat"</span>)  <span class="c"># Call parent's __init__</span>
+        self.indoor = indoor
+
+    <span class="k">def</span> <span class="f">speak</span>(self):     <span class="c"># Override parent method</span>
+        <span class="k">return</span> <span class="s">f"<span class="n">{self.name}</span> says Meow!"</span>
+
+whiskers = <span class="d">Cat</span>(<span class="s">"Whiskers"</span>)
+<span class="f">print</span>(whiskers.<span class="f">speak</span>())      <span class="c"># Whiskers says Meow!</span>
+<span class="f">print</span>(whiskers.species)     <span class="c"># Cat (inherited)</span></code></pre>
+  </div>
+
+  <h2>Dunder Methods (Magic Methods)</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="k">class</span> <span class="d">Point</span>:
+    <span class="k">def</span> <span class="f">__init__</span>(self, x, y):
+        self.x = x
+        self.y = y
+
+    <span class="k">def</span> <span class="f">__repr__</span>(self):      <span class="c"># String representation</span>
+        <span class="k">return</span> <span class="s">f"Point(<span class="n">{self.x}</span>, <span class="n">{self.y}</span>)"</span>
+
+    <span class="k">def</span> <span class="f">__add__</span>(self, other):  <span class="c"># Enable + operator</span>
+        <span class="k">return</span> <span class="d">Point</span>(self.x + other.x, self.y + other.y)
+
+    <span class="k">def</span> <span class="f">__eq__</span>(self, other):   <span class="c"># Enable == comparison</span>
+        <span class="k">return</span> self.x == other.x <span class="k">and</span> self.y == other.y
+
+p1 = <span class="d">Point</span>(<span class="n">1</span>, <span class="n">2</span>)
+p2 = <span class="d">Point</span>(<span class="n">3</span>, <span class="n">4</span>)
+<span class="f">print</span>(p1 + p2)  <span class="c"># Point(4, 6)</span></code></pre>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(9)">← Previous</button>
+    <button class="ch-btn" onclick="go(11)">Next: File Handling →</button>
+  </div>
+</section>
+
+<!-- ===== CH 11: File Handling ===== -->
+<section class="chapter" id="ch11">
+  <div class="ch-eyebrow">Chapter 12</div>
+  <div class="ch-title">File Handling</div>
+  <div class="ch-desc">Read, write, and manage files from your Python programs.</div>
+
+  <h2>Reading Files</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># Best practice: use 'with' — auto-closes the file</span>
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"data.txt"</span>, <span class="s">"r"</span>) <span class="k">as</span> file:
+    content = file.<span class="f">read</span>()        <span class="c"># Read entire file</span>
+    <span class="f">print</span>(content)
+
+<span class="c"># Read line by line (memory efficient for large files)</span>
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"data.txt"</span>) <span class="k">as</span> file:
+    <span class="k">for</span> line <span class="k">in</span> file:
+        <span class="f">print</span>(line.<span class="f">strip</span>())    <span class="c"># strip() removes newline</span></code></pre>
+  </div>
+
+  <h2>Writing Files</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="c"># Write (creates or overwrites file)</span>
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"output.txt"</span>, <span class="s">"w"</span>) <span class="k">as</span> file:
+    file.<span class="f">write</span>(<span class="s">"Hello, File!\n"</span>)
+    file.<span class="f">write</span>(<span class="s">"Second line.\n"</span>)
+
+<span class="c"># Append (add to end without overwriting)</span>
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"output.txt"</span>, <span class="s">"a"</span>) <span class="k">as</span> file:
+    file.<span class="f">write</span>(<span class="s">"Appended line.\n"</span>)</code></pre>
+  </div>
+
+  <h2>File Modes</h2>
+  <table class="tbl">
+    <tr><th>Mode</th><th>Description</th></tr>
+    <tr><td><code>"r"</code></td><td>Read (default). Error if file doesn't exist.</td></tr>
+    <tr><td><code>"w"</code></td><td>Write. Creates file or overwrites existing.</td></tr>
+    <tr><td><code>"a"</code></td><td>Append. Creates file or adds to end.</td></tr>
+    <tr><td><code>"x"</code></td><td>Create. Error if file already exists.</td></tr>
+    <tr><td><code>"rb"/"wb"</code></td><td>Read/write binary (images, PDFs).</td></tr>
+  </table>
+
+  <h2>Working with JSON</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="k">import</span> json
+
+<span class="c"># Write JSON</span>
+data = {<span class="s">"name"</span>: <span class="s">"Alice"</span>, <span class="s">"scores"</span>: [<span class="n">95</span>, <span class="n">87</span>, <span class="n">92</span>]}
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"data.json"</span>, <span class="s">"w"</span>) <span class="k">as</span> f:
+    json.<span class="f">dump</span>(data, f, indent=<span class="n">2</span>)
+
+<span class="c"># Read JSON</span>
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"data.json"</span>) <span class="k">as</span> f:
+    loaded = json.<span class="f">load</span>(f)
+<span class="f">print</span>(loaded[<span class="s">"name"</span>])  <span class="c"># Alice</span></code></pre>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(10)">← Previous</button>
+    <button class="ch-btn" onclick="go(12)">Next: Error Handling →</button>
+  </div>
+</section>
+
+<!-- ===== CH 12: Error Handling ===== -->
+<section class="chapter" id="ch12">
+  <div class="ch-eyebrow">Chapter 13</div>
+  <div class="ch-title">Error Handling</div>
+  <div class="ch-desc">Gracefully handle problems with try/except.</div>
+
+  <h2>try / except</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="k">try</span>:
+    num = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Enter a number: "</span>))
+    result = <span class="n">100</span> / num
+    <span class="f">print</span>(<span class="s">f"Result: <span class="n">{result}</span>"</span>)
+<span class="k">except</span> <span class="d">ValueError</span>:
+    <span class="f">print</span>(<span class="s">"That's not a valid number!"</span>)
+<span class="k">except</span> <span class="d">ZeroDivisionError</span>:
+    <span class="f">print</span>(<span class="s">"Cannot divide by zero!"</span>)
+<span class="k">except</span> <span class="d">Exception</span> <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">f"Unexpected error: <span class="n">{e}</span>"</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"No errors occurred!"</span>)  <span class="c"># Runs only if no exception</span>
+<span class="k">finally</span>:
+    <span class="f">print</span>(<span class="s">"This ALWAYS runs."</span>)    <span class="c"># Cleanup</span></code></pre>
+  </div>
+
+  <h2>Common Exceptions</h2>
+  <table class="tbl">
+    <tr><th>Exception</th><th>When It Happens</th></tr>
+    <tr><td><code>ValueError</code></td><td>Wrong type of value: <code>int("abc")</code></td></tr>
+    <tr><td><code>TypeError</code></td><td>Wrong operation for type: <code>"a" + 1</code></td></tr>
+    <tr><td><code>KeyError</code></td><td>Dict key doesn't exist: <code>d["nope"]</code></td></tr>
+    <tr><td><code>IndexError</code></td><td>List index out of range: <code>lst[999]</code></td></tr>
+    <tr><td><code>FileNotFoundError</code></td><td>File doesn't exist: <code>open("nope.txt")</code></td></tr>
+    <tr><td><code>ZeroDivisionError</code></td><td>Dividing by zero: <code>5 / 0</code></td></tr>
+    <tr><td><code>AttributeError</code></td><td>Calling non-existent method</td></tr>
+  </table>
+
+  <h2>Raising Exceptions</h2>
+  <div class="codeblock">
+    <div class="cb-top"><div class="cb-dots"><span></span><span></span><span></span></div><span class="cb-lang">Python</span><button class="cb-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="k">def</span> <span class="f">set_age</span>(age):
+    <span class="k">if</span> age &lt; <span class="n">0</span>:
+        <span class="k">raise</span> <span class="d">ValueError</span>(<span class="s">"Age cannot be negative!"</span>)
+    <span class="k">return</span> age
+
+<span class="k">try</span>:
+    <span class="f">set_age</span>(-<span class="n">5</span>)
+<span class="k">except</span> <span class="d">ValueError</span> <span class="k">as</span> e:
+    <span class="f">print</span>(e)  <span class="c"># Age cannot be negative!</span></code></pre>
+  </div>
+
+  <div class="tip green">
+    <span>✅</span>
+    <p><strong>Best Practice:</strong> Catch specific exceptions, not bare <code>except:</code>. Be as precise as possible — it makes debugging much easier.</p>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(11)">← Previous</button>
+    <button class="ch-btn" onclick="go(13)">Next: Final Projects →</button>
+  </div>
+</section>
+
+<!-- ===== CH 13: Final Projects ===== -->
+<section class="chapter" id="ch13">
+  <div class="ch-eyebrow">Chapter 14</div>
+  <div class="ch-title">Final Projects</div>
+  <div class="ch-desc">Apply everything you've learned to build real programs.</div>
+
+  <h2>🎯 Project 1: Contact Book</h2>
+  <div class="card">
+    <h3>📓 Requirements</h3>
+    <p>Build a contact book that stores names, phone numbers, and emails. Support add, search, delete, and display all contacts. Store data in a JSON file so it persists between runs.</p>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-head"><span class="ex-badge">Solution</span><h4>Contact Book</h4></div>
+    <div class="ex-body">
+      <textarea class="editor" id="proj1" placeholder="Try writing your own solution first!" style="min-height:60px"></textarea>
+      <div class="btns">
+        <button class="btn btn-hint" onclick="exHint('proj1',`import json\n\ndef load_contacts():\n    try:\n        with open(\"contacts.json\") as f:\n            return json.load(f)\n    except FileNotFoundError:\n        return {}\n\ndef save_contacts(contacts):\n    with open(\"contacts.json\", \"w\") as f:\n        json.dump(contacts, f, indent=2)\n\ndef add_contact(contacts):\n    name = input(\"Name: \")\n    phone = input(\"Phone: \")\n    email = input(\"Email: \")\n    contacts[name] = {\"phone\": phone, \"email\": email}\n    save_contacts(contacts)\n    print(f\"Added {name}!\")\n\ndef search_contact(contacts):\n    name = input(\"Search name: \")\n    if name in contacts:\n        c = contacts[name]\n        print(f\"Name: {name}\")\n        print(f\"Phone: {c[\'phone\']}\")\n        print(f\"Email: {c[\'email\']}\")\n    else:\n        print(\"Not found.\")\n\ndef main():\n    contacts = load_contacts()\n    while True:\n        print(\"\\n1. Add  2. Search  3. List All  4. Quit\")\n        choice = input(\"Choose: \")\n        if choice == \"1\":\n            add_contact(contacts)\n        elif choice == \"2\":\n            search_contact(contacts)\n        elif choice == \"3\":\n            for name, info in contacts.items():\n                print(f\"{name}: {info[\'phone\']}\")\n        elif choice == \"4\":\n            break\n\nmain()`)">Show Solution</button>
+      </div>
+      <div class="result" id="proj1-r"></div>
+    </div>
+  </div>
+
+  <h2>🎯 Project 2: Number Guessing Game</h2>
+  <div class="card">
+    <h3>🎲 Requirements</h3>
+    <p>Generate a random number 1-100. Let the player guess with "too high" / "too low" hints. Track number of guesses. Add difficulty levels (easy = 15 guesses, hard = 5).</p>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-head"><span class="ex-badge">Solution</span><h4>Guessing Game</h4></div>
+    <div class="ex-body">
+      <textarea class="editor" id="proj2" placeholder="Try it yourself first!" style="min-height:60px"></textarea>
+      <div class="btns">
+        <button class="btn btn-hint" onclick="exHint('proj2',`import random\n\ndef guessing_game():\n    number = random.randint(1, 100)\n    print(\"I picked a number between 1 and 100.\")\n\n    difficulty = input(\"Easy (15 guesses) or Hard (5)? \").lower()\n    max_guesses = 15 if difficulty == \"easy\" else 5\n\n    for attempt in range(1, max_guesses + 1):\n        try:\n            guess = int(input(f\"Guess {attempt}/{max_guesses}: \"))\n        except ValueError:\n            print(\"Enter a valid number!\")\n            continue\n\n        if guess == number:\n            print(f\"Correct! You got it in {attempt} guesses!\")\n            return\n        elif guess < number:\n            print(\"Too low!\")\n        else:\n            print(\"Too high!\")\n\n    print(f\"Out of guesses! The number was {number}.\")\n\nguessing_game()`)">Show Solution</button>
+      </div>
+      <div class="result" id="proj2-r"></div>
+    </div>
+  </div>
+
+  <h2>🎯 Project 3: Student Grade Tracker (OOP)</h2>
+  <div class="card">
+    <h3>🎓 Requirements</h3>
+    <p>Create a <code>Student</code> class with name, grades (list), and methods to add grades, get average, get letter grade, and display a summary. Then create a <code>Classroom</code> class that holds multiple students and can show rankings.</p>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-head"><span class="ex-badge">Solution</span><h4>Student Tracker</h4></div>
+    <div class="ex-body">
+      <textarea class="editor" id="proj3" placeholder="Build with classes!" style="min-height:60px"></textarea>
+      <div class="btns">
+        <button class="btn btn-hint" onclick="exHint('proj3',`class Student:\n    def __init__(self, name):\n        self.name = name\n        self.grades = []\n\n    def add_grade(self, grade):\n        if 0 <= grade <= 100:\n            self.grades.append(grade)\n        else:\n            raise ValueError(\"Grade must be 0-100\")\n\n    def average(self):\n        if not self.grades:\n            return 0\n        return sum(self.grades) / len(self.grades)\n\n    def letter_grade(self):\n        avg = self.average()\n        if avg >= 90: return \"A\"\n        if avg >= 80: return \"B\"\n        if avg >= 70: return \"C\"\n        if avg >= 60: return \"D\"\n        return \"F\"\n\n    def __repr__(self):\n        return f\"{self.name}: {self.letter_grade()} ({self.average():.1f})\"\n\nclass Classroom:\n    def __init__(self):\n        self.students = []\n\n    def add_student(self, student):\n        self.students.append(student)\n\n    def rankings(self):\n        return sorted(self.students,\n                       key=lambda s: s.average(),\n                       reverse=True)\n\n# Usage\nroom = Classroom()\nalice = Student(\"Alice\")\nalice.add_grade(95)\nalice.add_grade(88)\nbob = Student(\"Bob\")\nbob.add_grade(72)\nbob.add_grade(81)\nroom.add_student(alice)\nroom.add_student(bob)\n\nfor rank, s in enumerate(room.rankings(), 1):\n    print(f\"{rank}. {s}\")`)">Show Solution</button>
+      </div>
+      <div class="result" id="proj3-r"></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:var(--py)">
+    <h3>🎉 Congratulations!</h3>
+    <p>You've completed the <strong>Python Mastery</strong> course! You've learned variables, strings, operators, conditionals, loops, data structures, functions, modules, OOP, file handling, and error handling.</p>
+    <p style="margin-top:12px"><strong>Keep building:</strong> Practice on <a href="https://leetcode.com/" style="color:var(--py)" target="_blank">LeetCode</a>, <a href="https://www.hackerrank.com/domains/python" style="color:var(--py)" target="_blank">HackerRank Python</a>, or <a href="https://exercism.org/tracks/python" style="color:var(--py)" target="_blank">Exercism</a>. Explore Django for web, Pandas for data, or Flask for APIs!</p>
+  </div>
+
+  <div class="ch-nav">
+    <button class="ch-btn" onclick="go(12)">← Previous</button>
+    <button class="ch-btn" onclick="go(0)">↻ Back to Start</button>
+  </div>
+</section>
+
+</main>
+
+<script>
+let cur=0;const tot=14;const chs=document.querySelectorAll('.chapter');
+const navs=document.querySelectorAll('.nav-item');const seen=new Set([0]);
+
+function go(i){
+  chs[cur].classList.remove('active');navs[cur].classList.remove('active');
+  cur=i;seen.add(i);chs[cur].classList.add('active');navs[cur].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});prog();
+  document.querySelector('.sidebar').classList.remove('open');
+}
+function prog(){
+  const p=(seen.size/tot)*100;
+  document.getElementById('progFill').style.width=p+'%';
+  document.getElementById('progLabel').textContent=seen.size+' / '+tot+' completed';
+}
+function copyCode(b){
+  const t=b.closest('.codeblock').querySelector('pre').textContent;
+  navigator.clipboard.writeText(t).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1500)});
+}
+function exCheck(id,kws){
+  const v=document.getElementById(id).value;const el=document.getElementById(id+'-r');
+  if(kws.every(k=>v.includes(k))){el.className='result ok';el.innerHTML='✅ <strong>Looks great!</strong> Your code has all the right elements.';}
+  else{el.className='result err';el.innerHTML='❌ Missing: <code>'+kws.filter(k=>!v.includes(k)).join('</code>, <code>')+'</code>. Try again!';}
+}
+function exHint(id,h){
+  const el=document.getElementById(id+'-r');el.className='result info';
+  el.innerHTML='💡 <strong>Solution:</strong><pre style="margin-top:8px;white-space:pre-wrap">'+h.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre>';
+}
+function qCheck(o,t){
+  const q=o.closest('.quiz');const opts=q.querySelectorAll('.qo');const fb=q.querySelector('.qfb');
+  opts.forEach(x=>{x.style.pointerEvents='none'});
+  if(t==='right'){o.classList.add('right');fb.style.display='block';fb.style.background='rgba(16,185,129,.07)';fb.style.color='var(--py4)';fb.textContent='✅ Correct!';}
+  else{o.classList.add('wrong');opts.forEach(x=>{if(x.getAttribute('onclick').includes("'right'"))x.classList.add('right')});fb.style.display='block';fb.style.background='rgba(239,68,68,.07)';fb.style.color='var(--py5)';fb.textContent='❌ Not quite — correct answer highlighted.';}
+}
+prog();
+</script>
+</body>
+</html>

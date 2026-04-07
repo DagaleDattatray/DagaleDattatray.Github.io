@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power BI Mastery — Complete Course from Zero to Dashboard Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#060609;--bg2:#0c0c12;--bg3:#141420;--bg4:#1c1c2c;
+  --text:#e4e2dd;--text2:#9e9b93;--text3:#666360;
+  --pbi:#f2c811;--pbi2:#e8a30e;--pbi3:#3498db;--pbi4:#2ecc71;--pbi5:#e74c3c;--pbi6:#9b59b6;
+  --border:#232333;--glow:0 0 50px rgba(242,200,17,.06);
+  --code-bg:#09090f;
+  --radius:10px;
+  --font-display:'Libre Baskerville',serif;
+  --font-body:'Sora',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--pbi) var(--bg2)}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.75;overflow-x:hidden}
+::selection{background:var(--pbi);color:var(--bg)}
+
+body::after{content:'';position:fixed;top:-40%;right:-25%;width:900px;height:900px;
+  background:radial-gradient(circle,rgba(242,200,17,.03) 0%,transparent 65%);pointer-events:none;z-index:0}
+body::before{content:'';position:fixed;bottom:-35%;left:-15%;width:700px;height:700px;
+  background:radial-gradient(circle,rgba(52,152,219,.025) 0%,transparent 65%);pointer-events:none;z-index:0}
+
+/* SIDEBAR */
+.sidebar{position:fixed;left:0;top:0;width:300px;height:100vh;background:var(--bg2);
+  border-right:1px solid var(--border);z-index:100;overflow-y:auto;transition:transform .3s ease;
+  display:flex;flex-direction:column}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--pbi);border-radius:99px}
+.sb-hd{padding:22px 20px;border-bottom:1px solid var(--border)}
+.sb-hd h1{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--pbi);
+  display:flex;align-items:center;gap:10px}
+.sb-hd h1 svg{width:26px;height:26px}
+.sb-hd p{font-size:.6rem;color:var(--text2);margin-top:4px;text-transform:uppercase;letter-spacing:3px;font-family:var(--font-mono);font-weight:500}
+.sb-prog{padding:14px 20px 2px}
+.pb{height:3px;background:var(--bg4);border-radius:99px;overflow:hidden}
+.pf{height:100%;width:0%;background:linear-gradient(90deg,var(--pbi),var(--pbi2));border-radius:99px;transition:width .6s cubic-bezier(.16,1,.3,1)}
+.pl{font-size:.65rem;color:var(--text3);margin-top:5px;font-family:var(--font-mono)}
+.sb-nav{flex:1;overflow-y:auto;padding:6px 0 20px}
+.ng{margin-bottom:0}
+.ngt{padding:14px 20px 5px;font-size:.55rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text3);font-weight:700;font-family:var(--font-mono)}
+.ni{display:flex;align-items:center;gap:8px;padding:6px 20px;font-size:.78rem;color:var(--text2);
+  cursor:pointer;transition:all .2s;border-left:2px solid transparent;text-decoration:none}
+.ni:hover{color:var(--pbi);background:rgba(242,200,17,.03);border-left-color:rgba(242,200,17,.3)}
+.ni.active{color:var(--pbi);background:rgba(242,200,17,.05);border-left-color:var(--pbi);font-weight:600}
+.ni .nn{font-family:var(--font-mono);font-size:.6rem;opacity:.4;min-width:18px}
+
+/* MAIN */
+.main{margin-left:300px;position:relative;z-index:1;min-height:100vh}
+.ch{display:none;padding:52px 68px 120px;max-width:940px;animation:rUp .5s ease}
+.ch.active{display:block}
+@keyframes rUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* TYPOGRAPHY */
+.ch-ey{font-size:.58rem;text-transform:uppercase;letter-spacing:4px;color:var(--pbi2);font-family:var(--font-mono);font-weight:600;margin-bottom:8px}
+.ch-ti{font-family:var(--font-display);font-size:2.6rem;font-weight:700;letter-spacing:-.3px;line-height:1.15;color:#fff;margin-bottom:10px}
+.ch-de{font-size:1rem;color:var(--text2);max-width:600px;margin-bottom:44px;font-weight:300}
+h2{font-family:var(--font-body);font-size:1.5rem;font-weight:700;margin:40px 0 14px;color:#fff;letter-spacing:-.2px}
+h2::before{content:'';display:inline-block;width:3px;height:20px;background:var(--pbi);margin-right:12px;border-radius:2px;vertical-align:middle}
+h3{font-size:1.05rem;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:13px;color:var(--text2);font-size:.9rem}
+strong{color:var(--text);font-weight:600}
+code{font-family:var(--font-mono);font-size:.82rem;background:var(--bg3);padding:2px 6px;border-radius:4px;color:var(--pbi)}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin:18px 0;position:relative;overflow:hidden}
+.card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--pbi),transparent)}
+.card h3{margin-top:0;color:var(--pbi)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:18px 0}
+.gc{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:16px;transition:all .25s}
+.gc:hover{border-color:rgba(242,200,17,.25);transform:translateY(-2px);box-shadow:var(--glow)}
+.gc .ic{font-size:1.5rem;margin-bottom:6px}
+.gc h4{font-size:.85rem;font-weight:700;margin-bottom:3px;color:#fff}
+.gc p{font-size:.78rem;margin:0}
+
+/* CODE/DAX BLOCKS */
+.cb{background:var(--code-bg);border:1px solid var(--border);border-radius:var(--radius);margin:16px 0;overflow:hidden}
+.cb .ct{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;background:rgba(242,200,17,.04);border-bottom:1px solid var(--border)}
+.cb .dots{display:flex;gap:5px}
+.cb .dots span{width:8px;height:8px;border-radius:50%}
+.cb .dots span:nth-child(1){background:#e74c3c}
+.cb .dots span:nth-child(2){background:#f2c811}
+.cb .dots span:nth-child(3){background:#2ecc71}
+.cb .lang{font-size:.6rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--pbi);font-family:var(--font-mono);font-weight:600}
+.cb .cpb{background:none;border:1px solid var(--border);color:var(--text3);padding:2px 9px;border-radius:5px;font-size:.6rem;cursor:pointer;font-family:var(--font-mono);transition:all .2s}
+.cb .cpb:hover{border-color:var(--pbi);color:var(--pbi)}
+pre{padding:16px;overflow-x:auto;font-family:var(--font-mono);font-size:.8rem;line-height:1.85;color:var(--text)}
+
+/* DAX Syntax */
+.kw{color:#c084fc;font-weight:500}
+.fn{color:#60a5fa}
+.st{color:#34d399}
+.cm{color:#4a4a5a;font-style:italic}
+.nm{color:#fbbf24}
+.op{color:#f87171}
+.tbl{color:#60a5fa}
+.col{color:#f2c811}
+.ms{color:#2ecc71}
+
+/* OUTPUT */
+.out{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);margin:10px 0 18px;padding:12px 16px;font-family:var(--font-mono);font-size:.8rem}
+.out::before{content:'Result';display:block;font-size:.58rem;text-transform:uppercase;letter-spacing:2px;color:var(--pbi2);margin-bottom:6px;font-weight:600}
+
+/* TIPS */
+.tip{padding:13px 16px;border-radius:var(--radius);margin:16px 0;font-size:.84rem;display:flex;gap:10px;align-items:flex-start}
+.tip.gold{background:rgba(242,200,17,.04);border-left:3px solid var(--pbi)}
+.tip.blue{background:rgba(52,152,219,.04);border-left:3px solid var(--pbi3)}
+.tip.green{background:rgba(46,204,113,.04);border-left:3px solid var(--pbi4)}
+.tip.red{background:rgba(231,76,60,.04);border-left:3px solid var(--pbi5)}
+.tip p{margin:0;color:var(--text2)}
+
+/* EXERCISE */
+.ex{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin:24px 0;overflow:hidden}
+.ex-hd{padding:12px 18px;background:linear-gradient(135deg,rgba(242,200,17,.05),rgba(52,152,219,.03));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px}
+.ex-b{background:var(--pbi);color:var(--bg);font-size:.58rem;padding:3px 9px;border-radius:99px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.ex-hd h4{font-size:.88rem;font-weight:700;color:#fff}
+.ex-bd{padding:18px}
+.edt{width:100%;min-height:80px;background:var(--code-bg);border:1px solid var(--border);border-radius:8px;padding:12px;font-family:var(--font-mono);font-size:.8rem;color:var(--text);resize:vertical;outline:none;transition:border-color .2s;line-height:1.8}
+.edt:focus{border-color:var(--pbi)}
+.btns{display:flex;gap:7px;margin-top:9px}
+.btn{padding:8px 18px;border-radius:7px;font-family:var(--font-mono);font-size:.75rem;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-go{background:var(--pbi);color:var(--bg)}
+.btn-go:hover{box-shadow:0 0 20px rgba(242,200,17,.3);transform:translateY(-1px)}
+.btn-h{background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
+.btn-h:hover{border-color:var(--pbi);color:var(--pbi)}
+.res{margin-top:10px;padding:11px 14px;border-radius:7px;font-family:var(--font-mono);font-size:.78rem;display:none}
+.res.ok{display:block;background:rgba(46,204,113,.06);border:1px solid rgba(46,204,113,.2);color:var(--pbi4)}
+.res.err{display:block;background:rgba(231,76,60,.06);border:1px solid rgba(231,76,60,.2);color:var(--pbi5)}
+.res.info{display:block;background:rgba(52,152,219,.06);border:1px solid rgba(52,152,219,.2);color:var(--pbi3)}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:.8rem}
+.tbl th{background:var(--bg3);padding:9px 12px;text-align:left;color:var(--pbi);font-weight:600;border-bottom:2px solid var(--pbi);font-size:.68rem;text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono)}
+.tbl td{padding:7px 12px;border-bottom:1px solid var(--border);color:var(--text2);font-size:.8rem}
+.tbl tr:hover td{background:rgba(242,200,17,.02)}
+
+/* VISUAL BOX */
+.vis{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0;text-align:center}
+.vis .vl{font-size:.58rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text3);margin-bottom:12px}
+
+/* FLOW */
+.flow{display:flex;align-items:center;justify-content:center;gap:0;margin:18px 0;flex-wrap:wrap}
+.fs{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:.78rem;font-weight:600;color:var(--text);text-align:center;min-width:100px}
+.fa{color:var(--pbi);font-size:1.1rem;margin:0 5px}
+
+/* QUIZ */
+.quiz{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin:18px 0}
+.quiz h4{color:var(--pbi3);margin-bottom:10px;font-size:.92rem}
+.qo{display:block;padding:8px 12px;margin:4px 0;background:var(--bg3);border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:all .2s;font-size:.82rem;color:var(--text2)}
+.qo:hover{border-color:var(--pbi3);color:var(--text)}
+.qo.right{border-color:var(--pbi4);background:rgba(46,204,113,.06);color:var(--pbi4)}
+.qo.wrong{border-color:var(--pbi5);background:rgba(231,76,60,.06);color:var(--pbi5)}
+.qfb{margin-top:9px;padding:7px 11px;border-radius:6px;font-size:.78rem;display:none}
+
+/* STEP INDICATOR */
+.steps{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap}
+.step{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:.8rem;color:var(--text2);flex:1;min-width:160px}
+.step .sn{width:26px;height:26px;border-radius:50%;background:var(--pbi);color:var(--bg);font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* SCREENSHOT PLACEHOLDER */
+.screenshot{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:32px;margin:16px 0;text-align:center;position:relative;overflow:hidden}
+.screenshot .mock{display:inline-block;background:var(--bg4);border:1px solid var(--border);border-radius:8px;padding:16px 24px;min-width:300px}
+.screenshot .topbar{background:var(--bg2);border-radius:4px 4px 0 0;padding:6px 10px;display:flex;gap:5px;margin:-16px -24px 12px}
+.screenshot .topbar span{width:8px;height:8px;border-radius:50%}
+.screenshot .topbar span:nth-child(1){background:#e74c3c}
+.screenshot .topbar span:nth-child(2){background:#f2c811}
+.screenshot .topbar span:nth-child(3){background:#2ecc71}
+
+/* NAVBAR FOOTER */
+.cnv{display:flex;justify-content:space-between;margin-top:50px;padding-top:24px;border-top:1px solid var(--border)}
+.cbtn{display:flex;align-items:center;gap:7px;padding:11px 20px;border-radius:8px;background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-size:.82rem;cursor:pointer;transition:all .2s;font-family:var(--font-body)}
+.cbtn:hover{border-color:var(--pbi);color:var(--pbi);transform:translateY(-2px)}
+
+/* HAMBURGER */
+.ham{display:none;position:fixed;top:12px;left:12px;z-index:200;background:var(--bg2);border:1px solid var(--border);width:40px;height:40px;border-radius:8px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.ham span{display:block;width:16px;height:2px;background:var(--text)}
+
+/* MOCK UI ELEMENTS */
+.mock-bar{height:14px;border-radius:3px;margin:4px 0}
+.mock-row{display:flex;gap:8px;margin:3px 0}
+
+@media(max-width:860px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .ham{display:flex}
+  .main{margin-left:0}
+  .ch{padding:52px 18px 100px}
+  .ch-ti{font-size:1.9rem}
+}
+</style>
+</head>
+<body>
+
+<button class="ham" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+  <span></span><span></span><span></span>
+</button>
+
+<nav class="sidebar">
+  <div class="sb-hd">
+    <h1>
+      <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="12" width="4" height="9" rx="1" fill="#f2c811"/><rect x="10" y="7" width="4" height="14" rx="1" fill="#e8a30e"/><rect x="17" y="3" width="4" height="18" rx="1" fill="#d4940a"/></svg>
+      Power BI Mastery
+    </h1>
+    <p>Zero to Dashboard Pro</p>
+  </div>
+  <div class="sb-prog">
+    <div class="pb"><div class="pf" id="pf"></div></div>
+    <div class="pl" id="pl">0 / 15 completed</div>
+  </div>
+  <div class="sb-nav">
+
+    <div class="ng"><div class="ngt">Getting Started</div>
+      <a class="ni active" onclick="go(0)"><span class="nn">01</span> What is Power BI?</a>
+      <a class="ni" onclick="go(1)"><span class="nn">02</span> Installation & Interface</a>
+      <a class="ni" onclick="go(2)"><span class="nn">03</span> Connecting to Data</a>
+    </div>
+    <div class="ng"><div class="ngt">Data Transformation</div>
+      <a class="ni" onclick="go(3)"><span class="nn">04</span> Power Query Editor</a>
+      <a class="ni" onclick="go(4)"><span class="nn">05</span> Data Modeling</a>
+    </div>
+    <div class="ng"><div class="ngt">Visualizations</div>
+      <a class="ni" onclick="go(5)"><span class="nn">06</span> Core Visuals</a>
+      <a class="ni" onclick="go(6)"><span class="nn">07</span> Formatting & Design</a>
+      <a class="ni" onclick="go(7)"><span class="nn">08</span> Interactive Features</a>
+    </div>
+    <div class="ng"><div class="ngt">DAX Fundamentals</div>
+      <a class="ni" onclick="go(8)"><span class="nn">09</span> DAX Basics</a>
+      <a class="ni" onclick="go(9)"><span class="nn">10</span> Calculated Columns & Measures</a>
+      <a class="ni" onclick="go(10)"><span class="nn">11</span> Time Intelligence</a>
+    </div>
+    <div class="ng"><div class="ngt">Advanced Topics</div>
+      <a class="ni" onclick="go(11)"><span class="nn">12</span> Row-Level Security</a>
+      <a class="ni" onclick="go(12)"><span class="nn">13</span> Publishing & Sharing</a>
+      <a class="ni" onclick="go(13)"><span class="nn">14</span> Performance & Best Practices</a>
+    </div>
+    <div class="ng"><div class="ngt">Capstone</div>
+      <a class="ni" onclick="go(14)"><span class="nn">15</span> Final Dashboard Project</a>
+    </div>
+
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ===== CH 0: What is Power BI ===== -->
+<section class="ch active" id="ch0">
+  <div class="ch-ey">Chapter 01</div>
+  <div class="ch-ti">What is Power BI?</div>
+  <div class="ch-de">Microsoft's industry-leading business intelligence platform — turn raw data into stunning interactive dashboards.</div>
+
+  <h2>The Power BI Ecosystem</h2>
+  <p><strong>Power BI</strong> is a suite of tools by Microsoft that lets you connect to data sources, transform raw data, build interactive visualizations, and share insights across your organization. It's the most widely used BI tool in the world.</p>
+
+  <div class="grid">
+    <div class="gc"><div class="ic">🖥️</div><h4>Power BI Desktop</h4><p>Free Windows app for building reports & dashboards. This is where you'll spend most of your time.</p></div>
+    <div class="gc"><div class="ic">☁️</div><h4>Power BI Service</h4><p>Cloud platform (app.powerbi.com) for publishing, sharing, and collaborating on reports.</p></div>
+    <div class="gc"><div class="ic">📱</div><h4>Power BI Mobile</h4><p>iOS/Android apps for viewing dashboards on the go.</p></div>
+    <div class="gc"><div class="ic">🔌</div><h4>Power BI Gateway</h4><p>Bridge between on-premises data and the cloud service for scheduled refreshes.</p></div>
+  </div>
+
+  <h2>Why Power BI?</h2>
+  <div class="card">
+    <h3>🏆 Key Advantages</h3>
+    <p><strong>Free Desktop app</strong> — No license needed to build reports locally.<br>
+    <strong>100+ data connectors</strong> — Excel, SQL, web APIs, SharePoint, Salesforce, and more.<br>
+    <strong>DAX formula language</strong> — Powerful analytics engine for complex calculations.<br>
+    <strong>Microsoft integration</strong> — Works seamlessly with Excel, Teams, SharePoint, Azure.<br>
+    <strong>Natural Language Q&A</strong> — Ask questions in plain English and get charts.<br>
+    <strong>Industry leader</strong> — Gartner Magic Quadrant leader for 16+ consecutive years.</p>
+  </div>
+
+  <h2>How Power BI Works</h2>
+  <div class="flow">
+    <div class="fs">📊 Data Sources</div>
+    <div class="fa">→</div>
+    <div class="fs">🔄 Power Query<br><span style="font-size:.65rem;color:var(--text3)">Transform & Clean</span></div>
+    <div class="fa">→</div>
+    <div class="fs">🧮 Data Model<br><span style="font-size:.65rem;color:var(--text3)">Relationships & DAX</span></div>
+    <div class="fa">→</div>
+    <div class="fs">📈 Visualizations<br><span style="font-size:.65rem;color:var(--text3)">Charts & Dashboards</span></div>
+    <div class="fa">→</div>
+    <div class="fs">🌐 Publish<br><span style="font-size:.65rem;color:var(--text3)">Share & Collaborate</span></div>
+  </div>
+
+  <h2>Power BI vs Other BI Tools</h2>
+  <table class="tbl">
+    <tr><th>Feature</th><th>Power BI</th><th>Tableau</th><th>Looker</th></tr>
+    <tr><td>Price</td><td>Free desktop / $10-$20/user/mo</td><td>$70+/user/mo</td><td>Custom pricing</td></tr>
+    <tr><td>Best For</td><td>Microsoft ecosystem users</td><td>Advanced visualization</td><td>SQL-first teams</td></tr>
+    <tr><td>Learning Curve</td><td>Low-Medium</td><td>Medium</td><td>Medium-High</td></tr>
+    <tr><td>Formula Language</td><td>DAX + Power Query M</td><td>Calculated Fields</td><td>LookML</td></tr>
+    <tr><td>Data Limits (Free)</td><td>1GB per dataset</td><td>Limited</td><td>N/A</td></tr>
+  </table>
+
+  <div class="tip gold">
+    <span>💡</span>
+    <p><strong>Career value:</strong> Power BI skills are among the most in-demand for data analysts, business analysts, and financial analysts. LinkedIn consistently ranks it in the top 10 most sought-after technical skills.</p>
+  </div>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p style="margin-bottom:8px">Which Power BI component is a free Windows application for building reports?</p>
+    <div class="qo" onclick="qC(this,'right')">Power BI Desktop</div>
+    <div class="qo" onclick="qC(this,'wrong')">Power BI Service</div>
+    <div class="qo" onclick="qC(this,'wrong')">Power BI Gateway</div>
+    <div class="qo" onclick="qC(this,'wrong')">Power BI Mobile</div>
+    <div class="qfb"></div>
+  </div>
+
+  <div class="cnv"><div></div><button class="cbtn" onclick="go(1)">Next: Installation & Interface →</button></div>
+</section>
+
+<!-- ===== CH 1: Installation & Interface ===== -->
+<section class="ch" id="ch1">
+  <div class="ch-ey">Chapter 02</div>
+  <div class="ch-ti">Installation & Interface</div>
+  <div class="ch-de">Set up Power BI Desktop and master the workspace layout.</div>
+
+  <h2>Installing Power BI Desktop</h2>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div><strong>Download</strong><br><span style="font-size:.78rem;color:var(--text2)">Go to <a href="https://powerbi.microsoft.com/desktop/" style="color:var(--pbi)" target="_blank">powerbi.microsoft.com/desktop</a> or the Microsoft Store</span></div></div>
+    <div class="step"><div class="sn">2</div><div><strong>Install</strong><br><span style="font-size:.78rem;color:var(--text2)">Run the installer (Windows only). ~500MB download.</span></div></div>
+    <div class="step"><div class="sn">3</div><div><strong>Sign In</strong><br><span style="font-size:.78rem;color:var(--text2)">Use a Microsoft work/school account (optional for local use).</span></div></div>
+  </div>
+
+  <div class="tip blue">
+    <span>📌</span>
+    <p><strong>Mac users:</strong> Power BI Desktop is Windows-only. Use a VM (Parallels, VMware), Windows 365 Cloud PC, or access the Power BI Service (web) at app.powerbi.com.</p>
+  </div>
+
+  <h2>The Interface Layout</h2>
+
+  <div class="screenshot">
+    <div class="mock" style="width:100%;max-width:650px;text-align:left">
+      <div class="topbar"><span></span><span></span><span></span><span style="margin-left:auto;font-size:.6rem;color:var(--text3);font-family:var(--font-mono)">Power BI Desktop</span></div>
+      <div style="display:flex;gap:4px;margin-bottom:8px">
+        <div style="background:var(--pbi);color:var(--bg);padding:3px 10px;border-radius:3px;font-size:.6rem;font-weight:700">Home</div>
+        <div style="background:var(--bg3);color:var(--text2);padding:3px 10px;border-radius:3px;font-size:.6rem">Insert</div>
+        <div style="background:var(--bg3);color:var(--text2);padding:3px 10px;border-radius:3px;font-size:.6rem">Modeling</div>
+        <div style="background:var(--bg3);color:var(--text2);padding:3px 10px;border-radius:3px;font-size:.6rem">View</div>
+        <div style="background:var(--bg3);color:var(--text2);padding:3px 10px;border-radius:3px;font-size:.6rem">Help</div>
+      </div>
+      <div style="display:flex;gap:6px;height:160px">
+        <div style="flex:1;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:8px;position:relative">
+          <div style="font-size:.55rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Report Canvas</div>
+          <div class="mock-bar" style="width:70%;background:var(--pbi);opacity:.3"></div>
+          <div class="mock-bar" style="width:50%;background:var(--pbi3);opacity:.3"></div>
+          <div class="mock-bar" style="width:85%;background:var(--pbi4);opacity:.3"></div>
+          <div class="mock-bar" style="width:40%;background:var(--pbi6);opacity:.3"></div>
+        </div>
+        <div style="width:120px;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:6px">
+          <div style="font-size:.5rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Visualizations</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px">
+            <div style="background:var(--bg3);border-radius:2px;height:16px;display:flex;align-items:center;justify-content:center;font-size:.5rem">📊</div>
+            <div style="background:var(--bg3);border-radius:2px;height:16px;display:flex;align-items:center;justify-content:center;font-size:.5rem">📈</div>
+            <div style="background:var(--bg3);border-radius:2px;height:16px;display:flex;align-items:center;justify-content:center;font-size:.5rem">🥧</div>
+            <div style="background:var(--bg3);border-radius:2px;height:16px;display:flex;align-items:center;justify-content:center;font-size:.5rem">🗺️</div>
+            <div style="background:var(--bg3);border-radius:2px;height:16px;display:flex;align-items:center;justify-content:center;font-size:.5rem">📋</div>
+            <div style="background:var(--bg3);border-radius:2px;height:16px;display:flex;align-items:center;justify-content:center;font-size:.5rem">🃏</div>
+          </div>
+          <div style="font-size:.5rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin:6px 0 3px">Fields</div>
+          <div style="font-size:.55rem;color:var(--text2);padding:2px 0">☐ Sales Amount</div>
+          <div style="font-size:.55rem;color:var(--text2);padding:2px 0">☐ Product Name</div>
+          <div style="font-size:.55rem;color:var(--text2);padding:2px 0">☐ Order Date</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:6px">
+        <div style="background:var(--pbi);width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.65rem;cursor:pointer" title="Report View">📊</div>
+        <div style="background:var(--bg3);width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.65rem;cursor:pointer" title="Table View">📋</div>
+        <div style="background:var(--bg3);width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.65rem;cursor:pointer" title="Model View">🔗</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Key Interface Areas</h2>
+  <div class="grid">
+    <div class="gc"><div class="ic">🎨</div><h4>Report Canvas</h4><p>The main area where you drag visuals, design layouts, and build your dashboard pages.</p></div>
+    <div class="gc"><div class="ic">📊</div><h4>Visualizations Pane</h4><p>Choose chart types (bar, line, pie, map, etc.) and configure visual formatting.</p></div>
+    <div class="gc"><div class="ic">📁</div><h4>Fields Pane</h4><p>Lists all tables and columns from your data model. Drag fields onto visuals.</p></div>
+    <div class="gc"><div class="ic">🔍</div><h4>Filters Pane</h4><p>Apply filters at visual, page, or report level to narrow down displayed data.</p></div>
+  </div>
+
+  <h2>Three Views</h2>
+  <div class="card">
+    <h3>👁️ View Modes (Bottom-Left Icons)</h3>
+    <p><strong>📊 Report View</strong> — Build and design your visualizations and dashboard pages.<br>
+    <strong>📋 Table View (Data View)</strong> — See your data in a spreadsheet-like grid. Good for verifying data.<br>
+    <strong>🔗 Model View</strong> — View and manage relationships between your tables. Essential for multi-table models.</p>
+  </div>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(0)">← Previous</button>
+    <button class="cbtn" onclick="go(2)">Next: Connecting to Data →</button>
+  </div>
+</section>
+
+<!-- ===== CH 2: Connecting to Data ===== -->
+<section class="ch" id="ch2">
+  <div class="ch-ey">Chapter 03</div>
+  <div class="ch-ti">Connecting to Data</div>
+  <div class="ch-de">Import data from Excel, CSV, databases, web APIs, and 100+ other sources.</div>
+
+  <h2>Get Data</h2>
+  <p>Click <strong>Home → Get Data</strong> to see all available connectors. The most common ones:</p>
+
+  <div class="grid">
+    <div class="gc"><div class="ic">📗</div><h4>Excel</h4><p>.xlsx and .xls files. Select specific sheets or tables.</p></div>
+    <div class="gc"><div class="ic">📄</div><h4>CSV / Text</h4><p>Comma-separated or tab-delimited flat files.</p></div>
+    <div class="gc"><div class="ic">🗄️</div><h4>SQL Server</h4><p>Direct query or import from SQL Server databases.</p></div>
+    <div class="gc"><div class="ic">🌐</div><h4>Web</h4><p>Scrape tables from web pages by URL.</p></div>
+    <div class="gc"><div class="ic">📁</div><h4>SharePoint</h4><p>Lists and document libraries from SharePoint Online.</p></div>
+    <div class="gc"><div class="ic">☁️</div><h4>Azure / Cloud</h4><p>Azure SQL, Synapse, Databricks, Snowflake, etc.</p></div>
+  </div>
+
+  <h2>Step-by-Step: Importing Excel Data</h2>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div><strong>Home → Get Data → Excel Workbook</strong></div></div>
+    <div class="step"><div class="sn">2</div><div><strong>Browse & select</strong> your .xlsx file</div></div>
+    <div class="step"><div class="sn">3</div><div><strong>Navigator window</strong> — check the sheets/tables to import</div></div>
+    <div class="step"><div class="sn">4</div><div>Click <strong>Load</strong> (direct) or <strong>Transform Data</strong> (clean first)</div></div>
+  </div>
+
+  <h2>Connection Modes</h2>
+  <table class="tbl">
+    <tr><th>Mode</th><th>How It Works</th><th>Best For</th></tr>
+    <tr><td><strong>Import</strong></td><td>Copies data into Power BI's in-memory engine. Fastest queries.</td><td>Most scenarios. Files, small-medium databases.</td></tr>
+    <tr><td><strong>DirectQuery</strong></td><td>Queries the source database live. No data stored in PBI.</td><td>Very large datasets, real-time needs.</td></tr>
+    <tr><td><strong>Composite</strong></td><td>Mix Import and DirectQuery tables in one model.</td><td>Hybrid scenarios.</td></tr>
+    <tr><td><strong>Live Connection</strong></td><td>Connect to SSAS or Power BI datasets. No local model.</td><td>Enterprise shared models.</td></tr>
+  </table>
+
+  <div class="tip gold">
+    <span>💡</span>
+    <p><strong>Always choose "Transform Data"</strong> instead of "Load" when importing for the first time. This opens Power Query where you can clean your data before it enters the model — saving headaches later.</p>
+  </div>
+
+  <h2>Data Refresh</h2>
+  <p>After initial import, you can refresh data to get latest updates:</p>
+  <div class="card">
+    <h3>🔄 Refresh Options</h3>
+    <p><strong>Manual Refresh</strong> — Click the Refresh button in Desktop or Service.<br>
+    <strong>Scheduled Refresh</strong> — Set up automatic refreshes (up to 8x/day on Pro, 48x on Premium) in the Power BI Service.<br>
+    <strong>Incremental Refresh</strong> — Only refresh new/changed data (for large tables).<br>
+    <strong>Gateway Required</strong> — For on-premises data sources, install a data gateway.</p>
+  </div>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(1)">← Previous</button>
+    <button class="cbtn" onclick="go(3)">Next: Power Query Editor →</button>
+  </div>
+</section>
+
+<!-- ===== CH 3: Power Query ===== -->
+<section class="ch" id="ch3">
+  <div class="ch-ey">Chapter 04</div>
+  <div class="ch-ti">Power Query Editor</div>
+  <div class="ch-de">The ETL engine inside Power BI — Extract, Transform, and Load data like a pro.</div>
+
+  <h2>What is Power Query?</h2>
+  <p>Power Query is the <strong>data transformation engine</strong> built into Power BI (and Excel). It lets you clean, reshape, merge, and prepare data before it hits your data model. Every step is recorded and replayable.</p>
+
+  <div class="flow">
+    <div class="fs">Raw Data</div>
+    <div class="fa">→</div>
+    <div class="fs">🔄 Power Query<br><span style="font-size:.65rem;color:var(--text3)">Clean & Transform</span></div>
+    <div class="fa">→</div>
+    <div class="fs">✅ Clean Data Model</div>
+  </div>
+
+  <h2>Common Transformations</h2>
+  <div class="grid">
+    <div class="gc"><h4>Remove Columns</h4><p>Right-click column header → Remove. Keep only what you need.</p></div>
+    <div class="gc"><h4>Rename Columns</h4><p>Double-click a column header to rename. Use clear, descriptive names.</p></div>
+    <div class="gc"><h4>Change Data Type</h4><p>Click the type icon (ABC/123) left of column name. Fix numbers stored as text.</p></div>
+    <div class="gc"><h4>Filter Rows</h4><p>Click the dropdown arrow on any column header to filter values.</p></div>
+    <div class="gc"><h4>Remove Duplicates</h4><p>Right-click column → Remove Duplicates.</p></div>
+    <div class="gc"><h4>Split Column</h4><p>Split "Full Name" into "First" and "Last" by delimiter.</p></div>
+    <div class="gc"><h4>Merge Queries</h4><p>JOIN two tables together (like SQL JOIN). Home → Merge Queries.</p></div>
+    <div class="gc"><h4>Append Queries</h4><p>Stack tables vertically (like SQL UNION). Home → Append Queries.</p></div>
+    <div class="gc"><h4>Unpivot Columns</h4><p>Turn wide data (months as columns) into tall data (month as a row field).</p></div>
+  </div>
+
+  <h2>Applied Steps</h2>
+  <div class="card">
+    <h3>📝 Step-by-Step Recording</h3>
+    <p>Every action you take in Power Query is recorded as an <strong>Applied Step</strong> in the right panel. Steps are executed in order, top to bottom. You can go back to any step, edit it, delete it, or reorder steps. This makes your transformations <strong>reproducible</strong> — when data refreshes, all steps are re-applied automatically.</p>
+  </div>
+
+  <h2>The M Language</h2>
+  <p>Behind every Power Query step is code written in <strong>M (Power Query Formula Language)</strong>. You can view and edit it in the Advanced Editor.</p>
+
+  <div class="cb">
+    <div class="ct"><div class="dots"><span></span><span></span><span></span></div><span class="lang">M (Power Query)</span><button class="cpb" onclick="cpC(this)">Copy</button></div>
+    <pre><code><span class="kw">let</span>
+    Source = Excel.Workbook(File.Contents(<span class="st">"C:\Sales.xlsx"</span>)),
+    SalesTable = Source{[Name=<span class="st">"Sheet1"</span>]}[Data],
+    <span class="cm">// Promote first row as headers</span>
+    PromotedHeaders = Table.PromoteHeaders(SalesTable),
+    <span class="cm">// Change types</span>
+    ChangedTypes = Table.TransformColumnTypes(PromotedHeaders, {
+        {<span class="st">"Sales"</span>, <span class="kw">type number</span>},
+        {<span class="st">"Date"</span>, <span class="kw">type date</span>}
+    }),
+    <span class="cm">// Filter out nulls</span>
+    FilteredRows = Table.SelectRows(ChangedTypes, each [Sales] <> <span class="kw">null</span>)
+<span class="kw">in</span>
+    FilteredRows</code></pre>
+  </div>
+
+  <div class="tip blue">
+    <span>📌</span>
+    <p><strong>You don't need to learn M!</strong> The GUI generates M code automatically. But understanding it helps when you need custom logic or want to debug complex transforms.</p>
+  </div>
+
+  <h2>Best Practices</h2>
+  <div class="tip gold">
+    <span>💡</span>
+    <p><strong>1.</strong> Remove unused columns early (saves memory). <strong>2.</strong> Set correct data types for every column. <strong>3.</strong> Rename columns to business-friendly names. <strong>4.</strong> Filter out junk/test data. <strong>5.</strong> Always use "Close & Apply" when done.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-hd"><span class="ex-b">Practice</span><h4>Transformation Sequence</h4></div>
+    <div class="ex-bd">
+      <p>You import a messy Excel file. Put these Power Query steps in the correct order:</p>
+      <p>A) Change data types &nbsp; B) Remove unneeded columns &nbsp; C) Promote headers &nbsp; D) Filter out blank rows &nbsp; E) Rename columns</p>
+      <textarea class="edt" id="ex0" placeholder="Type the correct order (e.g., C, B, A, D, E)"></textarea>
+      <div class="btns">
+        <button class="btn btn-go" onclick="exCk('ex0',['C','B','A','D','E'])">Check</button>
+        <button class="btn btn-h" onclick="exH('ex0','Correct order: C → B → A → D → E\n\n1. Promote headers (so you know what columns are)\n2. Remove unneeded columns (reduce data early)\n3. Change data types (ensure correct types)\n4. Filter out blank rows (clean up)\n5. Rename columns (make business-friendly)')">Show Answer</button>
+      </div>
+      <div class="res" id="ex0-r"></div>
+    </div>
+  </div>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(2)">← Previous</button>
+    <button class="cbtn" onclick="go(4)">Next: Data Modeling →</button>
+  </div>
+</section>
+
+<!-- ===== CH 4: Data Modeling ===== -->
+<section class="ch" id="ch4">
+  <div class="ch-ey">Chapter 05</div>
+  <div class="ch-ti">Data Modeling</div>
+  <div class="ch-de">Build relationships between tables — the backbone of a great Power BI report.</div>
+
+  <h2>Star Schema</h2>
+  <p>The <strong>star schema</strong> is the gold standard for Power BI data models. It has a central <strong>Fact Table</strong> (transactions/events) surrounded by <strong>Dimension Tables</strong> (descriptive attributes).</p>
+
+  <div class="vis">
+    <div class="vl">⭐ Star Schema Example</div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:.75rem;text-align:left;min-width:110px">
+        <div style="color:var(--pbi3);font-weight:700;font-size:.65rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">DIM: Date</div>
+        <div style="color:var(--text2)">Date<br>Month<br>Quarter<br>Year</div>
+      </div>
+      <div style="font-size:1.2rem;color:var(--pbi)">→</div>
+      <div style="background:var(--pbi);color:var(--bg);border-radius:8px;padding:14px 18px;font-size:.75rem;text-align:left;min-width:130px;font-weight:600">
+        <div style="font-size:.65rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">FACT: Sales</div>
+        <div>OrderID<br>DateKey ⟶<br>ProductKey ⟶<br>CustomerKey ⟶<br>Amount<br>Quantity</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:6px"><div style="font-size:1.2rem;color:var(--pbi)">←</div><div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:.75rem;text-align:left;min-width:110px"><div style="color:var(--pbi4);font-weight:700;font-size:.65rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">DIM: Product</div><div style="color:var(--text2)">ProductID<br>Name<br>Category<br>Price</div></div></div>
+        <div style="display:flex;align-items:center;gap:6px"><div style="font-size:1.2rem;color:var(--pbi)">←</div><div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:.75rem;text-align:left;min-width:110px"><div style="color:var(--pbi6);font-weight:700;font-size:.65rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">DIM: Customer</div><div style="color:var(--text2)">CustomerID<br>Name<br>City<br>Segment</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Relationships</h2>
+  <p>In <strong>Model View</strong>, you connect tables by dragging a column from one table to another. Power BI often auto-detects relationships.</p>
+
+  <table class="tbl">
+    <tr><th>Relationship Type</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><strong>One-to-Many (1:*)</strong></td><td>One row in dim matches many rows in fact</td><td>1 Product → Many Sales rows</td></tr>
+    <tr><td><strong>One-to-One (1:1)</strong></td><td>Each row matches exactly one row</td><td>Employee → Employee Details</td></tr>
+    <tr><td><strong>Many-to-Many (*:*)</strong></td><td>Many rows on both sides (use with caution)</td><td>Students ↔ Courses</td></tr>
+  </table>
+
+  <h2>Cross-Filter Direction</h2>
+  <div class="card">
+    <h3>🔀 Single vs Both</h3>
+    <p><strong>Single (default, recommended)</strong> — Filters flow from Dimension → Fact table only. Clean, predictable behavior.<br>
+    <strong>Both (bi-directional)</strong> — Filters flow in both directions. Can cause ambiguity. Use sparingly, only when needed.</p>
+  </div>
+
+  <div class="tip red">
+    <span>🚫</span>
+    <p><strong>Avoid circular dependencies!</strong> If Table A filters Table B and Table B filters Table A through different paths, you'll get errors. Keep your model as a clean star schema to prevent this.</p>
+  </div>
+
+  <h2>Modeling Best Practices</h2>
+  <div class="tip gold">
+    <span>💡</span>
+    <p><strong>1.</strong> Use star schema — one fact table, multiple dimension tables.<br>
+    <strong>2.</strong> Always use one-to-many relationships with single-direction filtering.<br>
+    <strong>3.</strong> Create a dedicated Date table (essential for time intelligence).<br>
+    <strong>4.</strong> Hide foreign key columns from Report View (users don't need to see IDs).<br>
+    <strong>5.</strong> Avoid calculated columns when a measure will do (saves memory).</p>
+  </div>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(3)">← Previous</button>
+    <button class="cbtn" onclick="go(5)">Next: Core Visuals →</button>
+  </div>
+</section>
+
+<!-- ===== CH 5: Core Visuals ===== -->
+<section class="ch" id="ch5">
+  <div class="ch-ey">Chapter 06</div>
+  <div class="ch-ti">Core Visualizations</div>
+  <div class="ch-de">Master every built-in chart type and know when to use each one.</div>
+
+  <h2>Choosing the Right Visual</h2>
+  <table class="tbl">
+    <tr><th>Visual</th><th>Best For</th><th>Example Use Case</th></tr>
+    <tr><td>📊 <strong>Bar/Column Chart</strong></td><td>Comparing categories</td><td>Sales by Product Category</td></tr>
+    <tr><td>📈 <strong>Line Chart</strong></td><td>Trends over time</td><td>Monthly Revenue over 3 years</td></tr>
+    <tr><td>🥧 <strong>Pie / Donut</strong></td><td>Part-of-whole (≤6 categories)</td><td>Market share by region</td></tr>
+    <tr><td>📋 <strong>Table / Matrix</strong></td><td>Detailed data, drill-down</td><td>Invoice details, pivot-style summaries</td></tr>
+    <tr><td>🃏 <strong>Card / Multi-row Card</strong></td><td>Single KPI number</td><td>Total Revenue: $2.4M</td></tr>
+    <tr><td>⏲️ <strong>KPI Visual</strong></td><td>KPI vs Target</td><td>Actual vs Budget with trend</td></tr>
+    <tr><td>🗺️ <strong>Map</strong></td><td>Geographic data</td><td>Sales by State/Country</td></tr>
+    <tr><td>🌊 <strong>Waterfall</strong></td><td>Incremental changes</td><td>How profit builds from revenue to costs</td></tr>
+    <tr><td>🔥 <strong>Treemap</strong></td><td>Hierarchical proportions</td><td>Category → Sub-category breakdown</td></tr>
+    <tr><td>📏 <strong>Gauge</strong></td><td>Value against a target range</td><td>Customer satisfaction score</td></tr>
+    <tr><td>🔀 <strong>Scatter Plot</strong></td><td>Correlation between 2 variables</td><td>Price vs. Quantity sold</td></tr>
+    <tr><td>🎯 <strong>Funnel</strong></td><td>Sequential stages</td><td>Sales pipeline: Leads → Won</td></tr>
+    <tr><td>📊 <strong>Combo Chart</strong></td><td>Two different measures</td><td>Revenue (bars) + Margin % (line)</td></tr>
+    <tr><td>🧩 <strong>Slicer</strong></td><td>Interactive filter control</td><td>Date range, category selector</td></tr>
+  </table>
+
+  <h2>Building Your First Visual</h2>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div><strong>Click the canvas</strong> (blank area) to deselect everything</div></div>
+    <div class="step"><div class="sn">2</div><div><strong>Choose a visual</strong> from the Visualizations pane</div></div>
+    <div class="step"><div class="sn">3</div><div><strong>Drag fields</strong> from the Fields pane into the visual's field wells (Axis, Values, Legend)</div></div>
+    <div class="step"><div class="sn">4</div><div><strong>Resize & position</strong> the visual on the canvas</div></div>
+  </div>
+
+  <h2>Slicers — The Most Important Interactive Element</h2>
+  <p>Slicers are visual filters that let users interactively control what data is displayed on the page.</p>
+  <div class="card">
+    <h3>🧩 Slicer Types</h3>
+    <p><strong>List slicer</strong> — Dropdown or checkbox list of values.<br>
+    <strong>Date Range slicer</strong> — Between dates, Before, After, or Relative date.<br>
+    <strong>Numeric range slicer</strong> — Slider for number ranges.<br>
+    <strong>Relative date slicer</strong> — "Last 30 days", "This quarter", etc.<br><br>
+    <strong>Pro tip:</strong> Use "Sync slicers" (View → Sync Slicers) to make a slicer control multiple pages at once.</p>
+  </div>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p style="margin-bottom:8px">Which visual is best for showing a trend over time?</p>
+    <div class="qo" onclick="qC(this,'wrong')">Pie Chart</div>
+    <div class="qo" onclick="qC(this,'right')">Line Chart</div>
+    <div class="qo" onclick="qC(this,'wrong')">Card</div>
+    <div class="qo" onclick="qC(this,'wrong')">Treemap</div>
+    <div class="qfb"></div>
+  </div>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(4)">← Previous</button>
+    <button class="cbtn" onclick="go(6)">Next: Formatting & Design →</button>
+  </div>
+</section>
+
+<!-- ===== CH 6: Formatting & Design ===== -->
+<section class="ch" id="ch6">
+  <div class="ch-ey">Chapter 07</div>
+  <div class="ch-ti">Formatting & Design</div>
+  <div class="ch-de">Make your dashboards look professional, polished, and on-brand.</div>
+
+  <h2>Dashboard Design Principles</h2>
+  <div class="grid">
+    <div class="gc"><div class="ic">🎯</div><h4>Purpose First</h4><p>Every visual should answer a specific question. If it doesn't, remove it.</p></div>
+    <div class="gc"><div class="ic">👁️</div><h4>Visual Hierarchy</h4><p>Most important KPIs at top-left. Eyes scan in a Z or F pattern.</p></div>
+    <div class="gc"><div class="ic">🎨</div><h4>Consistent Colors</h4><p>Use a consistent color palette. 3-5 colors max. Use your brand colors.</p></div>
+    <div class="gc"><div class="ic">📐</div><h4>Alignment & Spacing</h4><p>Align visuals to a grid. Equal spacing. Use View → Snap to Grid.</p></div>
+    <div class="gc"><div class="ic">🔤</div><h4>Clear Labels</h4><p>Descriptive titles, proper axis labels, data labels where helpful.</p></div>
+    <div class="gc"><div class="ic">📱</div><h4>Mobile Layout</h4><p>Use View → Mobile Layout to design phone-optimized versions.</p></div>
+  </div>
+
+  <h2>Format Pane Deep Dive</h2>
+  <p>Select any visual and click the <strong>Format</strong> (paint roller) icon in the Visualizations pane:</p>
+  <div class="card">
+    <h3>🖌️ Key Formatting Options</h3>
+    <p><strong>General</strong> — Size, position, alt text, padding<br>
+    <strong>Title</strong> — Show/hide, text, font, color, alignment, background<br>
+    <strong>Data labels</strong> — Show values on bars/points, format, position<br>
+    <strong>Legend</strong> — Position (top, bottom, left, right), font size<br>
+    <strong>X/Y Axis</strong> — Labels, range, gridlines, title<br>
+    <strong>Data colors</strong> — Customize individual bar/segment colors<br>
+    <strong>Background</strong> — Visual background color, transparency<br>
+    <strong>Border</strong> — Outline around the visual<br>
+    <strong>Shadow</strong> — Drop shadow effect</p>
+  </div>
+
+  <h2>Themes</h2>
+  <p>Apply a consistent look across all visuals with themes:</p>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div><strong>View → Themes</strong> — Choose a built-in theme</div></div>
+    <div class="step"><div class="sn">2</div><div>Or <strong>Customize current theme</strong> for colors, fonts, backgrounds</div></div>
+    <div class="step"><div class="sn">3</div><div>Or import a <strong>.json theme file</strong> for full control</div></div>
+  </div>
+
+  <div class="cb">
+    <div class="ct"><div class="dots"><span></span><span></span><span></span></div><span class="lang">JSON Theme (sample)</span><button class="cpb" onclick="cpC(this)">Copy</button></div>
+    <pre><code>{
+  <span class="st">"name"</span>: <span class="st">"Corporate Dark"</span>,
+  <span class="st">"dataColors"</span>: [<span class="st">"#3498db"</span>, <span class="st">"#2ecc71"</span>, <span class="st">"#e74c3c"</span>, <span class="st">"#f39c12"</span>, <span class="st">"#9b59b6"</span>],
+  <span class="st">"background"</span>: { <span class="st">"color"</span>: <span class="st">"#1a1a2e"</span> },
+  <span class="st">"foreground"</span>: { <span class="st">"color"</span>: <span class="st">"#e0e0e0"</span> },
+  <span class="st">"textClasses"</span>: {
+    <span class="st">"label"</span>: { <span class="st">"fontFace"</span>: <span class="st">"Segoe UI"</span>, <span class="st">"color"</span>: <span class="st">"#cccccc"</span> }
+  }
+}</code></pre>
+  </div>
+
+  <h2>Conditional Formatting</h2>
+  <p>Dynamically color cells, bars, or icons based on values. Right-click a field in the Values well → <strong>Conditional formatting</strong>:</p>
+  <div class="card">
+    <h3>🌈 Options</h3>
+    <p><strong>Background color</strong> — Color scale (green to red for performance)<br>
+    <strong>Font color</strong> — Red for negative, green for positive<br>
+    <strong>Data bars</strong> — Mini bar charts inside table cells<br>
+    <strong>Icons</strong> — ✅❌⚠️ indicators based on rules<br>
+    <strong>Web URL</strong> — Make values clickable links</p>
+  </div>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(5)">← Previous</button>
+    <button class="cbtn" onclick="go(7)">Next: Interactive Features →</button>
+  </div>
+</section>
+
+<!-- ===== CH 7: Interactive Features ===== -->
+<section class="ch" id="ch7">
+  <div class="ch-ey">Chapter 08</div>
+  <div class="ch-ti">Interactive Features</div>
+  <div class="ch-de">Drilldowns, bookmarks, buttons, tooltips — make dashboards come alive.</div>
+
+  <h2>Cross-Filtering & Cross-Highlighting</h2>
+  <p>By default, clicking a bar/segment in one visual filters all other visuals on the page. This is the core interactive behavior.</p>
+  <div class="card">
+    <h3>🔀 Interaction Types</h3>
+    <p>Select a visual → <strong>Format → Edit Interactions</strong> to control how other visuals respond:<br><br>
+    <strong>🔍 Filter</strong> — Other visuals show only the selected subset.<br>
+    <strong>✨ Highlight</strong> — Other visuals dim unrelated data (default for bars).<br>
+    <strong>⛔ None</strong> — Other visual ignores the selection entirely.</p>
+  </div>
+
+  <h2>Drill Down & Drill Through</h2>
+  <h3>Drill Down (within a visual)</h3>
+  <p>When a visual has a <strong>hierarchy</strong> (e.g., Year → Quarter → Month → Day), users can drill into deeper levels:</p>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div>Add hierarchy fields to a visual's Axis (e.g., Year, Quarter, Month)</div></div>
+    <div class="step"><div class="sn">2</div><div>Use the drill icons at the top of the visual: ↓ Drill Down, ↑ Drill Up, ⇊ Expand All</div></div>
+  </div>
+
+  <h3>Drill Through (to another page)</h3>
+  <p>Navigate from a summary to a detail page for a specific item:</p>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div>Create a detail page (e.g., "Product Details")</div></div>
+    <div class="step"><div class="sn">2</div><div>On that page, drag a field into the <strong>Drill-through filter</strong> well (e.g., Product Name)</div></div>
+    <div class="step"><div class="sn">3</div><div>Users right-click a product on any page → <strong>Drill Through → Product Details</strong></div></div>
+  </div>
+
+  <h2>Bookmarks & Buttons</h2>
+  <p>Bookmarks save a snapshot of the page state (filters, visibility, scroll position). Combine with buttons for powerful navigation.</p>
+  <div class="card">
+    <h3>📑 Use Cases</h3>
+    <p><strong>Toggle views</strong> — Switch between chart and table view of the same data.<br>
+    <strong>Reset filters</strong> — "Clear All Filters" button.<br>
+    <strong>Storytelling</strong> — Walk through a presentation with bookmark navigation.<br>
+    <strong>Show/hide panels</strong> — Toggle a filter panel or info panel visibility.<br><br>
+    <strong>How:</strong> View → Bookmarks pane → Add Bookmark. Then Insert → Button → set Action to Bookmark.</p>
+  </div>
+
+  <h2>Custom Tooltips</h2>
+  <p>Create a dedicated page and use it as a rich tooltip that appears on hover:</p>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div>Create a new page → set Page Size to <strong>Tooltip</strong> (in Format → Canvas settings)</div></div>
+    <div class="step"><div class="sn">2</div><div>Turn on <strong>"Allow use as tooltip"</strong> in the page's format settings</div></div>
+    <div class="step"><div class="sn">3</div><div>Add mini-visuals to this page (KPI cards, small charts)</div></div>
+    <div class="step"><div class="sn">4</div><div>On your main visual, set Tooltip → Report Page → select your tooltip page</div></div>
+  </div>
+
+  <div class="tip gold">
+    <span>💡</span>
+    <p><strong>Pro Tip:</strong> Custom tooltips are one of the most impressive features for stakeholders. A bar chart showing revenue by product can show a rich tooltip with product image, margin %, and trend mini-chart on hover.</p>
+  </div>
+
+  <h2>Q&A Visual (Natural Language)</h2>
+  <p>Insert → Q&A lets users type questions in plain English like <strong>"What was total sales last quarter by region?"</strong> and Power BI auto-generates a visual. Great for self-service exploration.</p>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(6)">← Previous</button>
+    <button class="cbtn" onclick="go(8)">Next: DAX Basics →</button>
+  </div>
+</section>
+
+<!-- ===== CH 8: DAX Basics ===== -->
+<section class="ch" id="ch8">
+  <div class="ch-ey">Chapter 09</div>
+  <div class="ch-ti">DAX Basics</div>
+  <div class="ch-de">Data Analysis Expressions — the formula language that powers Power BI calculations.</div>
+
+  <h2>What is DAX?</h2>
+  <p><strong>DAX</strong> (Data Analysis Expressions) is the formula language used in Power BI, Power Pivot, and Analysis Services. It's similar to Excel formulas but designed for relational data models and aggregations.</p>
+
+  <div class="card">
+    <h3>📐 DAX vs Excel</h3>
+    <p><strong>Excel:</strong> Formulas operate on cells → <code>=SUM(A1:A100)</code><br>
+    <strong>DAX:</strong> Formulas operate on columns/tables → <code>SUM(Sales[Amount])</code><br><br>
+    DAX references columns with the syntax: <code>TableName[ColumnName]</code></p>
+  </div>
+
+  <h2>Core Aggregation Functions</h2>
+  <div class="cb">
+    <div class="ct"><div class="dots"><span></span><span></span><span></span></div><span class="lang">DAX</span><button class="cpb" onclick="cpC(this)">Copy</button></div>
+    <pre><code><span class="cm">// Basic Aggregations</span>
+Total Sales   = <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>])
+Order Count   = <span class="fn">COUNT</span>(<span class="tbl">Sales</span>[<span class="col">OrderID</span>])
+Unique Custs  = <span class="fn">DISTINCTCOUNT</span>(<span class="tbl">Sales</span>[<span class="col">CustomerID</span>])
+Avg Price     = <span class="fn">AVERAGE</span>(<span class="tbl">Products</span>[<span class="col">Price</span>])
+Max Sale      = <span class="fn">MAX</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>])
+Row Count     = <span class="fn">COUNTROWS</span>(<span class="tbl">Sales</span>)</code></pre>
+  </div>
+
+  <h2>CALCULATE — The Most Important Function</h2>
+  <p><code>CALCULATE</code> modifies the filter context. It evaluates an expression with modified filters — it's the key to almost every advanced DAX pattern.</p>
+
+  <div class="cb">
+    <div class="ct"><div class="dots"><span></span><span></span><span></span></div><span class="lang">DAX</span><button class="cpb" onclick="cpC(this)">Copy</button></div>
+    <pre><code><span class="cm">// Total Sales for Electronics category ONLY</span>
+Electronics Sales =
+<span class="fn">CALCULATE</span>(
+    <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>]),
+    <span class="tbl">Products</span>[<span class="col">Category</span>] = <span class="st">"Electronics"</span>
+)
+
+<span class="cm">// Total Sales ignoring any region filter</span>
+Total Sales All Regions =
+<span class="fn">CALCULATE</span>(
+    <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>]),
+    <span class="fn">ALL</span>(<span class="tbl">Region</span>)
+)</code></pre>
+  </div>
+
+  <h2>Understanding Filter Context</h2>
+  <div class="card">
+    <h3>🔍 Filter Context = The Environment</h3>
+    <p>Every DAX expression evaluates within a <strong>filter context</strong> — the set of active filters from slicers, visuals, rows, and columns.<br><br>
+    When you put <code>[Total Sales]</code> in a bar chart by Category, DAX automatically evaluates <code>SUM(Sales[Amount])</code> separately for each category. The visual provides the filter context.<br><br>
+    <code>CALCULATE</code> lets you <strong>override or modify</strong> this context.</p>
+  </div>
+
+  <h2>Key Filter Functions</h2>
+  <table class="tbl">
+    <tr><th>Function</th><th>Purpose</th></tr>
+    <tr><td><code>ALL(Table)</code></td><td>Remove all filters from a table</td></tr>
+    <tr><td><code>ALLEXCEPT(Table, Col)</code></td><td>Remove all filters except specified columns</td></tr>
+    <tr><td><code>FILTER(Table, Condition)</code></td><td>Return a filtered table (row-by-row evaluation)</td></tr>
+    <tr><td><code>SELECTEDVALUE(Col)</code></td><td>Return the value if exactly one is selected</td></tr>
+    <tr><td><code>HASONEVALUE(Col)</code></td><td>Check if exactly one value is in context</td></tr>
+    <tr><td><code>VALUES(Col)</code></td><td>Return distinct values in current context</td></tr>
+  </table>
+
+  <div class="tip red">
+    <span>🚫</span>
+    <p><strong>Common mistake:</strong> Using <code>FILTER</code> when a simple column condition in <code>CALCULATE</code> would work. <code>CALCULATE(SUM(...), Table[Col] = "X")</code> is more efficient than using <code>FILTER(ALL(Table), ...)</code> for simple conditions.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-hd"><span class="ex-b">Practice</span><h4>Write a DAX Measure</h4></div>
+    <div class="ex-bd">
+      <p>Write a measure called <code>Online Sales</code> that calculates total sales amount only where the <code>Sales[Channel]</code> column equals "Online".</p>
+      <textarea class="edt" id="ex1" placeholder="Write your DAX here..."></textarea>
+      <div class="btns">
+        <button class="btn btn-go" onclick="exCk('ex1',['CALCULATE','SUM','Sales','Amount','Channel','Online'])">Check</button>
+        <button class="btn btn-h" onclick="exH('ex1',`Online Sales = \nCALCULATE(\n    SUM(Sales[Amount]),\n    Sales[Channel] = \"Online\"\n)`)">Show Answer</button>
+      </div>
+      <div class="res" id="ex1-r"></div>
+    </div>
+  </div>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(7)">← Previous</button>
+    <button class="cbtn" onclick="go(9)">Next: Calculated Columns & Measures →</button>
+  </div>
+</section>
+
+<!-- ===== CH 9: Calc Columns & Measures ===== -->
+<section class="ch" id="ch9">
+  <div class="ch-ey">Chapter 10</div>
+  <div class="ch-ti">Calculated Columns vs Measures</div>
+  <div class="ch-de">The most critical distinction in DAX — know when to use each.</div>
+
+  <h2>Calculated Columns</h2>
+  <p>A new column added to an existing table. Calculated <strong>row by row</strong> during data refresh. Stored in memory.</p>
+  <div class="cb">
+    <div class="ct"><div class="dots"><span></span><span></span><span></span></div><span class="lang">DAX — Calculated Column</span><button class="cpb" onclick="cpC(this)">Copy</button></div>
+    <pre><code><span class="cm">// Add a Profit column to the Sales table</span>
+Profit = <span class="tbl">Sales</span>[<span class="col">Revenue</span>] - <span class="tbl">Sales</span>[<span class="col">Cost</span>]
+
+<span class="cm">// Categorize customers by spend tier</span>
+Customer Tier =
+<span class="fn">IF</span>(
+    <span class="tbl">Customers</span>[<span class="col">TotalSpend</span>] > <span class="nm">10000</span>, <span class="st">"Gold"</span>,
+    <span class="fn">IF</span>(<span class="tbl">Customers</span>[<span class="col">TotalSpend</span>] > <span class="nm">5000</span>, <span class="st">"Silver"</span>, <span class="st">"Bronze"</span>)
+)</code></pre>
+  </div>
+
+  <h2>Measures</h2>
+  <p>A formula that calculates <strong>at query time</strong> based on the current filter context. Not stored row-by-row — computed dynamically.</p>
+  <div class="cb">
+    <div class="ct"><div class="dots"><span></span><span></span><span></span></div><span class="lang">DAX — Measures</span><button class="cpb" onclick="cpC(this)">Copy</button></div>
+    <pre><code><span class="cm">// Profit Margin %</span>
+Profit Margin % =
+<span class="fn">DIVIDE</span>(
+    <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Profit</span>]),
+    <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Revenue</span>]),
+    <span class="nm">0</span>
+)
+
+<span class="cm">// % of Grand Total</span>
+% of Total =
+<span class="fn">DIVIDE</span>(
+    <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>]),
+    <span class="fn">CALCULATE</span>(<span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>]), <span class="fn">ALL</span>(<span class="tbl">Sales</span>))
+)
+
+<span class="cm">// Year-over-Year Growth</span>
+YoY Growth % =
+<span class="kw">VAR</span> CurrentYear = <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>])
+<span class="kw">VAR</span> PriorYear = <span class="fn">CALCULATE</span>(
+    <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>]),
+    <span class="fn">SAMEPERIODLASTYEAR</span>(<span class="tbl">DateTable</span>[<span class="col">Date</span>])
+)
+<span class="kw">RETURN</span>
+<span class="fn">DIVIDE</span>(CurrentYear - PriorYear, PriorYear, <span class="nm">0</span>)</code></pre>
+  </div>
+
+  <h2>When to Use Which?</h2>
+  <table class="tbl">
+    <tr><th></th><th>Calculated Column</th><th>Measure</th></tr>
+    <tr><td><strong>Evaluated</strong></td><td>Row by row at refresh</td><td>Dynamically at query time</td></tr>
+    <tr><td><strong>Stored</strong></td><td>Yes — takes memory</td><td>No — computed on the fly</td></tr>
+    <tr><td><strong>Filter Context</strong></td><td>Has Row Context only</td><td>Responds to filter context</td></tr>
+    <tr><td><strong>Use For</strong></td><td>Categorization, row-level calc, slicing/filtering</td><td>Aggregations, KPIs, ratios, %</td></tr>
+    <tr><td><strong>Can be used in slicer?</strong></td><td>✅ Yes</td><td>❌ No</td></tr>
+  </table>
+
+  <div class="tip gold">
+    <span>💡</span>
+    <p><strong>Rule of thumb:</strong> If the result changes when the user clicks a slicer or filters the visual, it should be a <strong>measure</strong>. If it's a fixed per-row classification, use a <strong>calculated column</strong>. When in doubt, use a measure — they're more memory efficient.</p>
+  </div>
+
+  <h2>DIVIDE — Safe Division</h2>
+  <div class="cb">
+    <div class="ct"><div class="dots"><span></span><span></span><span></span></div><span class="lang">DAX</span><button class="cpb" onclick="cpC(this)">Copy</button></div>
+    <pre><code><span class="cm">// Always use DIVIDE instead of / for safe division</span>
+<span class="cm">// DIVIDE returns the 3rd argument (default 0) instead of error</span>
+Margin = <span class="fn">DIVIDE</span>([Profit], [Revenue], <span class="nm">0</span>)
+
+<span class="cm">// Instead of this (will ERROR on divide by zero):</span>
+<span class="cm">// Margin = [Profit] / [Revenue]</span></code></pre>
+  </div>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(8)">← Previous</button>
+    <button class="cbtn" onclick="go(10)">Next: Time Intelligence →</button>
+  </div>
+</section>
+
+<!-- ===== CH 10: Time Intelligence ===== -->
+<section class="ch" id="ch10">
+  <div class="ch-ey">Chapter 11</div>
+  <div class="ch-ti">Time Intelligence</div>
+  <div class="ch-de">Year-over-year, running totals, MTD, QTD, YTD — unlock time-based analytics.</div>
+
+  <h2>Date Table Requirement</h2>
+  <p>Time Intelligence functions <strong>require a proper Date table</strong> — a dedicated table with one row per day, no gaps, marked as a Date Table.</p>
+
+  <div class="cb">
+    <div class="ct"><div class="dots"><span></span><span></span><span></span></div><span class="lang">DAX — Create Date Table</span><button class="cpb" onclick="cpC(this)">Copy</button></div>
+    <pre><code>DateTable =
+<span class="fn">ADDCOLUMNS</span>(
+    <span class="fn">CALENDAR</span>(<span class="fn">DATE</span>(<span class="nm">2020</span>,<span class="nm">1</span>,<span class="nm">1</span>), <span class="fn">DATE</span>(<span class="nm">2026</span>,<span class="nm">12</span>,<span class="nm">31</span>)),
+    <span class="st">"Year"</span>,   <span class="fn">YEAR</span>([Date]),
+    <span class="st">"Month"</span>,  <span class="fn">FORMAT</span>([Date], <span class="st">"MMMM"</span>),
+    <span class="st">"MonthNum"</span>, <span class="fn">MONTH</span>([Date]),
+    <span class="st">"Quarter"</span>, <span class="st">"Q"</span> & <span class="fn">FORMAT</span>([Date], <span class="st">"Q"</span>),
+    <span class="st">"DayOfWeek"</span>, <span class="fn">FORMAT</span>([Date], <span class="st">"dddd"</span>),
+    <span class="st">"YearMonth"</span>, <span class="fn">FORMAT</span>([Date], <span class="st">"YYYY-MM"</span>)
+)</code></pre>
+  </div>
+
+  <div class="tip red">
+    <span>🚨</span>
+    <p><strong>Critical:</strong> After creating the Date table, right-click it in Model view → <strong>"Mark as Date Table"</strong> and select the Date column. Without this, Time Intelligence functions won't work correctly.</p>
+  </div>
+
+  <h2>Essential Time Intelligence Functions</h2>
+  <div class="cb">
+    <div class="ct"><div class="dots"><span></span><span></span><span></span></div><span class="lang">DAX</span><button class="cpb" onclick="cpC(this)">Copy</button></div>
+    <pre><code><span class="cm">// Year-to-Date Total</span>
+Sales YTD =
+<span class="fn">TOTALYTD</span>(<span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>]), <span class="tbl">DateTable</span>[<span class="col">Date</span>])
+
+<span class="cm">// Month-to-Date Total</span>
+Sales MTD =
+<span class="fn">TOTALMTD</span>(<span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>]), <span class="tbl">DateTable</span>[<span class="col">Date</span>])
+
+<span class="cm">// Previous Year (Same Period)</span>
+Sales Last Year =
+<span class="fn">CALCULATE</span>(
+    <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>]),
+    <span class="fn">SAMEPERIODLASTYEAR</span>(<span class="tbl">DateTable</span>[<span class="col">Date</span>])
+)
+
+<span class="cm">// Previous Month</span>
+Sales Last Month =
+<span class="fn">CALCULATE</span>(
+    <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>]),
+    <span class="fn">PREVIOUSMONTH</span>(<span class="tbl">DateTable</span>[<span class="col">Date</span>])
+)
+
+<span class="cm">// Running Total (Cumulative)</span>
+Running Total =
+<span class="fn">CALCULATE</span>(
+    <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>]),
+    <span class="fn">FILTER</span>(
+        <span class="fn">ALL</span>(<span class="tbl">DateTable</span>),
+        <span class="tbl">DateTable</span>[<span class="col">Date</span>] <= <span class="fn">MAX</span>(<span class="tbl">DateTable</span>[<span class="col">Date</span>])
+    )
+)
+
+<span class="cm">// YoY Growth Percentage</span>
+YoY Growth % =
+<span class="kw">VAR</span> CY = <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>])
+<span class="kw">VAR</span> PY = <span class="fn">CALCULATE</span>(
+    <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Amount</span>]),
+    <span class="fn">SAMEPERIODLASTYEAR</span>(<span class="tbl">DateTable</span>[<span class="col">Date</span>])
+)
+<span class="kw">RETURN</span>
+<span class="fn">DIVIDE</span>(CY - PY, PY, <span class="nm">0</span>)</code></pre>
+  </div>
+
+  <h2>Time Intelligence Function Reference</h2>
+  <table class="tbl">
+    <tr><th>Function</th><th>Returns</th></tr>
+    <tr><td><code>TOTALYTD()</code></td><td>Year-to-date running total</td></tr>
+    <tr><td><code>TOTALMTD()</code></td><td>Month-to-date running total</td></tr>
+    <tr><td><code>TOTALQTD()</code></td><td>Quarter-to-date running total</td></tr>
+    <tr><td><code>SAMEPERIODLASTYEAR()</code></td><td>Shifts dates back by one year</td></tr>
+    <tr><td><code>PREVIOUSMONTH()</code></td><td>Dates from the previous month</td></tr>
+    <tr><td><code>PREVIOUSQUARTER()</code></td><td>Dates from the previous quarter</td></tr>
+    <tr><td><code>DATEADD(dates, -1, YEAR)</code></td><td>Shift dates by any interval</td></tr>
+    <tr><td><code>DATESYTD()</code></td><td>Set of dates from start of year to current</td></tr>
+    <tr><td><code>PARALLELPERIOD()</code></td><td>Shift entire period by intervals</td></tr>
+  </table>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(9)">← Previous</button>
+    <button class="cbtn" onclick="go(11)">Next: Row-Level Security →</button>
+  </div>
+</section>
+
+<!-- ===== CH 11: RLS ===== -->
+<section class="ch" id="ch11">
+  <div class="ch-ey">Chapter 12</div>
+  <div class="ch-ti">Row-Level Security</div>
+  <div class="ch-de">Control who sees what data — essential for enterprise deployments.</div>
+
+  <h2>What is RLS?</h2>
+  <p><strong>Row-Level Security (RLS)</strong> restricts data access at the row level. A sales manager in the East region only sees East data, even though the report contains all regions.</p>
+
+  <h2>Setting Up RLS</h2>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div><strong>Modeling → Manage Roles</strong> in Power BI Desktop</div></div>
+    <div class="step"><div class="sn">2</div><div><strong>Create a role</strong> (e.g., "East Region")</div></div>
+    <div class="step"><div class="sn">3</div><div><strong>Add a DAX filter</strong> to the relevant table</div></div>
+    <div class="step"><div class="sn">4</div><div><strong>Publish</strong> and assign users to roles in Power BI Service</div></div>
+  </div>
+
+  <div class="cb">
+    <div class="ct"><div class="dots"><span></span><span></span><span></span></div><span class="lang">DAX — RLS Filter</span><button class="cpb" onclick="cpC(this)">Copy</button></div>
+    <pre><code><span class="cm">// Static RLS: East Region role</span>
+[Region] = <span class="st">"East"</span>
+
+<span class="cm">// Dynamic RLS: Filter by logged-in user's email</span>
+[ManagerEmail] = <span class="fn">USERPRINCIPALNAME</span>()</code></pre>
+  </div>
+
+  <div class="tip gold">
+    <span>💡</span>
+    <p><strong>Dynamic RLS</strong> using <code>USERPRINCIPALNAME()</code> is far more scalable than creating static roles for every user. Maintain a mapping table (UserEmail → Region/Department) and filter against it.</p>
+  </div>
+
+  <h2>Testing RLS</h2>
+  <p>In Desktop: <strong>Modeling → View as Roles</strong> to test each role before publishing. Verify that users only see their allowed data.</p>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(10)">← Previous</button>
+    <button class="cbtn" onclick="go(12)">Next: Publishing & Sharing →</button>
+  </div>
+</section>
+
+<!-- ===== CH 12: Publishing ===== -->
+<section class="ch" id="ch12">
+  <div class="ch-ey">Chapter 13</div>
+  <div class="ch-ti">Publishing & Sharing</div>
+  <div class="ch-de">Get your reports from Desktop to the cloud and into stakeholders' hands.</div>
+
+  <h2>Publishing to Power BI Service</h2>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div><strong>Home → Publish</strong> in Power BI Desktop</div></div>
+    <div class="step"><div class="sn">2</div><div>Select a <strong>Workspace</strong> (or "My Workspace" for personal)</div></div>
+    <div class="step"><div class="sn">3</div><div>Open the link to view your report in the browser</div></div>
+  </div>
+
+  <h2>Workspaces</h2>
+  <div class="card">
+    <h3>📁 Workspace Types</h3>
+    <p><strong>My Workspace</strong> — Personal sandbox. Only you can see it.<br>
+    <strong>Shared Workspaces</strong> — Collaborative spaces where teams work together. Assign Admin, Member, Contributor, or Viewer roles.<br>
+    <strong>App Workspaces</strong> — Staging area for publishing polished "Apps" to the organization.</p>
+  </div>
+
+  <h2>Sharing Options</h2>
+  <table class="tbl">
+    <tr><th>Method</th><th>Best For</th><th>License Needed</th></tr>
+    <tr><td><strong>Share Report</strong></td><td>Quick sharing with specific people</td><td>Pro or Premium Per User</td></tr>
+    <tr><td><strong>Publish App</strong></td><td>Polished, read-only experience for many users</td><td>Pro / PPU</td></tr>
+    <tr><td><strong>Embed in Teams</strong></td><td>View reports inside Microsoft Teams tabs</td><td>Pro / PPU</td></tr>
+    <tr><td><strong>Publish to Web</strong></td><td>Public, no-login access (⚠️ no security)</td><td>Free</td></tr>
+    <tr><td><strong>Embed in Website</strong></td><td>Integrate into internal portals/apps</td><td>Embed license</td></tr>
+  </table>
+
+  <h2>Scheduled Refresh</h2>
+  <div class="card">
+    <h3>🔄 Keep Data Fresh</h3>
+    <p>In the Power BI Service, go to Dataset Settings → Scheduled Refresh:<br><br>
+    <strong>Pro:</strong> Up to 8 refreshes per day<br>
+    <strong>Premium:</strong> Up to 48 refreshes per day<br>
+    <strong>On-premises data?</strong> Install a <strong>Data Gateway</strong> to bridge your local network to the cloud service.</p>
+  </div>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(11)">← Previous</button>
+    <button class="cbtn" onclick="go(13)">Next: Performance & Best Practices →</button>
+  </div>
+</section>
+
+<!-- ===== CH 13: Performance ===== -->
+<section class="ch" id="ch13">
+  <div class="ch-ey">Chapter 14</div>
+  <div class="ch-ti">Performance & Best Practices</div>
+  <div class="ch-de">Make your reports fast, maintainable, and professional-grade.</div>
+
+  <h2>Data Model Optimization</h2>
+  <div class="grid">
+    <div class="gc"><h4>Remove Unused Columns</h4><p>Every column costs memory. If it's not in a visual or DAX, remove it in Power Query.</p></div>
+    <div class="gc"><h4>Reduce Cardinality</h4><p>Fewer unique values = smaller model. Round timestamps to dates.</p></div>
+    <div class="gc"><h4>Use Integer Keys</h4><p>Integer joins are much faster than text joins.</p></div>
+    <div class="gc"><h4>Avoid Bi-Directional</h4><p>Single-direction relationships are faster and more predictable.</p></div>
+  </div>
+
+  <h2>DAX Performance Tips</h2>
+  <div class="cb">
+    <div class="ct"><div class="dots"><span></span><span></span><span></span></div><span class="lang">DAX — Performance</span><button class="cpb" onclick="cpC(this)">Copy</button></div>
+    <pre><code><span class="cm">// ✅ GOOD: Use variables (calculated once)</span>
+Profit % =
+<span class="kw">VAR</span> TotalRevenue = <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Revenue</span>])
+<span class="kw">VAR</span> TotalCost = <span class="fn">SUM</span>(<span class="tbl">Sales</span>[<span class="col">Cost</span>])
+<span class="kw">RETURN</span>
+<span class="fn">DIVIDE</span>(TotalRevenue - TotalCost, TotalRevenue, <span class="nm">0</span>)
+
+<span class="cm">// ❌ BAD: Repeating the same calculation</span>
+<span class="cm">// Profit % = DIVIDE(SUM(Sales[Revenue]) - SUM(Sales[Cost]), SUM(Sales[Revenue]))</span>
+
+<span class="cm">// ✅ GOOD: Use DIVIDE for safe division</span>
+<span class="cm">// ❌ BAD: Using / which errors on zero</span>
+
+<span class="cm">// ✅ GOOD: Use DISTINCTCOUNT instead of COUNTROWS(VALUES(...))</span>
+<span class="cm">// ✅ GOOD: Use ISBLANK instead of checking = BLANK()</span></code></pre>
+  </div>
+
+  <h2>Performance Analyzer</h2>
+  <p>Use <strong>View → Performance Analyzer</strong> in Desktop to measure how long each visual takes to render. Click "Start recording", interact with the report, then review results.</p>
+
+  <div class="card">
+    <h3>📊 What to Look For</h3>
+    <p><strong>DAX query time</strong> — If a visual takes >1 second, optimize the measure or reduce data.<br>
+    <strong>Visual display time</strong> — Too many data points? Use Top N filters or aggregation.<br>
+    <strong>Other</strong> — Network/rendering overhead. Usually not actionable.</p>
+  </div>
+
+  <h2>Report Best Practices Checklist</h2>
+  <div class="tip gold">
+    <span>✅</span>
+    <p><strong>1.</strong> Use star schema with proper relationships.<br>
+    <strong>2.</strong> Create a Date table and mark it as Date Table.<br>
+    <strong>3.</strong> Use measures for all aggregations (not implicit).<br>
+    <strong>4.</strong> Use VAR in complex measures for readability and performance.<br>
+    <strong>5.</strong> Use DIVIDE() instead of / operator.<br>
+    <strong>6.</strong> Limit visuals to 8-10 per page (too many = slow).<br>
+    <strong>7.</strong> Use bookmarks for toggling, not cramming everything on one page.<br>
+    <strong>8.</strong> Apply consistent formatting and naming conventions.<br>
+    <strong>9.</strong> Add alt text to every visual for accessibility.<br>
+    <strong>10.</strong> Test with Performance Analyzer before publishing.</p>
+  </div>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(12)">← Previous</button>
+    <button class="cbtn" onclick="go(14)">Next: Final Project →</button>
+  </div>
+</section>
+
+<!-- ===== CH 14: Final Project ===== -->
+<section class="ch" id="ch14">
+  <div class="ch-ey">Chapter 15</div>
+  <div class="ch-ti">Final Dashboard Project</div>
+  <div class="ch-de">Build a complete Sales Performance Dashboard from scratch — applying everything you've learned.</div>
+
+  <h2>🎯 Project: Sales Performance Dashboard</h2>
+  <div class="card">
+    <h3>📋 Requirements</h3>
+    <p>Build a multi-page Power BI report for the fictional "Contoso Electronics" company. Your dashboard should enable the VP of Sales to monitor performance, identify trends, and drill into details.</p>
+  </div>
+
+  <h2>Page 1: Executive Summary</h2>
+  <div class="ex">
+    <div class="ex-hd"><span class="ex-b">Build It</span><h4>KPI Overview Page</h4></div>
+    <div class="ex-bd">
+      <p>Create the following elements:</p>
+      <p><strong>KPI Cards (top row):</strong> Total Revenue, Total Profit, Profit Margin %, Total Orders, Unique Customers</p>
+      <p><strong>Charts:</strong><br>
+      — Revenue trend by Month (Line Chart)<br>
+      — Revenue by Product Category (Horizontal Bar Chart)<br>
+      — Revenue by Region (Donut Chart)<br>
+      — Top 10 Products by Revenue (Table with conditional formatting)</p>
+      <p><strong>Slicers:</strong> Date Range, Region, Product Category</p>
+
+      <textarea class="edt" id="p1" placeholder="List the DAX measures you'd need..." style="min-height:60px"></textarea>
+      <div class="btns">
+        <button class="btn btn-h" onclick="exH('p1',`Measures needed:\n\nTotal Revenue = SUM(Sales[Revenue])\n\nTotal Profit = SUM(Sales[Revenue]) - SUM(Sales[Cost])\n\nProfit Margin % = DIVIDE([Total Profit], [Total Revenue], 0)\n\nTotal Orders = DISTINCTCOUNT(Sales[OrderID])\n\nUnique Customers = DISTINCTCOUNT(Sales[CustomerID])\n\nRevenue YTD = TOTALYTD([Total Revenue], DateTable[Date])\n\nRevenue vs LY = \nVAR CY = [Total Revenue]\nVAR PY = CALCULATE([Total Revenue], SAMEPERIODLASTYEAR(DateTable[Date]))\nRETURN DIVIDE(CY - PY, PY, 0)`)">Show Measures</button>
+      </div>
+      <div class="res" id="p1-r"></div>
+    </div>
+  </div>
+
+  <h2>Page 2: Product Deep Dive</h2>
+  <div class="ex">
+    <div class="ex-hd"><span class="ex-b">Build It</span><h4>Product Analysis Page</h4></div>
+    <div class="ex-bd">
+      <p><strong>Visuals to include:</strong></p>
+      <p>— Revenue by Category and Sub-Category (Decomposition Tree or Matrix with drill-down)<br>
+      — Product scatter plot: Quantity Sold (X) vs Profit Margin % (Y), sized by Revenue<br>
+      — Top/Bottom 5 products toggle (using bookmarks + buttons)<br>
+      — Product detail table with conditional formatting (data bars on Revenue, icons on Margin %)</p>
+      <p><strong>Interactions:</strong> Set up Drill Through from Page 1 — right-click any product to see details.</p>
+
+      <textarea class="edt" id="p2" placeholder="Describe your drill-through setup..." style="min-height:60px"></textarea>
+      <div class="btns">
+        <button class="btn btn-h" onclick="exH('p2',`Drill-Through Setup:\n\n1. On Page 2, drag Product[ProductName] into the Drill-through filter well\n2. Power BI auto-creates a Back button\n3. Add visuals that show details for the selected product:\n   - Card: Product Name\n   - Line chart: Monthly sales trend for this product\n   - Card: Profit Margin %\n   - Table: All orders for this product\n4. On Page 1, users right-click any product → Drill Through → Product Deep Dive\n\nBookmark Toggle for Top/Bottom:\n1. Create Top 5 visual (Top N filter = 5 by Revenue)\n2. Create Bottom 5 visual (same but Bottom N)\n3. Layer them on top of each other\n4. Create 2 bookmarks — one shows Top 5 (hides Bottom), one shows Bottom 5 (hides Top)\n5. Add 2 buttons: \"Top 5\" and \"Bottom 5\", each assigned to their bookmark`)">Show Solution</button>
+      </div>
+      <div class="res" id="p2-r"></div>
+    </div>
+  </div>
+
+  <h2>Page 3: Time Analysis</h2>
+  <div class="ex">
+    <div class="ex-hd"><span class="ex-b">Build It</span><h4>Time Intelligence Page</h4></div>
+    <div class="ex-bd">
+      <p><strong>Visuals to include:</strong></p>
+      <p>— YTD vs Prior Year YTD (combo chart: bars + line)<br>
+      — MoM Growth % (column chart with conditional colors: green positive, red negative)<br>
+      — Cumulative Revenue Running Total (area chart)<br>
+      — Seasonal patterns: Revenue by Day of Week (bar chart)</p>
+
+      <textarea class="edt" id="p3" placeholder="Write the key DAX measures..." style="min-height:60px"></textarea>
+      <div class="btns">
+        <button class="btn btn-h" onclick="exH('p3',`Key Time Intelligence Measures:\n\nRevenue YTD = TOTALYTD([Total Revenue], DateTable[Date])\n\nRevenue PY YTD = \nCALCULATE(\n    [Revenue YTD],\n    SAMEPERIODLASTYEAR(DateTable[Date])\n)\n\nMoM Growth % = \nVAR CurrentMonth = [Total Revenue]\nVAR PriorMonth = CALCULATE([Total Revenue], PREVIOUSMONTH(DateTable[Date]))\nRETURN DIVIDE(CurrentMonth - PriorMonth, PriorMonth, 0)\n\nRunning Total = \nCALCULATE(\n    [Total Revenue],\n    FILTER(\n        ALL(DateTable),\n        DateTable[Date] <= MAX(DateTable[Date])\n    )\n)\n\nMoM Color = IF([MoM Growth %] >= 0, \"#2ecc71\", \"#e74c3c\")`)">Show Measures</button>
+      </div>
+      <div class="res" id="p3-r"></div>
+    </div>
+  </div>
+
+  <h2>Final Checklist</h2>
+  <div class="card" style="border-color:var(--pbi)">
+    <h3>✅ Before Publishing</h3>
+    <p>☐ All measures are explicitly defined (no implicit aggregations)<br>
+    ☐ Date table created and marked as Date Table<br>
+    ☐ Star schema model with proper relationships<br>
+    ☐ Foreign key columns hidden from Report View<br>
+    ☐ Consistent theme and color palette applied<br>
+    ☐ Slicers synced across pages where appropriate<br>
+    ☐ Drill-through navigation works correctly<br>
+    ☐ Alt text added to all visuals<br>
+    ☐ Performance Analyzer checked (no visual > 2s)<br>
+    ☐ Mobile layout created (View → Mobile Layout)<br>
+    ☐ RLS roles configured and tested (if needed)</p>
+  </div>
+
+  <div class="card" style="border-color:var(--pbi4)">
+    <h3>🎉 Congratulations!</h3>
+    <p>You've completed the <strong>Power BI Mastery</strong> course! You've learned the entire stack: connecting to data, Power Query transformations, data modeling, DAX formulas, visualizations, interactivity, security, publishing, and performance optimization.</p>
+    <p style="margin-top:10px"><strong>Keep learning:</strong> Explore <a href="https://learn.microsoft.com/en-us/power-bi/" style="color:var(--pbi)" target="_blank">Microsoft Learn</a>, <a href="https://www.sqlbi.com/" style="color:var(--pbi)" target="_blank">SQLBI.com</a> (best DAX resource), and practice with the <a href="https://learn.microsoft.com/en-us/power-bi/create-reports/sample-datasets" style="color:var(--pbi)" target="_blank">Power BI Sample Datasets</a>. Consider the <strong>PL-300 certification</strong> to validate your skills!</p>
+  </div>
+
+  <div class="cnv">
+    <button class="cbtn" onclick="go(13)">← Previous</button>
+    <button class="cbtn" onclick="go(0)">↻ Back to Start</button>
+  </div>
+</section>
+
+</main>
+
+<script>
+let cur=0;const tot=15;const chs=document.querySelectorAll('.ch');
+const navs=document.querySelectorAll('.ni');const seen=new Set([0]);
+
+function go(i){
+  chs[cur].classList.remove('active');navs[cur].classList.remove('active');
+  cur=i;seen.add(i);chs[cur].classList.add('active');navs[cur].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});prog();
+  document.querySelector('.sidebar').classList.remove('open');
+}
+function prog(){
+  const p=(seen.size/tot)*100;
+  document.getElementById('pf').style.width=p+'%';
+  document.getElementById('pl').textContent=seen.size+' / '+tot+' completed';
+}
+function cpC(b){
+  const t=b.closest('.cb').querySelector('pre').textContent;
+  navigator.clipboard.writeText(t).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1500)});
+}
+function exCk(id,kws){
+  const v=document.getElementById(id).value.toUpperCase().replace(/\s+/g,' ');
+  const el=document.getElementById(id+'-r');
+  if(kws.every(k=>v.includes(k.toUpperCase()))){el.className='res ok';el.innerHTML='✅ <strong>Excellent!</strong> Your answer includes all key elements.';}
+  else{el.className='res err';el.innerHTML='❌ Missing: <code>'+kws.filter(k=>!v.includes(k.toUpperCase())).join('</code>, <code>')+'</code>';}
+}
+function exH(id,h){
+  const el=document.getElementById(id+'-r');el.className='res info';
+  el.innerHTML='💡 <strong>Solution:</strong><pre style="margin-top:6px;white-space:pre-wrap;font-size:.78rem">'+h.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre>';
+}
+function qC(o,t){
+  const q=o.closest('.quiz');const opts=q.querySelectorAll('.qo');const fb=q.querySelector('.qfb');
+  opts.forEach(x=>{x.style.pointerEvents='none'});
+  if(t==='right'){o.classList.add('right');fb.style.display='block';fb.style.background='rgba(46,204,113,.06)';fb.style.color='var(--pbi4)';fb.textContent='✅ Correct!';}
+  else{o.classList.add('wrong');opts.forEach(x=>{if(x.getAttribute('onclick').includes("'right'"))x.classList.add('right')});fb.style.display='block';fb.style.background='rgba(231,76,60,.06)';fb.style.color='var(--pbi5)';fb.textContent='❌ Not quite — correct answer highlighted.';}
+}
+prog();
+</script>
+</body>
+</html>

@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Mastery — From Zero to Hero</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a26;--bg4:#22222e;
+  --text:#e2e2ef;--text2:#9999b3;--text3:#6666802;
+  --accent:#00e5a0;--accent2:#00c2ff;--accent3:#a855f7;--accent4:#ff6b6b;
+  --border:#2a2a3a;--glow:0 0 30px rgba(0,229,160,.15);
+  --code-bg:#0d0d18;--success:#00e5a0;--warning:#fbbf24;--error:#ff6b6b;
+  --radius:12px;
+  --font-display:'Outfit',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --font-body:'Outfit',sans-serif;
+}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--accent) var(--bg2)}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.7;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--bg)}
+
+/* === NOISE OVERLAY === */
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+}
+
+/* === GRID BG === */
+.grid-bg{position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(0,229,160,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,160,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+
+/* === SIDEBAR === */
+.sidebar{position:fixed;left:0;top:0;width:300px;height:100vh;background:var(--bg2);
+  border-right:1px solid var(--border);z-index:100;overflow-y:auto;
+  transition:transform .3s ease}
+.sidebar-header{padding:28px 24px;border-bottom:1px solid var(--border)}
+.sidebar-header h1{font-family:var(--font-display);font-size:1.4rem;font-weight:800;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;letter-spacing:-.5px}
+.sidebar-header p{font-size:.75rem;color:var(--text2);margin-top:4px;text-transform:uppercase;letter-spacing:2px}
+.sidebar-nav{padding:16px 0}
+.nav-chapter{padding:0}
+.nav-chapter-title{display:flex;align-items:center;gap:10px;padding:12px 24px;
+  font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--text2);font-weight:600}
+.nav-chapter-title .ch-num{display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:6px;background:var(--bg3);font-size:.65rem;
+  color:var(--accent);font-weight:700;font-family:var(--font-mono)}
+.nav-link{display:block;padding:8px 24px 8px 56px;font-size:.85rem;color:var(--text2);
+  text-decoration:none;transition:all .2s;border-left:2px solid transparent;cursor:pointer}
+.nav-link:hover,.nav-link.active{color:var(--accent);background:rgba(0,229,160,.04);
+  border-left-color:var(--accent)}
+.progress-bar{margin:20px 24px;height:4px;background:var(--bg3);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border-radius:99px;transition:width .5s ease}
+.progress-text{padding:0 24px;font-size:.72rem;color:var(--text2);font-family:var(--font-mono)}
+
+/* === MAIN === */
+.main{margin-left:300px;position:relative;z-index:1;min-height:100vh}
+.chapter{display:none;padding:60px 80px 120px;max-width:960px;animation:fadeUp .5s ease}
+.chapter.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* === TYPOGRAPHY === */
+.ch-label{font-size:.7rem;text-transform:uppercase;letter-spacing:3px;color:var(--accent);
+  font-weight:600;font-family:var(--font-mono);margin-bottom:8px}
+.ch-title{font-family:var(--font-display);font-size:3rem;font-weight:900;letter-spacing:-1.5px;
+  line-height:1.1;margin-bottom:12px;
+  background:linear-gradient(135deg,#fff 30%,var(--text2));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent}
+.ch-subtitle{font-size:1.1rem;color:var(--text2);max-width:600px;margin-bottom:48px;font-weight:300}
+h2{font-family:var(--font-display);font-size:1.8rem;font-weight:700;margin:48px 0 20px;
+  letter-spacing:-.5px;color:#fff}
+h3{font-size:1.2rem;font-weight:600;margin:32px 0 12px;color:var(--text)}
+p{margin-bottom:16px;color:var(--text2);font-size:.95rem}
+strong{color:var(--text);font-weight:600}
+
+/* === CARDS === */
+.concept-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px;margin:24px 0;position:relative;overflow:hidden}
+.concept-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))}
+.concept-card h3{margin-top:0;color:var(--accent)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:24px 0}
+.mini-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px;transition:all .3s}
+.mini-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--glow)}
+.mini-card .icon{font-size:1.8rem;margin-bottom:10px}
+.mini-card h4{font-size:.95rem;font-weight:600;margin-bottom:6px;color:#fff}
+.mini-card p{font-size:.82rem;margin:0}
+
+/* === CODE BLOCKS === */
+.code-block{background:var(--code-bg);border:1px solid var(--border);border-radius:var(--radius);
+  margin:20px 0;overflow:hidden;position:relative}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;
+  background:var(--bg3);border-bottom:1px solid var(--border)}
+.code-lang{font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);
+  font-family:var(--font-mono);font-weight:600}
+.copy-btn{background:none;border:1px solid var(--border);color:var(--text2);padding:4px 12px;
+  border-radius:6px;font-size:.7rem;cursor:pointer;font-family:var(--font-mono);transition:all .2s}
+.copy-btn:hover{border-color:var(--accent);color:var(--accent)}
+pre{padding:20px;overflow-x:auto;font-family:var(--font-mono);font-size:.85rem;line-height:1.8;color:var(--text)}
+pre code{font-family:inherit}
+
+/* Syntax Highlighting */
+.kw{color:var(--accent3);font-weight:500}
+.fn{color:var(--accent2)}
+.str{color:var(--accent)}
+.cm{color:#555;font-style:italic}
+.num{color:var(--warning)}
+.op{color:var(--accent4)}
+.tbl{color:var(--accent2)}
+
+/* === DIAGRAM / VISUAL === */
+.visual-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:32px;margin:28px 0;text-align:center}
+.visual-box .label{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--text2);margin-bottom:16px}
+.db-table{display:inline-block;background:var(--bg3);border:1px solid var(--border);border-radius:10px;
+  overflow:hidden;min-width:260px;text-align:left;margin:8px}
+.db-table .t-header{background:linear-gradient(135deg,rgba(0,229,160,.15),rgba(0,194,255,.1));
+  padding:10px 16px;font-weight:700;font-size:.85rem;font-family:var(--font-mono);
+  color:var(--accent);border-bottom:1px solid var(--border)}
+.db-table .t-row{display:grid;padding:6px 16px;font-size:.8rem;font-family:var(--font-mono);
+  border-bottom:1px solid rgba(255,255,255,.03)}
+.db-table .t-row:last-child{border:none}
+.db-table .t-row.header{color:var(--text2);font-weight:600;background:var(--bg4)}
+.db-table .t-row span{padding:2px 0}
+.pk{color:var(--warning);font-size:.6rem;font-weight:700;vertical-align:super;margin-left:3px}
+.fk{color:var(--accent3);font-size:.6rem;font-weight:700;vertical-align:super;margin-left:3px}
+
+/* === INTERACTIVE EXERCISE === */
+.exercise{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  margin:32px 0;overflow:hidden}
+.exercise-header{display:flex;align-items:center;gap:10px;padding:16px 24px;
+  background:linear-gradient(135deg,rgba(168,85,247,.1),rgba(0,194,255,.08));
+  border-bottom:1px solid var(--border)}
+.exercise-header .badge{background:var(--accent3);color:#fff;font-size:.65rem;padding:3px 10px;
+  border-radius:99px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.exercise-header h4{font-size:.95rem;font-weight:600;color:#fff}
+.exercise-body{padding:24px}
+.exercise-body p{margin-bottom:16px}
+.sql-editor{width:100%;min-height:100px;background:var(--code-bg);border:1px solid var(--border);
+  border-radius:8px;padding:16px;font-family:var(--font-mono);font-size:.85rem;color:var(--text);
+  resize:vertical;outline:none;transition:border-color .2s}
+.sql-editor:focus{border-color:var(--accent)}
+.btn-row{display:flex;gap:10px;margin-top:12px}
+.btn{padding:10px 24px;border-radius:8px;font-family:var(--font-mono);font-size:.8rem;
+  font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--accent);color:var(--bg)}
+.btn-primary:hover{box-shadow:0 0 20px rgba(0,229,160,.4);transform:translateY(-1px)}
+.btn-secondary{background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.result-box{margin-top:16px;padding:16px;border-radius:8px;font-family:var(--font-mono);
+  font-size:.82rem;display:none}
+.result-box.success{display:block;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);color:var(--accent)}
+.result-box.error{display:block;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2);color:var(--error)}
+.result-box.info{display:block;background:rgba(0,194,255,.08);border:1px solid rgba(0,194,255,.2);color:var(--accent2)}
+
+/* === TIP / NOTE === */
+.tip{padding:16px 20px;border-radius:var(--radius);margin:20px 0;font-size:.88rem;
+  display:flex;gap:12px;align-items:flex-start}
+.tip.green{background:rgba(0,229,160,.06);border-left:3px solid var(--accent)}
+.tip.blue{background:rgba(0,194,255,.06);border-left:3px solid var(--accent2)}
+.tip.yellow{background:rgba(251,191,36,.06);border-left:3px solid var(--warning)}
+.tip.red{background:rgba(255,107,107,.06);border-left:3px solid var(--error)}
+.tip .tip-icon{font-size:1.2rem;flex-shrink:0}
+.tip p{margin:0;color:var(--text2)}
+
+/* === TABLE (result style) === */
+.result-table{width:100%;border-collapse:collapse;margin:16px 0;font-family:var(--font-mono);font-size:.8rem}
+.result-table th{background:var(--bg3);padding:10px 14px;text-align:left;color:var(--accent);
+  font-weight:600;border-bottom:2px solid var(--accent);font-size:.72rem;text-transform:uppercase;letter-spacing:1px}
+.result-table td{padding:8px 14px;border-bottom:1px solid var(--border);color:var(--text2)}
+.result-table tr:hover td{background:rgba(0,229,160,.03)}
+
+/* === FLOW DIAGRAM === */
+.flow{display:flex;align-items:center;justify-content:center;gap:0;margin:24px 0;flex-wrap:wrap}
+.flow-step{background:var(--bg3);border:1px solid var(--border);border-radius:10px;
+  padding:14px 20px;font-size:.82rem;font-weight:600;color:var(--text);text-align:center;min-width:120px}
+.flow-arrow{color:var(--accent);font-size:1.4rem;margin:0 6px;font-weight:300}
+
+/* === NAV FOOTER === */
+.chapter-nav{display:flex;justify-content:space-between;margin-top:60px;padding-top:32px;
+  border-top:1px solid var(--border)}
+.ch-nav-btn{display:flex;align-items:center;gap:8px;padding:14px 24px;border-radius:10px;
+  background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-size:.85rem;
+  cursor:pointer;transition:all .2s;text-decoration:none;font-family:var(--font-body)}
+.ch-nav-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+/* === HAMBURGER === */
+.hamburger{display:none;position:fixed;top:16px;left:16px;z-index:200;background:var(--bg2);
+  border:1px solid var(--border);width:44px;height:44px;border-radius:10px;
+  cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.hamburger span{display:block;width:20px;height:2px;background:var(--text)}
+
+/* === VENN / JOIN DIAGRAMS === */
+.join-diagrams{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:24px 0}
+.join-diagram{text-align:center;padding:20px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)}
+.join-diagram svg{width:180px;height:100px}
+.join-diagram .jlabel{font-size:.8rem;font-weight:600;margin-top:10px;color:var(--text)}
+
+/* === QUIZ === */
+.quiz{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:24px;margin:24px 0}
+.quiz h4{color:var(--accent2);margin-bottom:16px;font-size:1rem}
+.quiz-option{display:block;padding:10px 16px;margin:6px 0;background:var(--bg3);
+  border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s;
+  font-size:.88rem;color:var(--text2)}
+.quiz-option:hover{border-color:var(--accent2);color:var(--text)}
+.quiz-option.correct{border-color:var(--success);background:rgba(0,229,160,.08);color:var(--success)}
+.quiz-option.wrong{border-color:var(--error);background:rgba(255,107,107,.08);color:var(--error)}
+.quiz-feedback{margin-top:12px;padding:10px 14px;border-radius:8px;font-size:.82rem;display:none}
+
+/* === RESPONSIVE === */
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .hamburger{display:flex}
+  .main{margin-left:0}
+  .chapter{padding:60px 24px 100px}
+  .ch-title{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<button class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+  <span></span><span></span><span></span>
+</button>
+
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h1>⚡ SQL Mastery</h1>
+    <p>From Zero to Hero</p>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-text" id="progressText">0 / 12 chapters</div>
+  <div class="sidebar-nav" id="sidebarNav">
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">01</span> Foundations</div>
+      <a class="nav-link active" onclick="goTo(0)">What is SQL?</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">02</span> Databases</div>
+      <a class="nav-link" onclick="goTo(1)">Tables, Rows & Columns</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">03</span> SELECT</div>
+      <a class="nav-link" onclick="goTo(2)">Querying Data</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">04</span> Filtering</div>
+      <a class="nav-link" onclick="goTo(3)">WHERE & Operators</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">05</span> Sorting & Limits</div>
+      <a class="nav-link" onclick="goTo(4)">ORDER BY & LIMIT</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">06</span> Aggregation</div>
+      <a class="nav-link" onclick="goTo(5)">GROUP BY & Functions</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">07</span> JOINs</div>
+      <a class="nav-link" onclick="goTo(6)">Combining Tables</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">08</span> Subqueries</div>
+      <a class="nav-link" onclick="goTo(7)">Nested Queries</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">09</span> Data Modification</div>
+      <a class="nav-link" onclick="goTo(8)">INSERT, UPDATE, DELETE</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">10</span> Schema Design</div>
+      <a class="nav-link" onclick="goTo(9)">CREATE TABLE & Keys</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">11</span> Advanced</div>
+      <a class="nav-link" onclick="goTo(10)">Views, Indexes & More</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">12</span> Final Project</div>
+      <a class="nav-link" onclick="goTo(11)">Build a Database</a>
+    </div>
+  </div>
+</nav>
+
+<main class="main" id="main">
+
+<!-- ============================================== -->
+<!-- CHAPTER 0: What is SQL?                         -->
+<!-- ============================================== -->
+<section class="chapter active" id="ch0">
+  <div class="ch-label">Chapter 01</div>
+  <div class="ch-title">What is SQL?</div>
+  <div class="ch-subtitle">Welcome to your journey into the language of data. SQL is the universal key to unlocking databases.</div>
+
+  <h2>The Language of Databases</h2>
+  <p><strong>SQL</strong> stands for <strong>Structured Query Language</strong>. It's a programming language specifically designed to manage, query, and manipulate data stored in <strong>relational databases</strong>.</p>
+  <p>Think of a database as a highly organized collection of spreadsheets, and SQL as the language you use to ask questions about them, add new data, or change existing data.</p>
+
+  <div class="concept-card">
+    <h3>🎯 Why Learn SQL?</h3>
+    <p>SQL is one of the most in-demand skills in tech. It's used by data analysts, developers, product managers, marketers, and virtually anyone who works with data.</p>
+    <div class="card-grid">
+      <div class="mini-card">
+        <div class="icon">📊</div>
+        <h4>Data Analysis</h4>
+        <p>Extract insights from millions of rows in seconds</p>
+      </div>
+      <div class="mini-card">
+        <div class="icon">🏗️</div>
+        <h4>Backend Dev</h4>
+        <p>Power applications with persistent data storage</p>
+      </div>
+      <div class="mini-card">
+        <div class="icon">🤖</div>
+        <h4>Machine Learning</h4>
+        <p>Prepare and clean datasets for models</p>
+      </div>
+      <div class="mini-card">
+        <div class="icon">💼</div>
+        <h4>Business Intel</h4>
+        <p>Generate reports and dashboards from live data</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>How SQL Works</h2>
+  <p>You write a <strong>query</strong> — a statement telling the database what you want. The database processes it and returns results.</p>
+
+  <div class="flow">
+    <div class="flow-step">📝 You Write a Query</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">⚙️ Database Engine Processes</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">📋 Results Returned</div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Your very first SQL query!</span>
+<span class="kw">SELECT</span> <span class="str">'Hello, SQL World!'</span> <span class="kw">AS</span> greeting;</code></pre>
+  </div>
+
+  <div class="tip green">
+    <span class="tip-icon">💡</span>
+    <p><strong>Result:</strong> This returns a single row with a column called <code>greeting</code> containing the text "Hello, SQL World!"</p>
+  </div>
+
+  <h2>Popular SQL Databases</h2>
+  <div class="card-grid">
+    <div class="mini-card">
+      <h4>🐘 PostgreSQL</h4>
+      <p>Open source, feature-rich, enterprise-grade</p>
+    </div>
+    <div class="mini-card">
+      <h4>🐬 MySQL</h4>
+      <p>Most popular open-source DB, powers the web</p>
+    </div>
+    <div class="mini-card">
+      <h4>🪶 SQLite</h4>
+      <p>Lightweight, file-based, great for learning</p>
+    </div>
+    <div class="mini-card">
+      <h4>🏢 SQL Server</h4>
+      <p>Microsoft's enterprise database solution</p>
+    </div>
+  </div>
+
+  <div class="tip blue">
+    <span class="tip-icon">📌</span>
+    <p><strong>Good news:</strong> Core SQL syntax is the same across all databases. Learn it once, use it everywhere. Minor syntax differences exist, but the fundamentals are universal.</p>
+  </div>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p>What does SQL stand for?</p>
+    <div class="quiz-option" onclick="checkQuiz(this,'correct')">Structured Query Language</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Simple Question Language</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Standard Query Logic</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">System Query Language</div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="chapter-nav">
+    <div></div>
+    <button class="ch-nav-btn" onclick="goTo(1)">Next: Tables, Rows & Columns →</button>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 1: Tables, Rows & Columns               -->
+<!-- ============================================== -->
+<section class="chapter" id="ch1">
+  <div class="ch-label">Chapter 02</div>
+  <div class="ch-title">Tables, Rows & Columns</div>
+  <div class="ch-subtitle">Understanding the building blocks of every relational database.</div>
+
+  <h2>The Structure of a Database</h2>
+  <p>A <strong>relational database</strong> organizes data into <strong>tables</strong>. Each table represents one type of entity (like users, products, or orders).</p>
+
+  <div class="concept-card">
+    <h3>📐 Anatomy of a Table</h3>
+    <p><strong>Columns</strong> define WHAT data is stored (name, age, email). <strong>Rows</strong> represent individual records (one user, one product). Each cell holds a single value.</p>
+  </div>
+
+  <div class="visual-box">
+    <div class="label">📊 Example: employees table</div>
+    <div class="db-table">
+      <div class="t-header">employees</div>
+      <div class="t-row header" style="grid-template-columns:60px 120px 100px 80px">
+        <span>id<span class="pk">PK</span></span><span>name</span><span>department</span><span>salary</span>
+      </div>
+      <div class="t-row" style="grid-template-columns:60px 120px 100px 80px">
+        <span>1</span><span>Alice</span><span>Engineering</span><span>95000</span>
+      </div>
+      <div class="t-row" style="grid-template-columns:60px 120px 100px 80px">
+        <span>2</span><span>Bob</span><span>Marketing</span><span>72000</span>
+      </div>
+      <div class="t-row" style="grid-template-columns:60px 120px 100px 80px">
+        <span>3</span><span>Carol</span><span>Engineering</span><span>105000</span>
+      </div>
+      <div class="t-row" style="grid-template-columns:60px 120px 100px 80px">
+        <span>4</span><span>Dave</span><span>Sales</span><span>68000</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>Key Terminology</h2>
+  <div class="card-grid">
+    <div class="mini-card">
+      <h4>🗂️ Table</h4>
+      <p>A collection of related data organized in rows and columns (like a spreadsheet tab)</p>
+    </div>
+    <div class="mini-card">
+      <h4>📏 Column (Field)</h4>
+      <p>A vertical set of data of the same type — like "name" or "salary"</p>
+    </div>
+    <div class="mini-card">
+      <h4>📝 Row (Record)</h4>
+      <p>A horizontal entry — one complete item (one employee, one product)</p>
+    </div>
+    <div class="mini-card">
+      <h4>🔑 Primary Key (PK)</h4>
+      <p>A unique identifier for each row — usually an ID number</p>
+    </div>
+  </div>
+
+  <h2>Data Types</h2>
+  <p>Every column has a <strong>data type</strong> that defines what kind of values it can hold:</p>
+
+  <table class="result-table">
+    <tr><th>Type</th><th>Description</th><th>Example</th></tr>
+    <tr><td><code>INTEGER</code></td><td>Whole numbers</td><td>42, -7, 1000</td></tr>
+    <tr><td><code>VARCHAR(n)</code></td><td>Text up to n characters</td><td>'Alice', 'Hello'</td></tr>
+    <tr><td><code>TEXT</code></td><td>Unlimited length text</td><td>Long descriptions</td></tr>
+    <tr><td><code>DECIMAL</code></td><td>Exact decimal numbers</td><td>99.95, 3.14</td></tr>
+    <tr><td><code>DATE</code></td><td>Calendar date</td><td>'2025-01-15'</td></tr>
+    <tr><td><code>BOOLEAN</code></td><td>True/False</td><td>TRUE, FALSE</td></tr>
+    <tr><td><code>TIMESTAMP</code></td><td>Date + time</td><td>'2025-01-15 14:30:00'</td></tr>
+  </table>
+
+  <div class="tip yellow">
+    <span class="tip-icon">⚠️</span>
+    <p><strong>Note:</strong> Text values in SQL are always wrapped in single quotes: <code>'like this'</code>. Numbers don't need quotes. This is a common source of errors!</p>
+  </div>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p>In a database table, what does a ROW represent?</p>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">A category of data (like "name")</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'correct')">A single record or entry</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">The entire database</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">A connection between tables</div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(0)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(2)">Next: Querying Data →</button>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 2: SELECT — Querying Data                -->
+<!-- ============================================== -->
+<section class="chapter" id="ch2">
+  <div class="ch-label">Chapter 03</div>
+  <div class="ch-title">Querying Data</div>
+  <div class="ch-subtitle">The SELECT statement — the most important command in SQL.</div>
+
+  <h2>The SELECT Statement</h2>
+  <p><code>SELECT</code> is how you retrieve data from a database. It's the command you'll use most often.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL — Basic Syntax</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">SELECT</span> column1, column2, ...
+<span class="kw">FROM</span> table_name;</code></pre>
+  </div>
+
+  <h3>Select All Columns</h3>
+  <p>Use <code>*</code> (asterisk) to get every column:</p>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Get everything from the employees table</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>;</code></pre>
+  </div>
+
+  <div class="visual-box">
+    <div class="label">📋 Result</div>
+    <table class="result-table">
+      <tr><th>id</th><th>name</th><th>department</th><th>salary</th></tr>
+      <tr><td>1</td><td>Alice</td><td>Engineering</td><td>95000</td></tr>
+      <tr><td>2</td><td>Bob</td><td>Marketing</td><td>72000</td></tr>
+      <tr><td>3</td><td>Carol</td><td>Engineering</td><td>105000</td></tr>
+      <tr><td>4</td><td>Dave</td><td>Sales</td><td>68000</td></tr>
+    </table>
+  </div>
+
+  <h3>Select Specific Columns</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Only get names and salaries</span>
+<span class="kw">SELECT</span> name, salary <span class="kw">FROM</span> <span class="tbl">employees</span>;</code></pre>
+  </div>
+
+  <h3>Aliases with AS</h3>
+  <p>Rename columns in the output using <code>AS</code>:</p>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">SELECT</span>
+  name <span class="kw">AS</span> employee_name,
+  salary <span class="kw">AS</span> annual_salary,
+  salary / <span class="num">12</span> <span class="kw">AS</span> monthly_salary
+<span class="kw">FROM</span> <span class="tbl">employees</span>;</code></pre>
+  </div>
+
+  <h3>DISTINCT — Remove Duplicates</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Get unique department names only</span>
+<span class="kw">SELECT DISTINCT</span> department <span class="kw">FROM</span> <span class="tbl">employees</span>;</code></pre>
+  </div>
+
+  <div class="tip green">
+    <span class="tip-icon">💡</span>
+    <p><strong>Pro Tip:</strong> Avoid using <code>SELECT *</code> in production. Always specify the columns you need — it's faster and makes your intent clear.</p>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="badge">Practice</span>
+      <h4>Write a SELECT Query</h4>
+    </div>
+    <div class="exercise-body">
+      <p>Write a query to select only the <code>name</code> and <code>department</code> columns from the <code>employees</code> table.</p>
+      <textarea class="sql-editor" id="ex1" placeholder="Write your SQL here..."></textarea>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="checkExercise('ex1','SELECT name, department FROM employees','name','department','employees')">Check Answer</button>
+        <button class="btn btn-secondary" onclick="showHint('ex1','SELECT column1, column2 FROM table_name;')">Show Hint</button>
+      </div>
+      <div class="result-box" id="ex1-result"></div>
+    </div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(1)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(3)">Next: WHERE & Operators →</button>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 3: WHERE & Operators                     -->
+<!-- ============================================== -->
+<section class="chapter" id="ch3">
+  <div class="ch-label">Chapter 04</div>
+  <div class="ch-title">WHERE & Operators</div>
+  <div class="ch-subtitle">Filter your data to get exactly what you need.</div>
+
+  <h2>The WHERE Clause</h2>
+  <p><code>WHERE</code> filters rows based on conditions. Only rows that meet the condition are returned.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> department <span class="op">=</span> <span class="str">'Engineering'</span>;</code></pre>
+  </div>
+
+  <div class="visual-box">
+    <div class="label">📋 Result — Only Engineers</div>
+    <table class="result-table">
+      <tr><th>id</th><th>name</th><th>department</th><th>salary</th></tr>
+      <tr><td>1</td><td>Alice</td><td>Engineering</td><td>95000</td></tr>
+      <tr><td>3</td><td>Carol</td><td>Engineering</td><td>105000</td></tr>
+    </table>
+  </div>
+
+  <h2>Comparison Operators</h2>
+  <table class="result-table">
+    <tr><th>Operator</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><code>=</code></td><td>Equal to</td><td><code>salary = 95000</code></td></tr>
+    <tr><td><code>!=</code> or <code>&lt;&gt;</code></td><td>Not equal to</td><td><code>department != 'Sales'</code></td></tr>
+    <tr><td><code>&gt;</code></td><td>Greater than</td><td><code>salary > 80000</code></td></tr>
+    <tr><td><code>&lt;</code></td><td>Less than</td><td><code>salary < 80000</code></td></tr>
+    <tr><td><code>&gt;=</code></td><td>Greater or equal</td><td><code>salary >= 95000</code></td></tr>
+    <tr><td><code>&lt;=</code></td><td>Less or equal</td><td><code>salary <= 72000</code></td></tr>
+  </table>
+
+  <h2>Logical Operators</h2>
+  <h3>AND — Both conditions must be true</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> department <span class="op">=</span> <span class="str">'Engineering'</span>
+  <span class="kw">AND</span> salary <span class="op">></span> <span class="num">100000</span>;</code></pre>
+  </div>
+
+  <h3>OR — At least one condition must be true</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> department <span class="op">=</span> <span class="str">'Sales'</span>
+  <span class="kw">OR</span> department <span class="op">=</span> <span class="str">'Marketing'</span>;</code></pre>
+  </div>
+
+  <h3>NOT — Negate a condition</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE NOT</span> department <span class="op">=</span> <span class="str">'Sales'</span>;</code></pre>
+  </div>
+
+  <h2>Special Operators</h2>
+
+  <h3>BETWEEN — Range check</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> salary <span class="kw">BETWEEN</span> <span class="num">70000</span> <span class="kw">AND</span> <span class="num">100000</span>;</code></pre>
+  </div>
+
+  <h3>IN — Match any in a list</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> department <span class="kw">IN</span> (<span class="str">'Engineering'</span>, <span class="str">'Marketing'</span>);</code></pre>
+  </div>
+
+  <h3>LIKE — Pattern matching</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Names starting with 'A'</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="str">'A%'</span>;
+
+<span class="cm">-- Names containing 'ol'</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="str">'%ol%'</span>;</code></pre>
+  </div>
+
+  <div class="tip blue">
+    <span class="tip-icon">📌</span>
+    <p><strong>LIKE Wildcards:</strong> <code>%</code> matches zero or more characters. <code>_</code> matches exactly one character. So <code>'_ob'</code> matches "Bob" but not "Jacob".</p>
+  </div>
+
+  <h3>IS NULL — Check for missing values</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Find employees with no department assigned</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> department <span class="kw">IS NULL</span>;</code></pre>
+  </div>
+
+  <div class="tip red">
+    <span class="tip-icon">🚫</span>
+    <p><strong>Common Mistake:</strong> Never use <code>= NULL</code>. Always use <code>IS NULL</code> or <code>IS NOT NULL</code>. NULL is not a value — it's the absence of a value.</p>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="badge">Practice</span>
+      <h4>Filter Employees</h4>
+    </div>
+    <div class="exercise-body">
+      <p>Write a query to find all employees with a salary greater than 80000.</p>
+      <textarea class="sql-editor" id="ex2" placeholder="Write your SQL here..."></textarea>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="checkExercise('ex2','SELECT * FROM employees WHERE salary > 80000','salary','>','80000')">Check Answer</button>
+        <button class="btn btn-secondary" onclick="showHint('ex2','SELECT ... FROM ... WHERE salary > ...;')">Show Hint</button>
+      </div>
+      <div class="result-box" id="ex2-result"></div>
+    </div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(2)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(4)">Next: ORDER BY & LIMIT →</button>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 4: ORDER BY & LIMIT                      -->
+<!-- ============================================== -->
+<section class="chapter" id="ch4">
+  <div class="ch-label">Chapter 05</div>
+  <div class="ch-title">Sorting & Limiting</div>
+  <div class="ch-subtitle">Control the order and quantity of your results.</div>
+
+  <h2>ORDER BY — Sort Results</h2>
+  <p>By default, SQL doesn't guarantee any particular order. Use <code>ORDER BY</code> to sort.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Sort by salary, highest first</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>;
+
+<span class="cm">-- Sort by name alphabetically (default is ASC)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">ORDER BY</span> name <span class="kw">ASC</span>;</code></pre>
+  </div>
+
+  <div class="concept-card">
+    <h3>⬆️ ASC vs DESC</h3>
+    <p><strong>ASC</strong> (ascending) = A→Z, 1→100, oldest→newest. This is the default.<br>
+    <strong>DESC</strong> (descending) = Z→A, 100→1, newest→oldest.</p>
+  </div>
+
+  <h3>Multi-Column Sorting</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Sort by department first, then salary within each dept</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">ORDER BY</span> department <span class="kw">ASC</span>, salary <span class="kw">DESC</span>;</code></pre>
+  </div>
+
+  <h2>LIMIT — Restrict Row Count</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Get the top 2 highest-paid employees</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="num">2</span>;</code></pre>
+  </div>
+
+  <h2>OFFSET — Skip Rows (Pagination)</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Skip first 2, then get next 2 (page 2)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">ORDER BY</span> id
+<span class="kw">LIMIT</span> <span class="num">2</span> <span class="kw">OFFSET</span> <span class="num">2</span>;</code></pre>
+  </div>
+
+  <div class="flow">
+    <div class="flow-step">SELECT</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">FROM</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">WHERE</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">ORDER BY</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">LIMIT</div>
+  </div>
+  <div class="tip green">
+    <span class="tip-icon">💡</span>
+    <p><strong>Execution Order:</strong> SQL processes clauses in this order — FROM → WHERE → SELECT → ORDER BY → LIMIT. The visual above shows the logical flow.</p>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="badge">Practice</span>
+      <h4>Top Earner</h4>
+    </div>
+    <div class="exercise-body">
+      <p>Write a query to get the single highest-paid employee's name and salary.</p>
+      <textarea class="sql-editor" id="ex3" placeholder="Write your SQL here..."></textarea>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="checkExercise('ex3','SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 1','ORDER BY','DESC','LIMIT')">Check Answer</button>
+        <button class="btn btn-secondary" onclick="showHint('ex3','SELECT name, salary FROM employees ORDER BY ... DESC LIMIT ...;')">Show Hint</button>
+      </div>
+      <div class="result-box" id="ex3-result"></div>
+    </div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(3)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(5)">Next: GROUP BY & Functions →</button>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 5: Aggregation                           -->
+<!-- ============================================== -->
+<section class="chapter" id="ch5">
+  <div class="ch-label">Chapter 06</div>
+  <div class="ch-title">Aggregation</div>
+  <div class="ch-subtitle">Summarize data with aggregate functions and GROUP BY.</div>
+
+  <h2>Aggregate Functions</h2>
+  <p>These functions compute a single value from a set of rows:</p>
+
+  <div class="card-grid">
+    <div class="mini-card"><h4>COUNT()</h4><p>Number of rows</p></div>
+    <div class="mini-card"><h4>SUM()</h4><p>Total of values</p></div>
+    <div class="mini-card"><h4>AVG()</h4><p>Average value</p></div>
+    <div class="mini-card"><h4>MIN()</h4><p>Smallest value</p></div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Count all employees</span>
+<span class="kw">SELECT</span> <span class="fn">COUNT</span>(*) <span class="kw">AS</span> total_employees <span class="kw">FROM</span> <span class="tbl">employees</span>;
+
+<span class="cm">-- Average salary</span>
+<span class="kw">SELECT</span> <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_salary <span class="kw">FROM</span> <span class="tbl">employees</span>;
+
+<span class="cm">-- Highest salary</span>
+<span class="kw">SELECT</span> <span class="fn">MAX</span>(salary) <span class="kw">AS</span> top_salary <span class="kw">FROM</span> <span class="tbl">employees</span>;</code></pre>
+  </div>
+
+  <h2>GROUP BY — Aggregate Per Category</h2>
+  <p><code>GROUP BY</code> splits rows into groups and applies the aggregate function to each group separately.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Average salary per department</span>
+<span class="kw">SELECT</span>
+  department,
+  <span class="fn">COUNT</span>(*) <span class="kw">AS</span> num_employees,
+  <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_salary,
+  <span class="fn">MAX</span>(salary) <span class="kw">AS</span> max_salary
+<span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">GROUP BY</span> department;</code></pre>
+  </div>
+
+  <div class="visual-box">
+    <div class="label">📋 Result</div>
+    <table class="result-table">
+      <tr><th>department</th><th>num_employees</th><th>avg_salary</th><th>max_salary</th></tr>
+      <tr><td>Engineering</td><td>2</td><td>100000</td><td>105000</td></tr>
+      <tr><td>Marketing</td><td>1</td><td>72000</td><td>72000</td></tr>
+      <tr><td>Sales</td><td>1</td><td>68000</td><td>68000</td></tr>
+    </table>
+  </div>
+
+  <h2>HAVING — Filter Groups</h2>
+  <p><code>WHERE</code> filters rows BEFORE grouping. <code>HAVING</code> filters AFTER grouping.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Only departments with avg salary above 75000</span>
+<span class="kw">SELECT</span>
+  department,
+  <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_salary
+<span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">GROUP BY</span> department
+<span class="kw">HAVING</span> <span class="fn">AVG</span>(salary) <span class="op">></span> <span class="num">75000</span>;</code></pre>
+  </div>
+
+  <div class="tip yellow">
+    <span class="tip-icon">⚠️</span>
+    <p><strong>WHERE vs HAVING:</strong> Use WHERE to filter individual rows. Use HAVING to filter aggregated groups. You can use both in the same query!</p>
+  </div>
+
+  <h2>Full Execution Order</h2>
+  <div class="flow">
+    <div class="flow-step">FROM</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">WHERE</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">GROUP BY</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">HAVING</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">SELECT</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">ORDER BY</div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="badge">Practice</span>
+      <h4>Department Stats</h4>
+    </div>
+    <div class="exercise-body">
+      <p>Write a query to find the total salary cost per department. Use SUM() and GROUP BY.</p>
+      <textarea class="sql-editor" id="ex4" placeholder="Write your SQL here..."></textarea>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="checkExercise('ex4','SELECT department, SUM(salary) FROM employees GROUP BY department','SUM','GROUP BY','department')">Check Answer</button>
+        <button class="btn btn-secondary" onclick="showHint('ex4','SELECT department, SUM(salary) FROM employees GROUP BY ...;')">Show Hint</button>
+      </div>
+      <div class="result-box" id="ex4-result"></div>
+    </div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(4)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(6)">Next: JOINs →</button>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 6: JOINs                                 -->
+<!-- ============================================== -->
+<section class="chapter" id="ch6">
+  <div class="ch-label">Chapter 07</div>
+  <div class="ch-title">JOINs</div>
+  <div class="ch-subtitle">The most powerful concept in SQL — combining data from multiple tables.</div>
+
+  <h2>Why JOINs?</h2>
+  <p>Real databases have many tables. A user's name is in one table, their orders in another. JOINs let you combine them based on a shared key.</p>
+
+  <div class="visual-box">
+    <div class="label">📊 Two Related Tables</div>
+    <div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap">
+      <div class="db-table">
+        <div class="t-header">employees</div>
+        <div class="t-row header" style="grid-template-columns:40px 90px 50px">
+          <span>id<span class="pk">PK</span></span><span>name</span><span>dept_id<span class="fk">FK</span></span>
+        </div>
+        <div class="t-row" style="grid-template-columns:40px 90px 50px"><span>1</span><span>Alice</span><span>10</span></div>
+        <div class="t-row" style="grid-template-columns:40px 90px 50px"><span>2</span><span>Bob</span><span>20</span></div>
+        <div class="t-row" style="grid-template-columns:40px 90px 50px"><span>3</span><span>Carol</span><span>10</span></div>
+      </div>
+      <div class="db-table">
+        <div class="t-header">departments</div>
+        <div class="t-row header" style="grid-template-columns:40px 120px">
+          <span>id<span class="pk">PK</span></span><span>dept_name</span>
+        </div>
+        <div class="t-row" style="grid-template-columns:40px 120px"><span>10</span><span>Engineering</span></div>
+        <div class="t-row" style="grid-template-columns:40px 120px"><span>20</span><span>Marketing</span></div>
+        <div class="t-row" style="grid-template-columns:40px 120px"><span>30</span><span>Sales</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>INNER JOIN</h2>
+  <p>Returns only rows that have a match in <strong>both</strong> tables.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">SELECT</span>
+  e.name,
+  d.dept_name
+<span class="kw">FROM</span> <span class="tbl">employees</span> e
+<span class="kw">INNER JOIN</span> <span class="tbl">departments</span> d
+  <span class="kw">ON</span> e.dept_id <span class="op">=</span> d.id;</code></pre>
+  </div>
+
+  <h2>Types of JOINs</h2>
+  <div class="join-diagrams">
+    <div class="join-diagram">
+      <svg viewBox="0 0 180 100">
+        <circle cx="65" cy="50" r="40" fill="none" stroke="#00e5a0" stroke-width="2"/>
+        <circle cx="115" cy="50" r="40" fill="none" stroke="#00c2ff" stroke-width="2"/>
+        <path d="M90,20 A40,40 0 0,1 90,80 A40,40 0 0,1 90,20" fill="rgba(168,85,247,.3)"/>
+        <text x="48" y="54" fill="#00e5a0" font-size="10" font-family="monospace">A</text>
+        <text x="125" y="54" fill="#00c2ff" font-size="10" font-family="monospace">B</text>
+      </svg>
+      <div class="jlabel">INNER JOIN</div>
+      <p style="font-size:.75rem;color:var(--text2)">Only matching rows</p>
+    </div>
+    <div class="join-diagram">
+      <svg viewBox="0 0 180 100">
+        <circle cx="65" cy="50" r="40" fill="rgba(0,229,160,.2)" stroke="#00e5a0" stroke-width="2"/>
+        <circle cx="115" cy="50" r="40" fill="none" stroke="#00c2ff" stroke-width="2"/>
+        <path d="M90,20 A40,40 0 0,1 90,80 A40,40 0 0,1 90,20" fill="rgba(168,85,247,.3)"/>
+        <text x="48" y="54" fill="#00e5a0" font-size="10" font-family="monospace">A</text>
+        <text x="125" y="54" fill="#00c2ff" font-size="10" font-family="monospace">B</text>
+      </svg>
+      <div class="jlabel">LEFT JOIN</div>
+      <p style="font-size:.75rem;color:var(--text2)">All from A + matches from B</p>
+    </div>
+    <div class="join-diagram">
+      <svg viewBox="0 0 180 100">
+        <circle cx="65" cy="50" r="40" fill="none" stroke="#00e5a0" stroke-width="2"/>
+        <circle cx="115" cy="50" r="40" fill="rgba(0,194,255,.2)" stroke="#00c2ff" stroke-width="2"/>
+        <path d="M90,20 A40,40 0 0,1 90,80 A40,40 0 0,1 90,20" fill="rgba(168,85,247,.3)"/>
+        <text x="48" y="54" fill="#00e5a0" font-size="10" font-family="monospace">A</text>
+        <text x="125" y="54" fill="#00c2ff" font-size="10" font-family="monospace">B</text>
+      </svg>
+      <div class="jlabel">RIGHT JOIN</div>
+      <p style="font-size:.75rem;color:var(--text2)">All from B + matches from A</p>
+    </div>
+    <div class="join-diagram">
+      <svg viewBox="0 0 180 100">
+        <circle cx="65" cy="50" r="40" fill="rgba(0,229,160,.2)" stroke="#00e5a0" stroke-width="2"/>
+        <circle cx="115" cy="50" r="40" fill="rgba(0,194,255,.2)" stroke="#00c2ff" stroke-width="2"/>
+        <path d="M90,20 A40,40 0 0,1 90,80 A40,40 0 0,1 90,20" fill="rgba(168,85,247,.3)"/>
+        <text x="48" y="54" fill="#00e5a0" font-size="10" font-family="monospace">A</text>
+        <text x="125" y="54" fill="#00c2ff" font-size="10" font-family="monospace">B</text>
+      </svg>
+      <div class="jlabel">FULL OUTER JOIN</div>
+      <p style="font-size:.75rem;color:var(--text2)">All rows from both</p>
+    </div>
+  </div>
+
+  <h3>LEFT JOIN Example</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- All departments, even those with no employees</span>
+<span class="kw">SELECT</span>
+  d.dept_name,
+  e.name
+<span class="kw">FROM</span> <span class="tbl">departments</span> d
+<span class="kw">LEFT JOIN</span> <span class="tbl">employees</span> e
+  <span class="kw">ON</span> d.id <span class="op">=</span> e.dept_id;</code></pre>
+  </div>
+
+  <div class="visual-box">
+    <div class="label">📋 LEFT JOIN Result (Sales has no employees)</div>
+    <table class="result-table">
+      <tr><th>dept_name</th><th>name</th></tr>
+      <tr><td>Engineering</td><td>Alice</td></tr>
+      <tr><td>Engineering</td><td>Carol</td></tr>
+      <tr><td>Marketing</td><td>Bob</td></tr>
+      <tr><td>Sales</td><td><em style="color:var(--text2)">NULL</em></td></tr>
+    </table>
+  </div>
+
+  <div class="tip green">
+    <span class="tip-icon">💡</span>
+    <p><strong>When to use which?</strong> Use INNER JOIN when you only want matches. Use LEFT JOIN when you want all records from the "left" table regardless of match. LEFT JOIN is the most commonly used after INNER JOIN.</p>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="badge">Practice</span>
+      <h4>Write a JOIN</h4>
+    </div>
+    <div class="exercise-body">
+      <p>Write an INNER JOIN to get employee names with their department names from the two tables above.</p>
+      <textarea class="sql-editor" id="ex5" placeholder="Write your SQL here..."></textarea>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="checkExercise('ex5','SELECT e.name, d.dept_name FROM employees e INNER JOIN departments d ON e.dept_id = d.id','JOIN','ON','dept_id')">Check Answer</button>
+        <button class="btn btn-secondary" onclick="showHint('ex5','SELECT e.name, d.dept_name FROM employees e INNER JOIN departments d ON e.??? = d.???;')">Show Hint</button>
+      </div>
+      <div class="result-box" id="ex5-result"></div>
+    </div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(5)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(7)">Next: Subqueries →</button>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 7: Subqueries                            -->
+<!-- ============================================== -->
+<section class="chapter" id="ch7">
+  <div class="ch-label">Chapter 08</div>
+  <div class="ch-title">Subqueries</div>
+  <div class="ch-subtitle">Queries inside queries — unlocking advanced data retrieval.</div>
+
+  <h2>What is a Subquery?</h2>
+  <p>A subquery is a <code>SELECT</code> statement nested inside another query. It runs first, and its result is used by the outer query.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL — Subquery in WHERE</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Employees earning above average</span>
+<span class="kw">SELECT</span> name, salary
+<span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> salary <span class="op">></span> (
+  <span class="kw">SELECT</span> <span class="fn">AVG</span>(salary) <span class="kw">FROM</span> <span class="tbl">employees</span>
+);</code></pre>
+  </div>
+
+  <div class="concept-card">
+    <h3>🔄 How It Executes</h3>
+    <p>1. The inner query runs first: <code>SELECT AVG(salary) FROM employees</code> → returns 85000<br>
+    2. The outer query becomes: <code>SELECT ... WHERE salary > 85000</code><br>
+    3. Only Alice (95000) and Carol (105000) are returned.</p>
+  </div>
+
+  <h3>Subquery with IN</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Employees in departments that have 'Eng' in the name</span>
+<span class="kw">SELECT</span> name
+<span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> dept_id <span class="kw">IN</span> (
+  <span class="kw">SELECT</span> id <span class="kw">FROM</span> <span class="tbl">departments</span>
+  <span class="kw">WHERE</span> dept_name <span class="kw">LIKE</span> <span class="str">'%Eng%'</span>
+);</code></pre>
+  </div>
+
+  <h3>Subquery in FROM (Derived Table)</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Get departments with their employee count, then filter</span>
+<span class="kw">SELECT</span> *
+<span class="kw">FROM</span> (
+  <span class="kw">SELECT</span> department, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> emp_count
+  <span class="kw">FROM</span> <span class="tbl">employees</span>
+  <span class="kw">GROUP BY</span> department
+) <span class="kw">AS</span> dept_stats
+<span class="kw">WHERE</span> emp_count <span class="op">></span> <span class="num">1</span>;</code></pre>
+  </div>
+
+  <h3>EXISTS — Check for Existence</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Departments that have at least one employee</span>
+<span class="kw">SELECT</span> dept_name
+<span class="kw">FROM</span> <span class="tbl">departments</span> d
+<span class="kw">WHERE EXISTS</span> (
+  <span class="kw">SELECT</span> <span class="num">1</span> <span class="kw">FROM</span> <span class="tbl">employees</span> e
+  <span class="kw">WHERE</span> e.dept_id <span class="op">=</span> d.id
+);</code></pre>
+  </div>
+
+  <div class="tip blue">
+    <span class="tip-icon">📌</span>
+    <p><strong>Subquery vs JOIN:</strong> Many subqueries can be rewritten as JOINs. JOINs are often more readable and performant. Use subqueries when the logic is cleaner that way (like comparing to an aggregate).</p>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(6)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(8)">Next: INSERT, UPDATE, DELETE →</button>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 8: Data Modification                     -->
+<!-- ============================================== -->
+<section class="chapter" id="ch8">
+  <div class="ch-label">Chapter 09</div>
+  <div class="ch-title">Data Modification</div>
+  <div class="ch-subtitle">INSERT new data, UPDATE existing data, DELETE what you don't need.</div>
+
+  <h2>INSERT — Add New Rows</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Insert a single row</span>
+<span class="kw">INSERT INTO</span> <span class="tbl">employees</span> (name, department, salary)
+<span class="kw">VALUES</span> (<span class="str">'Eve'</span>, <span class="str">'Engineering'</span>, <span class="num">98000</span>);
+
+<span class="cm">-- Insert multiple rows</span>
+<span class="kw">INSERT INTO</span> <span class="tbl">employees</span> (name, department, salary)
+<span class="kw">VALUES</span>
+  (<span class="str">'Frank'</span>, <span class="str">'Sales'</span>, <span class="num">71000</span>),
+  (<span class="str">'Grace'</span>, <span class="str">'Marketing'</span>, <span class="num">78000</span>);</code></pre>
+  </div>
+
+  <h2>UPDATE — Modify Existing Rows</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Give Alice a raise</span>
+<span class="kw">UPDATE</span> <span class="tbl">employees</span>
+<span class="kw">SET</span> salary <span class="op">=</span> <span class="num">105000</span>
+<span class="kw">WHERE</span> name <span class="op">=</span> <span class="str">'Alice'</span>;
+
+<span class="cm">-- 10% raise for all engineers</span>
+<span class="kw">UPDATE</span> <span class="tbl">employees</span>
+<span class="kw">SET</span> salary <span class="op">=</span> salary <span class="op">*</span> <span class="num">1.10</span>
+<span class="kw">WHERE</span> department <span class="op">=</span> <span class="str">'Engineering'</span>;</code></pre>
+  </div>
+
+  <div class="tip red">
+    <span class="tip-icon">🚨</span>
+    <p><strong>DANGER:</strong> Always include a <code>WHERE</code> clause with UPDATE and DELETE! Without it, you'll modify or delete EVERY row in the table. This is one of the most common and costly SQL mistakes.</p>
+  </div>
+
+  <h2>DELETE — Remove Rows</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Delete a specific employee</span>
+<span class="kw">DELETE FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> name <span class="op">=</span> <span class="str">'Dave'</span>;
+
+<span class="cm">-- Delete all employees in Sales</span>
+<span class="kw">DELETE FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> department <span class="op">=</span> <span class="str">'Sales'</span>;
+
+<span class="cm">-- ⚠️ DANGER: This deletes EVERYTHING!</span>
+<span class="cm">-- DELETE FROM employees;</span></code></pre>
+  </div>
+
+  <div class="concept-card">
+    <h3>🛡️ Safety Checklist</h3>
+    <p>Before running UPDATE or DELETE in production:</p>
+    <p>1. First run a SELECT with the same WHERE clause to see what will be affected<br>
+    2. Count the rows: is the number what you expect?<br>
+    3. Use a transaction (BEGIN / COMMIT / ROLLBACK) for safety<br>
+    4. Back up your data regularly</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL — Safe Pattern</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Step 1: Preview what will be affected</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> department <span class="op">=</span> <span class="str">'Sales'</span>;
+
+<span class="cm">-- Step 2: If looks good, then update inside a transaction</span>
+<span class="kw">BEGIN</span>;
+<span class="kw">UPDATE</span> <span class="tbl">employees</span>
+<span class="kw">SET</span> salary <span class="op">=</span> salary <span class="op">*</span> <span class="num">1.05</span>
+<span class="kw">WHERE</span> department <span class="op">=</span> <span class="str">'Sales'</span>;
+<span class="cm">-- Check the results</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span> <span class="kw">WHERE</span> department <span class="op">=</span> <span class="str">'Sales'</span>;
+<span class="cm">-- If good:</span>
+<span class="kw">COMMIT</span>;
+<span class="cm">-- If bad:</span>
+<span class="cm">-- ROLLBACK;</span></code></pre>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(7)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(9)">Next: CREATE TABLE & Keys →</button>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 9: Schema Design                         -->
+<!-- ============================================== -->
+<section class="chapter" id="ch9">
+  <div class="ch-label">Chapter 10</div>
+  <div class="ch-title">Schema Design</div>
+  <div class="ch-subtitle">Create your own tables and define relationships between them.</div>
+
+  <h2>CREATE TABLE</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">CREATE TABLE</span> <span class="tbl">employees</span> (
+  id        <span class="fn">INTEGER</span> <span class="kw">PRIMARY KEY</span>,
+  name      <span class="fn">VARCHAR</span>(<span class="num">100</span>) <span class="kw">NOT NULL</span>,
+  email     <span class="fn">VARCHAR</span>(<span class="num">255</span>) <span class="kw">UNIQUE</span>,
+  dept_id   <span class="fn">INTEGER</span>,
+  salary    <span class="fn">DECIMAL</span>(<span class="num">10</span>,<span class="num">2</span>) <span class="kw">DEFAULT</span> <span class="num">0</span>,
+  hired_at  <span class="fn">DATE</span> <span class="kw">DEFAULT CURRENT_DATE</span>
+);</code></pre>
+  </div>
+
+  <h2>Constraints</h2>
+  <table class="result-table">
+    <tr><th>Constraint</th><th>Purpose</th></tr>
+    <tr><td><code>PRIMARY KEY</code></td><td>Unique identifier for each row. Cannot be NULL.</td></tr>
+    <tr><td><code>NOT NULL</code></td><td>Column must always have a value.</td></tr>
+    <tr><td><code>UNIQUE</code></td><td>No two rows can have the same value in this column.</td></tr>
+    <tr><td><code>DEFAULT</code></td><td>Auto-fill value if none is provided.</td></tr>
+    <tr><td><code>CHECK</code></td><td>Custom validation rule.</td></tr>
+    <tr><td><code>FOREIGN KEY</code></td><td>Links to a primary key in another table.</td></tr>
+  </table>
+
+  <h2>Foreign Keys — Relationships</h2>
+  <p>A <strong>foreign key</strong> creates a link between two tables, enforcing that values in one column must exist in another table.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">CREATE TABLE</span> <span class="tbl">departments</span> (
+  id        <span class="fn">INTEGER</span> <span class="kw">PRIMARY KEY</span>,
+  dept_name <span class="fn">VARCHAR</span>(<span class="num">100</span>) <span class="kw">NOT NULL</span>
+);
+
+<span class="kw">CREATE TABLE</span> <span class="tbl">employees</span> (
+  id        <span class="fn">INTEGER</span> <span class="kw">PRIMARY KEY</span>,
+  name      <span class="fn">VARCHAR</span>(<span class="num">100</span>) <span class="kw">NOT NULL</span>,
+  dept_id   <span class="fn">INTEGER</span>,
+  <span class="kw">FOREIGN KEY</span> (dept_id) <span class="kw">REFERENCES</span> <span class="tbl">departments</span>(id)
+);</code></pre>
+  </div>
+
+  <h2>ALTER TABLE — Modify Structure</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Add a column</span>
+<span class="kw">ALTER TABLE</span> <span class="tbl">employees</span>
+<span class="kw">ADD COLUMN</span> phone <span class="fn">VARCHAR</span>(<span class="num">20</span>);
+
+<span class="cm">-- Remove a column</span>
+<span class="kw">ALTER TABLE</span> <span class="tbl">employees</span>
+<span class="kw">DROP COLUMN</span> phone;
+
+<span class="cm">-- Drop (delete) an entire table</span>
+<span class="kw">DROP TABLE</span> <span class="tbl">employees</span>;</code></pre>
+  </div>
+
+  <div class="tip yellow">
+    <span class="tip-icon">⚠️</span>
+    <p><strong>DROP TABLE</strong> permanently deletes the table and ALL its data. Always double-check before running this command!</p>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(8)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(10)">Next: Advanced Topics →</button>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 10: Advanced                              -->
+<!-- ============================================== -->
+<section class="chapter" id="ch10">
+  <div class="ch-label">Chapter 11</div>
+  <div class="ch-title">Advanced Topics</div>
+  <div class="ch-subtitle">Views, Indexes, Window Functions, and CTEs — take your SQL to the next level.</div>
+
+  <h2>Views — Saved Queries</h2>
+  <p>A <strong>view</strong> is a virtual table defined by a query. It doesn't store data — it runs the query each time you access it.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Create a view for high earners</span>
+<span class="kw">CREATE VIEW</span> <span class="tbl">high_earners</span> <span class="kw">AS</span>
+<span class="kw">SELECT</span> name, salary, department
+<span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> salary <span class="op">></span> <span class="num">90000</span>;
+
+<span class="cm">-- Now use it like a regular table</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">high_earners</span>;</code></pre>
+  </div>
+
+  <h2>Indexes — Speed Up Queries</h2>
+  <p>An <strong>index</strong> is like a book's index — it helps the database find rows faster without scanning every row.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Create an index on the department column</span>
+<span class="kw">CREATE INDEX</span> idx_department
+<span class="kw">ON</span> <span class="tbl">employees</span>(department);
+
+<span class="cm">-- Queries filtering by department are now faster</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">employees</span>
+<span class="kw">WHERE</span> department <span class="op">=</span> <span class="str">'Engineering'</span>;</code></pre>
+  </div>
+
+  <div class="tip blue">
+    <span class="tip-icon">📌</span>
+    <p><strong>Index Trade-offs:</strong> Indexes speed up reads but slow down writes (INSERT, UPDATE, DELETE). Add indexes on columns you frequently filter or join on.</p>
+  </div>
+
+  <h2>CTEs — Common Table Expressions</h2>
+  <p>A <code>WITH</code> clause lets you define named temporary result sets, making complex queries much more readable.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">WITH</span> dept_stats <span class="kw">AS</span> (
+  <span class="kw">SELECT</span>
+    department,
+    <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_salary,
+    <span class="fn">COUNT</span>(*) <span class="kw">AS</span> emp_count
+  <span class="kw">FROM</span> <span class="tbl">employees</span>
+  <span class="kw">GROUP BY</span> department
+)
+<span class="kw">SELECT</span> *
+<span class="kw">FROM</span> dept_stats
+<span class="kw">WHERE</span> avg_salary <span class="op">></span> <span class="num">80000</span>
+<span class="kw">ORDER BY</span> avg_salary <span class="kw">DESC</span>;</code></pre>
+  </div>
+
+  <h2>Window Functions</h2>
+  <p>Perform calculations across rows related to the current row, without collapsing them into groups.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- Rank employees by salary within their department</span>
+<span class="kw">SELECT</span>
+  name,
+  department,
+  salary,
+  <span class="fn">RANK</span>() <span class="kw">OVER</span> (
+    <span class="kw">PARTITION BY</span> department
+    <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>
+  ) <span class="kw">AS</span> dept_rank
+<span class="kw">FROM</span> <span class="tbl">employees</span>;</code></pre>
+  </div>
+
+  <div class="concept-card">
+    <h3>🪟 Common Window Functions</h3>
+    <p><strong>ROW_NUMBER()</strong> — Unique sequential number for each row<br>
+    <strong>RANK()</strong> — Rank with gaps for ties (1, 2, 2, 4)<br>
+    <strong>DENSE_RANK()</strong> — Rank without gaps (1, 2, 2, 3)<br>
+    <strong>SUM() OVER()</strong> — Running total<br>
+    <strong>LAG() / LEAD()</strong> — Access previous/next row's value</p>
+  </div>
+
+  <h3>Running Total Example</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="kw">SELECT</span>
+  name,
+  salary,
+  <span class="fn">SUM</span>(salary) <span class="kw">OVER</span> (
+    <span class="kw">ORDER BY</span> salary
+  ) <span class="kw">AS</span> running_total
+<span class="kw">FROM</span> <span class="tbl">employees</span>;</code></pre>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(9)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(11)">Next: Final Project →</button>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 11: Final Project                         -->
+<!-- ============================================== -->
+<section class="chapter" id="ch11">
+  <div class="ch-label">Chapter 12</div>
+  <div class="ch-title">Final Project</div>
+  <div class="ch-subtitle">Put everything together — design and query a complete database.</div>
+
+  <h2>🎯 Project: Online Bookstore</h2>
+  <p>Design a database for an online bookstore with authors, books, customers, and orders. Then write queries to answer business questions.</p>
+
+  <div class="concept-card">
+    <h3>📐 Schema Design</h3>
+    <p>We need four tables: <strong>authors</strong>, <strong>books</strong>, <strong>customers</strong>, and <strong>orders</strong>. Think about the relationships between them.</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">SQL — Create the Schema</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">-- 1. Authors</span>
+<span class="kw">CREATE TABLE</span> <span class="tbl">authors</span> (
+  id     <span class="fn">INTEGER</span> <span class="kw">PRIMARY KEY</span>,
+  name   <span class="fn">VARCHAR</span>(<span class="num">200</span>) <span class="kw">NOT NULL</span>,
+  country <span class="fn">VARCHAR</span>(<span class="num">100</span>)
+);
+
+<span class="cm">-- 2. Books</span>
+<span class="kw">CREATE TABLE</span> <span class="tbl">books</span> (
+  id         <span class="fn">INTEGER</span> <span class="kw">PRIMARY KEY</span>,
+  title      <span class="fn">VARCHAR</span>(<span class="num">300</span>) <span class="kw">NOT NULL</span>,
+  author_id  <span class="fn">INTEGER</span> <span class="kw">REFERENCES</span> <span class="tbl">authors</span>(id),
+  price      <span class="fn">DECIMAL</span>(<span class="num">8</span>,<span class="num">2</span>),
+  genre      <span class="fn">VARCHAR</span>(<span class="num">50</span>),
+  published  <span class="fn">DATE</span>
+);
+
+<span class="cm">-- 3. Customers</span>
+<span class="kw">CREATE TABLE</span> <span class="tbl">customers</span> (
+  id     <span class="fn">INTEGER</span> <span class="kw">PRIMARY KEY</span>,
+  name   <span class="fn">VARCHAR</span>(<span class="num">200</span>) <span class="kw">NOT NULL</span>,
+  email  <span class="fn">VARCHAR</span>(<span class="num">255</span>) <span class="kw">UNIQUE NOT NULL</span>,
+  city   <span class="fn">VARCHAR</span>(<span class="num">100</span>)
+);
+
+<span class="cm">-- 4. Orders</span>
+<span class="kw">CREATE TABLE</span> <span class="tbl">orders</span> (
+  id          <span class="fn">INTEGER</span> <span class="kw">PRIMARY KEY</span>,
+  customer_id <span class="fn">INTEGER</span> <span class="kw">REFERENCES</span> <span class="tbl">customers</span>(id),
+  book_id     <span class="fn">INTEGER</span> <span class="kw">REFERENCES</span> <span class="tbl">books</span>(id),
+  quantity    <span class="fn">INTEGER</span> <span class="kw">DEFAULT</span> <span class="num">1</span>,
+  order_date  <span class="fn">DATE</span> <span class="kw">DEFAULT CURRENT_DATE</span>
+);</code></pre>
+  </div>
+
+  <div class="visual-box">
+    <div class="label">🔗 Entity Relationship Diagram</div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;align-items:center">
+      <div class="db-table" style="min-width:140px">
+        <div class="t-header">authors</div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>id <span class="pk">PK</span></span></div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>name</span></div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>country</span></div>
+      </div>
+      <div style="font-size:1.5rem;color:var(--accent)">←</div>
+      <div class="db-table" style="min-width:150px">
+        <div class="t-header">books</div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>id <span class="pk">PK</span></span></div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>title</span></div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>author_id <span class="fk">FK</span></span></div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>price, genre</span></div>
+      </div>
+      <div style="font-size:1.5rem;color:var(--accent)">→</div>
+      <div class="db-table" style="min-width:160px">
+        <div class="t-header">orders</div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>id <span class="pk">PK</span></span></div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>customer_id <span class="fk">FK</span></span></div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>book_id <span class="fk">FK</span></span></div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>quantity, date</span></div>
+      </div>
+      <div style="font-size:1.5rem;color:var(--accent)">←</div>
+      <div class="db-table" style="min-width:140px">
+        <div class="t-header">customers</div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>id <span class="pk">PK</span></span></div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>name</span></div>
+        <div class="t-row" style="grid-template-columns:1fr"><span>email, city</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>📝 Challenges</h2>
+  <p>Try writing SQL for each of these business questions:</p>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="badge">Challenge 1</span>
+      <h4>Top Selling Books</h4>
+    </div>
+    <div class="exercise-body">
+      <p>Find the top 5 best-selling books by total quantity ordered. Show the book title and total quantity.</p>
+      <textarea class="sql-editor" id="proj1" placeholder="Write your SQL here..."></textarea>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="showHint('proj1','SELECT b.title, SUM(o.quantity) AS total_sold\nFROM books b\nJOIN orders o ON b.id = o.book_id\nGROUP BY b.title\nORDER BY total_sold DESC\nLIMIT 5;')">Show Solution</button>
+      </div>
+      <div class="result-box" id="proj1-result"></div>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="badge">Challenge 2</span>
+      <h4>Revenue Per Author</h4>
+    </div>
+    <div class="exercise-body">
+      <p>Calculate total revenue per author (price × quantity for all their books). Show author name and total revenue.</p>
+      <textarea class="sql-editor" id="proj2" placeholder="Write your SQL here..."></textarea>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="showHint('proj2','SELECT a.name, SUM(b.price * o.quantity) AS revenue\nFROM authors a\nJOIN books b ON a.id = b.author_id\nJOIN orders o ON b.id = o.book_id\nGROUP BY a.name\nORDER BY revenue DESC;')">Show Solution</button>
+      </div>
+      <div class="result-box" id="proj2-result"></div>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="badge">Challenge 3</span>
+      <h4>Customers Who Never Ordered</h4>
+    </div>
+    <div class="exercise-body">
+      <p>Find all customers who have never placed an order. (Hint: LEFT JOIN or NOT EXISTS)</p>
+      <textarea class="sql-editor" id="proj3" placeholder="Write your SQL here..."></textarea>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="showHint('proj3','SELECT c.name, c.email\nFROM customers c\nLEFT JOIN orders o ON c.id = o.customer_id\nWHERE o.id IS NULL;')">Show Solution</button>
+      </div>
+      <div class="result-box" id="proj3-result"></div>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="badge">Challenge 4</span>
+      <h4>Advanced: Rank Books Per Genre</h4>
+    </div>
+    <div class="exercise-body">
+      <p>Use a window function to rank books by price within each genre. Show title, genre, price, and rank.</p>
+      <textarea class="sql-editor" id="proj4" placeholder="Write your SQL here..."></textarea>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="showHint('proj4','SELECT\n  title,\n  genre,\n  price,\n  RANK() OVER (\n    PARTITION BY genre\n    ORDER BY price DESC\n  ) AS price_rank\nFROM books;')">Show Solution</button>
+      </div>
+      <div class="result-box" id="proj4-result"></div>
+    </div>
+  </div>
+
+  <div class="concept-card">
+    <h3>🎉 Congratulations!</h3>
+    <p>You've completed the SQL Mastery course! You now understand SELECT, WHERE, JOINs, aggregation, subqueries, data modification, schema design, views, indexes, CTEs, and window functions.</p>
+    <p style="margin-top:12px"><strong>Next steps:</strong> Practice on <a href="https://leetcode.com/problemset/database/" style="color:var(--accent)" target="_blank">LeetCode SQL</a>, <a href="https://www.hackerrank.com/domains/sql" style="color:var(--accent)" target="_blank">HackerRank SQL</a>, or <a href="https://sqlzoo.net/" style="color:var(--accent)" target="_blank">SQLZoo</a>. Try installing PostgreSQL or SQLite locally and build your own projects!</p>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(10)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(0)">↻ Back to Start</button>
+  </div>
+</section>
+
+</main>
+
+<script>
+// === NAVIGATION ===
+let current = 0;
+const total = 12;
+const chapters = document.querySelectorAll('.chapter');
+const links = document.querySelectorAll('.nav-link');
+const visited = new Set([0]);
+
+function goTo(i) {
+  chapters[current].classList.remove('active');
+  links[current].classList.remove('active');
+  current = i;
+  visited.add(i);
+  chapters[current].classList.add('active');
+  links[current].classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  updateProgress();
+  // Close sidebar on mobile
+  document.querySelector('.sidebar').classList.remove('open');
+}
+
+function updateProgress() {
+  const pct = (visited.size / total) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = visited.size + ' / ' + total + ' chapters';
+}
+
+// === COPY CODE ===
+function copyCode(btn) {
+  const code = btn.closest('.code-block').querySelector('pre').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1500);
+  });
+}
+
+// === EXERCISES ===
+function checkExercise(id, answer, kw1, kw2, kw3) {
+  const input = document.getElementById(id).value.trim().toUpperCase().replace(/\s+/g,' ');
+  const el = document.getElementById(id + '-result');
+  const hasKw = [kw1, kw2, kw3].every(k => input.includes(k.toUpperCase()));
+  if (hasKw) {
+    el.className = 'result-box success';
+    el.innerHTML = '✅ <strong>Correct!</strong> Your query contains all the essential elements. Well done!';
+  } else {
+    el.className = 'result-box error';
+    el.innerHTML = '❌ Not quite. Make sure your query includes: <code>' + kw1 + '</code>, <code>' + kw2 + '</code>, <code>' + kw3 + '</code>. Try again!';
+  }
+}
+
+function showHint(id, hint) {
+  const el = document.getElementById(id + '-result');
+  el.className = 'result-box info';
+  el.innerHTML = '💡 <strong>Hint / Solution:</strong><br><pre style="margin-top:8px;white-space:pre-wrap">' + hint + '</pre>';
+}
+
+// === QUIZ ===
+function checkQuiz(opt, type) {
+  const quiz = opt.closest('.quiz');
+  const opts = quiz.querySelectorAll('.quiz-option');
+  const feedback = quiz.querySelector('.quiz-feedback');
+  opts.forEach(o => {o.style.pointerEvents = 'none'});
+  if (type === 'correct') {
+    opt.classList.add('correct');
+    feedback.style.display = 'block';
+    feedback.style.background = 'rgba(0,229,160,.08)';
+    feedback.style.color = 'var(--success)';
+    feedback.textContent = '✅ Correct! Well done.';
+  } else {
+    opt.classList.add('wrong');
+    // highlight the correct one
+    opts.forEach(o => {
+      if (o.getAttribute('onclick').includes("'correct'")) o.classList.add('correct');
+    });
+    feedback.style.display = 'block';
+    feedback.style.background = 'rgba(255,107,107,.08)';
+    feedback.style.color = 'var(--error)';
+    feedback.textContent = '❌ Not quite. The correct answer is highlighted above.';
+  }
+}
+
+// Init
+updateProgress();
+</script>
+</body>
+</html>

@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tableau Mastery — From Zero to Dashboard Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a26;--bg4:#22222e;
+  --text:#e2e2ef;--text2:#9999b3;
+  --accent:#e8782a;--accent2:#f5b942;--accent3:#5b8fff;--accent4:#ff6b6b;
+  --border:#2a2a3a;--glow:0 0 30px rgba(232,120,42,.15);
+  --code-bg:#0d0d18;--success:#00e5a0;--warning:#fbbf24;--error:#ff6b6b;
+  --radius:12px;
+  --font-display:'Outfit',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --font-body:'Outfit',sans-serif;
+}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--accent) var(--bg2)}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.7;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--bg)}
+
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");}
+
+.grid-bg{position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(232,120,42,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(232,120,42,.03) 1px,transparent 1px);
+  background-size:60px 60px;}
+
+/* === SIDEBAR === */
+.sidebar{position:fixed;left:0;top:0;width:300px;height:100vh;background:var(--bg2);
+  border-right:1px solid var(--border);z-index:100;overflow-y:auto;transition:transform .3s ease}
+.sidebar-header{padding:28px 24px;border-bottom:1px solid var(--border)}
+.sidebar-header h1{font-family:var(--font-display);font-size:1.4rem;font-weight:800;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;letter-spacing:-.5px}
+.sidebar-header p{font-size:.75rem;color:var(--text2);margin-top:4px;text-transform:uppercase;letter-spacing:2px}
+.sidebar-nav{padding:16px 0}
+.nav-chapter{padding:0}
+.nav-chapter-title{display:flex;align-items:center;gap:10px;padding:12px 24px;
+  font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--text2);font-weight:600}
+.nav-chapter-title .ch-num{display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:6px;background:var(--bg3);font-size:.65rem;
+  color:var(--accent);font-weight:700;font-family:var(--font-mono)}
+.nav-link{display:block;padding:8px 24px 8px 56px;font-size:.85rem;color:var(--text2);
+  text-decoration:none;transition:all .2s;border-left:2px solid transparent;cursor:pointer}
+.nav-link:hover,.nav-link.active{color:var(--accent);background:rgba(232,120,42,.04);border-left-color:var(--accent)}
+.progress-bar{margin:20px 24px;height:4px;background:var(--bg3);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border-radius:99px;transition:width .5s ease}
+.progress-text{padding:0 24px;font-size:.72rem;color:var(--text2);font-family:var(--font-mono)}
+
+/* === MAIN === */
+.main{margin-left:300px;position:relative;z-index:1;min-height:100vh}
+.chapter{display:none;padding:60px 80px 120px;max-width:960px;animation:fadeUp .5s ease}
+.chapter.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* === TYPOGRAPHY === */
+.ch-label{font-size:.7rem;text-transform:uppercase;letter-spacing:3px;color:var(--accent);
+  font-weight:600;font-family:var(--font-mono);margin-bottom:8px}
+.ch-title{font-family:var(--font-display);font-size:3rem;font-weight:900;letter-spacing:-1.5px;
+  line-height:1.1;margin-bottom:12px;
+  background:linear-gradient(135deg,#fff 30%,var(--text2));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent}
+.ch-subtitle{font-size:1.1rem;color:var(--text2);max-width:600px;margin-bottom:48px;font-weight:300}
+h2{font-family:var(--font-display);font-size:1.8rem;font-weight:700;margin:48px 0 20px;
+  letter-spacing:-.5px;color:#fff}
+h3{font-size:1.2rem;font-weight:600;margin:32px 0 12px;color:var(--text)}
+p{margin-bottom:16px;color:var(--text2);font-size:.95rem}
+strong{color:var(--text);font-weight:600}
+ul,ol{margin:12px 0 16px 24px;color:var(--text2);font-size:.95rem}
+li{margin-bottom:6px}
+code{background:var(--bg3);border:1px solid var(--border);padding:2px 7px;border-radius:5px;
+  font-family:var(--font-mono);font-size:.82rem;color:var(--accent2)}
+
+/* === CARDS === */
+.concept-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px;margin:24px 0;position:relative;overflow:hidden}
+.concept-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))}
+.concept-card h3{margin-top:0;color:var(--accent)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:24px 0}
+.mini-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px;transition:all .3s}
+.mini-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--glow)}
+.mini-card .icon{font-size:1.8rem;margin-bottom:10px}
+.mini-card h4{font-size:.95rem;font-weight:600;margin-bottom:6px;color:#fff}
+.mini-card p{font-size:.82rem;margin:0}
+
+/* === CODE BLOCKS === */
+.code-block{background:var(--code-bg);border:1px solid var(--border);border-radius:var(--radius);
+  margin:20px 0;overflow:hidden;position:relative}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;
+  background:var(--bg3);border-bottom:1px solid var(--border)}
+.code-lang{font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);
+  font-family:var(--font-mono);font-weight:600}
+.copy-btn{background:none;border:1px solid var(--border);color:var(--text2);padding:4px 12px;
+  border-radius:6px;font-size:.7rem;cursor:pointer;font-family:var(--font-mono);transition:all .2s}
+.copy-btn:hover{border-color:var(--accent);color:var(--accent)}
+pre{padding:20px;overflow-x:auto;font-family:var(--font-mono);font-size:.85rem;line-height:1.8;color:var(--text)}
+.kw{color:#c792ea;font-weight:500}.fn{color:#82aaff}.str{color:var(--accent)}.cm{color:#555;font-style:italic}
+.num{color:var(--warning)}.op{color:var(--accent4)}.tbl{color:#82aaff}.field{color:var(--accent2)}
+
+/* === VISUAL BOX === */
+.visual-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:32px;margin:28px 0;text-align:center}
+.visual-box .label{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--text2);margin-bottom:16px}
+
+/* === EXERCISE === */
+.exercise{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  margin:32px 0;overflow:hidden}
+.exercise-header{display:flex;align-items:center;gap:10px;padding:16px 24px;
+  background:linear-gradient(135deg,rgba(232,120,42,.1),rgba(91,143,255,.08));
+  border-bottom:1px solid var(--border)}
+.exercise-header .badge{background:var(--accent);color:#fff;font-size:.65rem;padding:3px 10px;
+  border-radius:99px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.exercise-header h4{font-size:.95rem;font-weight:600;color:#fff}
+.exercise-body{padding:24px}
+.exercise-body p{margin-bottom:16px}
+.steps-list{counter-reset:step;list-style:none;margin:12px 0 16px 0;padding:0}
+.steps-list li{counter-increment:step;display:flex;align-items:flex-start;gap:12px;
+  padding:10px 0;border-bottom:1px solid var(--border);font-size:.9rem;color:var(--text2)}
+.steps-list li:last-child{border-bottom:none}
+.steps-list li::before{content:counter(step);display:inline-flex;align-items:center;
+  justify-content:center;min-width:24px;height:24px;border-radius:50%;background:var(--accent);
+  color:var(--bg);font-size:.72rem;font-weight:700;font-family:var(--font-mono);flex-shrink:0;margin-top:2px}
+.btn-row{display:flex;gap:10px;margin-top:12px}
+.btn{padding:10px 24px;border-radius:8px;font-family:var(--font-mono);font-size:.8rem;
+  font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--accent);color:var(--bg)}
+.btn-primary:hover{box-shadow:0 0 20px rgba(232,120,42,.4);transform:translateY(-1px)}
+.btn-secondary{background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.result-box{margin-top:16px;padding:16px;border-radius:8px;font-family:var(--font-mono);
+  font-size:.82rem;display:none}
+.result-box.success{display:block;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);color:var(--success)}
+.result-box.error{display:block;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2);color:var(--error)}
+.result-box.info{display:block;background:rgba(91,143,255,.08);border:1px solid rgba(91,143,255,.2);color:var(--accent3)}
+
+/* === TIPS === */
+.tip{padding:16px 20px;border-radius:var(--radius);margin:20px 0;font-size:.88rem;
+  display:flex;gap:12px;align-items:flex-start}
+.tip.green{background:rgba(0,229,160,.06);border-left:3px solid var(--success)}
+.tip.blue{background:rgba(91,143,255,.06);border-left:3px solid var(--accent3)}
+.tip.yellow{background:rgba(251,191,36,.06);border-left:3px solid var(--warning)}
+.tip.red{background:rgba(255,107,107,.06);border-left:3px solid var(--error)}
+.tip.orange{background:rgba(232,120,42,.06);border-left:3px solid var(--accent)}
+.tip .tip-icon{font-size:1.2rem;flex-shrink:0}
+.tip p{margin:0;color:var(--text2)}
+
+/* === RESULT TABLE === */
+.result-table{width:100%;border-collapse:collapse;margin:16px 0;font-family:var(--font-mono);font-size:.8rem}
+.result-table th{background:var(--bg3);padding:10px 14px;text-align:left;color:var(--accent);
+  font-weight:600;border-bottom:2px solid var(--accent);font-size:.72rem;text-transform:uppercase;letter-spacing:1px}
+.result-table td{padding:8px 14px;border-bottom:1px solid var(--border);color:var(--text2)}
+.result-table tr:hover td{background:rgba(232,120,42,.03)}
+
+/* === FLOW === */
+.flow{display:flex;align-items:center;justify-content:center;gap:0;margin:24px 0;flex-wrap:wrap}
+.flow-step{background:var(--bg3);border:1px solid var(--border);border-radius:10px;
+  padding:14px 20px;font-size:.82rem;font-weight:600;color:var(--text);text-align:center;min-width:120px}
+.flow-arrow{color:var(--accent);font-size:1.4rem;margin:0 6px;font-weight:300}
+
+/* === CHAPTER NAV === */
+.chapter-nav{display:flex;justify-content:space-between;margin-top:60px;padding-top:32px;
+  border-top:1px solid var(--border)}
+.ch-nav-btn{display:flex;align-items:center;gap:8px;padding:14px 24px;border-radius:10px;
+  background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-size:.85rem;
+  cursor:pointer;transition:all .2s;text-decoration:none;font-family:var(--font-body)}
+.ch-nav-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+/* === QUIZ === */
+.quiz{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:24px 0}
+.quiz h4{color:var(--accent2);margin-bottom:16px;font-size:1rem}
+.quiz-option{display:block;padding:10px 16px;margin:6px 0;background:var(--bg3);
+  border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s;
+  font-size:.88rem;color:var(--text2)}
+.quiz-option:hover{border-color:var(--accent2);color:var(--text)}
+.quiz-option.correct{border-color:var(--success);background:rgba(0,229,160,.08);color:var(--success)}
+.quiz-option.wrong{border-color:var(--error);background:rgba(255,107,107,.08);color:var(--error)}
+.quiz-feedback{margin-top:12px;padding:10px 14px;border-radius:8px;font-size:.82rem;display:none}
+
+/* === COMPARISON TABLE === */
+.cmp-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.88rem}
+.cmp-table th{background:var(--bg3);padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);color:var(--accent);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
+.cmp-table td{padding:10px 16px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-table tr:hover td{background:rgba(232,120,42,.02)}
+.yes{color:var(--success);font-weight:700}.no{color:var(--error);font-weight:700}.partial{color:var(--warning);font-weight:700}
+
+/* === INTERFACE DIAGRAM === */
+.ui-diagram{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);
+  margin:24px 0;overflow:hidden;font-size:.78rem;font-family:var(--font-mono)}
+.ui-bar{background:linear-gradient(135deg,rgba(232,120,42,.15),rgba(245,185,66,.1));
+  padding:8px 16px;color:var(--accent);font-weight:700;border-bottom:1px solid var(--border);font-size:.75rem;letter-spacing:2px;text-transform:uppercase}
+.ui-row{display:flex;border-bottom:1px solid var(--border)}
+.ui-row:last-child{border-bottom:none}
+.ui-panel{padding:12px 14px;border-right:1px solid var(--border);color:var(--text2);line-height:1.8}
+.ui-panel:last-child{border-right:none}
+.ui-panel .p-title{color:var(--accent2);font-weight:700;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ui-panel .dim{color:var(--accent3)}.ui-panel .meas{color:var(--accent)}
+
+/* === CALC PILL === */
+.calc-pill{display:inline-flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border);
+  border-radius:6px;padding:4px 12px;font-family:var(--font-mono);font-size:.78rem;color:var(--accent2);margin:3px}
+
+/* === HAMBURGER === */
+.hamburger{display:none;position:fixed;top:16px;left:16px;z-index:200;background:var(--bg2);
+  border:1px solid var(--border);width:44px;height:44px;border-radius:10px;
+  cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.hamburger span{display:block;width:20px;height:2px;background:var(--text)}
+
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
+  .hamburger{display:flex}.main{margin-left:0}.chapter{padding:60px 24px 100px}.ch-title{font-size:2rem}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<button class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+  <span></span><span></span><span></span>
+</button>
+
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h1>📊 Tableau Mastery</h1>
+    <p>Zero to Dashboard Pro</p>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-text" id="progressText">0 / 14 chapters</div>
+  <div class="sidebar-nav">
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">01</span> Introduction</div>
+      <a class="nav-link active" onclick="goTo(0)">What is Tableau?</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">02</span> Getting Started</div>
+      <a class="nav-link" onclick="goTo(1)">The Tableau Interface</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">03</span> Connecting Data</div>
+      <a class="nav-link" onclick="goTo(2)">Connecting to Data Sources</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">04</span> Core Concepts</div>
+      <a class="nav-link" onclick="goTo(3)">Dimensions vs Measures</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">05</span> Basic Charts</div>
+      <a class="nav-link" onclick="goTo(4)">Building Your First Charts</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">06</span> Calculations</div>
+      <a class="nav-link" onclick="goTo(5)">Calculated Fields & LOD</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">07</span> Filters</div>
+      <a class="nav-link" onclick="goTo(6)">Filters & Parameters</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">08</span> Advanced Charts</div>
+      <a class="nav-link" onclick="goTo(7)">Advanced Visualisations</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">09</span> Dashboards</div>
+      <a class="nav-link" onclick="goTo(8)">Dashboard Design</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">10</span> Table Calculations</div>
+      <a class="nav-link" onclick="goTo(9)">Table Calcs & Quick Table</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">11</span> Maps</div>
+      <a class="nav-link" onclick="goTo(10)">Geospatial Analysis</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">12</span> Stories</div>
+      <a class="nav-link" onclick="goTo(11)">Tableau Stories</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">13</span> Publishing</div>
+      <a class="nav-link" onclick="goTo(12)">Tableau Public & Server</a>
+    </div>
+    <div class="nav-chapter">
+      <div class="nav-chapter-title"><span class="ch-num">14</span> Final Project</div>
+      <a class="nav-link" onclick="goTo(13)">Build a Sales Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<main class="main" id="main">
+
+<!-- ===================================================== -->
+<!-- CHAPTER 0: What is Tableau?                           -->
+<!-- ===================================================== -->
+<section class="chapter active" id="ch0">
+  <div class="ch-label">Chapter 01</div>
+  <div class="ch-title">What is Tableau?</div>
+  <div class="ch-subtitle">The world's leading data visualisation platform — turning raw data into visual stories anyone can understand.</div>
+
+  <h2>The World's Leading Viz Tool</h2>
+  <p><strong>Tableau</strong> is a data visualisation software that transforms raw data into interactive, beautiful dashboards and charts — without writing a single line of code. It connects to almost any data source, lets you drag and drop fields to build visuals, and publish interactive dashboards to the web.</p>
+  <p>Tableau is used by data analysts, business intelligence professionals, executives, and scientists at companies like Netflix, Salesforce, and Deloitte. It consistently ranks as the #1 BI tool in Gartner's Magic Quadrant.</p>
+
+  <div class="concept-card">
+    <h3>🎯 Why Learn Tableau?</h3>
+    <p>Tableau is one of the highest-paying skills in data analytics. It bridges the gap between raw data and actionable insight — making it essential for any data role.</p>
+    <div class="card-grid">
+      <div class="mini-card"><div class="icon">⚡</div><h4>No Code Required</h4><p>Build powerful dashboards by dragging and dropping — zero programming needed</p></div>
+      <div class="mini-card"><div class="icon">🔗</div><h4>Connects Everywhere</h4><p>Excel, SQL databases, Google Sheets, Salesforce, BigQuery, and 80+ more sources</p></div>
+      <div class="mini-card"><div class="icon">🌐</div><h4>Share Instantly</h4><p>Publish interactive dashboards online via Tableau Public or Tableau Server</p></div>
+      <div class="mini-card"><div class="icon">💼</div><h4>Industry Standard</h4><p>Required skill in thousands of analyst, BI developer, and data scientist job listings</p></div>
+    </div>
+  </div>
+
+  <h2>Tableau's Product Family</h2>
+  <div class="card-grid">
+    <div class="mini-card"><div class="icon">🖥️</div><h4>Tableau Desktop</h4><p>The main authoring tool for building workbooks. Paid ($70/month). We'll learn all concepts here.</p></div>
+    <div class="mini-card"><div class="icon">🌍</div><h4>Tableau Public</h4><p>FREE version. Publish dashboards to Tableau Public's website. Perfect for learning and portfolios.</p></div>
+    <div class="mini-card"><div class="icon">☁️</div><h4>Tableau Cloud</h4><p>Host and share dashboards securely in the cloud. Enterprise use.</p></div>
+    <div class="mini-card"><div class="icon">📱</div><h4>Tableau Mobile</h4><p>View dashboards on any device. Full interactivity on iOS and Android.</p></div>
+    <div class="mini-card"><div class="icon">🔧</div><h4>Tableau Prep</h4><p>Visual data cleaning and shaping tool. Prepare messy data before analysing it.</p></div>
+    <div class="mini-card"><div class="icon">👁️</div><h4>Tableau Reader</h4><p>FREE viewer for .twbx packaged workbook files. No editing ability.</p></div>
+  </div>
+
+  <div class="tip orange">
+    <span class="tip-icon">💡</span>
+    <p><strong>Free to start:</strong> Download <strong>Tableau Public</strong> (100% free, forever) from <code>public.tableau.com</code>. Everything in this course works with Tableau Public. The only limitation is that your workbooks are publicly saved — perfect for learning.</p>
+  </div>
+
+  <h2>Tableau vs Other BI Tools</h2>
+  <table class="cmp-table">
+    <tr><th>Feature</th><th>Tableau</th><th>Power BI</th><th>Looker Studio</th><th>Excel</th></tr>
+    <tr><td>Cost</td><td>Paid (free Public)</td><td>Paid (free Desktop)</td><td>Free</td><td>Paid (Office 365)</td></tr>
+    <tr><td>Drag-and-drop building</td><td><span class="yes">✓ Best in class</span></td><td><span class="yes">✓ Good</span></td><td><span class="partial">~ Limited</span></td><td><span class="no">✗</span></td></tr>
+    <tr><td>Advanced calculations</td><td><span class="yes">✓ Excellent</span></td><td><span class="yes">✓ DAX is powerful</span></td><td><span class="partial">~ Basic</span></td><td><span class="yes">✓ Formulas</span></td></tr>
+    <tr><td>Map visualisation</td><td><span class="yes">✓ Built-in geo</span></td><td><span class="yes">✓ Good</span></td><td><span class="yes">✓ Google Maps</span></td><td><span class="partial">~ Limited</span></td></tr>
+    <tr><td>Learning curve</td><td>Moderate</td><td>Moderate</td><td>Easy</td><td>Easy-Hard</td></tr>
+    <tr><td>Best for</td><td>Visual analytics</td><td>Microsoft ecosystem</td><td>Google Workspace</td><td>Ad-hoc analysis</td></tr>
+  </table>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p>Which free version of Tableau can you use to learn everything in this course?</p>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Tableau Desktop</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'correct')">Tableau Public</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Tableau Reader</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Tableau Cloud</div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="chapter-nav">
+    <div></div>
+    <button class="ch-nav-btn" onclick="goTo(1)">Next: The Tableau Interface →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 1: The Tableau Interface                      -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch1">
+  <div class="ch-label">Chapter 02</div>
+  <div class="ch-title">The Tableau Interface</div>
+  <div class="ch-subtitle">Learn every panel, shelf, and button — mastering the interface is mastering Tableau.</div>
+
+  <h2>The Three Views</h2>
+  <p>When you open a workbook in Tableau, you work across three main views, accessible via tabs at the bottom:</p>
+  <div class="card-grid">
+    <div class="mini-card"><div class="icon">📊</div><h4>Sheet (Worksheet)</h4><p>Where you build individual charts and visualisations — the main working canvas</p></div>
+    <div class="mini-card"><div class="icon">📋</div><h4>Dashboard</h4><p>Combine multiple sheets into one interactive view for storytelling</p></div>
+    <div class="mini-card"><div class="icon">📖</div><h4>Story</h4><p>Sequence dashboards and sheets into a guided narrative presentation</p></div>
+  </div>
+
+  <h2>The Worksheet Layout</h2>
+  <div class="ui-diagram">
+    <div class="ui-bar">📊 Tableau Worksheet — Interface Map</div>
+    <div class="ui-row">
+      <div class="ui-panel" style="width:200px;min-width:200px">
+        <div class="p-title">Data Pane (Left)</div>
+        <div class="dim">▼ Dimensions</div>
+        <div style="padding-left:12px;color:var(--text2)">Abc Category<br>Abc Customer Name<br>📅 Order Date<br>🌍 Region</div>
+        <br>
+        <div class="meas">▼ Measures</div>
+        <div style="padding-left:12px;color:var(--text2)"># Discount<br># Profit<br># Quantity<br># Sales</div>
+      </div>
+      <div class="ui-panel" style="flex:1">
+        <div class="p-title">Shelves (Top Centre)</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+          <div style="background:var(--bg4);border:1px solid var(--border);padding:4px 10px;border-radius:5px;color:var(--accent2);font-size:.76rem">Columns: <span style="color:var(--accent)">Month(Order Date)</span></div>
+          <div style="background:var(--bg4);border:1px solid var(--border);padding:4px 10px;border-radius:5px;color:var(--accent2);font-size:.76rem">Rows: <span style="color:var(--accent)">SUM(Sales)</span></div>
+        </div>
+        <div class="p-title" style="margin-top:10px">Marks Card (Left Centre)</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <div style="background:var(--bg4);border:1px solid var(--border);padding:3px 9px;border-radius:5px;font-size:.74rem;color:var(--text2)">🎨 Color</div>
+          <div style="background:var(--bg4);border:1px solid var(--border);padding:3px 9px;border-radius:5px;font-size:.74rem;color:var(--text2)">📐 Size</div>
+          <div style="background:var(--bg4);border:1px solid var(--border);padding:3px 9px;border-radius:5px;font-size:.74rem;color:var(--text2)">💬 Label</div>
+          <div style="background:var(--bg4);border:1px solid var(--border);padding:3px 9px;border-radius:5px;font-size:.74rem;color:var(--text2)">🔍 Detail</div>
+          <div style="background:var(--bg4);border:1px solid var(--border);padding:3px 9px;border-radius:5px;font-size:.74rem;color:var(--text2)">💡 Tooltip</div>
+        </div>
+        <div class="p-title" style="margin-top:10px">View (Canvas — Right)</div>
+        <div style="background:var(--bg);border:1px dashed var(--border);border-radius:8px;padding:16px;text-align:center;color:var(--muted,#555);font-size:.8rem">
+          📊 Chart renders here based on what's on shelves
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Key Interface Areas Explained</h2>
+  <table class="result-table">
+    <tr><th>Area</th><th>What It Does</th><th>Key Action</th></tr>
+    <tr><td><strong>Data Pane</strong></td><td>Lists all fields from your connected data source</td><td>Drag fields to shelves</td></tr>
+    <tr><td><strong>Columns Shelf</strong></td><td>Fields here become the X-axis (horizontal)</td><td>Drop Dimensions or Measures</td></tr>
+    <tr><td><strong>Rows Shelf</strong></td><td>Fields here become the Y-axis (vertical)</td><td>Drop Dimensions or Measures</td></tr>
+    <tr><td><strong>Marks Card</strong></td><td>Controls visual encoding — color, size, shape, label</td><td>Drag fields to encode data</td></tr>
+    <tr><td><strong>Filters Shelf</strong></td><td>Restricts which data is shown in the view</td><td>Drag fields to filter</td></tr>
+    <tr><td><strong>Show Me</strong></td><td>Suggests chart types based on what's on shelves</td><td>Click to auto-change chart type</td></tr>
+    <tr><td><strong>Pages Shelf</strong></td><td>Animates the view across a dimension (like time)</td><td>Drop date/time fields</td></tr>
+  </table>
+
+  <div class="tip blue">
+    <span class="tip-icon">📌</span>
+    <p><strong>Golden rule:</strong> In Tableau, almost everything is done by <strong>dragging fields to shelves</strong>. When stuck, ask yourself: "What shelf should this field go on?"</p>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header"><span class="badge">Practice</span><h4>Navigate the Interface</h4></div>
+    <div class="exercise-body">
+      <p>Open Tableau Public and load the Superstore sample dataset (File → Open → Superstore Excel). Then try these tasks:</p>
+      <ol class="steps-list">
+        <li>Identify the Data Pane on the left. Find <strong>Sales</strong> under Measures and <strong>Category</strong> under Dimensions.</li>
+        <li>Drag <code>Category</code> to the Columns shelf. Notice how Tableau creates column headers.</li>
+        <li>Drag <code>Sales</code> to the Rows shelf. Tableau auto-creates a bar chart!</li>
+        <li>Drag <code>Category</code> to the <strong>Color</strong> box on the Marks card. Each bar is now a different color.</li>
+        <li>Click <strong>Show Me</strong> (top right) and try switching to different chart types.</li>
+      </ol>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="markDone('ex1r')">✓ Mark Complete</button>
+      </div>
+      <div class="result-box" id="ex1r"></div>
+    </div>
+  </div>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p>If you want to make bars different colours based on a "Region" field, where do you drag "Region"?</p>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Columns shelf</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Rows shelf</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'correct')">Color on the Marks card</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Filters shelf</div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(0)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(2)">Next: Connecting to Data →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 2: Connecting to Data Sources                 -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch2">
+  <div class="ch-label">Chapter 03</div>
+  <div class="ch-title">Connecting to Data Sources</div>
+  <div class="ch-subtitle">Tableau can connect to almost any data — from Excel to cloud databases. Learn how to bring data in and shape it.</div>
+
+  <h2>Data Connection Types</h2>
+  <div class="card-grid">
+    <div class="mini-card"><div class="icon">📄</div><h4>Files</h4><p>Excel (.xlsx), CSV, JSON, PDF, Spatial files (.shp), Statistical files (.sas7bdat)</p></div>
+    <div class="mini-card"><div class="icon">🗄️</div><h4>Databases</h4><p>MySQL, PostgreSQL, SQL Server, Oracle, Snowflake, BigQuery, Redshift</p></div>
+    <div class="mini-card"><div class="icon">☁️</div><h4>Cloud Services</h4><p>Google Sheets, Salesforce, ServiceNow, Marketo, Adobe Analytics</p></div>
+    <div class="mini-card"><div class="icon">🔗</div><h4>Web Data Connector</h4><p>Custom connections to any REST API or web-based data source</p></div>
+  </div>
+
+  <h2>Connecting to Excel / CSV (Most Common)</h2>
+  <ol class="steps-list">
+    <li>Open Tableau → On the Start Page, under <strong>Connect</strong>, click <strong>Microsoft Excel</strong></li>
+    <li>Navigate to your file and click <strong>Open</strong>. The Data Source tab opens.</li>
+    <li>Drag your sheet/table from the left panel onto the canvas. You'll see a preview of your data.</li>
+    <li>Check column names and data types. Fix any incorrect types (e.g., dates recognised as text).</li>
+    <li>Click <strong>Sheet 1</strong> tab at the bottom to start building visualisations.</li>
+  </ol>
+
+  <h2>The Data Source Screen</h2>
+  <div class="visual-box">
+    <div class="label">📊 Data Source Screen Layout</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;text-align:left">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;min-width:160px">
+        <div style="color:var(--accent);font-weight:700;font-size:.78rem;margin-bottom:8px">LEFT PANEL</div>
+        <div style="color:var(--text2);font-size:.8rem;line-height:1.9">📁 Sheets / Tables<br>📄 Sheet1<br>📄 Sheet2<br>🔗 New Union</div>
+      </div>
+      <div style="color:var(--accent);font-size:1.8rem;align-self:center">→</div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;min-width:200px">
+        <div style="color:var(--accent);font-weight:700;font-size:.78rem;margin-bottom:8px">CANVAS (DRAG HERE)</div>
+        <div style="background:var(--bg4);border:1px dashed var(--border);border-radius:6px;padding:10px;text-align:center;color:var(--text2);font-size:.78rem">Drag tables here to join or union them</div>
+      </div>
+      <div style="color:var(--accent);font-size:1.8rem;align-self:center">→</div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;min-width:180px">
+        <div style="color:var(--accent);font-weight:700;font-size:.78rem;margin-bottom:8px">DATA PREVIEW (BELOW)</div>
+        <div style="color:var(--text2);font-size:.8rem;line-height:1.9">Abc Order ID | # Sales<br>CA-2024-001 | 261<br>CA-2024-002 | 731</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Live vs Extract Connections</h2>
+  <div class="concept-card">
+    <h3>⚡ Live vs 🗜️ Extract — What's the Difference?</h3>
+    <table class="result-table" style="margin-top:16px">
+      <tr><th>Feature</th><th>Live Connection</th><th>Extract (.hyper file)</th></tr>
+      <tr><td>Data freshness</td><td>Always current, real-time</td><td>Snapshot at time of extract</td></tr>
+      <tr><td>Performance</td><td>Depends on database speed</td><td>Very fast (columnar storage)</td></tr>
+      <tr><td>Works offline</td><td>No — needs DB connection</td><td>Yes — fully self-contained</td></tr>
+      <tr><td>Best for</td><td>Real-time dashboards</td><td>Large datasets, sharing</td></tr>
+    </table>
+  </div>
+
+  <div class="tip green">
+    <span class="tip-icon">💡</span>
+    <p><strong>Best practice:</strong> During development, use <strong>Extract</strong> for faster performance. Switch to <strong>Live</strong> when publishing production dashboards that need real-time data.</p>
+  </div>
+
+  <h2>Joining Multiple Tables</h2>
+  <p>When your data is split across multiple tables, Tableau can join them — just like SQL JOINs.</p>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Tableau Join Equivalent</span></div>
+    <pre><code><span class="cm">-- What Tableau does visually when you join Orders + Products:</span>
+<span class="kw">SELECT</span> o.order_id, o.customer, o.quantity,
+       p.product_name, p.category, p.price
+<span class="kw">FROM</span> <span class="tbl">Orders</span> o
+<span class="kw">INNER JOIN</span> <span class="tbl">Products</span> p <span class="kw">ON</span> o.product_id <span class="op">=</span> p.product_id;</code></pre>
+  </div>
+  <p>In Tableau: drag both tables to the canvas → a Join dialog appears → choose the join type (Inner, Left, Right, Full) and the matching fields.</p>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p>You're building a dashboard on a large dataset and it's running slowly. What should you do?</p>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Switch to a Live connection</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'correct')">Create an Extract (.hyper file) for better performance</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Reduce the number of sheets</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Delete rows from the data</div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(1)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(3)">Next: Dimensions vs Measures →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 3: Dimensions vs Measures                     -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch3">
+  <div class="ch-label">Chapter 04</div>
+  <div class="ch-title">Dimensions vs Measures</div>
+  <div class="ch-subtitle">The single most important concept in Tableau — get this right and everything else clicks.</div>
+
+  <h2>The Fundamental Split</h2>
+  <p>Every field in Tableau's Data Pane is classified as either a <strong>Dimension</strong> or a <strong>Measure</strong>. Tableau uses colour to distinguish them: <span style="color:var(--accent3)">blue = Dimension</span>, <span style="color:var(--accent)">green = Measure</span>.</p>
+
+  <div class="card-grid">
+    <div class="mini-card" style="border-color:var(--accent3)">
+      <div class="icon">🔵</div>
+      <h4 style="color:var(--accent3)">Dimensions (Blue)</h4>
+      <p>Categorical, qualitative data. Used to <strong>slice and label</strong>. Cannot be aggregated by default.</p>
+      <p style="margin-top:8px;font-size:.8rem;color:var(--text2)">Examples: Customer Name, Category, Region, Order Date, Product ID</p>
+    </div>
+    <div class="mini-card" style="border-color:var(--accent)">
+      <div class="icon">🟢</div>
+      <h4 style="color:var(--accent)">Measures (Green)</h4>
+      <p>Numerical, quantitative data. <strong>Aggregated automatically</strong> (SUM, AVG, COUNT, etc.).</p>
+      <p style="margin-top:8px;font-size:.8rem;color:var(--text2)">Examples: Sales, Profit, Quantity, Discount, Number of Records</p>
+    </div>
+  </div>
+
+  <div class="visual-box">
+    <div class="label">Example: Superstore Dataset Split</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;text-align:left;max-width:500px;margin:0 auto">
+      <div>
+        <div style="color:var(--accent3);font-weight:700;font-size:.78rem;margin-bottom:10px;letter-spacing:1px">DIMENSIONS (Blue)</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <span class="calc-pill" style="color:var(--accent3);border-color:rgba(91,143,255,.3)">Abc Category</span>
+          <span class="calc-pill" style="color:var(--accent3);border-color:rgba(91,143,255,.3)">Abc Customer Name</span>
+          <span class="calc-pill" style="color:var(--accent3);border-color:rgba(91,143,255,.3)">🌍 Region</span>
+          <span class="calc-pill" style="color:var(--accent3);border-color:rgba(91,143,255,.3)">📅 Order Date</span>
+          <span class="calc-pill" style="color:var(--accent3);border-color:rgba(91,143,255,.3)">Abc Sub-Category</span>
+        </div>
+      </div>
+      <div>
+        <div style="color:var(--accent);font-weight:700;font-size:.78rem;margin-bottom:10px;letter-spacing:1px">MEASURES (Green)</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <span class="calc-pill"># Sales</span>
+          <span class="calc-pill"># Profit</span>
+          <span class="calc-pill"># Quantity</span>
+          <span class="calc-pill"># Discount</span>
+          <span class="calc-pill"># Number of Records</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Discrete vs Continuous</h2>
+  <p>Both Dimensions and Measures can be <strong>Discrete</strong> (blue pill) or <strong>Continuous</strong> (green pill). This affects how Tableau builds axes and headers.</p>
+
+  <table class="result-table">
+    <tr><th>Type</th><th>Pill Colour</th><th>Creates</th><th>Example</th></tr>
+    <tr><td><strong>Discrete</strong></td><td style="color:var(--accent3)">● Blue pill</td><td>Column/row headers (labels)</td><td>Month names: Jan, Feb, Mar</td></tr>
+    <tr><td><strong>Continuous</strong></td><td style="color:var(--accent)">● Green pill</td><td>A continuous axis with a range</td><td>A date axis from 1 Jan to 31 Dec</td></tr>
+  </table>
+
+  <div class="tip yellow">
+    <span class="tip-icon">⚠️</span>
+    <p><strong>Common confusion:</strong> Dates are Dimensions by default, but you can make them Continuous for time-series charts. Right-click a date pill → choose <code>Continuous</code> for a smooth axis.</p>
+  </div>
+
+  <h2>Aggregations on Measures</h2>
+  <p>When a Measure is placed on a shelf, Tableau automatically <strong>aggregates it</strong>. The default is SUM, but you can change it.</p>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Tableau Aggregation Options</span></div>
+    <pre><code><span class="cm">-- Right-click any Measure pill to change aggregation:</span>
+SUM(Sales)    <span class="cm">→ Total sales</span>
+AVG(Sales)    <span class="cm">→ Average sale value</span>
+COUNT(Sales)  <span class="cm">→ Number of sale records</span>
+MIN(Sales)    <span class="cm">→ Smallest sale</span>
+MAX(Sales)    <span class="cm">→ Largest sale</span>
+MEDIAN(Sales) <span class="cm">→ Middle value</span>
+ATTR(Region)  <span class="cm">→ If all values are same, show it; else asterisk</span></code></pre>
+  </div>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p>You drag "Sales" to the Rows shelf. Tableau shows SUM(Sales). You right-click and change it to AVG(Sales). What changes?</p>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Nothing — Sales is always summed</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">The chart type changes</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'correct')">Each bar/data point now shows the average Sales instead of the total</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">The field moves to the Dimensions section</div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(2)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(4)">Next: Building Your First Charts →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 4: Building Your First Charts                 -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch4">
+  <div class="ch-label">Chapter 05</div>
+  <div class="ch-title">Building Your First Charts</div>
+  <div class="ch-subtitle">Create bar charts, line charts, scatter plots, and pie charts — step by step.</div>
+
+  <h2>Bar Chart — Sales by Category</h2>
+  <p>Bar charts are the workhorse of data visualisation. Perfect for comparing values across categories.</p>
+  <ol class="steps-list">
+    <li>Drag <code>Category</code> (Dimension) to the <strong>Columns</strong> shelf</li>
+    <li>Drag <code>Sales</code> (Measure) to the <strong>Rows</strong> shelf → Tableau auto-builds a vertical bar chart</li>
+    <li>Drag <code>Category</code> to <strong>Color</strong> on the Marks card to color each bar differently</li>
+    <li>Click <strong>Label</strong> on the Marks card → tick "Show mark labels" to display values on bars</li>
+    <li>Sort bars: Click the sort icon on the axis (or right-click axis → Sort → Descending by SUM(Sales))</li>
+  </ol>
+
+  <div class="tip orange">
+    <span class="tip-icon">💡</span>
+    <p><strong>Shortcut:</strong> Hold <kbd>Ctrl</kbd> and double-click on a field in the Data Pane — Tableau adds it to the view automatically using the most suitable shelf.</p>
+  </div>
+
+  <h2>Line Chart — Sales Over Time</h2>
+  <p>Line charts are ideal for showing trends over time. Date on x-axis, measure on y-axis.</p>
+  <ol class="steps-list">
+    <li>Drag <code>Order Date</code> to the <strong>Columns</strong> shelf → Tableau defaults to Year granularity</li>
+    <li>Right-click the date pill on Columns → choose <strong>Month</strong> (or Quarter/Week)</li>
+    <li>Drag <code>Sales</code> to the <strong>Rows</strong> shelf → a line chart appears</li>
+    <li>Drag <code>Region</code> to <strong>Color</strong> → now you have multiple lines, one per region</li>
+    <li>Right-click an axis → <strong>Add Reference Line</strong> to add a target or average line</li>
+  </ol>
+
+  <h2>Scatter Plot — Sales vs Profit</h2>
+  <p>Scatter plots reveal correlations and outliers between two numeric measures.</p>
+  <ol class="steps-list">
+    <li>Drag <code>Sales</code> to <strong>Columns</strong> (x-axis)</li>
+    <li>Drag <code>Profit</code> to <strong>Rows</strong> (y-axis)</li>
+    <li>Drag <code>Customer Name</code> to <strong>Detail</strong> on the Marks card → one dot per customer</li>
+    <li>Drag <code>Segment</code> to <strong>Color</strong> to color dots by customer segment</li>
+    <li>Right-click the canvas → <strong>Trend Lines → Show Trend Lines</strong> to add a regression line</li>
+  </ol>
+
+  <h2>Chart Type Quick Reference</h2>
+  <table class="result-table">
+    <tr><th>Chart Type</th><th>Best For</th><th>Required Fields</th></tr>
+    <tr><td>Bar Chart</td><td>Comparing categories</td><td>1 Dimension + 1 Measure</td></tr>
+    <tr><td>Line Chart</td><td>Trends over time</td><td>Date + 1 Measure</td></tr>
+    <tr><td>Scatter Plot</td><td>Correlations, outliers</td><td>2 Measures (+ optional dimension for detail)</td></tr>
+    <tr><td>Pie Chart</td><td>Part-to-whole (use sparingly!)</td><td>1 Dimension + 1 Measure</td></tr>
+    <tr><td>Treemap</td><td>Part-to-whole, hierarchies</td><td>1-2 Dimensions + 1 Measure</td></tr>
+    <tr><td>Heatmap</td><td>Patterns in 2D matrix</td><td>2 Dimensions + 1 Measure</td></tr>
+    <tr><td>Histogram</td><td>Distribution of values</td><td>1 Measure (Tableau bins it)</td></tr>
+    <tr><td>Box Plot</td><td>Statistical distribution</td><td>1 Dimension + 1 Measure</td></tr>
+    <tr><td>Gantt Chart</td><td>Project timelines</td><td>Date Dimension + Duration Measure</td></tr>
+    <tr><td>Map</td><td>Geographic data</td><td>Geographic field + Measure</td></tr>
+  </table>
+
+  <div class="tip green">
+    <span class="tip-icon">💡</span>
+    <p><strong>Use "Show Me":</strong> When unsure which chart to use, place fields on shelves and click <strong>Show Me</strong> (top right). Tableau highlights compatible chart types and greys out incompatible ones. It's a great learning tool!</p>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header"><span class="badge">Practice</span><h4>Build 3 Charts from Superstore Data</h4></div>
+    <div class="exercise-body">
+      <p>Using the Superstore sample dataset, build these three charts on separate sheets:</p>
+      <ol class="steps-list">
+        <li><strong>Sheet 1 — Bar Chart:</strong> Sales by Sub-Category, sorted descending. Colour by Category.</li>
+        <li><strong>Sheet 2 — Line Chart:</strong> Monthly Sales trend for 2023. Add a reference line at the average.</li>
+        <li><strong>Sheet 3 — Scatter Plot:</strong> Sales vs Profit per Product. Colour by Category. Add a trend line.</li>
+      </ol>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="markDone('ex4r')">✓ Mark Complete</button>
+      </div>
+      <div class="result-box" id="ex4r"></div>
+    </div>
+  </div>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p>You want to show how Sales has changed month by month throughout 2024. Which chart type is most appropriate?</p>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Scatter Plot</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Pie Chart</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'correct')">Line Chart</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Treemap</div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(3)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(5)">Next: Calculated Fields & LOD →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 5: Calculated Fields & LOD                    -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch5">
+  <div class="ch-label">Chapter 06</div>
+  <div class="ch-title">Calculated Fields & LOD</div>
+  <div class="ch-subtitle">Create new data on the fly — from simple formulas to Tableau's powerful Level of Detail expressions.</div>
+
+  <h2>What are Calculated Fields?</h2>
+  <p>Calculated fields let you <strong>create new fields from existing data</strong> using Tableau's formula language. They appear in the Data Pane alongside your original fields and can be used anywhere.</p>
+  <p>To create one: Right-click in the Data Pane → <strong>Create Calculated Field</strong>. Name it and write your formula.</p>
+
+  <h2>Basic Calculations</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Tableau Calculations — Basics</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">// Profit Margin %</span>
+<span class="fn">SUM</span>([<span class="field">Profit</span>]) / <span class="fn">SUM</span>([<span class="field">Sales</span>])
+
+<span class="cm">// Profit Ratio as percentage</span>
+<span class="fn">SUM</span>([<span class="field">Profit</span>]) / <span class="fn">SUM</span>([<span class="field">Sales</span>]) * <span class="num">100</span>
+
+<span class="cm">// Revenue per Unit</span>
+<span class="fn">SUM</span>([<span class="field">Sales</span>]) / <span class="fn">SUM</span>([<span class="field">Quantity</span>])
+
+<span class="cm">// Days Since Order</span>
+<span class="fn">DATEDIFF</span>(<span class="str">'day'</span>, [<span class="field">Order Date</span>], <span class="fn">TODAY</span>())
+
+<span class="cm">// Classify profit as High/Medium/Low</span>
+<span class="kw">IF</span> [<span class="field">Profit</span>] > <span class="num">500</span> <span class="kw">THEN</span> <span class="str">"High"</span>
+<span class="kw">ELSEIF</span> [<span class="field">Profit</span>] > <span class="num">100</span> <span class="kw">THEN</span> <span class="str">"Medium"</span>
+<span class="kw">ELSE</span> <span class="str">"Low"</span>
+<span class="kw">END</span></code></pre>
+  </div>
+
+  <h2>String, Date & Logical Functions</h2>
+  <div class="card-grid">
+    <div class="mini-card"><h4>📝 String Functions</h4>
+      <p><code>UPPER([Name])</code><br><code>LEFT([ID], 3)</code><br><code>CONTAINS([Str], "A")</code><br><code>TRIM([Field])</code></p></div>
+    <div class="mini-card"><h4>📅 Date Functions</h4>
+      <p><code>YEAR([Date])</code><br><code>MONTH([Date])</code><br><code>DATEPART('quarter', [Date])</code><br><code>DATEDIFF('month', d1, d2)</code></p></div>
+    <div class="mini-card"><h4>🔢 Math Functions</h4>
+      <p><code>ROUND([Sales], 2)</code><br><code>ABS([Profit])</code><br><code>SQRT([Value])</code><br><code>LOG([Number])</code></p></div>
+    <div class="mini-card"><h4>❓ Logic Functions</h4>
+      <p><code>IF / ELSEIF / ELSE</code><br><code>IIF(condition, t, f)</code><br><code>CASE [Field] WHEN...</code><br><code>ISNULL([Field])</code></p></div>
+  </div>
+
+  <h2>Level of Detail (LOD) Expressions</h2>
+  <p>LOD expressions are Tableau's most powerful feature. They let you compute aggregations at a <strong>different granularity</strong> than the current view — something impossible with regular calculated fields.</p>
+
+  <div class="concept-card">
+    <h3>🔑 Three LOD Types</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">LOD Expressions</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre><code><span class="cm">// FIXED — compute at specified level, ignore view filters</span>
+{ <span class="kw">FIXED</span> [<span class="field">Customer Name</span>] : <span class="fn">SUM</span>([<span class="field">Sales</span>]) }
+<span class="cm">// → Total sales PER CUSTOMER, regardless of what's in the view</span>
+
+<span class="cm">// INCLUDE — add more detail than the view has</span>
+{ <span class="kw">INCLUDE</span> [<span class="field">Order ID</span>] : <span class="fn">AVG</span>([<span class="field">Sales</span>]) }
+<span class="cm">// → Average sales per order (even if orders aren't in the view)</span>
+
+<span class="cm">// EXCLUDE — remove a dimension from the calculation</span>
+{ <span class="kw">EXCLUDE</span> [<span class="field">Region</span>] : <span class="fn">SUM</span>([<span class="field">Sales</span>]) }
+<span class="cm">// → Total sales ignoring regional breakdown (useful for % of total)</span></code></pre>
+    </div>
+  </div>
+
+  <div class="tip blue">
+    <span class="tip-icon">📌</span>
+    <p><strong>Practical LOD example:</strong> "What percentage of each customer's total lifetime purchases came from this category?"<br>
+    <code>SUM([Sales]) / { FIXED [Customer Name] : SUM([Sales]) }</code><br>
+    The denominator uses FIXED to always get the customer's total, regardless of how you filter by category.</p>
+  </div>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p>You want to show each region's Sales as a % of the overall total Sales. Which LOD expression gives you the total Sales ignoring region?</p>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">{ INCLUDE [Region] : SUM([Sales]) }</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">{ FIXED [Region] : SUM([Sales]) }</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'correct')">{ EXCLUDE [Region] : SUM([Sales]) }</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">SUM([Sales]) alone works fine</div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(4)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(6)">Next: Filters & Parameters →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 6: Filters & Parameters                       -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch6">
+  <div class="ch-label">Chapter 07</div>
+  <div class="ch-title">Filters & Parameters</div>
+  <div class="ch-subtitle">Control what data appears in your view — and make dashboards interactive with Parameters.</div>
+
+  <h2>The Filter Order of Operations</h2>
+  <p>Tableau applies filters in a specific order. Understanding this order is critical for correct results:</p>
+  <div class="flow">
+    <div class="flow-step">1. Extract Filter</div><div class="flow-arrow">→</div>
+    <div class="flow-step">2. Data Source Filter</div><div class="flow-arrow">→</div>
+    <div class="flow-step">3. Context Filter</div><div class="flow-arrow">→</div>
+    <div class="flow-step">4. FIXED LOD</div><div class="flow-arrow">→</div>
+    <div class="flow-step">5. Dimension Filter</div><div class="flow-arrow">→</div>
+    <div class="flow-step">6. Measure Filter</div><div class="flow-arrow">→</div>
+    <div class="flow-step">7. Table Calc Filter</div>
+  </div>
+
+  <h2>Types of Filters</h2>
+  <div class="card-grid">
+    <div class="mini-card"><div class="icon">📋</div><h4>Dimension Filter</h4><p>Filter by a categorical value: show only "West" region or "Technology" category</p></div>
+    <div class="mini-card"><div class="icon">🔢</div><h4>Measure Filter</h4><p>Filter by numeric range: show only rows where Sales &gt; 1000</p></div>
+    <div class="mini-card"><div class="icon">📅</div><h4>Date Filter</h4><p>Relative (last 30 days), Range (Jan–Jun), or Discrete (specific months)</p></div>
+    <div class="mini-card"><div class="icon">⚙️</div><h4>Context Filter</h4><p>A pre-filter that runs before other filters. Use for Top N based on filtered data.</p></div>
+  </div>
+
+  <h2>Quick Filters — Adding Interactivity</h2>
+  <ol class="steps-list">
+    <li>Drag a field to the <strong>Filters shelf</strong> → configure what values to include/exclude</li>
+    <li>Right-click the filter pill → choose <strong>"Show Filter"</strong> → a filter widget appears on the sheet</li>
+    <li>Right-click the filter widget → choose display type: Single Value (dropdown), Multiple Values (list), Slider, etc.</li>
+    <li>To apply a filter to ALL sheets: right-click the filter → <strong>Apply to Worksheets → All Using This Data Source</strong></li>
+  </ol>
+
+  <h2>Parameters — Dynamic User Input</h2>
+  <p>Parameters are <strong>dynamic placeholder values</strong> that users can change. Unlike filters (which show/hide data), Parameters pass a value into a calculation or axis.</p>
+
+  <div class="concept-card">
+    <h3>⚙️ Creating and Using a Parameter</h3>
+    <ol class="steps-list">
+      <li>Right-click in the Data Pane → <strong>Create Parameter</strong></li>
+      <li>Name it (e.g., "Sales Threshold"), set data type (Integer), allowable values (range: 0 to 100000, step 1000)</li>
+      <li>Click OK → the Parameter appears in the Data Pane under "Parameters"</li>
+      <li>Create a <strong>Calculated Field</strong> that uses the parameter:<br>
+        <code>IF [Sales] >= [Sales Threshold] THEN "Above" ELSE "Below" END</code>
+      </li>
+      <li>Right-click the Parameter → <strong>"Show Parameter Control"</strong> → a slider appears for users to interact with</li>
+    </ol>
+  </div>
+
+  <div class="tip green">
+    <span class="tip-icon">💡</span>
+    <p><strong>Parameter Power:</strong> Use parameters to let users choose which metric to display: "Show me [Sales / Profit / Quantity]". One sheet handles all three measures dynamically — no need for three separate sheets.</p>
+  </div>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p>You want a user to be able to type in a target revenue value, and your chart should highlight bars above/below that target. What Tableau feature should you use?</p>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">A Dimension Filter</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">A Context Filter</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'correct')">A Parameter</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">A Measure Filter</div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(5)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(7)">Next: Advanced Visualisations →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 7: Advanced Visualisations                    -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch7">
+  <div class="ch-label">Chapter 08</div>
+  <div class="ch-title">Advanced Visualisations</div>
+  <div class="ch-subtitle">Dual-axis charts, bullet graphs, waterfall charts, Gantt charts, and more — unlock Tableau's full visual power.</div>
+
+  <h2>Dual-Axis Charts</h2>
+  <p>Dual-axis charts combine two different measures on the same chart, each with its own axis. Great for overlaying a line (trend) on top of bars.</p>
+  <ol class="steps-list">
+    <li>Build a bar chart: <code>Month(Order Date)</code> on Columns, <code>SUM(Sales)</code> on Rows</li>
+    <li>Drag <code>SUM(Profit)</code> to the right side of the Rows shelf — a second chart appears below</li>
+    <li>Right-click the second measure pill in Rows → <strong>Dual Axis</strong> → both charts merge into one</li>
+    <li>Right-click the right axis → <strong>Synchronise Axis</strong> (if both measures are similar scales)</li>
+    <li>Click on the second Marks card → change mark type to <strong>Line</strong> while keeping first as Bar</li>
+  </ol>
+
+  <h2>Bullet Graph</h2>
+  <p>A bullet graph is a compact chart that shows a measure against a <strong>target</strong> — like actual sales vs quota. It's a space-efficient alternative to gauges.</p>
+  <ol class="steps-list">
+    <li>Place a measure (e.g., <code>SUM(Sales)</code>) on Columns, a dimension on Rows</li>
+    <li>Drag a second measure (target/quota) to the Columns shelf → set it as Dual Axis</li>
+    <li>Change the second Marks card type to <strong>Circle</strong> or <strong>Line</strong></li>
+    <li>On the first Marks card, add reference bands (Analytics pane → Reference Band) for goal zones</li>
+  </ol>
+
+  <h2>Waterfall Chart</h2>
+  <p>A waterfall chart shows how an initial value changes through a series of positive and negative contributions — great for showing profit breakdown or budget variance.</p>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Waterfall — Running Total Calculation</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">// Create a Running Sum calculation:</span>
+<span class="fn">RUNNING_SUM</span>(<span class="fn">SUM</span>([<span class="field">Profit</span>]))
+
+<span class="cm">// Steps:
+// 1. Dimension on Rows (e.g. Sub-Category)
+// 2. Running Sum on Columns
+// 3. Change mark type to Gantt Bar
+// 4. Use SUM(Profit) as the Size (negative values extend down)
+// 5. Colour by positive/negative:</span>
+<span class="kw">IF</span> <span class="fn">SUM</span>([<span class="field">Profit</span>]) >= <span class="num">0</span> <span class="kw">THEN</span> <span class="str">"Positive"</span> <span class="kw">ELSE</span> <span class="str">"Negative"</span> <span class="kw">END</span></code></pre>
+  </div>
+
+  <h2>Box and Whisker Plot</h2>
+  <p>Shows the statistical distribution of a measure across a dimension — min, Q1, median, Q3, max, and outliers.</p>
+  <ol class="steps-list">
+    <li>Drag a Dimension to Columns, a Measure to Rows</li>
+    <li>In Show Me panel, select <strong>Box-and-Whisker Plot</strong></li>
+    <li>Drag a secondary dimension to the Detail Marks card to get one dot per item</li>
+    <li>Outliers automatically appear as individual points beyond the whiskers</li>
+  </ol>
+
+  <div class="tip orange">
+    <span class="tip-icon">💡</span>
+    <p><strong>Chart Choice Tip:</strong> Use box plots when you want to compare the <em>distribution</em> of a metric across groups — not just the average. For example: "How does profit margin vary across sub-categories?"</p>
+  </div>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p>You want to show both monthly Sales (bars) and a Profit trend line on the same chart. What technique do you use?</p>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Create two separate worksheets side by side</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'correct')">Dual-Axis chart — drag both measures to Rows and select Dual Axis</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Use a Treemap</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Use a Filter to switch between Sales and Profit</div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(6)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(8)">Next: Dashboard Design →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 8: Dashboard Design                           -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch8">
+  <div class="ch-label">Chapter 09</div>
+  <div class="ch-title">Dashboard Design</div>
+  <div class="ch-subtitle">Combine sheets into a cohesive, interactive dashboard — the final product stakeholders actually see.</div>
+
+  <h2>Creating a Dashboard</h2>
+  <ol class="steps-list">
+    <li>Click the <strong>New Dashboard</strong> icon at the bottom (next to sheet tabs)</li>
+    <li>Set the dashboard size: Fixed (specific dimensions), Automatic (fits screen), or Range</li>
+    <li>Drag sheets from the left <strong>Sheets panel</strong> onto the canvas</li>
+    <li>Use <strong>Tiled</strong> layout (structured grid) or <strong>Floating</strong> (free-position) objects</li>
+    <li>Add Text, Images, Web Page, or Blank containers via the Objects panel</li>
+  </ol>
+
+  <h2>Dashboard Actions — Making It Interactive</h2>
+  <p>Actions make your dashboard come alive — clicking or hovering on one chart filters or highlights others.</p>
+  <div class="card-grid">
+    <div class="mini-card"><div class="icon">🔽</div><h4>Filter Action</h4><p>Clicking a region on a map filters all other charts to show only that region's data</p></div>
+    <div class="mini-card"><div class="icon">✨</div><h4>Highlight Action</h4><p>Hovering over "Technology" in one chart highlights Technology in all other charts</p></div>
+    <div class="mini-card"><div class="icon">🔗</div><h4>URL Action</h4><p>Clicking a product name opens a URL (e.g., a product detail page or external report)</p></div>
+    <div class="mini-card"><div class="icon">🔄</div><h4>Navigate Action</h4><p>Clicking a KPI card navigates to a different dashboard for deeper detail (drill-down)</p></div>
+  </div>
+
+  <div class="concept-card">
+    <h3>⚙️ Adding a Filter Action</h3>
+    <ol class="steps-list">
+      <li>Dashboard menu → <strong>Actions</strong> → <strong>Add Action</strong> → <strong>Filter</strong></li>
+      <li>Source sheets: choose which sheets trigger the filter</li>
+      <li>Run action on: <strong>Select</strong> (click), <strong>Hover</strong>, or <strong>Menu</strong> (right-click)</li>
+      <li>Target sheets: choose which sheets get filtered</li>
+      <li>Clearing the selection: "Show All Values" (resets), "Exclude All Values", or "Keep Filtered Values"</li>
+    </ol>
+  </div>
+
+  <h2>Dashboard Design Best Practices</h2>
+  <div class="card-grid">
+    <div class="mini-card"><div class="icon">👁️</div><h4>Visual Hierarchy</h4><p>Place the most important KPI (big number) top-left. Support it with charts below.</p></div>
+    <div class="mini-card"><div class="icon">🎨</div><h4>Consistent Colors</h4><p>Use one color palette. Red = bad, Green = good. Don't use too many colors at once.</p></div>
+    <div class="mini-card"><div class="icon">🚫</div><h4>Reduce Clutter</h4><p>Remove grid lines, borders, and legends where not needed. White space is your friend.</p></div>
+    <div class="mini-card"><div class="icon">📱</div><h4>Mobile-First</h4><p>Check Device Preview. A dashboard that looks great on desktop may be unusable on phone.</p></div>
+    <div class="mini-card"><div class="icon">⚡</div><h4>Performance</h4><p>Use extracts. Limit marks to &lt;100k. Avoid complex LODs on every chart.</p></div>
+    <div class="mini-card"><div class="icon">💬</div><h4>Clear Titles</h4><p>Every chart should answer a question in its title: "Sales by Region: West Leads YTD"</p></div>
+  </div>
+
+  <div class="tip yellow">
+    <span class="tip-icon">⚠️</span>
+    <p><strong>Common mistake:</strong> Using floating containers too much. They cause alignment headaches and break on different screen sizes. Prefer <strong>Tiled</strong> layout for structure, use Floating only for decorative overlays like logos or KPI callouts.</p>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(7)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(9)">Next: Table Calculations →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 9: Table Calculations                         -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch9">
+  <div class="ch-label">Chapter 10</div>
+  <div class="ch-title">Table Calculations</div>
+  <div class="ch-subtitle">Compute running totals, period-over-period growth, percentages, and rankings — all without writing complex formulas.</div>
+
+  <h2>What are Table Calculations?</h2>
+  <p>Table calculations are <strong>secondary computations applied to the data already in your view</strong>. They run AFTER all other calculations and aggregations. Unlike LOD expressions, they operate on the values currently shown in the viz — not the underlying data.</p>
+
+  <h2>Quick Table Calculations</h2>
+  <p>Right-click any Measure pill on a shelf → <strong>Quick Table Calculation</strong> → choose from:</p>
+  <table class="result-table">
+    <tr><th>Quick Table Calculation</th><th>What It Computes</th><th>Use Case</th></tr>
+    <tr><td>Running Total</td><td>Cumulative sum of values</td><td>Year-to-date sales, cumulative revenue</td></tr>
+    <tr><td>Difference</td><td>Value minus previous value</td><td>Month-over-month change in sales</td></tr>
+    <tr><td>% Difference</td><td>(Current - Previous) / Previous × 100</td><td>Monthly growth rate %</td></tr>
+    <tr><td>% of Total</td><td>Each value as % of grand total</td><td>Each region's share of total sales</td></tr>
+    <tr><td>Rank</td><td>Ranks values 1, 2, 3...</td><td>Top 10 products by revenue</td></tr>
+    <tr><td>Percentile</td><td>Percentile rank of each value</td><td>Customer scoring, outlier detection</td></tr>
+    <tr><td>Moving Average</td><td>Average of N previous periods</td><td>Smooth seasonal fluctuations</td></tr>
+  </table>
+
+  <h2>Custom Table Calculations</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Table Calculation Functions</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">// Running Total</span>
+<span class="fn">RUNNING_SUM</span>(<span class="fn">SUM</span>([<span class="field">Sales</span>]))
+
+<span class="cm">// Year-over-Year Growth %</span>
+(<span class="fn">ZN</span>(<span class="fn">SUM</span>([<span class="field">Sales</span>])) - <span class="fn">LOOKUP</span>(<span class="fn">ZN</span>(<span class="fn">SUM</span>([<span class="field">Sales</span>])), -<span class="num">1</span>))
+/ <span class="fn">ABS</span>(<span class="fn">LOOKUP</span>(<span class="fn">ZN</span>(<span class="fn">SUM</span>([<span class="field">Sales</span>])), -<span class="num">1</span>))
+
+<span class="cm">// Rank (1 = highest Sales)</span>
+<span class="fn">RANK</span>(<span class="fn">SUM</span>([<span class="field">Sales</span>]))
+
+<span class="cm">// % of total per row</span>
+<span class="fn">SUM</span>([<span class="field">Sales</span>]) / <span class="fn">TOTAL</span>(<span class="fn">SUM</span>([<span class="field">Sales</span>]))
+
+<span class="cm">// 3-period moving average</span>
+<span class="fn">WINDOW_AVG</span>(<span class="fn">SUM</span>([<span class="field">Sales</span>]), -<span class="num">2</span>, <span class="num">0</span>)</code></pre>
+  </div>
+
+  <div class="tip blue">
+    <span class="tip-icon">📌</span>
+    <p><strong>Table Calc Direction:</strong> Table calculations compute <em>along</em> a direction — across (left to right), down (top to bottom), or across then down. Always check "Edit Table Calculation" to ensure the direction matches your intent.</p>
+  </div>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p>You want to show each month's Sales as a % of the full year's total. Which Quick Table Calculation should you use?</p>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Running Total</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Difference</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'correct')">% of Total</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Moving Average</div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(8)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(10)">Next: Geospatial Analysis →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 10: Geospatial Analysis (Maps)                -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch10">
+  <div class="ch-label">Chapter 11</div>
+  <div class="ch-title">Geospatial Analysis</div>
+  <div class="ch-subtitle">Tableau has built-in geographic intelligence — map any location data in seconds.</div>
+
+  <h2>Tableau's Built-in Geo Intelligence</h2>
+  <p>Tableau automatically recognises geographic fields like Country, State, City, Zip Code, and Airport codes. When you double-click a geographic field, Tableau instantly builds a map.</p>
+
+  <div class="tip orange">
+    <span class="tip-icon">💡</span>
+    <p><strong>Geographic Role:</strong> If Tableau doesn't recognise a field as geographic, right-click the field in the Data Pane → <strong>Geographic Role</strong> → assign the correct role (Country, State, City, ZIP Code, Latitude, Longitude, etc.)</p>
+  </div>
+
+  <h2>Types of Maps in Tableau</h2>
+  <div class="card-grid">
+    <div class="mini-card"><div class="icon">🔵</div><h4>Symbol Map</h4><p>Circles on a map whose size and color encode measure values. Best for point data (cities, stores).</p></div>
+    <div class="mini-card"><div class="icon">🗺️</div><h4>Filled Map (Choropleth)</h4><p>Fills geographic shapes (states, countries) with color based on a measure. Great for regional comparisons.</p></div>
+    <div class="mini-card"><div class="icon">🌐</div><h4>Density Map (Heatmap)</h4><p>Shows concentration of points — useful for customer locations or event hotspots.</p></div>
+    <div class="mini-card"><div class="icon">📍</div><h4>Custom Lat/Long Map</h4><p>Use your own latitude/longitude coordinates for precise custom locations.</p></div>
+  </div>
+
+  <h2>Building a Filled Map</h2>
+  <ol class="steps-list">
+    <li>Double-click <code>State</code> (geographic dimension) → Tableau builds a symbol map automatically</li>
+    <li>In the Marks card, change the mark type from <strong>Circle</strong> to <strong>Map</strong> (or Filled Map)</li>
+    <li>Drag <code>SUM(Sales)</code> to the <strong>Color</strong> Marks card → states fill with color intensity based on sales</li>
+    <li>Drag <code>SUM(Profit)</code> to <strong>Tooltip</strong> so hovering shows both metrics</li>
+    <li>Format colors: click the color legend → Edit Colors → choose a diverging palette (e.g., red-white-green for profit)</li>
+  </ol>
+
+  <h2>Custom Territories</h2>
+  <p>Group multiple states/countries into custom sales territories using Tableau's Groups feature:</p>
+  <ol class="steps-list">
+    <li>On the map, hold Ctrl and click multiple states to select them</li>
+    <li>Right-click the selection → <strong>Group</strong> → name the group (e.g., "Northeast Territory")</li>
+    <li>Tableau creates a new grouped dimension automatically</li>
+    <li>Use this group to color the map by territory</li>
+  </ol>
+
+  <div class="quiz">
+    <h4>🧠 Quick Check</h4>
+    <p>You want a map where each country is shaded darker for higher sales values. Which map type should you use?</p>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Symbol Map (circles)</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'correct')">Filled Map (Choropleth)</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Density Map</div>
+    <div class="quiz-option" onclick="checkQuiz(this,'wrong')">Custom Lat/Long Map</div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(9)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(11)">Next: Tableau Stories →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 11: Tableau Stories                           -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch11">
+  <div class="ch-label">Chapter 12</div>
+  <div class="ch-title">Tableau Stories</div>
+  <div class="ch-subtitle">Turn your dashboards into a guided narrative — walk stakeholders through your analysis step by step.</div>
+
+  <h2>What is a Story?</h2>
+  <p>A Tableau <strong>Story</strong> is a sequence of visualisations (sheets or dashboards) arranged as <strong>story points</strong> — like slides in a presentation. Each story point can have its own caption, annotation, and filter state. Stories are perfect for executive presentations, portfolio showcases, and guided analysis.</p>
+
+  <div class="card-grid">
+    <div class="mini-card"><div class="icon">📖</div><h4>Story Point</h4><p>Each "slide" in a Story. Can contain a full Dashboard, a single Sheet, or a custom combination.</p></div>
+    <div class="mini-card"><div class="icon">💬</div><h4>Caption</h4><p>The title of each story point — shown as tabs at the top. Should state the key insight.</p></div>
+    <div class="mini-card"><div class="icon">📝</div><h4>Annotation</h4><p>Add text boxes to draw attention to specific data points within a story point.</p></div>
+    <div class="mini-card"><div class="icon">🔄</div><h4>Navigator</h4><p>Previous/Next buttons let viewers navigate the story. Can also be dots or arrows.</p></div>
+  </div>
+
+  <h2>Creating a Story</h2>
+  <ol class="steps-list">
+    <li>Click <strong>New Story</strong> (the book icon at the bottom tabs)</li>
+    <li>Set the Story size: same as dashboard or custom dimensions</li>
+    <li>Drag a Sheet or Dashboard from the left panel onto the canvas → this becomes Story Point 1</li>
+    <li>Add a caption: click the caption area above the view and type your insight (e.g., "West Region Underperforms Q3")</li>
+    <li>Click <strong>"Blank"</strong> in the Story panel to add a new story point → drag another sheet</li>
+    <li>Continue until your narrative is complete → publish or present</li>
+  </ol>
+
+  <div class="tip blue">
+    <span class="tip-icon">📌</span>
+    <p><strong>Story structure tip:</strong> Follow the <strong>SCR framework</strong> — Situation (What's the context?), Complication (What's the problem?), Resolution (What action should be taken?). Your story points should answer these in order.</p>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(10)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(12)">Next: Publishing →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 12: Publishing                                -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch12">
+  <div class="ch-label">Chapter 13</div>
+  <div class="ch-title">Tableau Public & Publishing</div>
+  <div class="ch-subtitle">Share your work with the world — publish dashboards online and build your public portfolio.</div>
+
+  <h2>Publishing to Tableau Public</h2>
+  <p>Tableau Public is a <strong>free hosting platform</strong> where you can publish interactive dashboards visible to anyone. It's the best way to build a portfolio.</p>
+  <ol class="steps-list">
+    <li>Create a free account at <strong>public.tableau.com</strong></li>
+    <li>In Tableau Desktop/Public: <strong>Server → Tableau Public → Save to Tableau Public</strong></li>
+    <li>Sign in → choose a workbook name → click Save</li>
+    <li>Your dashboard is now live at <code>public.tableau.com/profile/yourname</code></li>
+    <li>Embed it anywhere with the Embed Code (Share → Embed Code → paste in HTML)</li>
+  </ol>
+
+  <div class="tip green">
+    <span class="tip-icon">💡</span>
+    <p><strong>Portfolio tip:</strong> Tableau Public profiles appear directly in Google search results. Add 5–10 polished dashboards to your profile and link it on your resume and LinkedIn. Recruiters actively search Tableau Public for analysts.</p>
+  </div>
+
+  <h2>Saving Options</h2>
+  <table class="result-table">
+    <tr><th>Format</th><th>Extension</th><th>Contains</th><th>Best For</th></tr>
+    <tr><td>Tableau Workbook</td><td>.twb</td><td>Layout & logic only (no data)</td><td>Sharing with colleagues who have the same data</td></tr>
+    <tr><td>Packaged Workbook</td><td>.twbx</td><td>Layout + embedded data extract</td><td>Sharing a self-contained file</td></tr>
+    <tr><td>Data Extract</td><td>.hyper</td><td>Fast columnar data snapshot</td><td>Sharing just the data</td></tr>
+    <tr><td>Image/PDF/PPT</td><td>.png/.pdf/.pptx</td><td>Static snapshot</td><td>Presentations, static reports</td></tr>
+  </table>
+
+  <h2>Tableau Server & Cloud</h2>
+  <p>For enterprise use, Tableau Server (on-premise) or Tableau Cloud (hosted) allows:</p>
+  <ul>
+    <li>Role-based access: who can view/edit which workbooks</li>
+    <li>Automatic scheduled data refreshes</li>
+    <li>Row-level security: each user sees only their own data</li>
+    <li>Subscriptions: email a snapshot of a dashboard on a schedule</li>
+  </ul>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(11)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(13)">Next: Final Project →</button>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CHAPTER 13: Final Project                             -->
+<!-- ===================================================== -->
+<section class="chapter" id="ch13">
+  <div class="ch-label">Chapter 14</div>
+  <div class="ch-title">Final Project</div>
+  <div class="ch-subtitle">Build a complete, professional Sales Performance Dashboard from scratch — using everything you've learned.</div>
+
+  <h2>Project: Sales Performance Dashboard</h2>
+  <p>Using the <strong>Superstore</strong> sample dataset (included with Tableau), you'll build a 4-sheet executive dashboard that a real company could use to monitor business performance.</p>
+
+  <div class="concept-card">
+    <h3>📋 Dashboard Requirements</h3>
+    <ul style="margin-top:12px;color:var(--text2);font-size:.93rem;line-height:2">
+      <li>📊 <strong>Sheet 1 — KPI Summary:</strong> 4 big-number KPIs (Total Sales, Total Profit, Profit Margin %, Total Orders) for selected year</li>
+      <li>📈 <strong>Sheet 2 — Sales Trend:</strong> Monthly Sales + Profit dual-axis line/bar chart with YoY % change labels</li>
+      <li>🗺️ <strong>Sheet 3 — Geographic Map:</strong> Sales by State (filled map), coloured by Profit Margin</li>
+      <li>🏆 <strong>Sheet 4 — Top Products:</strong> Top 10 Sub-Categories by Sales (bar chart), coloured by Profit</li>
+      <li>⚙️ <strong>Filters:</strong> Year selector + Region multi-select filter (apply to all sheets)</li>
+      <li>🔗 <strong>Actions:</strong> Clicking a state on the map filters the Products chart to that state</li>
+    </ul>
+  </div>
+
+  <h2>Challenge 1 — KPI Sheet</h2>
+  <div class="exercise">
+    <div class="exercise-header"><span class="badge">Challenge 1</span><h4>Build the KPI Summary Card</h4></div>
+    <div class="exercise-body">
+      <p>Create a sheet with 4 KPI big numbers. Each should show the current year value and a small arrow/color indicating vs prior year.</p>
+      <ol class="steps-list">
+        <li>Create a calculated field: <code>Profit Margin = SUM([Profit]) / SUM([Sales])</code> — format as %</li>
+        <li>Create a text sheet: drag <code>Measure Names</code> to Columns, <code>Measure Values</code> to Rows</li>
+        <li>Filter Measure Values to show only: Sales, Profit, Profit Margin, Count of Orders</li>
+        <li>Change mark type to <strong>Text</strong>. Format font large (36pt+). Remove headers/axes.</li>
+        <li>Add color: green if Profit Margin &gt; 15%, red if below</li>
+      </ol>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="markDone('proj1r')">✓ Mark Complete</button>
+      </div>
+      <div class="result-box" id="proj1r"></div>
+    </div>
+  </div>
+
+  <h2>Challenge 2 — Sales Trend</h2>
+  <div class="exercise">
+    <div class="exercise-header"><span class="badge">Challenge 2</span><h4>Build the Monthly Trend Chart</h4></div>
+    <div class="exercise-body">
+      <p>Build a dual-axis chart showing Sales bars and a Profit trend line, month by month, with YoY growth labels.</p>
+      <ol class="steps-list">
+        <li>Drag <code>MONTH(Order Date)</code> to Columns (set as Continuous)</li>
+        <li>Drag <code>SUM(Sales)</code> to Rows — set as Bar marks, colour steel blue</li>
+        <li>Drag <code>SUM(Profit)</code> to Rows → Dual Axis → set as Line marks, orange colour</li>
+        <li>Create a Table Calculation on Sales: <strong>% Difference</strong> (from previous year). Add to Label.</li>
+        <li>Add a reference line at the average Sales value</li>
+      </ol>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="markDone('proj2r')">✓ Mark Complete</button>
+      </div>
+      <div class="result-box" id="proj2r"></div>
+    </div>
+  </div>
+
+  <h2>Challenge 3 — Geographic Map</h2>
+  <div class="exercise">
+    <div class="exercise-header"><span class="badge">Challenge 3</span><h4>Build the Profit Map</h4></div>
+    <div class="exercise-body">
+      <p>Create a filled map of the USA coloured by Profit Margin, with Sales shown as bubble size.</p>
+      <ol class="steps-list">
+        <li>Double-click <code>State</code> → Tableau builds a map</li>
+        <li>Change mark type to <strong>Filled Map</strong></li>
+        <li>Drag <code>Profit Margin</code> (your calculated field) to Color → use Red-White-Green diverging palette</li>
+        <li>Drag <code>SUM(Sales)</code> and <code>SUM(Profit)</code> to Tooltip</li>
+        <li>Add a descriptive tooltip: "State: &lt;State&gt; | Sales: $&lt;SUM(Sales)&gt; | Profit Margin: &lt;Profit Margin&gt;"</li>
+      </ol>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="markDone('proj3r')">✓ Mark Complete</button>
+      </div>
+      <div class="result-box" id="proj3r"></div>
+    </div>
+  </div>
+
+  <h2>Challenge 4 — Assemble the Dashboard</h2>
+  <div class="exercise">
+    <div class="exercise-header"><span class="badge">Challenge 4</span><h4>Assemble & Add Interactivity</h4></div>
+    <div class="exercise-body">
+      <p>Combine all 4 sheets into a polished dashboard and add filter actions.</p>
+      <ol class="steps-list">
+        <li>New Dashboard → set size to 1200 × 800px</li>
+        <li>Arrange sheets: KPI strip at top, Trend chart bottom-left, Map bottom-right, Products chart (4th sheet) to the right of trend</li>
+        <li>Add a Year filter: drag <code>YEAR(Order Date)</code> to Filters → Show Filter → Single Value Dropdown → Apply to All Sheets</li>
+        <li>Add a Dashboard Action: Map click → filters the Products chart (Dashboard → Actions → Filter → Source: Map sheet → Target: Products sheet)</li>
+        <li>Style: remove all chart borders, add a dark background (#1a1a26), use Tableau's "Midnight" color scheme</li>
+        <li>Add your name and a "Last Updated" date as a Text object in the footer</li>
+      </ol>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="markDone('proj4r')">✓ Mark Complete</button>
+        <button class="btn btn-secondary" onclick="showTip('proj4r')">💡 View Example</button>
+      </div>
+      <div class="result-box" id="proj4r"></div>
+    </div>
+  </div>
+
+  <div class="concept-card">
+    <h3>🎉 Congratulations — You've Completed Tableau Mastery!</h3>
+    <p>You've learned the full Tableau workflow: connecting data, understanding Dimensions and Measures, building every chart type, writing Calculated Fields and LOD expressions, using Filters and Parameters, building interactive Dashboards, working with Table Calculations, mapping geographic data, creating Stories, and publishing your work.</p>
+    <p style="margin-top:12px"><strong>Next steps:</strong>
+      Publish your dashboard to <a href="https://public.tableau.com" style="color:var(--accent)" target="_blank">Tableau Public</a> and add it to your portfolio.
+      Practice on the <a href="https://www.tableau.com/learn/training" style="color:var(--accent)" target="_blank">Tableau Training Videos</a>.
+      Take the <a href="https://www.tableau.com/learn/certification" style="color:var(--accent)" target="_blank">Tableau Desktop Specialist</a> certification exam.
+      Explore <a href="https://community.tableau.com/s/group/0F94T000000gQqoSAE/makeover-monday" style="color:var(--accent)" target="_blank">Makeover Monday</a> — weekly data challenges to sharpen your skills.
+    </p>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-nav-btn" onclick="goTo(12)">← Previous</button>
+    <button class="ch-nav-btn" onclick="goTo(0)">↻ Back to Start</button>
+  </div>
+</section>
+
+</main>
+
+<script>
+// === NAVIGATION ===
+let current = 0;
+const total = 14;
+const chapters = document.querySelectorAll('.chapter');
+const links = document.querySelectorAll('.nav-link');
+const visited = new Set([0]);
+
+function goTo(i) {
+  chapters[current].classList.remove('active');
+  links[current].classList.remove('active');
+  current = i;
+  visited.add(i);
+  chapters[current].classList.add('active');
+  links[current].classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  updateProgress();
+  document.querySelector('.sidebar').classList.remove('open');
+}
+
+function updateProgress() {
+  const pct = (visited.size / total) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = visited.size + ' / ' + total + ' chapters';
+}
+
+// === COPY CODE ===
+function copyCode(btn) {
+  const code = btn.closest('.code-block').querySelector('pre').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1500);
+  });
+}
+
+// === EXERCISE MARK DONE ===
+function markDone(id) {
+  const el = document.getElementById(id);
+  el.className = 'result-box success';
+  el.innerHTML = '✅ <strong>Great work!</strong> Check your Tableau workbook matches the requirements. Move on when ready.';
+}
+
+function showTip(id) {
+  const el = document.getElementById(id);
+  el.className = 'result-box info';
+  el.innerHTML = '💡 <strong>Example:</strong> Your finished dashboard should have a dark background, 4 KPI numbers at the top, a Sales/Profit dual-axis chart on the left, a map on the right, and a bar chart at the bottom. Clicking a state on the map should filter the bar chart.';
+}
+
+// === QUIZ ===
+function checkQuiz(opt, type) {
+  const quiz = opt.closest('.quiz');
+  const opts = quiz.querySelectorAll('.quiz-option');
+  const feedback = quiz.querySelector('.quiz-feedback');
+  opts.forEach(o => { o.style.pointerEvents = 'none'; });
+  if (type === 'correct') {
+    opt.classList.add('correct');
+    feedback.style.display = 'block';
+    feedback.style.background = 'rgba(0,229,160,.08)';
+    feedback.style.color = 'var(--success)';
+    feedback.style.padding = '10px 14px';
+    feedback.style.borderRadius = '8px';
+    feedback.textContent = '✅ Correct! Well done.';
+  } else {
+    opt.classList.add('wrong');
+    opts.forEach(o => {
+      if (o.getAttribute('onclick').includes("'correct'")) o.classList.add('correct');
+    });
+    feedback.style.display = 'block';
+    feedback.style.background = 'rgba(255,107,107,.08)';
+    feedback.style.color = 'var(--error)';
+    feedback.style.padding = '10px 14px';
+    feedback.style.borderRadius = '8px';
+    feedback.textContent = '❌ Not quite. The correct answer is highlighted above.';
+  }
+}
+
+// Init
+updateProgress();
+</script>
+</body>
+</html>

@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Equity & Financial Markets — Complete Course</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-card: #1a2234;
+  --bg-card-hover: #1f2b42;
+  --accent-gold: #d4a847;
+  --accent-gold-dim: #b8922e;
+  --accent-blue: #4a90d9;
+  --accent-green: #34d399;
+  --accent-red: #f87171;
+  --accent-purple: #a78bfa;
+  --accent-orange: #fb923c;
+  --accent-cyan: #22d3ee;
+  --text-primary: #e8edf5;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
+  --border: #1e293b;
+  --border-light: #334155;
+  --glass: rgba(26, 34, 52, 0.7);
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--accent-gold-dim); border-radius: 3px; }
+
+/* ===== GRAIN OVERLAY ===== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(10, 14, 23, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.3s;
+}
+
+.nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--accent-gold);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.nav-logo span { color: var(--text-dim); font-style: italic; }
+
+.nav-links { display: flex; gap: 0.25rem; }
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  color: var(--accent-gold);
+  background: rgba(212, 168, 71, 0.08);
+}
+
+.nav-progress {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-blue));
+  transition: width 0.15s;
+  width: 0%;
+}
+
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 2rem 4rem;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(212, 168, 71, 0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(74, 144, 217, 0.06), transparent),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(167, 139, 250, 0.04), transparent);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(212, 168, 71, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 168, 71, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent);
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  max-width: 900px;
+  animation: fadeUp 1s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--accent-gold-dim);
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 2rem;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent-gold);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.hero h1 em {
+  color: var(--accent-gold);
+  font-style: italic;
+}
+
+.hero-sub {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--accent-gold);
+}
+
+.hero-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.25rem;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  animation: bob 2s infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+.scroll-cue svg { width: 20px; height: 20px; }
+
+/* ===== SECTIONS ===== */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+}
+
+.section-header {
+  margin-bottom: 4rem;
+}
+
+.section-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  max-width: 650px;
+  font-weight: 300;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+  margin: 0 auto;
+}
+
+/* ===== TABLE OF CONTENTS ===== */
+.toc {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.toc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.toc-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-gold-dim);
+  transform: translateY(-2px);
+}
+
+.toc-card::after {
+  content: '→';
+  position: absolute;
+  top: 1.75rem; right: 1.75rem;
+  color: var(--accent-gold);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.3s;
+}
+
+.toc-card:hover::after { opacity: 1; transform: translateX(0); }
+
+.toc-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-gold-dim);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.toc-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.toc-card p {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ===== CONTENT CARDS ===== */
+.content-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 3rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.content-block h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin-bottom: 1.25rem;
+  color: var(--text-primary);
+}
+
+.content-block h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  margin: 2rem 0 0.75rem;
+}
+
+.content-block p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+.content-block ul, .content-block ol {
+  color: var(--text-secondary);
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.content-block li {
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+}
+
+.content-block li::marker { color: var(--accent-gold-dim); }
+
+/* ===== HIGHLIGHT BOX ===== */
+.highlight {
+  background: rgba(212, 168, 71, 0.06);
+  border-left: 3px solid var(--accent-gold);
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1.5rem 0;
+}
+
+.highlight p { margin-bottom: 0; color: var(--text-primary); font-weight: 400; }
+
+.highlight-blue {
+  background: rgba(74, 144, 217, 0.06);
+  border-left-color: var(--accent-blue);
+}
+
+.highlight-green {
+  background: rgba(52, 211, 153, 0.06);
+  border-left-color: var(--accent-green);
+}
+
+.highlight-red {
+  background: rgba(248, 113, 113, 0.06);
+  border-left-color: var(--accent-red);
+}
+
+/* ===== FORMULA BOX ===== */
+.formula {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 1.5rem 2rem;
+  margin: 1.5rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent-cyan);
+  text-align: center;
+  letter-spacing: 0.02em;
+  overflow-x: auto;
+}
+
+/* ===== FINANCIAL TABLE ===== */
+.fin-table-wrap {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.fin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.fin-table thead { background: var(--bg-secondary); }
+
+.fin-table th {
+  padding: 0.85rem 1.25rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-gold);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.fin-table td {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.fin-table tbody tr:hover { background: rgba(212, 168, 71, 0.03); }
+
+.fin-table .row-header {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.fin-table .total-row {
+  font-weight: 700;
+  color: var(--accent-gold);
+  border-top: 2px solid var(--accent-gold-dim);
+}
+
+.fin-table .indent { padding-left: 2.5rem; }
+.fin-table .indent-2 { padding-left: 3.75rem; }
+
+.fin-table .num { text-align: right; font-family: var(--font-mono); font-size: 0.85rem; }
+
+/* ===== COMPARISON GRID ===== */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.compare-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  transition: border-color 0.3s;
+}
+
+.compare-card:hover { border-color: var(--accent-gold-dim); }
+
+.compare-card h5 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+}
+
+.compare-card p {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 0;
+}
+
+.compare-card .tag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.75rem;
+}
+
+.tag-gold { background: rgba(212,168,71,0.15); color: var(--accent-gold); }
+.tag-blue { background: rgba(74,144,217,0.15); color: var(--accent-blue); }
+.tag-green { background: rgba(52,211,153,0.15); color: var(--accent-green); }
+.tag-purple { background: rgba(167,139,250,0.15); color: var(--accent-purple); }
+.tag-red { background: rgba(248,113,113,0.15); color: var(--accent-red); }
+.tag-orange { background: rgba(251,146,60,0.15); color: var(--accent-orange); }
+
+/* ===== FLOW / PROCESS ===== */
+.process-flow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin: 2rem 0;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.process-step {
+  flex: 1;
+  min-width: 160px;
+  text-align: center;
+  position: relative;
+  padding: 0 1rem;
+}
+
+.process-step::after {
+  content: '→';
+  position: absolute;
+  right: -0.5rem;
+  top: 1.5rem;
+  color: var(--accent-gold-dim);
+  font-size: 1.2rem;
+}
+
+.process-step:last-child::after { display: none; }
+
+.process-icon {
+  width: 50px; height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.75rem;
+  font-size: 1.3rem;
+  background: rgba(212,168,71,0.1);
+  border: 1px solid var(--accent-gold-dim);
+  color: var(--accent-gold);
+}
+
+.process-step h5 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.process-step p {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+/* ===== ACCORDION ===== */
+.accordion { margin: 1.5rem 0; }
+
+.accordion-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+.accordion-trigger {
+  width: 100%;
+  padding: 1.15rem 1.5rem;
+  background: var(--bg-secondary);
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s;
+}
+
+.accordion-trigger:hover { background: var(--bg-card-hover); }
+
+.accordion-trigger::after {
+  content: '+';
+  font-size: 1.2rem;
+  color: var(--accent-gold);
+  transition: transform 0.3s;
+}
+
+.accordion-item.open .accordion-trigger::after {
+  transform: rotate(45deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.accordion-inner {
+  padding: 1.25rem 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+/* ===== QUIZ ===== */
+.quiz-wrap {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.quiz-wrap h4 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--accent-gold);
+  margin: 0 0 1.25rem;
+}
+
+.quiz-q { margin-bottom: 1.5rem; }
+
+.quiz-q p {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.quiz-option {
+  padding: 0.75rem 1.15rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+
+.quiz-option:hover { border-color: var(--accent-gold-dim); color: var(--text-primary); }
+.quiz-option.correct { border-color: var(--accent-green); background: rgba(52,211,153,0.08); color: var(--accent-green); }
+.quiz-option.wrong { border-color: var(--accent-red); background: rgba(248,113,113,0.06); color: var(--accent-red); }
+
+/* ===== BACK TO TOP ===== */
+.btt {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s;
+  z-index: 900;
+  box-shadow: 0 4px 20px rgba(212,168,71,0.3);
+}
+
+.btt.show { opacity: 1; transform: translateY(0); }
+.btt:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(212,168,71,0.4); }
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 4rem 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.8rem;
+}
+
+.footer a { color: var(--accent-gold); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* ===== ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s, transform 0.7s;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: rgba(10,14,23,0.95); backdrop-filter: blur(20px); flex-direction: column; padding: 1rem; border-bottom: 1px solid var(--border); }
+  .nav-links.open { display: flex; }
+  .mobile-toggle { display: block; }
+  .content-block { padding: 2rem 1.5rem; }
+  .hero-stats { gap: 1.5rem; }
+  .process-flow { flex-direction: column; align-items: center; }
+  .process-step::after { content: '↓'; position: static; display: block; margin: 0.5rem 0; }
+  .process-step:last-child::after { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ======================== NAVIGATION ======================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">PE & Markets <span>— Course</span></a>
+    <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#pe-fundamentals">PE</a>
+      <a href="#income-statement">IS</a>
+      <a href="#balance-sheet">BS</a>
+      <a href="#cash-flow">CFS</a>
+      <a href="#valuation">Valuation</a>
+      <a href="#lbo">LBO</a>
+      <a href="#markets">Markets</a>
+    </div>
+  </div>
+  <div class="nav-progress" id="navProgress"></div>
+</nav>
+
+<!-- ======================== HERO ======================== -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Complete Learning Guide</div>
+    <h1>Private Equity &<br><em>Financial Markets</em></h1>
+    <p class="hero-sub">A comprehensive course covering financial statements, valuation techniques, deal structuring, and market dynamics — from fundamentals to advanced strategies.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">12</div>
+        <div class="hero-stat-label">Modules</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">50+</div>
+        <div class="hero-stat-label">Concepts</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">∞</div>
+        <div class="hero-stat-label">Practice</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    Scroll to begin
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </div>
+</section>
+
+<!-- ======================== TABLE OF CONTENTS ======================== -->
+<section class="section" id="overview">
+  <div class="section-header reveal">
+    <span class="section-number">Module 00</span>
+    <h2 class="section-title">Course Overview</h2>
+    <p class="section-desc">Navigate through 12 comprehensive modules covering every dimension of private equity and financial markets.</p>
+  </div>
+  <div class="toc reveal">
+    <a href="#pe-fundamentals" class="toc-card">
+      <div class="toc-num">01</div>
+      <h3>PE Fundamentals</h3>
+      <p>What private equity is, fund structures, GP/LP dynamics, and the PE lifecycle.</p>
+    </a>
+    <a href="#income-statement" class="toc-card">
+      <div class="toc-num">02</div>
+      <h3>Income Statement</h3>
+      <p>Revenue, COGS, EBITDA, margins, and reading a P&L like a pro.</p>
+    </a>
+    <a href="#balance-sheet" class="toc-card">
+      <div class="toc-num">03</div>
+      <h3>Balance Sheet</h3>
+      <p>Assets, liabilities, equity, and how the balance sheet connects everything.</p>
+    </a>
+    <a href="#cash-flow" class="toc-card">
+      <div class="toc-num">04</div>
+      <h3>Cash Flow Statement</h3>
+      <p>Operating, investing, and financing cash flows — why cash is king.</p>
+    </a>
+    <a href="#three-link" class="toc-card">
+      <div class="toc-num">05</div>
+      <h3>3-Statement Linkage</h3>
+      <p>How IS, BS, and CFS interconnect to form a complete financial picture.</p>
+    </a>
+    <a href="#ratios" class="toc-card">
+      <div class="toc-num">06</div>
+      <h3>Financial Ratios</h3>
+      <p>Profitability, liquidity, leverage, and efficiency ratios decoded.</p>
+    </a>
+    <a href="#valuation" class="toc-card">
+      <div class="toc-num">07</div>
+      <h3>Valuation Methods</h3>
+      <p>DCF, comparable companies, precedent transactions, and more.</p>
+    </a>
+    <a href="#lbo" class="toc-card">
+      <div class="toc-num">08</div>
+      <h3>LBO Modeling</h3>
+      <p>Leveraged buyouts — structure, returns, and the math behind PE deals.</p>
+    </a>
+    <a href="#due-diligence" class="toc-card">
+      <div class="toc-num">09</div>
+      <h3>Due Diligence</h3>
+      <p>Commercial, financial, legal, and operational due diligence frameworks.</p>
+    </a>
+    <a href="#markets" class="toc-card">
+      <div class="toc-num">10</div>
+      <h3>Capital Markets</h3>
+      <p>Equity vs. debt markets, IPOs, bonds, credit, and market structure.</p>
+    </a>
+    <a href="#ma" class="toc-card">
+      <div class="toc-num">11</div>
+      <h3>M&A Process</h3>
+      <p>Deal sourcing, negotiation, synergies, and post-merger integration.</p>
+    </a>
+    <a href="#advanced" class="toc-card">
+      <div class="toc-num">12</div>
+      <h3>Advanced Topics</h3>
+      <p>ESG, secondaries, co-investments, distressed PE, and emerging trends.</p>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ======================== MODULE 01: PE FUNDAMENTALS ======================== -->
+<section class="section" id="pe-fundamentals">
+  <div class="section-header reveal">
+    <span class="section-number">Module 01</span>
+    <h2 class="section-title">Private Equity Fundamentals</h2>
+    <p class="section-desc">Understanding the engine of private capital — how firms raise, deploy, and return capital.</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>What is Private Equity?</h3>
+    <p>Private equity (PE) refers to investment funds that acquire equity ownership in companies that are <strong>not publicly traded</strong> on stock exchanges. PE firms raise capital from institutional investors and high-net-worth individuals, pool it into a fund, and deploy that capital to acquire, improve, and eventually sell companies for a profit.</p>
+
+    <p>Unlike public market investors who buy and sell shares on exchanges, PE firms take a hands-on approach — they actively manage and transform their portfolio companies over a multi-year holding period (typically 3–7 years).</p>
+
+    <h4>Key Characteristics</h4>
+    <ul>
+      <li><strong>Illiquid investments</strong> — Capital is locked up for years, not tradeable daily</li>
+      <li><strong>Active ownership</strong> — PE firms install management, restructure operations, drive strategy</li>
+      <li><strong>Leverage</strong> — Significant use of debt to amplify equity returns</li>
+      <li><strong>Value creation</strong> — Revenue growth, margin expansion, multiple expansion, and debt paydown</li>
+      <li><strong>Finite fund life</strong> — Typically 10 years with optional extensions</li>
+    </ul>
+
+    <div class="highlight">
+      <p><strong>Core Insight:</strong> PE firms make money by buying companies, making them more valuable, and selling them at a higher price. The "spread" between purchase and exit value — amplified by leverage — generates returns.</p>
+    </div>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Fund Structure: GP vs LP</h3>
+    <p>PE operates through a <strong>Limited Partnership</strong> structure. Understanding the two key players is fundamental:</p>
+
+    <div class="compare-grid">
+      <div class="compare-card">
+        <span class="tag tag-gold">GP — General Partner</span>
+        <h5>The PE Firm</h5>
+        <p>Manages the fund, sources deals, makes investment decisions, and runs portfolio companies. GPs typically invest 1-5% of total fund capital (skin in the game). They earn management fees (≈2% of committed capital) and carried interest (≈20% of profits above a hurdle rate).</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-blue">LP — Limited Partner</span>
+        <h5>The Investors</h5>
+        <p>Provide 95-99% of the capital. Includes pension funds, endowments, sovereign wealth funds, insurance companies, family offices, and fund-of-funds. LPs have limited liability and limited say in investment decisions. They receive distributions when investments are exited.</p>
+      </div>
+    </div>
+
+    <h4>The Fee Structure: 2 and 20</h4>
+    <div class="formula">Management Fee (≈2% of AUM) + Carried Interest (≈20% of profits above hurdle)</div>
+    <p>The <strong>hurdle rate</strong> (typically 8%) is the minimum return LPs must receive before the GP earns any carried interest. This aligns GP incentives with LP returns. Some funds also include a <strong>catch-up provision</strong> and <strong>clawback clauses</strong>.</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>The PE Fund Lifecycle</h3>
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="process-icon">1</div>
+        <h5>Fundraising</h5>
+        <p>GP pitches strategy, raises capital from LPs (12-18 months)</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">2</div>
+        <h5>Sourcing</h5>
+        <p>Finding attractive investment opportunities via networks & auctions</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">3</div>
+        <h5>Due Diligence</h5>
+        <p>Deep analysis of target's financials, operations, market, & legal</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">4</div>
+        <h5>Acquisition</h5>
+        <p>Structuring & closing the deal with debt + equity financing</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">5</div>
+        <h5>Value Creation</h5>
+        <p>Operational improvement, growth, margin expansion over 3-7 years</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">6</div>
+        <h5>Exit</h5>
+        <p>IPO, strategic sale, secondary buyout, or recapitalization</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Types of Private Equity Strategies</h3>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <span class="tag tag-gold">Buyout</span>
+        <h5>Leveraged Buyouts</h5>
+        <p>Acquiring controlling stakes in mature companies using significant debt. Focus on stable cash flows and operational improvement. Largest PE segment by AUM.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-green">Growth Equity</span>
+        <h5>Growth Capital</h5>
+        <p>Minority or majority investments in fast-growing companies. Less leverage, more focus on revenue expansion. Bridge between VC and buyout.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-purple">Venture Capital</span>
+        <h5>Early-Stage</h5>
+        <p>Investing in startups and early-stage companies. High risk, high potential reward. No leverage. Returns driven by outlier successes ("power law").</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-red">Distressed</span>
+        <h5>Turnaround / Special Situations</h5>
+        <p>Investing in financially troubled or bankrupt companies. Buy debt or equity at deep discounts. Restructure operations and capital structure for recovery.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-orange">Mezzanine</span>
+        <h5>Subordinated Debt</h5>
+        <p>Providing subordinated debt or preferred equity. Sits between senior debt and equity in the capital structure. Higher yield, often includes equity kickers.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-blue">Secondaries</span>
+        <h5>Secondary Transactions</h5>
+        <p>Buying existing LP positions in PE funds or portfolios of companies. Provides liquidity to sellers and can offer buyers entry at a discount.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ======================== MODULE 02: INCOME STATEMENT ======================== -->
+<section class="section" id="income-statement">
+  <div class="section-header reveal">
+    <span class="section-number">Module 02</span>
+    <h2 class="section-title">The Income Statement</h2>
+    <p class="section-desc">The P&L tells you whether a company is making or losing money — and more importantly, <em>how</em>.</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Structure of the Income Statement</h3>
+    <p>The Income Statement (also called the Profit & Loss Statement or P&L) reports a company's financial performance over a <strong>specific period</strong> (quarter or year). It follows a top-down structure:</p>
+
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead>
+          <tr><th>Line Item</th><th class="num">Year 1 ($M)</th><th class="num">Year 2 ($M)</th><th class="num">Year 3 ($M)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-header">Revenue (Net Sales)</td><td class="num">500.0</td><td class="num">575.0</td><td class="num">650.0</td></tr>
+          <tr><td class="indent">Cost of Goods Sold (COGS)</td><td class="num">(200.0)</td><td class="num">(225.0)</td><td class="num">(247.0)</td></tr>
+          <tr class="total-row"><td class="row-header">Gross Profit</td><td class="num">300.0</td><td class="num">350.0</td><td class="num">403.0</td></tr>
+          <tr><td class="indent">Selling, General & Administrative (SG&A)</td><td class="num">(100.0)</td><td class="num">(110.0)</td><td class="num">(117.0)</td></tr>
+          <tr><td class="indent">Research & Development (R&D)</td><td class="num">(30.0)</td><td class="num">(35.0)</td><td class="num">(40.0)</td></tr>
+          <tr><td class="indent">Depreciation & Amortization (D&A)</td><td class="num">(25.0)</td><td class="num">(28.0)</td><td class="num">(30.0)</td></tr>
+          <tr class="total-row"><td class="row-header">Operating Income (EBIT)</td><td class="num">145.0</td><td class="num">177.0</td><td class="num">216.0</td></tr>
+          <tr><td class="indent">Interest Expense</td><td class="num">(20.0)</td><td class="num">(18.0)</td><td class="num">(15.0)</td></tr>
+          <tr><td class="indent">Other Income / (Expense)</td><td class="num">2.0</td><td class="num">3.0</td><td class="num">4.0</td></tr>
+          <tr class="total-row"><td class="row-header">Pre-Tax Income (EBT)</td><td class="num">127.0</td><td class="num">162.0</td><td class="num">205.0</td></tr>
+          <tr><td class="indent">Income Tax Expense (25%)</td><td class="num">(31.8)</td><td class="num">(40.5)</td><td class="num">(51.3)</td></tr>
+          <tr class="total-row"><td class="row-header">Net Income</td><td class="num">95.3</td><td class="num">121.5</td><td class="num">153.8</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Key Metrics Deep Dive</h3>
+
+    <h4>Revenue (Top Line)</h4>
+    <p>Revenue is the total value of goods or services sold. It's the starting point of the P&L. Revenue can be broken down by product, geography, customer segment, or recurring vs. one-time. In PE, <strong>revenue quality</strong> matters enormously — recurring, contracted, diversified revenue commands higher valuations.</p>
+
+    <h4>COGS & Gross Profit</h4>
+    <p>Cost of Goods Sold represents the <strong>direct costs</strong> of producing goods/services (raw materials, direct labor, manufacturing overhead). Gross Profit = Revenue − COGS.</p>
+    <div class="formula">Gross Margin = Gross Profit / Revenue × 100</div>
+    <p>A high gross margin means the company retains more per dollar of sales before operating expenses. Software companies often have 70-90% gross margins; manufacturers may have 20-40%.</p>
+
+    <h4>EBITDA — The PE Workhorse Metric</h4>
+    <p>EBITDA (Earnings Before Interest, Taxes, Depreciation & Amortization) is the most commonly used metric in PE for valuing companies and measuring operational performance.</p>
+    <div class="formula">EBITDA = Net Income + Interest + Taxes + Depreciation + Amortization</div>
+    <p><strong>Or more commonly calculated as:</strong></p>
+    <div class="formula">EBITDA = Revenue − COGS − Operating Expenses + D&A</div>
+
+    <div class="highlight">
+      <p><strong>Why PE loves EBITDA:</strong> It strips out the effects of financing (interest), tax regimes, and non-cash charges (D&A), making it a cleaner proxy for operating cash generation — the engine that services acquisition debt.</p>
+    </div>
+
+    <h4>Key Margins to Track</h4>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <span class="tag tag-gold">Gross Margin</span>
+        <h5>Revenue − COGS</h5>
+        <p>Measures production efficiency. 60%+ in Year 1 example — strong pricing power.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-blue">EBITDA Margin</span>
+        <h5>EBITDA / Revenue</h5>
+        <p>Operating profitability before non-cash items. 34% in Year 1 — healthy for most industries.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-green">Net Margin</span>
+        <h5>Net Income / Revenue</h5>
+        <p>Bottom-line profitability after all expenses. 19.1% in Year 1 — solid bottom line.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>EBITDA Adjustments in PE</h3>
+    <p>PE firms rarely use reported EBITDA. Instead, they calculate <strong>Adjusted EBITDA</strong> by adding back one-time or non-recurring items:</p>
+    <ul>
+      <li><strong>One-time costs:</strong> Restructuring charges, litigation settlements, relocation expenses</li>
+      <li><strong>Non-cash items:</strong> Stock-based compensation, unrealized gains/losses</li>
+      <li><strong>Run-rate adjustments:</strong> Annualizing partial-year revenue from new contracts or acquisitions</li>
+      <li><strong>Owner perks:</strong> Above-market compensation, personal expenses run through the business</li>
+      <li><strong>Pro forma synergies:</strong> Cost savings expected after acquisition (used with caution)</li>
+    </ul>
+
+    <div class="highlight-red">
+      <p><strong>Warning:</strong> Aggressive EBITDA adjustments are one of the biggest red flags in PE. Always scrutinize what's being added back and whether the adjustments are truly non-recurring.</p>
+    </div>
+  </div>
+
+  <!-- Quiz -->
+  <div class="quiz-wrap reveal">
+    <h4>✦ Knowledge Check — Income Statement</h4>
+    <div class="quiz-q" data-answer="2">
+      <p>1. If a company has Revenue of $800M and COGS of $320M, what is the Gross Margin?</p>
+      <div class="quiz-options">
+        <div class="quiz-option" data-idx="0">40%</div>
+        <div class="quiz-option" data-idx="1">50%</div>
+        <div class="quiz-option" data-idx="2">60%</div>
+        <div class="quiz-option" data-idx="3">80%</div>
+      </div>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p>2. Why do PE firms prefer EBITDA over Net Income for valuation?</p>
+      <div class="quiz-options">
+        <div class="quiz-option" data-idx="0">EBITDA is always higher than Net Income</div>
+        <div class="quiz-option" data-idx="1">It removes financing, tax, and non-cash effects — isolating operating performance</div>
+        <div class="quiz-option" data-idx="2">GAAP requires PE firms to use EBITDA</div>
+        <div class="quiz-option" data-idx="3">EBITDA includes all cash expenses only</div>
+      </div>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p>3. Which of these is a legitimate EBITDA add-back?</p>
+      <div class="quiz-options">
+        <div class="quiz-option" data-idx="0">A one-time litigation settlement of $5M</div>
+        <div class="quiz-option" data-idx="1">Regular annual marketing spend</div>
+        <div class="quiz-option" data-idx="2">Recurring lease payments</div>
+        <div class="quiz-option" data-idx="3">Employee salaries</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ======================== MODULE 03: BALANCE SHEET ======================== -->
+<section class="section" id="balance-sheet">
+  <div class="section-header reveal">
+    <span class="section-number">Module 03</span>
+    <h2 class="section-title">The Balance Sheet</h2>
+    <p class="section-desc">A snapshot of what a company <em>owns</em>, what it <em>owes</em>, and what's left for shareholders — at a single point in time.</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>The Fundamental Equation</h3>
+    <div class="formula">Assets = Liabilities + Shareholders' Equity</div>
+    <p>This equation <strong>always balances</strong>. Every transaction affects at least two items, maintaining equilibrium. The balance sheet is a <strong>point-in-time snapshot</strong> (unlike the IS, which covers a period).</p>
+
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead>
+          <tr><th>Balance Sheet Item</th><th class="num">Year 1 ($M)</th><th class="num">Year 2 ($M)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="3" class="row-header" style="color:var(--accent-gold); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">Assets</td></tr>
+          <tr><td class="row-header">Current Assets</td><td class="num"></td><td class="num"></td></tr>
+          <tr><td class="indent">Cash & Cash Equivalents</td><td class="num">85.0</td><td class="num">110.0</td></tr>
+          <tr><td class="indent">Accounts Receivable</td><td class="num">62.0</td><td class="num">71.0</td></tr>
+          <tr><td class="indent">Inventory</td><td class="num">45.0</td><td class="num">50.0</td></tr>
+          <tr><td class="indent">Prepaid Expenses</td><td class="num">8.0</td><td class="num">9.0</td></tr>
+          <tr class="total-row"><td>Total Current Assets</td><td class="num">200.0</td><td class="num">240.0</td></tr>
+          <tr><td class="row-header">Non-Current Assets</td><td class="num"></td><td class="num"></td></tr>
+          <tr><td class="indent">Property, Plant & Equipment (net)</td><td class="num">350.0</td><td class="num">370.0</td></tr>
+          <tr><td class="indent">Goodwill</td><td class="num">180.0</td><td class="num">180.0</td></tr>
+          <tr><td class="indent">Intangible Assets</td><td class="num">90.0</td><td class="num">80.0</td></tr>
+          <tr class="total-row"><td>Total Assets</td><td class="num">820.0</td><td class="num">870.0</td></tr>
+
+          <tr><td colspan="3" class="row-header" style="color:var(--accent-red); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; padding-top:1.5rem;">Liabilities</td></tr>
+          <tr><td class="row-header">Current Liabilities</td><td class="num"></td><td class="num"></td></tr>
+          <tr><td class="indent">Accounts Payable</td><td class="num">55.0</td><td class="num">60.0</td></tr>
+          <tr><td class="indent">Accrued Expenses</td><td class="num">30.0</td><td class="num">33.0</td></tr>
+          <tr><td class="indent">Current Portion of Long-Term Debt</td><td class="num">20.0</td><td class="num">20.0</td></tr>
+          <tr class="total-row"><td>Total Current Liabilities</td><td class="num">105.0</td><td class="num">113.0</td></tr>
+          <tr><td class="row-header">Non-Current Liabilities</td><td class="num"></td><td class="num"></td></tr>
+          <tr><td class="indent">Long-Term Debt</td><td class="num">280.0</td><td class="num">260.0</td></tr>
+          <tr><td class="indent">Deferred Tax Liabilities</td><td class="num">25.0</td><td class="num">27.0</td></tr>
+          <tr class="total-row"><td>Total Liabilities</td><td class="num">410.0</td><td class="num">400.0</td></tr>
+
+          <tr><td colspan="3" class="row-header" style="color:var(--accent-green); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; padding-top:1.5rem;">Shareholders' Equity</td></tr>
+          <tr><td class="indent">Common Stock & APIC</td><td class="num">150.0</td><td class="num">150.0</td></tr>
+          <tr><td class="indent">Retained Earnings</td><td class="num">260.0</td><td class="num">320.0</td></tr>
+          <tr class="total-row"><td>Total Equity</td><td class="num">410.0</td><td class="num">470.0</td></tr>
+          <tr class="total-row"><td class="row-header">Total Liabilities + Equity</td><td class="num">820.0</td><td class="num">870.0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Key Balance Sheet Concepts</h3>
+
+    <h4>Working Capital</h4>
+    <div class="formula">Net Working Capital (NWC) = Current Assets − Current Liabilities</div>
+    <p>Working capital measures short-term liquidity — can the company meet its near-term obligations? In PE, <strong>changes in working capital</strong> are critical because they affect free cash flow. A company that ties up more cash in receivables and inventory as it grows will generate less distributable cash.</p>
+
+    <h4>Goodwill & Intangibles</h4>
+    <p>When a company is acquired for more than the fair value of its net assets, the excess is recorded as <strong>Goodwill</strong>. Intangible assets include patents, trademarks, customer relationships, and technology. In PE deals, these often represent a large portion of the balance sheet. Goodwill is not amortized (but tested for impairment); other intangibles are amortized over their useful lives.</p>
+
+    <h4>Capital Structure (PE Critical)</h4>
+    <p>The right side of the balance sheet (Liabilities + Equity) shows how the company is <strong>funded</strong>. PE firms are intensely focused on the mix of debt and equity because it determines risk and returns.</p>
+
+    <div class="compare-grid">
+      <div class="compare-card">
+        <span class="tag tag-red">Debt</span>
+        <h5>Borrowed Capital</h5>
+        <p>Must be repaid with interest. Creates financial risk but amplifies equity returns through leverage. Senior debt is cheapest; subordinated debt is more expensive.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-green">Equity</span>
+        <h5>Owner's Capital</h5>
+        <p>No mandatory repayments. Absorbs losses first. Higher cost of capital than debt (due to tax shield and risk). PE firms aim to minimize equity contribution.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ======================== MODULE 04: CASH FLOW STATEMENT ======================== -->
+<section class="section" id="cash-flow">
+  <div class="section-header reveal">
+    <span class="section-number">Module 04</span>
+    <h2 class="section-title">Cash Flow Statement</h2>
+    <p class="section-desc">Profit is an opinion. Cash is a fact. The CFS tracks actual cash moving in and out.</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Three Sections of Cash Flow</h3>
+    <p>The Cash Flow Statement reconciles the difference between <strong>accrual-based income</strong> (IS) and <strong>actual cash movement</strong>. It has three sections:</p>
+
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead>
+          <tr><th>Cash Flow Statement</th><th class="num">Year 1 ($M)</th><th class="num">Year 2 ($M)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="3" class="row-header" style="color:var(--accent-green); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">Cash From Operations (CFO)</td></tr>
+          <tr><td class="indent">Net Income</td><td class="num">95.3</td><td class="num">121.5</td></tr>
+          <tr><td class="indent">+ Depreciation & Amortization</td><td class="num">25.0</td><td class="num">28.0</td></tr>
+          <tr><td class="indent">+ Stock-Based Compensation</td><td class="num">5.0</td><td class="num">6.0</td></tr>
+          <tr><td class="indent">− Increase in Accounts Receivable</td><td class="num">(7.0)</td><td class="num">(9.0)</td></tr>
+          <tr><td class="indent">− Increase in Inventory</td><td class="num">(3.0)</td><td class="num">(5.0)</td></tr>
+          <tr><td class="indent">+ Increase in Accounts Payable</td><td class="num">4.0</td><td class="num">5.0</td></tr>
+          <tr class="total-row"><td>Net Cash from Operations</td><td class="num">119.3</td><td class="num">146.5</td></tr>
+
+          <tr><td colspan="3" class="row-header" style="color:var(--accent-blue); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; padding-top:1.5rem;">Cash From Investing (CFI)</td></tr>
+          <tr><td class="indent">Capital Expenditures (CapEx)</td><td class="num">(45.0)</td><td class="num">(48.0)</td></tr>
+          <tr><td class="indent">Acquisitions</td><td class="num">(10.0)</td><td class="num">0.0</td></tr>
+          <tr class="total-row"><td>Net Cash from Investing</td><td class="num">(55.0)</td><td class="num">(48.0)</td></tr>
+
+          <tr><td colspan="3" class="row-header" style="color:var(--accent-purple); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; padding-top:1.5rem;">Cash From Financing (CFF)</td></tr>
+          <tr><td class="indent">Debt Repayment</td><td class="num">(25.0)</td><td class="num">(20.0)</td></tr>
+          <tr><td class="indent">Dividends Paid</td><td class="num">(15.0)</td><td class="num">(18.0)</td></tr>
+          <tr><td class="indent">Share Buybacks</td><td class="num">(10.0)</td><td class="num">(12.0)</td></tr>
+          <tr class="total-row"><td>Net Cash from Financing</td><td class="num">(50.0)</td><td class="num">(50.0)</td></tr>
+
+          <tr class="total-row"><td class="row-header">Net Change in Cash</td><td class="num">14.3</td><td class="num">48.5</td></tr>
+          <tr><td class="row-header">Beginning Cash</td><td class="num">70.7</td><td class="num">85.0</td></tr>
+          <tr class="total-row"><td class="row-header">Ending Cash</td><td class="num">85.0</td><td class="num">133.5</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Free Cash Flow — The Ultimate Metric</h3>
+    <p>Free Cash Flow (FCF) represents the cash available to all capital providers (debt and equity holders) after the company has invested in maintaining/growing its operations.</p>
+
+    <div class="formula">Free Cash Flow (FCF) = Cash from Operations − Capital Expenditures</div>
+    <p>For PE, there are two important flavors:</p>
+
+    <div class="compare-grid">
+      <div class="compare-card">
+        <span class="tag tag-gold">FCFF</span>
+        <h5>Free Cash Flow to Firm</h5>
+        <p>EBIT × (1 − Tax Rate) + D&A − CapEx − ΔWorking Capital. Used for DCF valuation. Available to both debt and equity holders.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-blue">FCFE</span>
+        <h5>Free Cash Flow to Equity</h5>
+        <p>FCFF − Interest × (1 − Tax Rate) − Debt Repayments + New Borrowings. Cash available to equity holders after servicing debt.</p>
+      </div>
+    </div>
+
+    <div class="highlight-green">
+      <p><strong>PE Insight:</strong> In an LBO, FCFE is what drives equity returns. The more cash available after debt service, the faster debt is paid down, and the more equity value accrues to the PE sponsor.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ======================== MODULE 05: THREE-STATEMENT LINKAGE ======================== -->
+<section class="section" id="three-link">
+  <div class="section-header reveal">
+    <span class="section-number">Module 05</span>
+    <h2 class="section-title">3-Statement Linkage</h2>
+    <p class="section-desc">Understanding how the three financial statements connect is what separates analysts from everyone else.</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>How Everything Connects</h3>
+    <p>The three statements form a closed loop. Each one feeds information to the others:</p>
+
+    <div class="highlight">
+      <p><strong>IS → BS:</strong> Net Income flows into Retained Earnings on the Balance Sheet. Depreciation on the IS reduces PP&E on the BS.</p>
+    </div>
+    <div class="highlight-blue">
+      <p><strong>IS → CFS:</strong> Net Income is the starting point of Cash from Operations. Non-cash charges (D&A, SBC) are added back.</p>
+    </div>
+    <div class="highlight-green">
+      <p><strong>CFS → BS:</strong> The ending cash balance from the CFS equals Cash on the Balance Sheet. Debt repayments on the CFS reduce Debt on the BS. CapEx on the CFS increases PP&E on the BS.</p>
+    </div>
+
+    <h4>Key Linkages Summary</h4>
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead><tr><th>From</th><th>Item</th><th>To</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>IS</td><td>Net Income</td><td>BS</td><td>Increases Retained Earnings</td></tr>
+          <tr><td>IS</td><td>Net Income</td><td>CFS</td><td>Starting point of CFO</td></tr>
+          <tr><td>IS</td><td>Depreciation</td><td>BS</td><td>Reduces net PP&E</td></tr>
+          <tr><td>IS</td><td>Depreciation</td><td>CFS</td><td>Added back to CFO (non-cash)</td></tr>
+          <tr><td>IS</td><td>Interest Expense</td><td>BS</td><td>Reflects debt level</td></tr>
+          <tr><td>CFS</td><td>CapEx</td><td>BS</td><td>Increases gross PP&E</td></tr>
+          <tr><td>CFS</td><td>Debt Repayment</td><td>BS</td><td>Reduces Long-Term Debt</td></tr>
+          <tr><td>CFS</td><td>Ending Cash</td><td>BS</td><td>= Cash on Balance Sheet</td></tr>
+          <tr><td>BS</td><td>Δ Working Capital</td><td>CFS</td><td>Adjusts CFO</td></tr>
+          <tr><td>BS</td><td>Debt Balance</td><td>IS</td><td>Drives Interest Expense</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight">
+      <p><strong>Modeling Rule:</strong> If your balance sheet doesn't balance, there's a linkage error somewhere. The most common mistakes are forgetting to flow CapEx to PP&E, not linking debt repayments, or miscalculating working capital changes.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ======================== MODULE 06: FINANCIAL RATIOS ======================== -->
+<section class="section" id="ratios">
+  <div class="section-header reveal">
+    <span class="section-number">Module 06</span>
+    <h2 class="section-title">Financial Ratios & Analysis</h2>
+    <p class="section-desc">Ratios transform raw numbers into comparable, actionable insights about a company's health.</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Profitability Ratios</h3>
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead><tr><th>Ratio</th><th>Formula</th><th>What It Tells You</th></tr></thead>
+        <tbody>
+          <tr><td class="row-header">Gross Margin</td><td>Gross Profit / Revenue</td><td>Pricing power & production efficiency</td></tr>
+          <tr><td class="row-header">EBITDA Margin</td><td>EBITDA / Revenue</td><td>Operating profitability (PE favorite)</td></tr>
+          <tr><td class="row-header">Net Margin</td><td>Net Income / Revenue</td><td>Bottom-line profitability</td></tr>
+          <tr><td class="row-header">ROE</td><td>Net Income / Shareholders' Equity</td><td>Return generated on equity capital</td></tr>
+          <tr><td class="row-header">ROA</td><td>Net Income / Total Assets</td><td>Efficiency of asset utilization</td></tr>
+          <tr><td class="row-header">ROIC</td><td>NOPAT / Invested Capital</td><td>Return on all invested capital (debt + equity)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Leverage Ratios (Critical for PE)</h3>
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead><tr><th>Ratio</th><th>Formula</th><th>What It Tells You</th></tr></thead>
+        <tbody>
+          <tr><td class="row-header">Debt / EBITDA</td><td>Total Debt / EBITDA</td><td>How many years of earnings to repay debt. PE targets: 4-6x</td></tr>
+          <tr><td class="row-header">Interest Coverage</td><td>EBITDA / Interest Expense</td><td>Ability to service debt. Below 2x is danger zone</td></tr>
+          <tr><td class="row-header">Debt / Equity</td><td>Total Debt / Total Equity</td><td>Balance between borrowed and owned capital</td></tr>
+          <tr><td class="row-header">Net Debt / EBITDA</td><td>(Total Debt − Cash) / EBITDA</td><td>Leverage net of cash reserves</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Liquidity & Efficiency</h3>
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead><tr><th>Ratio</th><th>Formula</th><th>What It Tells You</th></tr></thead>
+        <tbody>
+          <tr><td class="row-header">Current Ratio</td><td>Current Assets / Current Liabilities</td><td>Short-term solvency. 1.5-2.0x is healthy</td></tr>
+          <tr><td class="row-header">Quick Ratio</td><td>(Current Assets − Inventory) / Current Liabilities</td><td>Solvency without relying on selling inventory</td></tr>
+          <tr><td class="row-header">Days Sales Outstanding</td><td>(AR / Revenue) × 365</td><td>How fast you collect from customers</td></tr>
+          <tr><td class="row-header">Days Inventory Outstanding</td><td>(Inventory / COGS) × 365</td><td>How long inventory sits before being sold</td></tr>
+          <tr><td class="row-header">Days Payable Outstanding</td><td>(AP / COGS) × 365</td><td>How long you take to pay suppliers</td></tr>
+          <tr><td class="row-header">Cash Conversion Cycle</td><td>DSO + DIO − DPO</td><td>Days between paying for inputs and collecting cash from sales</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ======================== MODULE 07: VALUATION ======================== -->
+<section class="section" id="valuation">
+  <div class="section-header reveal">
+    <span class="section-number">Module 07</span>
+    <h2 class="section-title">Valuation Methods</h2>
+    <p class="section-desc">What is a company worth? Three frameworks, one answer (hopefully).</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>1. Discounted Cash Flow (DCF)</h3>
+    <p>The DCF is the most theoretically rigorous valuation method. It values a company based on the <strong>present value of its future free cash flows</strong>.</p>
+    <div class="formula">Enterprise Value = Σ [FCF_t / (1 + WACC)^t] + Terminal Value / (1 + WACC)^n</div>
+
+    <h4>Steps to Build a DCF</h4>
+    <ol>
+      <li><strong>Project Free Cash Flows</strong> — Typically 5-10 years based on revenue growth, margins, CapEx, and working capital assumptions</li>
+      <li><strong>Calculate WACC</strong> — Weighted Average Cost of Capital, blending cost of equity (CAPM) and after-tax cost of debt</li>
+      <li><strong>Determine Terminal Value</strong> — Using either the Gordon Growth Model (perpetuity) or an Exit Multiple approach</li>
+      <li><strong>Discount to Present</strong> — Discount all future cash flows and terminal value back to today using WACC</li>
+      <li><strong>Calculate Equity Value</strong> — Enterprise Value − Net Debt = Equity Value. Divide by shares outstanding for per-share value.</li>
+    </ol>
+
+    <h4>WACC Formula</h4>
+    <div class="formula">WACC = (E/V × Re) + (D/V × Rd × (1 − Tax Rate))</div>
+    <p>Where E = equity value, D = debt value, V = total value, Re = cost of equity, Rd = cost of debt.</p>
+
+    <h4>Terminal Value Methods</h4>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <span class="tag tag-gold">Gordon Growth</span>
+        <h5>Perpetuity Method</h5>
+        <p>TV = FCF × (1+g) / (WACC − g). Assumes cash flows grow at a constant rate forever. Growth rate "g" is typically 2-3% (GDP growth).</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-blue">Exit Multiple</span>
+        <h5>Multiple Method</h5>
+        <p>TV = Terminal Year EBITDA × Exit EV/EBITDA Multiple. More commonly used in practice. Multiple based on comparable companies.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>2. Comparable Company Analysis ("Comps")</h3>
+    <p>Value a company by looking at how similar publicly traded companies are valued in the market. This is a <strong>relative valuation</strong> method.</p>
+
+    <h4>Process</h4>
+    <ol>
+      <li>Select a peer group of comparable public companies (similar industry, size, growth, margins)</li>
+      <li>Calculate valuation multiples for each peer</li>
+      <li>Apply the median/mean multiples to the target company's metrics</li>
+    </ol>
+
+    <h4>Common Multiples</h4>
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead><tr><th>Multiple</th><th>Formula</th><th>Use Case</th></tr></thead>
+        <tbody>
+          <tr><td class="row-header">EV / Revenue</td><td>Enterprise Value / Revenue</td><td>High-growth, pre-profit companies (SaaS, tech)</td></tr>
+          <tr><td class="row-header">EV / EBITDA</td><td>Enterprise Value / EBITDA</td><td>Most common in PE. Normalizes for capital structure</td></tr>
+          <tr><td class="row-header">P / E</td><td>Share Price / EPS</td><td>Public equity investors. Includes capital structure effects</td></tr>
+          <tr><td class="row-header">EV / EBIT</td><td>Enterprise Value / EBIT</td><td>When D&A varies significantly across peers</td></tr>
+          <tr><td class="row-header">P / B</td><td>Share Price / Book Value per Share</td><td>Asset-heavy industries (banking, real estate)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight">
+      <p><strong>Key:</strong> EV-based multiples (EV/EBITDA, EV/Revenue) are capital-structure neutral — they value the entire enterprise. Equity multiples (P/E) reflect the value to equity holders only.</p>
+    </div>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>3. Precedent Transactions</h3>
+    <p>Similar to comps, but instead of using current public market valuations, you look at <strong>prices paid in actual M&A transactions</strong> for comparable companies.</p>
+    <p>Precedent transactions typically yield <strong>higher multiples</strong> than comps because they include a <strong>control premium</strong> — the extra amount a buyer pays for control of the company (typically 20-40% above market price).</p>
+
+    <div class="highlight-blue">
+      <p><strong>Valuation Football Field:</strong> Analysts present all three methods side by side as a range (called a "football field chart"). The overlap between methods provides the valuation range used for negotiation.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ======================== MODULE 08: LBO ======================== -->
+<section class="section" id="lbo">
+  <div class="section-header reveal">
+    <span class="section-number">Module 08</span>
+    <h2 class="section-title">LBO Modeling</h2>
+    <p class="section-desc">The leveraged buyout is the bread and butter of private equity — amplifying returns through strategic use of debt.</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>What is an LBO?</h3>
+    <p>A Leveraged Buyout is the acquisition of a company using a significant amount of <strong>borrowed money</strong> (debt/leverage). The target company's own cash flows are used to service and repay the debt over time. Typically, the capital structure is:</p>
+
+    <div class="compare-grid">
+      <div class="compare-card">
+        <span class="tag tag-red">60-70% Debt</span>
+        <h5>Leverage</h5>
+        <p>Multiple tranches: Senior Secured, Second Lien, Mezzanine. Each with different cost, covenants, and priority. Total leverage typically 4-6x EBITDA.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-green">30-40% Equity</span>
+        <h5>Sponsor Equity</h5>
+        <p>PE firm's equity contribution. This is what generates returns. Lower equity = higher returns if things go well (but more risk).</p>
+      </div>
+    </div>
+
+    <h4>LBO Value Creation Levers</h4>
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="process-icon">💰</div>
+        <h5>Debt Paydown</h5>
+        <p>Using FCF to repay debt increases equity ownership stake</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">📈</div>
+        <h5>EBITDA Growth</h5>
+        <p>Revenue growth + margin expansion = higher earnings base</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">✖️</div>
+        <h5>Multiple Expansion</h5>
+        <p>Exit at a higher EV/EBITDA multiple than entry</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>LBO Returns: IRR and MOIC</h3>
+    <div class="formula">MOIC = Exit Equity Value / Initial Equity Investment</div>
+    <div class="formula">IRR = the discount rate that makes NPV of (Entry Equity → Exit Equity) = 0</div>
+
+    <h4>Example LBO Math</h4>
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead><tr><th>Item</th><th class="num">Entry</th><th class="num">Exit (Year 5)</th></tr></thead>
+        <tbody>
+          <tr><td class="row-header">EBITDA</td><td class="num">$100M</td><td class="num">$140M</td></tr>
+          <tr><td class="row-header">EV / EBITDA Multiple</td><td class="num">10.0x</td><td class="num">11.0x</td></tr>
+          <tr><td class="row-header">Enterprise Value</td><td class="num">$1,000M</td><td class="num">$1,540M</td></tr>
+          <tr><td class="row-header">Total Debt</td><td class="num">$600M</td><td class="num">$350M</td></tr>
+          <tr class="total-row"><td class="row-header">Equity Value</td><td class="num">$400M</td><td class="num">$1,190M</td></tr>
+          <tr class="total-row"><td class="row-header">MOIC</td><td class="num" colspan="2">2.98x</td></tr>
+          <tr class="total-row"><td class="row-header">IRR (5-year)</td><td class="num" colspan="2">~24.4%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight">
+      <p><strong>Target Returns:</strong> PE firms typically target 20-25%+ IRR and 2.5-3.0x+ MOIC. A 2x MOIC in 3 years ≈ 26% IRR. A 3x MOIC in 5 years ≈ 24.6% IRR.</p>
+    </div>
+
+    <h4>Ideal LBO Candidate Characteristics</h4>
+    <ul>
+      <li><strong>Stable, predictable cash flows</strong> — Can reliably service debt</li>
+      <li><strong>Strong market position</strong> — Defensible moat, loyal customers</li>
+      <li><strong>Low CapEx requirements</strong> — "Asset-light" models generate more FCF</li>
+      <li><strong>Operational improvement opportunities</strong> — Margin expansion potential</li>
+      <li><strong>Strong management team</strong> — Or the ability to install one</li>
+      <li><strong>Multiple expansion potential</strong> — Industry tailwinds, strategic value to future buyers</li>
+      <li><strong>Hard asset base</strong> — Provides collateral for lending</li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ======================== MODULE 09: DUE DILIGENCE ======================== -->
+<section class="section" id="due-diligence">
+  <div class="section-header reveal">
+    <span class="section-number">Module 09</span>
+    <h2 class="section-title">Due Diligence</h2>
+    <p class="section-desc">Measure twice, cut once. Due diligence separates successful PE investments from costly mistakes.</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Four Pillars of Due Diligence</h3>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <span class="tag tag-gold">Financial DD</span>
+        <h5>Quality of Earnings</h5>
+        <p>Validating historical financials, EBITDA adjustments, working capital normalization, debt-like items, revenue sustainability, and projection reasonableness.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-blue">Commercial DD</span>
+        <h5>Market & Competitive Position</h5>
+        <p>Market size (TAM/SAM/SOM), growth trends, competitive landscape, customer concentration, pricing power, and the company's strategic positioning.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-green">Legal DD</span>
+        <h5>Legal & Regulatory</h5>
+        <p>Contracts, litigation risk, IP ownership, regulatory compliance, employment matters, environmental liabilities, and corporate governance.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-purple">Operational DD</span>
+        <h5>Operations & Technology</h5>
+        <p>Management team assessment, IT systems, supply chain, operational efficiency, technology stack, cybersecurity, and scalability.</p>
+      </div>
+    </div>
+
+    <h4>Red Flags to Watch For</h4>
+    <ul>
+      <li>Revenue concentration — Top customer >20% of revenue</li>
+      <li>Aggressive EBITDA add-backs exceeding 25% of reported EBITDA</li>
+      <li>Working capital trends diverging from revenue growth</li>
+      <li>Key person dependency without succession planning</li>
+      <li>Pending litigation with material exposure</li>
+      <li>Significant related-party transactions</li>
+      <li>Deferred maintenance or underinvestment in CapEx</li>
+      <li>Regulatory changes that could disrupt the business model</li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ======================== MODULE 10: CAPITAL MARKETS ======================== -->
+<section class="section" id="markets">
+  <div class="section-header reveal">
+    <span class="section-number">Module 10</span>
+    <h2 class="section-title">Capital Markets</h2>
+    <p class="section-desc">Where money meets opportunity — understanding the plumbing of global finance.</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Equity Markets</h3>
+    <p>Equity markets (stock markets) are where ownership stakes in public companies are bought and sold. Key concepts:</p>
+
+    <h4>IPO Process (Initial Public Offering)</h4>
+    <p>The process of a private company "going public" by listing shares on a stock exchange. For PE, an IPO is one of the primary exit routes.</p>
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="process-icon">📋</div>
+        <h5>Preparation</h5>
+        <p>Select underwriters, audit financials, file S-1 with SEC</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">🛣️</div>
+        <h5>Roadshow</h5>
+        <p>Management pitches to institutional investors globally</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">💲</div>
+        <h5>Pricing</h5>
+        <p>Set IPO price based on demand. Book-building process</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">🔔</div>
+        <h5>Listing</h5>
+        <p>Shares begin trading on exchange. Lock-up period for insiders (180 days)</p>
+      </div>
+    </div>
+
+    <h4>Key Equity Market Concepts</h4>
+    <ul>
+      <li><strong>Market Capitalization:</strong> Share Price × Shares Outstanding — total equity value</li>
+      <li><strong>Enterprise Value:</strong> Market Cap + Net Debt + Minority Interest + Preferred Stock</li>
+      <li><strong>Public Float:</strong> Shares available for trading (excludes insider/restricted shares)</li>
+      <li><strong>Beta:</strong> Measure of a stock's volatility relative to the market (β = 1 means market-level risk)</li>
+      <li><strong>Equity Risk Premium:</strong> Extra return investors demand for holding stocks over risk-free bonds</li>
+    </ul>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Debt / Credit Markets</h3>
+    <p>The debt market is where companies borrow money. For PE, this is critical — debt finances the majority of LBO acquisitions.</p>
+
+    <h4>Debt Capital Structure (Senior to Junior)</h4>
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead><tr><th>Tranche</th><th>Priority</th><th>Typical Rate</th><th>Characteristics</th></tr></thead>
+        <tbody>
+          <tr><td class="row-header">Senior Secured (Term Loan)</td><td>1st (Highest)</td><td>SOFR + 200-400bps</td><td>Collateralized, lowest cost, most covenants</td></tr>
+          <tr><td class="row-header">Revolving Credit Facility</td><td>1st (Pari Passu)</td><td>SOFR + 200-350bps</td><td>Like a credit card — draw and repay as needed</td></tr>
+          <tr><td class="row-header">Second Lien</td><td>2nd</td><td>SOFR + 500-800bps</td><td>Subordinated claim on collateral</td></tr>
+          <tr><td class="row-header">Senior Unsecured / High Yield Bonds</td><td>3rd</td><td>6-10%</td><td>No collateral, fixed rate, longer maturity</td></tr>
+          <tr><td class="row-header">Mezzanine Debt</td><td>4th</td><td>10-15%</td><td>Often includes equity warrants/kickers</td></tr>
+          <tr><td class="row-header">Equity</td><td>Last</td><td>20%+ target</td><td>Highest risk, highest return potential</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight">
+      <p><strong>Key Credit Metrics:</strong> Lenders evaluate borrowers using Debt/EBITDA (leverage), Interest Coverage Ratio (EBITDA/Interest), Fixed Charge Coverage, and Cash Flow adequacy. Covenants (restrictions) protect lenders by limiting the borrower's actions.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ======================== MODULE 11: M&A ======================== -->
+<section class="section" id="ma">
+  <div class="section-header reveal">
+    <span class="section-number">Module 11</span>
+    <h2 class="section-title">M&A Process</h2>
+    <p class="section-desc">From first look to final close — the art and science of making deals.</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Types of M&A Transactions</h3>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <span class="tag tag-gold">Strategic</span>
+        <h5>Corporate Buyer</h5>
+        <p>A company acquires another for strategic reasons — market expansion, product synergies, talent acquisition, or eliminating competition. Can pay higher prices due to synergy value.</p>
+      </div>
+      <div class="compare-card">
+        <span class="tag tag-blue">Financial</span>
+        <h5>PE / Financial Buyer</h5>
+        <p>A PE firm acquires a company as a standalone investment. Price is discipline by return requirements (IRR targets). May pursue add-on acquisitions (buy-and-build).</p>
+      </div>
+    </div>
+
+    <h4>The Deal Process</h4>
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="process-icon">🔍</div>
+        <h5>Origination</h5>
+        <p>Sourcing deals via banker relationships, proprietary network, or auctions</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">📊</div>
+        <h5>Screening</h5>
+        <p>Preliminary analysis — CIM review, initial valuation, strategic fit assessment</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">🔬</div>
+        <h5>Due Diligence</h5>
+        <p>Deep-dive into financials, market, operations, legal, and management</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">📝</div>
+        <h5>Negotiation</h5>
+        <p>LOI, purchase agreement, reps & warranties, indemnification, closing conditions</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">✅</div>
+        <h5>Close & Integrate</h5>
+        <p>Funding, regulatory approvals, transition. PMI is where value is realized or destroyed</p>
+      </div>
+    </div>
+
+    <h4>Synergies</h4>
+    <p>Synergies are the additional value created by combining two businesses. They're a key driver of M&A pricing:</p>
+    <ul>
+      <li><strong>Cost Synergies:</strong> Eliminating redundant overhead, procurement savings, headcount reduction, facility consolidation. More predictable and achievable.</li>
+      <li><strong>Revenue Synergies:</strong> Cross-selling, new market access, combined product offerings. Harder to quantify and achieve — investors discount these heavily.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ======================== MODULE 12: ADVANCED ======================== -->
+<section class="section" id="advanced">
+  <div class="section-header reveal">
+    <span class="section-number">Module 12</span>
+    <h2 class="section-title">Advanced Topics & Trends</h2>
+    <p class="section-desc">The evolving landscape of private equity and what's shaping the industry's future.</p>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Emerging Themes in PE</h3>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-trigger">ESG & Impact Investing</button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>Environmental, Social, and Governance (ESG) factors are increasingly central to PE investing. LPs are demanding ESG integration in due diligence and portfolio management. Firms are creating dedicated impact funds, and ESG performance is being linked to carry and management compensation. Key areas include carbon footprint reduction, diversity & inclusion metrics, supply chain sustainability, and governance best practices.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">GP-Led Secondaries & Continuation Vehicles</button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>One of the fastest-growing segments. GP-led secondaries allow PE firms to move portfolio companies from an old fund into a "continuation vehicle," giving the GP more time to realize value while offering existing LPs liquidity. This has become a major tool in an environment where IPO and M&A exit markets are challenging.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">Co-Investments & Direct Investing</button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>Large LPs (sovereign wealth funds, mega-pensions) are increasingly co-investing alongside GPs in individual deals — or even investing directly without a GP. Co-investments typically carry lower/no fees and no carry, making them very attractive for LPs who have the capability to evaluate deals independently.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">Technology & AI in PE</button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>PE firms are leveraging technology across the investment lifecycle: AI-powered deal sourcing and screening, machine learning for due diligence and market analysis, data analytics platforms for portfolio monitoring, and automation tools for operational improvement within portfolio companies. Tech-enabled value creation is becoming a key differentiator.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">Private Credit Boom</button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>Private credit (direct lending by non-bank institutions) has exploded as banks pulled back from leveraged lending post-GFC. PE-affiliated credit arms now provide a significant portion of LBO financing. This gives PE firms more control over capital structure and often faster, more flexible execution than traditional syndicated loan markets.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">Democratization of PE</button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>Historically limited to institutional investors, PE is becoming accessible to retail investors through semi-liquid funds, interval funds, and publicly listed PE vehicles. Platforms are emerging that allow qualified individuals to invest in PE funds with lower minimums. This trend is expanding the LP base but also raising regulatory and suitability questions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block reveal">
+    <h3>Key Terminology Glossary</h3>
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+        <tbody>
+          <tr><td class="row-header">AUM</td><td>Assets Under Management — total capital a firm manages</td></tr>
+          <tr><td class="row-header">Carry / Carried Interest</td><td>GP's share of profits (typically 20%) above the hurdle rate</td></tr>
+          <tr><td class="row-header">CIM</td><td>Confidential Information Memorandum — the "pitch book" for a company being sold</td></tr>
+          <tr><td class="row-header">Covenant</td><td>Contractual restriction in a debt agreement (e.g., max leverage ratio)</td></tr>
+          <tr><td class="row-header">Dry Powder</td><td>Committed but undeployed capital in PE funds</td></tr>
+          <tr><td class="row-header">Enterprise Value (EV)</td><td>Total value of a company (equity + net debt)</td></tr>
+          <tr><td class="row-header">Hurdle Rate</td><td>Minimum return LPs must receive before GP earns carry</td></tr>
+          <tr><td class="row-header">IRR</td><td>Internal Rate of Return — annualized return on investment</td></tr>
+          <tr><td class="row-header">LOI</td><td>Letter of Intent — preliminary, non-binding offer to acquire</td></tr>
+          <tr><td class="row-header">MOIC</td><td>Multiple on Invested Capital — total return multiple (e.g., 3.0x)</td></tr>
+          <tr><td class="row-header">NAV</td><td>Net Asset Value — current value of a fund's portfolio</td></tr>
+          <tr><td class="row-header">Platform</td><td>Initial acquisition in a buy-and-build strategy</td></tr>
+          <tr><td class="row-header">Bolt-on / Add-on</td><td>Smaller acquisition made by a platform company</td></tr>
+          <tr><td class="row-header">PMI</td><td>Post-Merger Integration — combining two companies after acquisition</td></tr>
+          <tr><td class="row-header">SPA</td><td>Share Purchase Agreement — the binding deal document</td></tr>
+          <tr><td class="row-header">Waterfall</td><td>The distribution structure defining how fund returns are split between GP and LPs</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== FINAL QUIZ ======================== -->
+<section class="section">
+  <div class="section-header reveal">
+    <span class="section-number">Final Assessment</span>
+    <h2 class="section-title">Comprehensive Quiz</h2>
+    <p class="section-desc">Test your knowledge across all modules.</p>
+  </div>
+
+  <div class="quiz-wrap reveal">
+    <h4>✦ Final Assessment — 5 Questions</h4>
+    <div class="quiz-q" data-answer="1">
+      <p>1. In a typical LBO, the acquisition is funded with approximately:</p>
+      <div class="quiz-options">
+        <div class="quiz-option" data-idx="0">90% equity, 10% debt</div>
+        <div class="quiz-option" data-idx="1">30-40% equity, 60-70% debt</div>
+        <div class="quiz-option" data-idx="2">50% equity, 50% debt</div>
+        <div class="quiz-option" data-idx="3">100% equity</div>
+      </div>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p>2. The ending cash balance on the Cash Flow Statement equals:</p>
+      <div class="quiz-options">
+        <div class="quiz-option" data-idx="0">Net Income on the Income Statement</div>
+        <div class="quiz-option" data-idx="1">Total Assets on the Balance Sheet</div>
+        <div class="quiz-option" data-idx="2">Cash & Cash Equivalents on the Balance Sheet</div>
+        <div class="quiz-option" data-idx="3">Retained Earnings on the Balance Sheet</div>
+      </div>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p>3. Which valuation method typically yields the highest values due to a control premium?</p>
+      <div class="quiz-options">
+        <div class="quiz-option" data-idx="0">Precedent Transactions</div>
+        <div class="quiz-option" data-idx="1">Comparable Companies</div>
+        <div class="quiz-option" data-idx="2">Discounted Cash Flow</div>
+        <div class="quiz-option" data-idx="3">Book Value</div>
+      </div>
+    </div>
+    <div class="quiz-q" data-answer="3">
+      <p>4. A company with Debt/EBITDA of 5.5x and Interest Coverage of 1.8x is:</p>
+      <div class="quiz-options">
+        <div class="quiz-option" data-idx="0">Conservatively capitalized with low risk</div>
+        <div class="quiz-option" data-idx="1">Under-leveraged and should take on more debt</div>
+        <div class="quiz-option" data-idx="2">An ideal LBO candidate</div>
+        <div class="quiz-option" data-idx="3">Highly leveraged and at risk of debt distress</div>
+      </div>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p>5. Which of the three value creation levers in an LBO is most within the PE firm's control?</p>
+      <div class="quiz-options">
+        <div class="quiz-option" data-idx="0">Multiple expansion</div>
+        <div class="quiz-option" data-idx="1">Operational improvement / EBITDA growth</div>
+        <div class="quiz-option" data-idx="2">Market timing</div>
+        <div class="quiz-option" data-idx="3">Interest rate changes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== FOOTER ======================== -->
+<footer class="footer">
+  <p style="font-family:var(--font-display); font-size:1.25rem; color:var(--accent-gold); margin-bottom:1rem;">PE & Markets — Complete Course</p>
+  <p>Covering Private Equity, Financial Statements, Valuation, LBO Modeling, Capital Markets & M&A</p>
+  <p style="margin-top:1rem;">Built for portfolio display • All content for educational purposes</p>
+</footer>
+
+<!-- Back to Top -->
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// === SCROLL PROGRESS ===
+const progress = document.getElementById('navProgress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  progress.style.width = pct + '%';
+
+  // Back to top button
+  document.getElementById('btt').classList.toggle('show', window.scrollY > 600);
+});
+
+// === REVEAL ON SCROLL ===
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// === ACCORDION ===
+document.querySelectorAll('.accordion-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const content = btn.nextElementSibling;
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.accordion-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.accordion-content').style.maxHeight = null;
+    });
+
+    if (!isOpen) {
+      item.classList.add('open');
+      content.style.maxHeight = content.scrollHeight + 'px';
+    }
+  });
+});
+
+// === QUIZ ===
+document.querySelectorAll('.quiz-option').forEach(opt => {
+  opt.addEventListener('click', function() {
+    const q = this.closest('.quiz-q');
+    if (q.classList.contains('answered')) return;
+    q.classList.add('answered');
+
+    const correct = parseInt(q.dataset.answer);
+    const selected = parseInt(this.dataset.idx);
+
+    if (selected === correct) {
+      this.classList.add('correct');
+    } else {
+      this.classList.add('wrong');
+      q.querySelectorAll('.quiz-option')[correct].classList.add('correct');
+    }
+  });
+});
+
+// === ACTIVE NAV ===
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+
+</body>
+</html>

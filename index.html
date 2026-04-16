@@ -1,1096 +1,1413 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta name="google-site-verification" content="a09CCDP0nmKuqThHeVHNzzG9xooWmojIsvIjxWwVPbU" />
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dattatray Dagale - Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-    };
-  </script>
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-    .bar {
-      background: #2d2d2d;
-      height: 10px;
-      border-radius: 9999px;
-      overflow: hidden;
-    }
-    .fill {
-      background: #3b82f6;
-      height: 100%;
-      border-radius: 9999px;
-    }
-  </style>
-</head>
-
-<body class="bg-gray-900 text-white">
-  <!-- Navbar -->
-  <header class="fixed top-0 w-full bg-gray-900 shadow z-50">
-    <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <!-- Site Title Centered -->
-      <div class="flex-1 text-center md:text-left">
-        <h1 class="text-xl font-bold text-white">Dattatray Dagale</h1>
-      </div>
-
-      <!-- Hamburger for mobile -->
-      <div class="md:hidden">
-        <button id="menuBtn" class="text-white focus:outline-none">
-          <i class="fas fa-bars text-2xl"></i>
-        </button>
-      </div>
-
-      <!-- Nav Links Dropdown for All Screens -->
-      <div class="relative">
-        <button id="dropdownBtn" class="hidden md:inline-block text-sm bg-gray-800 px-4 py-2 rounded hover:bg-blue-500 transition">Menu</button>
-        <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg z-50 text-left">
-          <a href="#home" class="block px-4 py-2 hover:bg-blue-500">Home</a>
-          <a href="#about" class="block px-4 py-2 hover:bg-blue-500">About</a>
-          <a href="#education" class="block px-4 py-2 hover:bg-blue-500">Education</a>
-          <a href="#experience" class="block px-4 py-2 hover:bg-blue-500">Experience</a>
-          <a href="#skills" class="block px-4 py-2 hover:bg-blue-500">Skills</a>
-          <a href="#timeline" class="block px-4 py-2 hover:bg-blue-500">Milestones</a>
-          <a href="#projects" class="block px-4 py-2 hover:bg-blue-500">Projects</a>
-          <a href="#certifications" class="block px-4 py-2 hover:bg-blue-500">Certifications</a>
-          <a href="#languages" class="block px-4 py-2 hover:bg-blue-500">Languages</a>
-          <a href="#blog" class="block px-4 py-2 hover:bg-blue-500">Blog</a>
-          <a href="#contact" class="block px-4 py-2 hover:bg-blue-500">Contact</a>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Hero Section -->
-  <!-- (Remaining content stays the same) -->
-
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init({ once: true, duration: 800 });
-
-    // Mobile menu toggle
-    document.getElementById('menuBtn').addEventListener('click', () => {
-      const nav = document.getElementById('dropdownMenu');
-      nav.classList.toggle('hidden');
-    });
-
-    // Desktop dropdown toggle
-    document.getElementById('dropdownBtn').addEventListener('click', () => {
-      const dropdown = document.getElementById('dropdownMenu');
-      dropdown.classList.toggle('hidden');
-    });
-  </script>
-</body>
-  
-<!-- Back to Top Button -->
-<button id="backToTop"
-  onclick="window.scrollTo({ top: 0, behavior: 'smooth' });"
-  title="Back to Top"
-  class="hidden fixed bottom-6 right-6 z-50 p-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg hover:scale-110 transition-transform duration-300 ease-in-out">
-  ↑
-</button>
-  
-<!-- Scroll Progress Bar -->
-<div id="scroll-bar" class="fixed top-0 left-0 h-1 w-0 bg-gradient-to-r from-blue-500 to-purple-600 z-50"></div>
-
-</html>
-
-
-  <!-- Hero Section -->
-  <section id="home" class="flex flex-col md:flex-row justify-center items-center text-center md:text-left min-h-screen pt-28 px-6 bg-gray-900 bg-opacity-50">
-    <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
-      <h2 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">Hi, I'm <span class="text-blue-500">Dattatray Dagale</span></h2>
-      <p class="text-lg text-gray-300 mb-4">Blogger | Financial Analyst | UPSC-CGL Aspirant</p>
-      <p class="text-lg text-gray-300 mb-4">🌟 Aspiring to Become a Data Scientist</p>
-      <p class="text-gray-400 font-semibold">
-  <a href="#experience" class="typing-link">
-    <span class="typing-text"></span>
-  </a>
-</p>
-
-<style>
-.typing-link {
-  text-decoration: none;
-  color: #00ffc3;
-  font-weight: bold;
-}
-
-.typing-text::after {
-  content: "Currently working as a Data Analyst 🤖";
-  animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
-  white-space: nowrap;
-  overflow: hidden;
-  display: inline-block;
-  border-right: 2px solid #00ffc3;
-  color: #00ffc3;
-}
-
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes blink {
-  0%, 100% {
-    border-color: transparent;
-  }
-  50% {
-    border-color: #00ffc3;
-  }
-}
-</style>
-
-      <a href="#contact" class="inline-block mt-6 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Get in Touch</a>
-    </div>
-    <div class="md:w-1/2 flex justify-center" data-aos="fade-left">
-      <img src="Img/Datta.jpeg" alt="Dattatray Dagale" class="w-56 h-56 object-cover rounded-full shadow-lg border-4 border-blue-500" />
-    </div>
-    <style>
-    .btn-group-wrapper {
-        display: flex;
-        flex-wrap: wrap; /* Allows buttons to stack on small mobile screens */
-        gap: 15px;
-        align-items: center;
-        margin-top: 20px;
-    }
-
-    /* Style for the Learn Hub & Notes Links */
-    .custom-repo-link {
-        display: inline-flex;
-        align-items: center;
-        text-decoration: none;
-        padding: 10px 15px;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.05); /* Subtle dark background */
-        transition: transform 0.2s, background 0.2s;
-        border: 1px solid transparent;
-    }
-
-    .custom-repo-link:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translateY(-2px);
-        border-color: #e3b341;
-    }
-
-    .link-icon {
-        width: 24px;
-        height: 24px;
-        margin-right: 10px;
-        font-size: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .link-text {
-        color: #e3b341; /* Gold color from your screenshot */
-        font-family: "Times New Roman", Times, serif;
-        font-size: 1.2rem;
-        font-weight: bold;
-        white-space: nowrap;
-    }
-
-    /* Mobile Responsive adjustments */
-    @media (max-width: 600px) {
-        .btn-group-wrapper {
-            justify-content: center;
-        }
-        .link-text {
-            font-size: 1rem;
-        }
-    }
-</style>
-
-<div class="btn-group-wrapper">
-  <a href="https://dagaledattatray.github.io/courses.html" class="custom-repo-link">
-        <span class="link-icon">🎓</span>
-        <span class="link-text">Courses</span>
-    </a>
-    <a href="https://dagaledattatray.github.io/learn.html" class="custom-repo-link">
-        <span class="link-icon">📚</span>
-        <span class="link-text">Learn Hub</span>
-    </a>
-
-    <a href="https://dagaledattatray.github.io/learning.html" class="custom-repo-link">
-        <span class="link-icon">📓</span>
-        <span class="link-text">Learning Notes</span>
-    </a>
-</div>
-  </section>
-
-  <!-- ✅ About Section (Final Version with Interests & What I'm Doing) -->
-<section id="about" class="bg-gray-900 py-20 px-6">
-  <div class="max-w-6xl mx-auto">
-    <h2 class="text-4xl font-bold text-center text-white mb-12 relative inline-block" data-aos="zoom-in">
-      👤 About Me
-      <span class="block w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-3 rounded-full"></span>
-    </h2>
-    <div class="bg-gray-800 rounded-xl p-8 md:p-12 text-gray-300 shadow-lg transition hover:shadow-2xl" data-aos="fade-up" data-aos-delay="100">
-      <p class="text-lg leading-relaxed mb-6">
-        Hi, I’m <strong class="text-blue-400">Dattatray Dagale</strong>, I am a recent postgraduate in Business Economics with a strong grounding in economic theory and analytical thinking. I am currently seeking an entry-level opportunity in a business or finance-related domain where I can effectively apply my academic knowledge and analytical skills.
-      </p>
-      <p class="text-lg leading-relaxed mb-6">
-        Previously, I worked as a <strong>Financial Analyst at Atos Syntel</strong> (2022–2023), managing reconciliation, corporate actions, and Bloomberg datasets. I was honored with the prestigious <span class="text-yellow-300 font-semibold">Champ Award</span> in July 2023 for excellence in performance.
-      </p>
-      <p class="text-lg leading-relaxed mb-6">
-        Driven and results-oriented, I possess hands-on experience in financial analysis and knowledge process outsourcing.
-      </p>
-      <!-- ✅ What I'm Currently Doing -->
-      <p class="text-lg leading-relaxed mt-6">
-        🔍 At present I am working as  <strong>Data Analyst</strong> while also preparing for competitive exams such as UPSC and SSC CGL.
-      </p>
-      <!-- ✅ Core Interests -->
-      <div class="flex flex-wrap gap-4 mt-8 text-sm text-gray-400" data-aos="fade-up" data-aos-delay="200">
-         <span class="bg-gray-700 px-3 py-1 rounded-full">✍️ Writing & Blogging</span>
-         <span class="bg-gray-700 px-3 py-1 rounded-full">📺 Anime</span>
-         <span class="bg-gray-700 px-3 py-1 rounded-full">📖 Reading</span>
-         <span class="bg-gray-700 px-3 py-1 rounded-full">💰 Finance & Economics</span>
-        <span class="bg-gray-700 px-3 py-1 rounded-full">📊 Data Storytelling</span>
-        <span class="bg-gray-700 px-3 py-1 rounded-full">📚 Public Policy</span>
-        <span class="bg-gray-700 px-3 py-1 rounded-full">🎓 Lifelong Learner</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-  <!-- Education Section -->
-<section id="education" class="bg-gray-900 py-16 px-6">
-  <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">🎓 Education</h2>
-  <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-10" data-aos="fade-up">
-
-    <!-- HSE -->
-    <div class="bg-gray-800 p-6 rounded-lg shadow hover:shadow-blue-500 transition">
-      <h3 class="text-xl font-semibold">Higher Secondary Education (HSE)</h3>
-      <p class="text-sm text-gray-300">Pune Board, 2017</p>
-      <p class="text-gray-400 mt-2">Percentage: <span class="text-yellow-300 font-semibold">72.96%</span></p>
-    </div>
-
-    <!-- BA Economics -->
-    <div class="bg-gray-800 p-6 rounded-lg shadow hover:shadow-blue-500 transition">
-      <h3 class="text-xl font-semibold">B.A. in Economics</h3>
-      <p class="text-sm text-gray-300">Mumbai University, 2020</p>
-      <p class="text-gray-400 mt-2">CGPA: <span class="text-green-400 font-semibold">8.96</span></p>
-      <p class="text-gray-400 mt-1">Major: Economics</p>
-      <p class="text-gray-400 mt-1">Focus: Indian Economy, Statistics, Public Administration</p>
-    </div>
-
-    <!-- MA Economics -->
-    <div class="bg-gray-800 p-6 rounded-lg shadow hover:shadow-blue-500 transition">
-      <h3 class="text-xl font-semibold">M.A. in Economics</h3>
-      <p class="text-sm text-gray-300">Mumbai University, 2022</p>
-      <p class="text-gray-400 mt-2">CGPA: <span class="text-green-400 font-semibold">9.90</span></p>
-      <p class="text-gray-400 mt-1">Major: Business Economics</p>
-      <p class="text-gray-400 mt-1">Focus: Governance, Public Policy, Research</p>
-    </div>
-      <!-- Coursera -->
-    <div class="bg-gray-800 p-6 rounded-lg shadow hover:shadow-blue-500 transition">
-      <h3 class="text-xl font-semibold">Foundations of Cybersecurity</h3>
-      <p class="text-sm text-gray-300">Coursera, November 2025</p>
-      <p class="text-gray-400 mt-2">Grade Achieved: <span class="text-pink-400 font-semibold">92.61%</span></p>
-      <p class="text-gray-400 mt-1">Focus: Cyber Security</p>
-    </div>
-
-  </div>
-</section>
-
-
-  <!-- Experience Section -->
-<section id="experience" class="bg-gray-800 py-16 px-6">
-  <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">💼 Experience</h2>
-  <div class="max-w-4xl mx-auto space-y-8" data-aos="fade-up">
-
-    <!-- Data Analyst -->
-<div class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition">
-  <h3 class="text-xl font-semibold">Data Analyst</h3>
-  <p class="text-sm text-gray-300">Morningstar</p>
-  <p class="text-sm text-gray-400">2025 – Present</p>
-  <p class="text-gray-400 mt-2">
-    As a <strong class="text-blue-400">Data Analyst</strong>, I am responsible for <strong class="text-blue-400">searching, collecting, and verifying</strong> financial and market data of <strong class="text-blue-400">basic to intermediate complexity</strong>. I ensure data accuracy by adhering to <strong class="text-blue-400">methodologies and policy guidelines</strong>.
-  </p>
-  <p class="text-gray-400 mt-2">
-    I also <strong class="text-blue-400">respond to internal and client queries</strong> to maintain data quality, <strong class="text-blue-400">collaborate across teams</strong> to resolve issues, and continuously <strong class="text-blue-400">learn research standards and processes</strong> to improve productivity and timeliness.
-  </p>
-  <p class="text-gray-400 mt-2">
-At Morningstar, I work as part of the <strong class="text-blue-400"> Lumonic team where I analyze, extract, and standardize financial statement data for companies across global markets </strong>. My responsibilities include: <strong class="text-red-400"> 1. Reviewing and interpreting Balance Sheets, Income Statements, and Cash Flow Statements </strong>. <strong class="text-orange-400"> 2. Extracting key financial metrics and mapping them to Morningstar’s data model </strong>. <strong class="text-yellow-400"> 3. Performing data quality checks to ensure 100% accuracy and consistency across reporting periods </strong>. <strong class="text-green-400"> 4. Resolving discrepancies through research, validation, and communication with internal teams </strong>. <strong class="text-indigo-400"> 5. Supporting data pipelines used in Morningstar’s investment research products and analytics tools </strong>. I contribute to building reliable, structured datasets that help analysts, investors, and institutions make informed financial decisions. My work combines financial domain knowledge with strong analytical and data-validation skills.
-      </p>
-  <p class="text-gray-400 mt-2">Skills:
-    <span class="text-pink-400">AI Model Training</span>,
-    <span class="text-pink-400">Project Management</span>,
-    <span class="text-pink-400">Multitasking</span>,
-    <span class="text-purple-400">Financial Statements</span>,
-    <span class="text-green-400">Data Collection</span>,
-    <span class="text-green-400">Data Verification</span>,
-    <span class="text-green-400">Financial Market Research</span>,
-    <span class="text-green-400">Team Collaboration</span>,
-    <span class="text-green-400">Process Optimization</span>,
-    <span class="text-green-400">Quality Assurance</span>
-  </p>
-</div>
-
-    
-    <!-- Financial Analyst / KPO Officer -->
-    <div class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition">
-      <h3 class="text-xl font-semibold">Financial Analyst / KPO Officer</h3>
-      <p class="text-sm text-gray-300">State Street Syntel Services Pvt. Ltd.</p>
-      <p class="text-sm text-gray-400">2022 – 2023</p>
-      <p class="text-gray-400 mt-2">
-        As a <strong class="text-blue-400">KPO Officer</strong> in the <strong class="text-blue-400">Income Process</strong>, I provided specialized financial services involving income distribution from securities like bonds and equities. Responsibilities included <strong class="text-blue-400">data reconciliation</strong>, <strong class="text-blue-400">income calculation</strong>, and ensuring accurate and timely payments to investors.
-      </p>
-      <p class="text-gray-400 mt-2">Skills: <span class="text-green-400">Finance</span>, <span class="text-green-400">Reconciliation</span>, <span class="text-green-400">Bloomberg</span>, <span class="text-green-400">Equity</span>, <span class="text-green-400">Bonds</span>, <span class="text-green-400">DTCC</span>, <span class="text-green-400">Time Management</span></p>
-    </div>
-
-    <!-- Blogger -->
-    <div class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition">
-      <h3 class="text-xl font-semibold">Blogger & Content Creator</h3>
-      <p class="text-sm text-gray-300">Self-Driven | <a href="https://dattatraydagale.blogspot.com" target="_blank" class="text-blue-400 hover:underline">Visit Blog</a></p>
-      <p class="text-sm text-gray-400">2020 – Present</p>
-      <p class="text-gray-400 mt-2">
-        I have been independently managing my blog since 2020, writing on <strong class="text-blue-400">economics</strong>, <strong class="text-blue-400">finance</strong>, <strong class="text-blue-400">cryptocurrency</strong>, and general “how-to” content. My responsibilities include <strong>research</strong>, <strong>SEO writing</strong>, <strong>visual content creation</strong>, and digital marketing through <strong>social media</strong> and <strong>email campaigns</strong>.
-      </p>
-      <p class="text-gray-400 mt-2">
-        Skills: <span class="text-green-400">Graphic Design</span>, <span class="text-green-400">SEO</span>, <span class="text-green-400">Google Docs</span>, <span class="text-green-400">Blogger</span>, <span class="text-green-400">Canva</span>, <span class="text-green-400">Web Content Creation</span>, <span class="text-green-400">HTML</span>, <span class="text-green-400">WordPress</span>, <span class="text-green-400">Research</span>, <span class="text-green-400">Cryptocurrency</span>
-      </p>
-    </div>
-
-    <!-- Part-Time Teacher -->
-    <div class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition">
-      <h3 class="text-xl font-semibold">Part-Time English Teacher</h3>
-      <p class="text-sm text-gray-300">Sheetal Academy</p>
-      <p class="text-sm text-gray-400">2017 – 2018</p>
-      <p class="text-gray-400 mt-2">
-        After enrolling for a personal development course at <strong class="text-blue-400">Sheetal Academy</strong>, I was offered the chance to teach English for 2–3 months. During this time, I delivered lessons to students of all ages, tracked progress, and offered personalized feedback.
-      </p>
-      <p class="text-gray-400 mt-2">
-        This experience helped me grow immensely—transforming from a student to a teacher. I remain grateful to my mentors and peers for the opportunity to contribute and learn.
-      </p>
-      <p class="text-gray-400 mt-2">Skills: <span class="text-green-400">Teaching</span>, <span class="text-green-400">English Grammar</span>, <span class="text-green-400">Communication</span></p>
-    </div>
-
-  </div>
-</section>
-
-
-  <!-- Skills Section -->
-  <section id="skills" class="bg-gray-900 py-16 px-6">
-    <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">🛠️ Skills</h2>
-    <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-8" data-aos="fade-up">
-      <div><h3 class="font-semibold text-lg">Basic HTML</h3><div class="bar mt-2"><div class="fill w-12/12"></div></div></div>
-      <div><h3 class="font-semibold text-lg">Economics and Finance</h3><div class="bar mt-2"><div class="fill w-12/12"></div></div></div>
-      <div><h3 class="font-semibold text-lg">Analytics and Adaptability</h3><div class="bar mt-2"><div class="fill w-10/12"></div></div></div>
-      <div><h3 class="font-semibold text-lg">Excel & Bloomberg</h3><div class="bar mt-2"><div class="fill w-11/12"></div></div></div>
-      <div><h3 class="font-semibold text-lg">Financial Research</h3><div class="bar mt-2"><div class="fill w-10/12"></div></div></div>
-      <div><h3 class="font-semibold text-lg">Data Analysis</h3><div class="bar mt-2"><div class="fill w-9/12"></div></div></div>
-      <div><h3 class="font-semibold text-lg">Public Policy & Governance</h3><div class="bar mt-2"><div class="fill w-10/12"></div></div></div>
-    </div>
-  </section>
-
-  <!-- Timeline Section -->
-<section id="timeline" class="bg-gray-800 py-16 px-6">
-  <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">📌 Milestones</h2>
-  <div class="max-w-4xl mx-auto space-y-8 border-l-2 border-blue-500 pl-6" data-aos="fade-up">
-    
-    <!-- HSC -->
-    <div>
-      <h4 class="text-lg font-semibold text-white">2017 – Completed Higher Secondary Education (HSC)</h4>
-      <p class="text-gray-400">Secured <span class="text-yellow-300 font-semibold">72.96%</span> from Pune Board.</p>
-    </div>
-
-    <!-- BA Graduation -->
-    <div>
-      <h4 class="text-lg font-semibold text-white">2020 – Graduated with B.A. in Economics</h4>
-      <p class="text-gray-400">Achieved a <span class="text-green-400 font-semibold">CGPA of 8.96</span> from Mumbai University.</p>
-    </div>
-
-    <!-- Blog Started -->
-    <div>
-      <h4 class="text-lg font-semibold text-white">2020 – Launched Personal Finance Blog</h4>
-      <p class="text-gray-400">Started writing on economics, finance, and general knowledge at 
-        <a href="https://dattatraydagale.blogspot.com" target="_blank" class="text-blue-400 hover:underline">dattatraydagale.blogspot.com</a>.
-      </p>
-    </div>
-
-    <!-- MA Completed -->
-    <div>
-      <h4 class="text-lg font-semibold text-white">2022 – Completed M.A. in Economics</h4>
-      <p class="text-gray-400">Specialized in <span class="text-blue-400">Business Economics</span> with a <span class="text-green-400 font-semibold">CGPA of 9.90</span>.</p>
-    </div>
-
-    <!-- Financial Analyst Job -->
-    <div>
-      <h4 class="text-lg font-semibold text-white">2022 – Joined Atos Syntel as Financial Analyst</h4>
-      <p class="text-gray-400">Worked in the Income Process division, managing reconciliation and Bloomberg datasets. Received the <span class="text-yellow-300 font-semibold">Champ Award</span> in July 2023.</p>
-    </div>
-
-  </div>
-</section>
-
-
-  
-<!-- Blog Bubble -->
-<div id="blogBubble" class="fixed bottom-20 left-4 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg border-l-4 border-indigo-600 max-w-xs z-50 animate-fade-in">
-  <div class="flex justify-between items-start">
-    <div>
-      <p class="text-sm text-gray-700 dark:text-gray-300">
-        ✨ New on my blog: <br>
-        <strong>How India’s Budget 2025 Impacts You</strong>
-      </p>
-      <a href="https://dattatraydagale.blogspot.com/" target="_blank" class="text-indigo-600 text-sm mt-2 inline-block hover:underline">
-        Read Now →
-      </a>
-    </div>
-    <!-- Close Button -->
-    <button onclick="document.getElementById('blogBubble').style.display='none'" class="ml-2 text-gray-400 hover:text-red-500 text-xl font-bold leading-none">&times;</button>
-  </div>
-</div>
-
-<!-- Animation Style -->
-<style>
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in {
-  animation: fadeIn 1s ease-out;
-}
-</style>
-
-
-<!-- Projects Section -->
-<section id="projects" class="bg-gray-900 py-16 px-6">
-  <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">🏆 Projects & Achievements</h2>
-  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8" data-aos="fade-up">
-
-    <!-- Blog Showcase 1 -->
-    <div class="bg-gray-800 p-6 rounded-xl shadow hover:shadow-blue-400 transition">
-      <h3 class="text-xl font-semibold mb-2">📘 Personal Blog</h3>
-      <p class="text-gray-400 mb-2">Sharing thoughts on finance, governance, and exam prep through writing.</p>
-      <a href="https://dattatraydagale.blogspot.com" target="_blank" class="text-blue-400 hover:underline">Visit Blog</a>
-    </div>
-
-    <!-- Blog Showcase 2 -->
-    <div class="bg-gray-800 p-6 rounded-xl shadow hover:shadow-blue-400 transition">
-      <h3 class="text-xl font-semibold mb-2">📙 Marathi Economics Blog</h3>
-      <p class="text-gray-400 mb-2">Explaining economics in Marathi to reach local audiences effectively.</p>
-      <a href="https://marathieconomics.blogspot.com" target="_blank" class="text-blue-400 hover:underline">Read Blog</a>
-    </div>
-
-    <!-- YouTube Channel -->
-    <div class="bg-gray-800 p-6 rounded-xl shadow hover:shadow-blue-400 transition">
-      <h3 class="text-xl font-semibold mb-2">📺 YouTube Channel</h3>
-      <p class="text-gray-400 mb-2">Creating educational content on economics, current affairs, and digital skills.</p>
-      <a href="https://www.youtube.com/channel/UC19GysghdC_APcqST8JXaYg?sub_confirmation=1" target="_blank" class="text-blue-400 hover:underline">Subscribe on YouTube</a>
-    </div>
-
-    <!-- College Project: MGNREGA -->
-    <div class="bg-gray-800 p-6 rounded-xl shadow hover:shadow-blue-400 transition">
-      <h3 class="text-xl font-semibold mb-2">📄 MGNREGA – Academic Project</h3>
-      <p class="text-gray-400 mb-2">
-        As part of my M.A. Economics, I worked on a project about <strong class="text-yellow-300">MGNREGA</strong>, a key rural employment scheme. The project allowed me to apply economic theory to real-world challenges and sharpened my <span class="text-green-400">data analysis</span> and <span class="text-green-400">problem-solving</span> skills.
-      </p>
-      <!-- Link to PDF (placeholder) -->
-      <a href="https://www.linkedin.com/in/dattatraydagale/" target="_blank" class="text-blue-400 hover:underline">View Project PDF</a>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- Licenses & Certifications Section -->
-<section id="certifications" class="bg-gray-800 py-16 px-6">
-  <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">📜 Licenses & Certifications</h2>
-  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8" data-aos="fade-up">
-
-    <!-- Replace each href with your Google Drive certificate link -->
-    <a href="https://drive.google.com/file/d/1Vu58_JX6Sz24A86lOumZCX3JWC-MEn4x/view" target="_blank" class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition block">
-      <h3 class="text-xl font-semibold mb-2">Champ Award</h3>
-      <p class="text-gray-400">By Atos Syntel</p>
-    </a>
-
-    <a href="https://drive.google.com/file/d/1Bef1gGFJfH-kI6HCS59GruTBwhlY-XaD/view" target="_blank" class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition block">
-      <h3 class="text-xl font-semibold mb-2">LEAD 1</h3>
-      <p class="text-gray-400">By Atos Syntel</p>
-    </a>
-
-    <a href="https://drive.google.com/file/d/14G65DfMEGRDB9O7Ft6ojkatTrlVvkFKI/view" target="_blank" class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition block">
-      <h3 class="text-xl font-semibold mb-2">Python</h3>
-      <p class="text-gray-400">By GUVI</p>
-    </a>
-
-    <a href="https://certificates.mooc.fi/validate/f3tqtia9e28" target="_blank" class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition block">
-      <h3 class="text-xl font-semibold mb-2">Elements of AI</h3>
-      <p class="text-gray-400">University of Helsinki</p>
-    </a>
-
-      <a href="https://drive.google.com/file/d/13DcFlO5Jl_Ut7iTPtUXQvJnnFSkCtJ-q/view" target="_blank" class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition block">
-      <h3 class="text-xl font-semibold mb-2">Blockcahin Business Foundation</h3>
-      <p class="text-gray-400">Udemy</p>
-    </a>
-
-     <a href="https://drive.google.com/file/d/14ks6UoW59-IX82MCH_dSas-_VzHGWKwk/view" target="_blank" class="bg-gray-900 p-6 rounded-xl shadow hover:shadow-blue-400 transition block">
-      <h3 class="text-xl font-semibold mb-2">Managerial Economics</h3>
-      <p class="text-gray-400">Linkedin</p>
-    </a>
-
-  </div>
-</section>
-
-
-
-<!-- 🚀 Data Career -->
-<section id="data-career" class="py-16 bg-gray-900">
-  <div class="max-w-6xl mx-auto px-6 lg:px-8">
-    
-    <!-- Section Title -->
-    <h2 class="text-3xl font-bold text-white mb-10 flex items-center">
-      🚀 Data Career
-    </h2>
-    <p class="text-gray-300 mb-12 text-lg">
-      Highlighting my learning journey, achievements, and certifications as I build my path 
-      towards becoming a Data Analyst and Data Scientist.
-    </p>
-
-    <!-- Certificates Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-      <!-- Certificate 1 -->
-      <div class="rounded-2xl shadow-lg p-4 bg-gray-800 hover:shadow-2xl transition duration-300">
-        <div class="overflow-hidden rounded-xl">
-          <img src="Img/Understanding Data Science.png" 
-               alt="Understanding Data Science Certificate"
-               class="rounded-xl w-full transform transition duration-500 hover:scale-105" />
-        </div>
-        <h3 class="text-xl font-semibold text-white mt-4">Understanding Data Science</h3>
-        <p class="text-gray-400 text-sm mt-2">
-          Credential earned while exploring the fundamentals of Data Science, analytics, and applications.  
-          A step forward in my Data Analyst & Data Scientist journey.
-        </p>
-        <a href="https://drive.google.com/file/d/1vOGjewC4KCUZPnJ-wOP6XuEcyXMomle1/view?usp=drive_link" target="_blank"
-           class="inline-block mt-4 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700 transition">
-          🔗 View Certificate
-        </a>
-      </div>
-
-      <!-- Certificate 2 -->
-      <div class="rounded-2xl shadow-lg p-4 bg-gray-800 hover:shadow-2xl transition duration-300">
-        <div class="overflow-hidden rounded-xl">
-          <img src="Img/Introduction to SQL.png" 
-               alt="Introduction to SQL Certificate"
-               class="rounded-xl w-full transform transition duration-500 hover:scale-105" />
-        </div>
-        <h3 class="text-xl font-semibold text-white mt-4">Introduction to SQL</h3>
-        <p class="text-gray-400 text-sm mt-2">
-          Completed a beginner-to-intermediate level course in SQL, focusing on queries, joins, 
-          and database management concepts essential for data analysis.
-        </p>
-        <a href="https://drive.google.com/file/d/18UJTIvLbPrJrT-aAFl_FrX_SNGziYsc3/view?usp=drive_link" target="_blank"
-           class="inline-block mt-4 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700 transition">
-          🔗 View Certificate
-        </a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- Languages Section -->
-<section id="languages" class="bg-gray-900 py-16 px-6">
-  <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">🌐 Languages</h2>
-  <div class="text-center text-lg text-white" data-aos="fade-up">
-
-    <p class="mb-4">I can <strong>read</strong>, <strong>write</strong>, and <strong>speak</strong> the following languages fluently:</p>
-
-    <!-- Animated Language List -->
-    <div class="text-2xl font-semibold animate-pulse text-blue-400">
-      <span id="languageText">English</span>
-    </div>
-
-  </div>
-</section>
-
-<!-- JS Animation for Languages -->
-<script>
-  const langs = ["English", "Marathi", "Hindi"];
-  let langIndex = 0;
-  const langSpan = document.getElementById("languageText");
-
-  setInterval(() => {
-    langIndex = (langIndex + 1) % langs.length;
-    langSpan.textContent = langs[langIndex];
-  }, 2000);
-</script>
-
-
-  <!-- Blog Section -->
-  <!-- Blog Section -->
-<section id="blog" class="bg-gray-800 py-16 px-6">
-  <h2 class="text-3xl font-bold text-center mb-12" data-aos="zoom-in">📝 Blog</h2>
-
-  <!-- Blog intro & button -->
-  <div class="text-center" data-aos="fade-up">
-    <p class="text-gray-300 mb-4">I write about finance, SSC CGL prep, Indian history & governance.</p>
-    <a href="https://dattatraydagale.blogspot.com" target="_blank" class="inline-block bg-orange-600 text-white px-6 py-2 rounded-full hover:bg-orange-700 transition">Visit My Blog</a>
-  </div>
-
-  <!-- 👇 Paste this NEW block after the button -->
-  <div id="blog-posts" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12"></div>
-</section>
-
-<!-- CGL mock tracker -->
-<section id="ssc-tracker" style="padding: 60px 20px; background: #0a0a0a; text-align: center;">
-  <h2 style="color: #00ffcc; font-size: 2rem;">🎯 SSC CGL Mocks Tracker</h2>
-  <p style="color: #ccc; margin-bottom: 30px;">📅 <span id="daysLeft"></span> Days Left For Tier-I - Stay Hard 💪</p>
-
-  <!-- Progress Circle -->
-  <div style="position: relative; width: 200px; height: 200px; margin: 0 auto;">
-    <svg width="200" height="200">
-      <circle cx="100" cy="100" r="90" stroke="#333" stroke-width="15" fill="none" />
-      <circle id="progressCircle" cx="100" cy="100" r="90" stroke="#00ffc3" stroke-width="15" fill="none"
-        stroke-linecap="round" stroke-dasharray="565.48"
-        stroke-dashoffset="565.48"
-        style="transition: stroke-dashoffset 0.6s ease-out; filter: drop-shadow(0 0 6px #00ffcc);" />
-    </svg>
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #00ffcc;">
-      <div style="font-size: 1.8rem;"><span id="mockCount">0</span> / 1000</div>
-      <div style="font-size: 1rem;">Mocks Done</div>
-    </div>
-  </div>
-
-  <!-- Buttons -->
-  <button onclick="incrementMock()" style="margin-top: 30px; background: #00ffcc; color: #000; font-weight: bold; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">+1 Mock</button>
-  <button onclick="resetMock()" style="margin-top: 30px; margin-left: 10px; background: crimson; color: #fff; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">Reset</button>
-
-  <!-- Monthly Calendar -->
-  <div style="margin-top: 40px;">
-    <div style="color: white; font-size: 1.2rem; margin-bottom: 10px;" id="calendarTitle"></div>
-    <div style="margin-bottom: 15px;">
-      <button onclick="prevMonth()" style="margin-right: 10px;">⬅️ Prev</button>
-      <button onclick="nextMonth()">Next ➡️</button>
-    </div>
-    <div id="calendar" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; color: white;"></div>
-  </div>
-</section>
-
-<script>
-  const examDate = new Date("2026-06-01");
-  const today = new Date();
-  document.getElementById("daysLeft").textContent = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
-
-  const circle = document.getElementById("progressCircle");
-  const totalLength = 2 * Math.PI * 90;
-  const maxMocks = 1000;
-  const startDate = new Date("2025-08-04");
-  const calendarDataKey = "calendarMockData";
-
-  let calendarData = JSON.parse(localStorage.getItem(calendarDataKey)) || {};
-  let viewMonth = startDate.getMonth();
-  let viewYear = startDate.getFullYear();
-
-  function updateProgress() {
-    const count = Object.values(calendarData).filter(Boolean).length;
-    document.getElementById("mockCount").textContent = count;
-    const pct = Math.min(count / maxMocks, 1);
-    circle.style.strokeDashoffset = totalLength * (1 - pct);
-  }
-
-  function incrementMock() {
-    const key = new Date().toISOString().split('T')[0];
-    calendarData[key] = true;
-    localStorage.setItem(calendarDataKey, JSON.stringify(calendarData));
-    updateProgress();
-    renderCalendar();
-  }
-
-  function resetMock() {
-    if (confirm("Reset your mock progress and calendar?")) {
-      localStorage.removeItem(calendarDataKey);
-      calendarData = {};
-      updateProgress();
-      renderCalendar();
-    }
-  }
-
-  function renderCalendar() {
-    const calendar = document.getElementById("calendar");
-    const calendarTitle = document.getElementById("calendarTitle");
-    calendar.innerHTML = "";
-
-    const monthStart = new Date(viewYear, viewMonth, 1);
-    const monthEnd = new Date(viewYear, viewMonth + 1, 0);
-    calendarTitle.textContent = monthStart.toLocaleString('default', { month: 'long', year: 'numeric' });
-
-    const startDay = monthStart.getDay();
-    for (let i = 0; i < startDay; i++) {
-      const empty = document.createElement("div");
-      calendar.appendChild(empty);
-    }
-
-    for (let d = 1; d <= monthEnd.getDate(); d++) {
-      const dayDate = new Date(viewYear, viewMonth, d);
-      const key = dayDate.toISOString().split('T')[0];
-      const isDone = calendarData[key];
-      const box = document.createElement("div");
-      box.style.border = "1px solid #333";
-      box.style.borderRadius = "6px";
-      box.style.padding = "8px";
-      box.style.background = "#111";
-      box.innerHTML = `<strong style="color:#00ffc3">${d}</strong><br>${isDone ? "✅" : "❌"}`;
-      calendar.appendChild(box);
-    }
-  }
-
-  function nextMonth() {
-    viewMonth++;
-    if (viewMonth > 11) {
-      viewMonth = 0;
-      viewYear++;
-    }
-    renderCalendar();
-  }
-
-  function prevMonth() {
-    viewMonth--;
-    if (viewMonth < 0) {
-      viewMonth = 11;
-      viewYear--;
-    }
-    renderCalendar();
-  }
-
-  updateProgress();
-  renderCalendar();
-</script>
-
-
-  <!-- Contact Section -->
-  <!-- Contact / Social Section -->
-<section id="contact" class="bg-gray-100 dark:bg-gray-900 py-12">
-  <div class="container mx-auto px-4 text-center">
-    <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">📬 Connect with Me</h2>
-
-    <div class="flex flex-wrap justify-center gap-6 text-lg font-medium">
-      
-      <!-- LinkedIn -->
-      <a href="https://www.linkedin.com/in/dattatraydagale" target="_blank" class="flex items-center gap-2 text-blue-700 hover:underline">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" class="w-5 h-5" alt="LinkedIn"> LinkedIn
-      </a>
-
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/dattatray_dagale/" target="_blank" class="flex items-center gap-2 text-pink-600 hover:underline">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" class="w-5 h-5" alt="Instagram"> Instagram
-      </a>
-
-      <!-- YouTube -->
-      <a href="https://www.youtube.com/@dattatraydagale" target="_blank" class="flex items-center gap-2 text-red-600 hover:underline">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" class="w-5 h-5" alt="YouTube"> YouTube
-      </a>
-
-      <!-- Twitter (X) -->
-      <a href="https://x.com/DattatrayDagale/" target="_blank" class="flex items-center gap-2 text-black dark:text-white hover:underline">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" class="w-5 h-5" alt="X (Twitter)"> Twitter (X)
-      </a>
-
-      <!-- Blogger (your blog) -->
-      <a href="https://dattatraydagale.blogspot.com" target="_blank" class="flex items-center gap-2 text-orange-600 hover:underline">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/blogger.svg" class="w-5 h-5" alt="Blogger"> My Blog
-      </a>
-
-      <!-- GitHub (your profile) -->
-<a href="https://github.com/DagaleDattatray" target="_blank" class="flex items-center gap-2 text-gray-600 hover:underline dark:text-gray-200">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" class="w-5 h-5" alt="GitHub"> My GitHub
-</a>
-
-
-    </div>
-    
-    <p class="text-sm mt-8 text-gray-500 dark:text-gray-400">
-      © 2025 Dattatray Dagale. All rights reserved.
-    </p>
-  </div>
-</section>
-
-
-
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init({ once: true, duration: 800 });
-  </script>
-
-
-<script>
-  function displayBlogPosts(data) {
-    const container = document.getElementById("blog-posts");
-    if (!data.feed.entry) {
-      container.innerHTML = "<p class='text-gray-400'>No blog posts found.</p>";
-      return;
-    }
-
-    const posts = data.feed.entry.slice(0, 3); // number of posts
-    posts.forEach(post => {
-      const title = post.title.$t;
-      const link = post.link.find(l => l.rel === "alternate").href;
-      const media = post.media$thumbnail ? post.media$thumbnail.url : "https://via.placeholder.com/300x200?text=No+Image";
-
-      const card = document.createElement("div");
-      card.className = "bg-gray-900 rounded-lg overflow-hidden shadow hover:shadow-blue-400 transition";
-
-      card.innerHTML = `
-        <img src="${media}" alt="${title}" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold mb-2 text-white">${title}</h3>
-          <a href="${link}" target="_blank" class="text-blue-400 hover:underline">Read More</a>
-        </div>
-      `;
-      container.appendChild(card);
-    });
-  }
-</script>
-
-<script src="https://dattatraydagale.blogspot.com/feeds/posts/default?alt=json-in-script&callback=displayBlogPosts&max-results=3"></script>
-
-
-<script>
-  document.addEventListener('scroll', () => {
-    const scrollBar = document.getElementById('scroll-bar');
-    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = window.scrollY;
-    const width = (scrolled / scrollableHeight) * 100;
-    scrollBar.style.width = width + '%';
-  });
-</script>
-
-
-<script>
-  const backToTopBtn = document.getElementById('backToTop');
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      backToTopBtn.classList.remove('hidden');
-    } else {
-      backToTopBtn.classList.add('hidden');
-    }
-  });
-</script>
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dattatray Dagale - Portfolio</title>
   <meta name="google-site-verification" content="a09CCDP0nmKuqThHeVHNzzG9xooWmojIsvIjxWwVPbU" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <title>Dattatray Dagale — Data Analyst · Finance Expert · Content Creator</title>
+  <meta name="description" content="Dattatray Dagale — Data Analyst at Morningstar. Finance expert, content creator, and educator. Open to freelance projects." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://dagaledattatray.github.io/" />
+  <meta property="og:title" content="Dattatray Dagale — Data Analyst · Finance Expert" />
+  <meta property="og:description" content="Data Analyst at Morningstar. Open to freelance data, finance, and content projects." />
+  <meta property="og:image" content="https://dagaledattatray.github.io/Img/Datta.jpeg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dattatray Dagale — Data Analyst · Finance Expert" />
+  <meta name="twitter:description" content="Data Analyst at Morningstar. Open to freelance projects." />
+  <meta name="twitter:image" content="https://dagaledattatray.github.io/Img/Datta.jpeg" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+  <!-- AOS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-    };
-  </script>
+
   <style>
-    html {
-      scroll-behavior: smooth;
+    :root {
+      --bg:       #05050f;
+      --bg2:      #0a0a1a;
+      --card:     rgba(255,255,255,0.03);
+      --border:   rgba(255,255,255,0.07);
+      --indigo:   #6366f1;
+      --cyan:     #00d4ff;
+      --mint:     #00ffc3;
+      --pink:     #f472b6;
+      --text:     #f1f5f9;
+      --muted:    #64748b;
+      --subtle:   #94a3b8;
     }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--indigo); border-radius: 2px; }
+
+    /* ─── GALAXY ─── */
     #galaxy-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      background: black;
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0; pointer-events: none;
     }
-    .bar {
-      background: #2d2d2d;
-      height: 10px;
-      border-radius: 9999px;
-      overflow: hidden;
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 1; opacity: 0.4;
     }
-    .fill {
-      background: #3b82f6;
+
+    /* ─── CUSTOM CURSOR ─── */
+    #cursor-dot {
+      position: fixed; width: 8px; height: 8px;
+      background: var(--cyan); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.05s;
+    }
+    #cursor-ring {
+      position: fixed; width: 36px; height: 36px;
+      border: 1.5px solid rgba(99,102,241,0.6);
+      border-radius: 50%; pointer-events: none;
+      z-index: 9998; transform: translate(-50%, -50%);
+      transition: all 0.15s ease;
+    }
+    .cursor-hover #cursor-ring { width: 52px; height: 52px; border-color: var(--cyan); background: rgba(0,212,255,0.06); }
+    .cursor-hover #cursor-dot  { transform: translate(-50%,-50%) scale(0.5); }
+
+    /* ─── PRELOADER ─── */
+    #preloader {
+      position: fixed; inset: 0; background: var(--bg);
+      z-index: 10000; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 20px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #preloader.done { opacity: 0; visibility: hidden; }
+    .preloader-logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.5rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+    .preloader-bar-wrap { width: 200px; height: 2px; background: rgba(255,255,255,0.08); border-radius: 1px; overflow: hidden; }
+    .preloader-bar {
       height: 100%;
-      border-radius: 9999px;
+      background: linear-gradient(90deg, var(--indigo), var(--cyan));
+      border-radius: 1px;
+      animation: loadBar 1.6s ease forwards;
+    }
+    @keyframes loadBar { from { width: 0; } to { width: 100%; } }
+
+    /* ─── SCROLL PROGRESS ─── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 2px; width: 0;
+      background: linear-gradient(90deg, var(--indigo), var(--cyan));
+      z-index: 9997; transition: width 0.1s linear;
+    }
+
+    /* ─── NAVBAR ─── */
+    header {
+      position: fixed; top: 0; width: 100%;
+      padding: 16px 32px; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.3s, backdrop-filter 0.3s, border-bottom 0.3s;
+    }
+    header.scrolled {
+      background: rgba(5,5,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Outfit', sans-serif; font-weight: 800;
+      font-size: 1.25rem; letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500; color: var(--subtle);
+      text-decoration: none; padding: 6px 12px; border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); background: rgba(99,102,241,0.12); }
+    .nav-cta {
+      font-size: 0.85rem; font-weight: 600; padding: 8px 20px;
+      background: linear-gradient(135deg, var(--indigo), #818cf8);
+      color: #fff; border-radius: 8px; text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 1px; transition: all 0.3s; }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; background: rgba(5,5,15,0.97);
+      backdrop-filter: blur(20px); z-index: 490; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: 'Outfit',sans-serif; font-size: 2rem; font-weight: 700; color: var(--text); text-decoration: none; }
+    .mobile-menu a:hover { color: var(--cyan); }
+
+    /* ─── SECTION BASE ─── */
+    section { position: relative; z-index: 2; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+      color: var(--cyan); letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-label::before { content: '//'; opacity: 0.5; }
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.1; margin-bottom: 16px;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* ─── GLASS CARD ─── */
+    .glass {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .glass:hover { border-color: rgba(99,102,241,0.3); box-shadow: 0 0 30px rgba(99,102,241,0.1); }
+
+    /* ─── HERO ─── */
+    #home {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 32px 80px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 60px; width: 100%; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--mint);
+      background: rgba(0,255,195,0.08); border: 1px solid rgba(0,255,195,0.2);
+      padding: 6px 14px; border-radius: 9999px; margin-bottom: 24px;
+    }
+    .status-pulse {
+      width: 8px; height: 8px; background: var(--mint);
+      border-radius: 50%; animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.5)} }
+    .hero-name {
+      font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900;
+      letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 16px;
+    }
+    .hero-role { font-size: 1.1rem; color: var(--subtle); margin-bottom: 8px; font-weight: 400; }
+    .hero-typed {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem; color: var(--cyan); min-height: 1.4em;
+      margin-bottom: 32px;
+    }
+    .hero-typed::after { content: '|'; animation: blink 0.8s step-end infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+    .btn-primary {
+      padding: 12px 28px; border-radius: 10px; font-weight: 600; font-size: 0.95rem;
+      background: linear-gradient(135deg, var(--indigo), #818cf8);
+      color: #fff; text-decoration: none; border: none; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99,102,241,0.45); }
+    .btn-secondary {
+      padding: 12px 28px; border-radius: 10px; font-weight: 600; font-size: 0.95rem;
+      background: transparent; color: var(--text); text-decoration: none;
+      border: 1px solid var(--border); cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--indigo); background: rgba(99,102,241,0.08); transform: translateY(-2px); }
+    .hero-social { display: flex; gap: 12px; }
+    .hero-social a {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--subtle); font-size: 1rem; text-decoration: none;
+      transition: color 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .hero-social a:hover { color: var(--text); border-color: var(--indigo); transform: translateY(-2px); }
+    .hero-photo-wrap { display: flex; justify-content: center; position: relative; }
+    .hero-photo-ring {
+      position: relative; width: 320px; height: 320px;
+      border-radius: 50%; padding: 4px;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan), var(--mint));
+      animation: rotateRing 6s linear infinite;
+    }
+    @keyframes rotateRing { from{background-position:0% 50%} to{background-position:100% 50%} }
+    .hero-photo-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(--bg); }
+    .hero-photo-inner img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-badge {
+      position: absolute; bottom: 20px; right: -10px;
+      background: rgba(10,10,26,0.9); border: 1px solid var(--border);
+      backdrop-filter: blur(12px); border-radius: 12px;
+      padding: 10px 16px; font-size: 0.8rem; font-weight: 600;
+    }
+    .hero-badge span { color: var(--mint); }
+
+    /* ─── STATS ─── */
+    #stats { padding: 60px 32px; }
+    .stats-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    }
+    .stat-card {
+      padding: 28px 20px; border-radius: 16px; text-align: center;
+      background: var(--card); border: 1px solid var(--border);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .stat-card:hover { border-color: rgba(99,102,241,0.3); transform: translateY(-4px); }
+    .stat-num {
+      font-family: 'Outfit', sans-serif; font-size: 2.4rem;
+      font-weight: 900; letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; font-weight: 500; }
+
+    /* ─── ABOUT ─── */
+    #about { padding: 100px 32px; }
+    .about-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .tag {
+      font-size: 0.78rem; padding: 5px 12px; border-radius: 6px;
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2);
+      color: var(--subtle); font-weight: 500;
+    }
+
+    /* ─── SERVICES ─── */
+    #services { padding: 100px 32px; }
+    .services-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .service-card {
+      padding: 28px; border-radius: 16px;
+      background: var(--card); border: 1px solid var(--border);
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .service-card:hover { border-color: rgba(99,102,241,0.35); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(99,102,241,0.12); }
+    .service-icon { font-size: 2rem; margin-bottom: 16px; }
+    .service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .service-card p { font-size: 0.875rem; color: var(--subtle); line-height: 1.6; }
+
+    /* ─── EXPERIENCE ─── */
+    #experience { padding: 100px 32px; }
+    .exp-wrap { max-width: 800px; margin: 0 auto; position: relative; }
+    .exp-wrap::before {
+      content: ''; position: absolute; left: 20px; top: 0; bottom: 0;
+      width: 1px; background: linear-gradient(to bottom, var(--indigo), transparent);
+    }
+    .exp-item { padding-left: 60px; position: relative; margin-bottom: 48px; }
+    .exp-dot {
+      position: absolute; left: 12px; top: 4px;
+      width: 17px; height: 17px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--indigo);
+      box-shadow: 0 0 12px rgba(99,102,241,0.4);
+    }
+    .exp-card { padding: 24px; border-radius: 16px; background: var(--card); border: 1px solid var(--border); }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .exp-role { font-size: 1.1rem; font-weight: 700; }
+    .exp-company { font-size: 0.85rem; color: var(--subtle); margin-top: 2px; }
+    .exp-period {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+      color: var(--cyan); background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.15); padding: 4px 10px;
+      border-radius: 6px; white-space: nowrap;
+    }
+    .exp-list { list-style: none; margin-top: 12px; }
+    .exp-list li { font-size: 0.875rem; color: var(--subtle); padding: 4px 0 4px 16px; position: relative; line-height: 1.5; }
+    .exp-list li::before { content: '→'; position: absolute; left: 0; color: var(--indigo); font-size: 0.8rem; }
+    .exp-skills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .skill-pill {
+      font-size: 0.72rem; padding: 3px 10px; border-radius: 9999px;
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2);
+      color: var(--subtle); font-weight: 500;
+    }
+
+    /* ─── SKILLS ─── */
+    #skills { padding: 100px 32px; }
+    .skills-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .skill-group h3 { font-size: 0.8rem; font-weight: 700; color: var(--cyan); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; font-family: 'JetBrains Mono',monospace; }
+    .skill-item { margin-bottom: 18px; }
+    .skill-meta { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .skill-name { font-size: 0.875rem; font-weight: 500; }
+    .skill-pct { font-size: 0.75rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+    .skill-bar { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+    .skill-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--indigo), var(--cyan)); transform-origin: left; transform: scaleX(0); transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .skill-fill.animated { transform: scaleX(1); }
+
+    /* ─── PROJECTS ─── */
+    #projects { padding: 100px 32px; }
+    .projects-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .project-card {
+      border-radius: 16px; overflow: hidden; position: relative;
+      background: var(--card); border: 1px solid var(--border);
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .project-card:hover { border-color: rgba(99,102,241,0.35); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    .project-card.featured { grid-column: span 2; }
+    .project-inner { padding: 28px; }
+    .project-cat {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 6px;
+      display: inline-block; margin-bottom: 14px;
+    }
+    .cat-finance { background: rgba(99,102,241,0.15); color: #818cf8; }
+    .cat-content { background: rgba(244,114,182,0.15); color: #f472b6; }
+    .cat-edu     { background: rgba(0,255,195,0.12); color: var(--mint); }
+    .cat-data    { background: rgba(0,212,255,0.12); color: var(--cyan); }
+    .project-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+    .project-card p  { font-size: 0.875rem; color: var(--subtle); line-height: 1.6; margin-bottom: 16px; }
+    .project-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .project-link {
+      font-size: 0.8rem; font-weight: 600; color: var(--indigo);
+      text-decoration: none; display: flex; align-items: center; gap: 4px;
+      transition: color 0.2s;
+    }
+    .project-link:hover { color: var(--cyan); }
+
+    /* ─── CERTS ─── */
+    #certifications { padding: 100px 32px; }
+    .certs-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .cert-card {
+      padding: 22px; border-radius: 14px;
+      background: var(--card); border: 1px solid var(--border);
+      text-decoration: none; color: inherit;
+      display: block; transition: border-color 0.3s, transform 0.3s;
+    }
+    .cert-card:hover { border-color: rgba(99,102,241,0.35); transform: translateY(-3px); }
+    .cert-issuer { font-size: 0.72rem; color: var(--muted); font-weight: 500; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .cert-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+    .cert-link { font-size: 0.75rem; color: var(--indigo); font-weight: 600; }
+
+    /* ─── DATA CAREER ─── */
+    #data-career { padding: 100px 32px; }
+    .dc-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .dc-card { border-radius: 16px; overflow: hidden; background: var(--card); border: 1px solid var(--border); transition: border-color 0.3s, transform 0.3s; }
+    .dc-card:hover { border-color: rgba(99,102,241,0.35); transform: translateY(-4px); }
+    .dc-img { overflow: hidden; }
+    .dc-img img { width: 100%; display: block; transition: transform 0.5s; }
+    .dc-card:hover .dc-img img { transform: scale(1.04); }
+    .dc-info { padding: 20px; }
+    .dc-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .dc-info p { font-size: 0.82rem; color: var(--subtle); line-height: 1.5; margin-bottom: 14px; }
+
+    /* ─── BLOG ─── */
+    #blog { padding: 100px 32px; }
+    .blog-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .blog-card {
+      border-radius: 14px; overflow: hidden;
+      background: var(--card); border: 1px solid var(--border);
+      text-decoration: none; color: inherit;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .blog-card:hover { border-color: rgba(99,102,241,0.3); transform: translateY(-4px); }
+    .blog-img { height: 180px; overflow: hidden; }
+    .blog-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .blog-card:hover .blog-img img { transform: scale(1.06); }
+    .blog-body { padding: 18px; }
+    .blog-body h3 { font-size: 0.95rem; font-weight: 700; line-height: 1.4; margin-bottom: 10px; }
+    .blog-body .read-more { font-size: 0.78rem; color: var(--indigo); font-weight: 600; }
+    .yt-embed { max-width: 700px; margin: 40px auto 0; }
+    .yt-frame { position: relative; padding-bottom: 56.25%; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
+    .yt-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+    /* ─── SSC TRACKER ─── */
+    #ssc-tracker { padding: 100px 32px; }
+    .tracker-wrap { max-width: 700px; margin: 0 auto; text-align: center; }
+    .tracker-circle { position: relative; width: 200px; height: 200px; margin: 0 auto 32px; }
+    .tracker-btns { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; }
+    .tracker-cal { max-width: 500px; margin: 0 auto; }
+
+    /* ─── CONTACT ─── */
+    #contact { padding: 100px 32px; }
+    .contact-wrap { max-width: 700px; margin: 0 auto; text-align: center; }
+    .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 40px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 20px; border-radius: 10px;
+      background: var(--card); border: 1px solid var(--border);
+      text-decoration: none; color: var(--subtle); font-size: 0.875rem; font-weight: 500;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .contact-link:hover { border-color: var(--indigo); color: var(--text); transform: translateY(-2px); }
+    .contact-link i { font-size: 1.1rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 32px; text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem; color: var(--muted);
+      position: relative; z-index: 2;
+    }
+
+    /* ─── BACK TO TOP ─── */
+    #back-top {
+      position: fixed; bottom: 28px; right: 28px; z-index: 400;
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--indigo); color: #fff; border: none;
+      font-size: 1rem; cursor: pointer;
+      display: none; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    #back-top.show { display: flex; }
+    #back-top:hover { transform: translateY(-2px); }
+
+    /* ─── BLOG BUBBLE ─── */
+    #blog-bubble {
+      position: fixed; bottom: 80px; left: 20px; z-index: 400;
+      max-width: 260px; background: rgba(10,10,26,0.95);
+      border: 1px solid var(--border); backdrop-filter: blur(12px);
+      border-radius: 14px; padding: 16px;
+      animation: fadeIn 0.5s ease 2s both;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    .bubble-close { float: right; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.1rem; }
+    .bubble-close:hover { color: var(--text); }
+    .bubble-text { font-size: 0.8rem; color: var(--subtle); line-height: 1.5; margin-top: 4px; }
+    .bubble-link { font-size: 0.78rem; color: var(--indigo); font-weight: 600; text-decoration: none; display: inline-block; margin-top: 10px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-btns, .hero-social { justify-content: center; }
+      .hero-photo-wrap { order: -1; }
+      .hero-photo-ring { width: 220px; height: 220px; }
+      .hero-badge { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; }
+      .certs-grid { grid-template-columns: 1fr 1fr; }
+      .dc-grid { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .skills-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      header { padding: 14px 20px; }
+      #home { padding: 100px 20px 60px; }
+      section { padding-left: 20px !important; padding-right: 20px !important; }
+      .services-grid, .certs-grid, .blog-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
-<body class="bg-gray-900 text-white">
-  <!-- 🌌 Galaxy Canvas -->
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="preloader-logo">DD</div>
+    <div class="preloader-bar-wrap"><div class="preloader-bar"></div></div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Galaxy Canvas -->
   <canvas id="galaxy-canvas"></canvas>
 
-  <!-- 🌐 Your existing content here -->
-  <!-- (Insert your full site content as before – Navbar, Hero, About, etc.) -->
+  <!-- Scroll Progress -->
+  <div id="scroll-progress"></div>
 
-  <!-- Existing scripts and AOS -->
+  <!-- Navbar -->
+  <header id="navbar">
+    <a href="#home" class="nav-logo">DD.</a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="https://drive.google.com/file/d/1Vu58_JX6Sz24A86lOumZCX3JWC-MEn4x/view" target="_blank" class="nav-cta">Resume ↗</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#services" onclick="closeMenu()">Services</a>
+    <a href="#experience" onclick="closeMenu()">Experience</a>
+    <a href="#skills" onclick="closeMenu()">Skills</a>
+    <a href="#projects" onclick="closeMenu()">Projects</a>
+    <a href="#blog" onclick="closeMenu()">Blog</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <section id="home" style="z-index:2;position:relative;">
+    <div class="hero-grid">
+      <div data-aos="fade-right" data-aos-duration="900">
+        <div class="hero-tag">
+          <span class="status-pulse"></span>
+          Available for Freelance
+        </div>
+        <h1 class="hero-name">
+          Hi, I'm <span class="gradient-text">Dattatray<br/>Dagale</span>
+        </h1>
+        <p class="hero-role">Data Analyst · Finance Expert · Content Creator</p>
+        <p class="hero-typed" id="hero-typed"></p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn-primary">Let's Work Together</a>
+          <a href="https://drive.google.com/file/d/1Vu58_JX6Sz24A86lOumZCX3JWC-MEn4x/view" target="_blank" class="btn-secondary">Download Resume ↗</a>
+        </div>
+        <div class="hero-social">
+          <a href="https://www.linkedin.com/in/dattatraydagale" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://github.com/DagaleDattatray" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.youtube.com/@dattatraydagale" target="_blank"><i class="fab fa-youtube"></i></a>
+          <a href="https://x.com/DattatrayDagale" target="_blank"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://dattatraydagale.blogspot.com" target="_blank"><i class="fab fa-blogger-b"></i></a>
+        </div>
+      </div>
+
+      <div class="hero-photo-wrap" data-aos="fade-left" data-aos-duration="900">
+        <div class="hero-photo-ring">
+          <div class="hero-photo-inner">
+            <img src="Img/Datta.jpeg" alt="Dattatray Dagale" />
+          </div>
+        </div>
+        <div class="hero-badge">
+          Working at <span>Morningstar</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       STATS
+  ══════════════════════════════════════ -->
+  <section id="stats">
+    <div class="stats-grid" data-aos="fade-up">
+      <div class="stat-card">
+        <div class="stat-num" data-count="3">0</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-count="2">0</div>
+        <div class="stat-label">Active Blogs</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-count="6">0</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">9.90</div>
+        <div class="stat-label">M.A. CGPA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ABOUT
+  ══════════════════════════════════════ -->
+  <section id="about">
+    <div class="about-grid">
+      <div data-aos="fade-right">
+        <p class="section-label">About me</p>
+        <h2 class="section-title">Finance meets<br/><span class="gradient-text">Data & Story</span></h2>
+        <p style="color:var(--subtle);line-height:1.8;font-size:0.95rem;margin-bottom:16px;">
+          I'm a Data Analyst at <strong style="color:var(--text)">Morningstar</strong>, where I work on the Lumonic team extracting and standardizing global financial statement data — Balance Sheets, Income Statements, and Cash Flow — to support investment research products used by analysts and institutions worldwide.
+        </p>
+        <p style="color:var(--subtle);line-height:1.8;font-size:0.95rem;margin-bottom:16px;">
+          I hold an M.A. in Business Economics (CGPA 9.90) from Mumbai University and a B.A. in Economics (CGPA 8.96). Previously I was a Financial Analyst at Atos Syntel, where I earned the <strong style="color:var(--text)">Champ Award</strong> in 2023.
+        </p>
+        <p style="color:var(--subtle);line-height:1.8;font-size:0.95rem;">
+          Beyond my day job, I run two blogs, a YouTube channel, and build educational content for SSC CGL aspirants — all aimed at making finance and data accessible to everyone.
+        </p>
+        <div class="about-tags">
+          <span class="tag">✍️ Blogging</span>
+          <span class="tag">📺 YouTube</span>
+          <span class="tag">💰 Finance</span>
+          <span class="tag">📊 Data</span>
+          <span class="tag">📚 Public Policy</span>
+          <span class="tag">🎓 Education</span>
+          <span class="tag">📖 Economics</span>
+        </div>
+      </div>
+
+      <div data-aos="fade-left" style="display:flex;flex-direction:column;gap:16px;">
+        <!-- Education Card -->
+        <div class="glass" style="padding:24px;">
+          <p style="font-size:0.72rem;color:var(--cyan);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;">// Education</p>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div>
+              <p style="font-weight:700;font-size:0.9rem;">M.A. Business Economics</p>
+              <p style="font-size:0.8rem;color:var(--muted);">Mumbai University · CGPA <span style="color:var(--mint)">9.90</span> · 2022</p>
+            </div>
+            <div style="height:1px;background:var(--border);"></div>
+            <div>
+              <p style="font-weight:700;font-size:0.9rem;">B.A. Economics</p>
+              <p style="font-size:0.8rem;color:var(--muted);">Mumbai University · CGPA <span style="color:var(--mint)">8.96</span> · 2020</p>
+            </div>
+            <div style="height:1px;background:var(--border);"></div>
+            <div>
+              <p style="font-weight:700;font-size:0.9rem;">Foundations of Cybersecurity</p>
+              <p style="font-size:0.8rem;color:var(--muted);">Coursera · <span style="color:var(--mint)">92.61%</span> · 2025</p>
+            </div>
+          </div>
+        </div>
+        <!-- Languages Card -->
+        <div class="glass" style="padding:24px;">
+          <p style="font-size:0.72rem;color:var(--cyan);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;">// Languages</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <span class="tag" style="background:rgba(0,255,195,0.08);border-color:rgba(0,255,195,0.2);color:var(--mint);">English</span>
+            <span class="tag">Marathi</span>
+            <span class="tag">Hindi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SERVICES
+  ══════════════════════════════════════ -->
+  <section id="services">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div data-aos="fade-up" style="margin-bottom:48px;">
+        <p class="section-label">What I offer</p>
+        <h2 class="section-title">How I can <span class="gradient-text">help you</span></h2>
+        <p style="color:var(--subtle);max-width:500px;line-height:1.7;font-size:0.95rem;">Open to freelance projects, consulting, content collaborations, and data work.</p>
+      </div>
+      <div class="services-grid" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-card">
+          <div class="service-icon">📊</div>
+          <h3>Data Analysis & Reports</h3>
+          <p>Excel dashboards, financial data analysis, data cleaning, and automated reports for businesses and individuals.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">💰</div>
+          <h3>Finance & Research</h3>
+          <p>Financial statement analysis, market research, Bloomberg data work, and investment research support.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">✍️</div>
+          <h3>Content & Blogs</h3>
+          <p>SEO blog writing on finance, economics, and current affairs — in English and Marathi.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎓</div>
+          <h3>Exam Prep Content</h3>
+          <p>Study material, notes, and quizzes for SSC CGL, UPSC, and other competitive exams.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📺</div>
+          <h3>Video Scripts</h3>
+          <p>Educational video scripting on finance and economics. Voiceover-ready, structured, engaging.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🌐</div>
+          <h3>Portfolio Pages</h3>
+          <p>Simple HTML/CSS portfolio and landing pages for professionals, students, and small businesses.</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:40px;" data-aos="fade-up">
+        <a href="#contact" class="btn-primary">Start a Project →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       EXPERIENCE
+  ══════════════════════════════════════ -->
+  <section id="experience">
+    <div style="max-width:800px;margin:0 auto;">
+      <div data-aos="fade-up" style="margin-bottom:48px;">
+        <p class="section-label">Work history</p>
+        <h2 class="section-title">My <span class="gradient-text">Experience</span></h2>
+      </div>
+      <div class="exp-wrap">
+
+        <div class="exp-item" data-aos="fade-up">
+          <div class="exp-dot"></div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <div>
+                <div class="exp-role">Data Analyst</div>
+                <div class="exp-company">Morningstar — Lumonic Team</div>
+              </div>
+              <span class="exp-period">2025 – Present</span>
+            </div>
+            <ul class="exp-list">
+              <li>Analyze and extract financial statement data from global companies</li>
+              <li>Map key financial metrics to Morningstar's proprietary data model</li>
+              <li>Perform data quality checks ensuring 100% accuracy across reporting periods</li>
+              <li>Support data pipelines used in investment research products</li>
+              <li>Respond to internal and client queries to maintain data quality</li>
+            </ul>
+            <div class="exp-skills">
+              <span class="skill-pill">Financial Statements</span>
+              <span class="skill-pill">Data Verification</span>
+              <span class="skill-pill">Quality Assurance</span>
+              <span class="skill-pill">Bloomberg</span>
+              <span class="skill-pill">Financial Research</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="exp-dot"></div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <div>
+                <div class="exp-role">Financial Analyst / KPO Officer</div>
+                <div class="exp-company">State Street Syntel Services Pvt. Ltd.</div>
+              </div>
+              <span class="exp-period">2022 – 2023</span>
+            </div>
+            <ul class="exp-list">
+              <li>Managed income distribution from bonds and equities in the Income Process</li>
+              <li>Performed data reconciliation and ensured accurate investor payments</li>
+              <li>Won the <strong style="color:var(--mint)">Champ Award</strong> in July 2023 for excellence</li>
+            </ul>
+            <div class="exp-skills">
+              <span class="skill-pill">Reconciliation</span>
+              <span class="skill-pill">Bloomberg</span>
+              <span class="skill-pill">Equity</span>
+              <span class="skill-pill">Bonds</span>
+              <span class="skill-pill">DTCC</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item" data-aos="fade-up" data-aos-delay="150">
+          <div class="exp-dot"></div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <div>
+                <div class="exp-role">Blogger & Content Creator</div>
+                <div class="exp-company">Self-Driven · <a href="https://dattatraydagale.blogspot.com" target="_blank" style="color:var(--indigo);text-decoration:none;">dattatraydagale.blogspot.com</a></div>
+              </div>
+              <span class="exp-period">2020 – Present</span>
+            </div>
+            <ul class="exp-list">
+              <li>Writing on economics, finance, and current affairs since 2020</li>
+              <li>Running two active blogs — English and Marathi editions</li>
+              <li>Managing SEO, visual content, and social media distribution</li>
+            </ul>
+            <div class="exp-skills">
+              <span class="skill-pill">SEO</span>
+              <span class="skill-pill">Content Writing</span>
+              <span class="skill-pill">Canva</span>
+              <span class="skill-pill">WordPress</span>
+              <span class="skill-pill">Research</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SKILLS
+  ══════════════════════════════════════ -->
+  <section id="skills">
+    <div style="max-width:900px;margin:0 auto;">
+      <div data-aos="fade-up" style="margin-bottom:48px;">
+        <p class="section-label">Capabilities</p>
+        <h2 class="section-title">Skills &<span class="gradient-text"> Tools</span></h2>
+      </div>
+      <div class="skills-grid" data-aos="fade-up">
+        <div class="skill-group">
+          <h3>// Finance & Domain</h3>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">Economics & Finance</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.95"></div></div></div>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">Financial Research</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.88"></div></div></div>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">Bloomberg Terminal</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.85"></div></div></div>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">Public Policy</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.82"></div></div></div>
+        </div>
+        <div class="skill-group">
+          <h3>// Data & Tech</h3>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">Excel & Data Analysis</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.90"></div></div></div>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">Data Verification & QA</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.88"></div></div></div>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">SQL</span><span class="skill-pct">55%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.55"></div></div></div>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">Python</span><span class="skill-pct">40%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.40"></div></div></div>
+        </div>
+        <div class="skill-group">
+          <h3>// Content & Writing</h3>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">SEO & Blog Writing</span><span class="skill-pct">78%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.78"></div></div></div>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">Content Strategy</span><span class="skill-pct">72%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.72"></div></div></div>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">Canva & Design</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.70"></div></div></div>
+        </div>
+        <div class="skill-group">
+          <h3>// Education & Exams</h3>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">SSC CGL Prep</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.80"></div></div></div>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">Course Creation</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.75"></div></div></div>
+          <div class="skill-item"><div class="skill-meta"><span class="skill-name">Teaching & Mentoring</span><span class="skill-pct">72%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.72"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       PROJECTS
+  ══════════════════════════════════════ -->
+  <section id="projects">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div data-aos="fade-up" style="margin-bottom:48px;">
+        <p class="section-label">Selected work</p>
+        <h2 class="section-title">Projects &<span class="gradient-text"> Achievements</span></h2>
+      </div>
+      <div class="projects-grid" data-aos="fade-up">
+
+        <div class="project-card featured">
+          <div class="project-inner">
+            <span class="project-cat cat-finance">Finance · Data</span>
+            <h3>Financial Statement Analysis at Morningstar</h3>
+            <p>Extracted and standardized financial data from global companies' Balance Sheets, Income Statements, and Cash Flow Statements for Morningstar's Lumonic team. Ensured 100% accuracy across reporting periods to support investment research products used by analysts and institutions worldwide.</p>
+            <div class="project-footer">
+              <div class="project-tags">
+                <span class="skill-pill">Bloomberg</span>
+                <span class="skill-pill">Excel</span>
+                <span class="skill-pill">Data Modeling</span>
+                <span class="skill-pill">QA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-inner">
+            <span class="project-cat cat-edu">Education · Web</span>
+            <h3>SSC CGL Exam Prep Course</h3>
+            <p>Building a structured HTML-based course covering all modules of the SSC CGL syllabus — Quantitative Aptitude, English, GK, and Reasoning. Free resource for thousands of aspirants.</p>
+            <div class="project-footer">
+              <div class="project-tags">
+                <span class="skill-pill">HTML</span>
+                <span class="skill-pill">Education</span>
+              </div>
+              <a href="https://dagaledattatray.github.io/courses.html" target="_blank" class="project-link">View Course <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-inner">
+            <span class="project-cat cat-content">Content · SEO</span>
+            <h3>Finance & Economics Blogs</h3>
+            <p>Running three content channels since 2020 — covering personal finance, economics, governance, and current affairs in English and Marathi. Building a bilingual readership across Maharashtra and beyond.</p>
+            <div class="project-footer" style="flex-direction:column;align-items:flex-start;gap:10px;">
+              <div class="project-tags" style="margin-bottom:2px;">
+                <span class="skill-pill">SEO</span>
+                <span class="skill-pill">Finance</span>
+                <span class="skill-pill">Marathi</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <a href="https://dattatraydagale.blogspot.com" target="_blank" class="project-link">📘 English Finance Blog <i class="fas fa-arrow-up-right-from-square" style="font-size:0.65rem"></i></a>
+                <a href="https://marathieconomics.blogspot.com" target="_blank" class="project-link">📙 Marathi Economics Blog <i class="fas fa-arrow-up-right-from-square" style="font-size:0.65rem"></i></a>
+                <a href="https://www.youtube.com/@dattatraydagale" target="_blank" class="project-link">📺 YouTube Channel <i class="fas fa-arrow-up-right-from-square" style="font-size:0.65rem"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-inner">
+            <span class="project-cat cat-data">Research · Economics</span>
+            <h3>MGNREGA Impact Study</h3>
+            <p>Academic research project analyzing the real-world impact of MGNREGA rural employment scheme as part of M.A. Economics. Applied economic theory, data collection, and policy analysis.</p>
+            <div class="project-footer">
+              <div class="project-tags">
+                <span class="skill-pill">Economics</span>
+                <span class="skill-pill">Research</span>
+                <span class="skill-pill">Policy</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CERTIFICATIONS
+  ══════════════════════════════════════ -->
+  <section id="certifications">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div data-aos="fade-up" style="margin-bottom:48px;">
+        <p class="section-label">Credentials</p>
+        <h2 class="section-title">Licenses &<span class="gradient-text"> Certifications</span></h2>
+      </div>
+      <div class="certs-grid" data-aos="fade-up">
+        <a href="https://drive.google.com/file/d/1Vu58_JX6Sz24A86lOumZCX3JWC-MEn4x/view" target="_blank" class="cert-card">
+          <p class="cert-issuer">Atos Syntel</p>
+          <h3>🏆 Champ Award</h3>
+          <p class="cert-link">View Certificate →</p>
+        </a>
+        <a href="https://drive.google.com/file/d/14G65DfMEGRDB9O7Ft6ojkatTrlVvkFKI/view" target="_blank" class="cert-card">
+          <p class="cert-issuer">GUVI</p>
+          <h3>🐍 Python</h3>
+          <p class="cert-link">View Certificate →</p>
+        </a>
+        <a href="https://certificates.mooc.fi/validate/f3tqtia9e28" target="_blank" class="cert-card">
+          <p class="cert-issuer">University of Helsinki</p>
+          <h3>🤖 Elements of AI</h3>
+          <p class="cert-link">View Certificate →</p>
+        </a>
+        <a href="https://drive.google.com/file/d/13DcFlO5Jl_Ut7iTPtUXQvJnnFSkCtJ-q/view" target="_blank" class="cert-card">
+          <p class="cert-issuer">Udemy</p>
+          <h3>🔗 Blockchain Foundation</h3>
+          <p class="cert-link">View Certificate →</p>
+        </a>
+        <a href="https://drive.google.com/file/d/14ks6UoW59-IX82MCH_dSas-_VzHGWKwk/view" target="_blank" class="cert-card">
+          <p class="cert-issuer">LinkedIn Learning</p>
+          <h3>📈 Managerial Economics</h3>
+          <p class="cert-link">View Certificate →</p>
+        </a>
+        <a href="https://drive.google.com/file/d/1vOGjewC4KCUZPnJ-wOP6XuEcyXMomle1/view" target="_blank" class="cert-card">
+          <p class="cert-issuer">DataCamp</p>
+          <h3>📊 Understanding Data Science</h3>
+          <p class="cert-link">View Certificate →</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       DATA CAREER
+  ══════════════════════════════════════ -->
+  <section id="data-career">
+    <div style="max-width:1000px;margin:0 auto;">
+      <div data-aos="fade-up" style="margin-bottom:48px;">
+        <p class="section-label">Learning journey</p>
+        <h2 class="section-title">Data Career<span class="gradient-text"> Journey</span></h2>
+        <p style="color:var(--subtle);font-size:0.95rem;line-height:1.7;">Milestones on my path from Finance Analyst to Data Scientist.</p>
+      </div>
+      <div class="dc-grid" data-aos="fade-up">
+        <div class="dc-card">
+          <div class="dc-img"><img src="Img/Understanding Data Science.png" alt="Understanding Data Science" loading="lazy" /></div>
+          <div class="dc-info">
+            <h3>Understanding Data Science</h3>
+            <p>Fundamentals of Data Science, analytics, and real-world applications. A foundation for my data career.</p>
+            <a href="https://drive.google.com/file/d/1vOGjewC4KCUZPnJ-wOP6XuEcyXMomle1/view?usp=drive_link" target="_blank" class="btn-primary" style="font-size:0.8rem;padding:8px 18px;display:inline-block;">View Certificate →</a>
+          </div>
+        </div>
+        <div class="dc-card">
+          <div class="dc-img"><img src="Img/Introduction to SQL.png" alt="Introduction to SQL" loading="lazy" /></div>
+          <div class="dc-info">
+            <h3>Introduction to SQL</h3>
+            <p>Queries, joins, and database management essentials for data analysis work.</p>
+            <a href="https://drive.google.com/file/d/18UJTIvLbPrJrT-aAFl_FrX_SNGziYsc3/view?usp=drive_link" target="_blank" class="btn-primary" style="font-size:0.8rem;padding:8px 18px;display:inline-block;">View Certificate →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       BLOG
+  ══════════════════════════════════════ -->
+  <section id="blog">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div data-aos="fade-up" style="margin-bottom:48px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
+        <div>
+          <p class="section-label">Content</p>
+          <h2 class="section-title">Blog &<span class="gradient-text"> YouTube</span></h2>
+        </div>
+        <a href="https://dattatraydagale.blogspot.com" target="_blank" class="btn-secondary" style="white-space:nowrap">All Posts →</a>
+      </div>
+      <div class="blog-grid" id="blog-posts" data-aos="fade-up"></div>
+
+      <!-- dagaledattatray blog -->
+      <div style="margin-top:48px;" data-aos="fade-up">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+          <p style="font-size:0.72rem;color:var(--cyan);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;">// dagaledattatray.blogspot.com</p>
+          <a href="https://dagaledattatray.blogspot.com/" target="_blank" class="btn-secondary" style="white-space:nowrap;font-size:0.78rem;padding:6px 14px;">All Posts →</a>
+        </div>
+        <div class="blog-grid" id="blog-posts-2"></div>
+      </div>
+
+      <!-- marathieconomics blog -->
+      <div style="margin-top:48px;" data-aos="fade-up">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+          <p style="font-size:0.72rem;color:var(--cyan);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;">// marathieconomics.blogspot.com</p>
+          <a href="https://marathieconomics.blogspot.com/" target="_blank" class="btn-secondary" style="white-space:nowrap;font-size:0.78rem;padding:6px 14px;">All Posts →</a>
+        </div>
+        <div class="blog-grid" id="blog-posts-3"></div>
+      </div>
+
+      <a href="https://www.youtube.com/@dattatraydagale" target="_blank" class="yt-embed" data-aos="fade-up" style="display:block;text-decoration:none;">
+        <div style="background:rgba(255,0,0,0.06);border:1px solid rgba(255,0,0,0.2);border-radius:16px;padding:36px;text-align:center;transition:border-color 0.3s,transform 0.3s;" onmouseover="this.style.borderColor='rgba(255,0,0,0.5)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,0,0,0.2)';this.style.transform='translateY(0)'">
+          <i class="fab fa-youtube" style="font-size:3rem;color:#ff0000;display:block;margin-bottom:12px;"></i>
+          <p style="font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:6px;">Dattatray Dagale — YouTube</p>
+          <p style="font-size:0.85rem;color:var(--subtle);margin-bottom:16px;">Educational content on economics, finance, current affairs & digital skills</p>
+          <span style="display:inline-block;background:#ff0000;color:#fff;font-weight:700;font-size:0.85rem;padding:10px 24px;border-radius:8px;">Subscribe Now →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       TOOLS & RESOURCES
+  ══════════════════════════════════════ -->
+  <section id="tools" style="padding:100px 32px;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div data-aos="fade-up" style="margin-bottom:48px;">
+        <p class="section-label">My Stack</p>
+        <h2 class="section-title">Tools &<span class="gradient-text"> Resources</span></h2>
+        <p style="color:var(--subtle);font-size:0.95rem;max-width:500px;line-height:1.7;">Tools I use daily at work, and learning resources I've built for the community.</p>
+      </div>
+
+      <!-- Daily Tools -->
+      <div data-aos="fade-up" style="margin-bottom:48px;">
+        <p style="font-size:0.72rem;color:var(--cyan);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;">// Daily Tools</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px;">
+          <div class="glass" style="padding:18px;text-align:center;cursor:default;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">📊</div>
+            <div style="font-size:0.8rem;font-weight:600;">Excel</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Advanced</div>
+          </div>
+          <div class="glass" style="padding:18px;text-align:center;cursor:default;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">📡</div>
+            <div style="font-size:0.8rem;font-weight:600;">Bloomberg</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Advanced</div>
+          </div>
+          <div class="glass" style="padding:18px;text-align:center;cursor:default;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">🐍</div>
+            <div style="font-size:0.8rem;font-weight:600;">Python</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Learning</div>
+          </div>
+          <div class="glass" style="padding:18px;text-align:center;cursor:default;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">🗄️</div>
+            <div style="font-size:0.8rem;font-weight:600;">SQL</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Intermediate</div>
+          </div>
+          <div class="glass" style="padding:18px;text-align:center;cursor:default;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">📈</div>
+            <div style="font-size:0.8rem;font-weight:600;">Tableau</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Learning</div>
+          </div>
+          <div class="glass" style="padding:18px;text-align:center;cursor:default;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">⚡</div>
+            <div style="font-size:0.8rem;font-weight:600;">Power BI</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Learning</div>
+          </div>
+          <div class="glass" style="padding:18px;text-align:center;cursor:default;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">🎨</div>
+            <div style="font-size:0.8rem;font-weight:600;">Canva</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Intermediate</div>
+          </div>
+          <div class="glass" style="padding:18px;text-align:center;cursor:default;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">🌐</div>
+            <div style="font-size:0.8rem;font-weight:600;">HTML/CSS</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Intermediate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Learning Resources -->
+      <div data-aos="fade-up">
+        <p style="font-size:0.72rem;color:var(--cyan);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;">// My Learning Resources</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;">
+          <a href="https://dagaledattatray.github.io/courses.html" target="_blank" class="glass" style="padding:22px;text-decoration:none;display:block;">
+            <div style="font-size:1.5rem;margin-bottom:10px;">🎓</div>
+            <div style="font-weight:700;margin-bottom:6px;">SSC CGL Courses</div>
+            <div style="font-size:0.82rem;color:var(--subtle);line-height:1.5;">Structured course covering all CGL modules — Quant, English, GK, Reasoning.</div>
+            <div style="font-size:0.78rem;color:var(--indigo);margin-top:10px;font-weight:600;">Open Course →</div>
+          </a>
+          <a href="https://dagaledattatray.github.io/learn.html" target="_blank" class="glass" style="padding:22px;text-decoration:none;display:block;">
+            <div style="font-size:1.5rem;margin-bottom:10px;">📚</div>
+            <div style="font-weight:700;margin-bottom:6px;">Learn Hub</div>
+            <div style="font-size:0.82rem;color:var(--subtle);line-height:1.5;">Curated resources for Python, SQL, Statistics, Tableau and Power BI learners.</div>
+            <div style="font-size:0.78rem;color:var(--indigo);margin-top:10px;font-weight:600;">Explore Hub →</div>
+          </a>
+          <a href="https://dattatraydagale.blogspot.com" target="_blank" class="glass" style="padding:22px;text-decoration:none;display:block;">
+            <div style="font-size:1.5rem;margin-bottom:10px;">✍️</div>
+            <div style="font-weight:700;margin-bottom:6px;">Finance Blog</div>
+            <div style="font-size:0.82rem;color:var(--subtle);line-height:1.5;">Articles on economics, personal finance, and current affairs in plain language.</div>
+            <div style="font-size:0.78rem;color:var(--indigo);margin-top:10px;font-weight:600;">Read Blog →</div>
+          </a>
+          <a href="https://marathieconomics.blogspot.com" target="_blank" class="glass" style="padding:22px;text-decoration:none;display:block;">
+            <div style="font-size:1.5rem;margin-bottom:10px;">🇮🇳</div>
+            <div style="font-weight:700;margin-bottom:6px;">Marathi Economics</div>
+            <div style="font-size:0.82rem;color:var(--subtle);line-height:1.5;">Economics and finance explained in Marathi — for local audiences across Maharashtra.</div>
+            <div style="font-size:0.78rem;color:var(--indigo);margin-top:10px;font-weight:600;">वाचा →</div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CONTACT
+  ══════════════════════════════════════ -->
+  <section id="contact">
+    <div class="contact-wrap" data-aos="fade-up">
+      <p class="section-label" style="justify-content:center;">Get in touch</p>
+      <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+      <p style="color:var(--subtle);font-size:0.95rem;line-height:1.7;max-width:480px;margin:0 auto;">
+        Open to freelance projects, collaborations, and opportunities. Drop a message on any platform below.
+      </p>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/dattatraydagale" target="_blank" class="contact-link"><i class="fab fa-linkedin-in" style="color:#0a66c2;"></i> LinkedIn</a>
+        <a href="https://www.instagram.com/dattatray_dagale/" target="_blank" class="contact-link"><i class="fab fa-instagram" style="color:#e1306c;"></i> Instagram</a>
+        <a href="https://www.youtube.com/@dattatraydagale" target="_blank" class="contact-link"><i class="fab fa-youtube" style="color:#ff0000;"></i> YouTube</a>
+        <a href="https://x.com/DattatrayDagale/" target="_blank" class="contact-link"><i class="fab fa-x-twitter"></i> Twitter (X)</a>
+        <a href="https://dattatraydagale.blogspot.com" target="_blank" class="contact-link"><i class="fab fa-blogger-b" style="color:#ff5722;"></i> Blog</a>
+        <a href="https://github.com/DagaleDattatray" target="_blank" class="contact-link"><i class="fab fa-github"></i> GitHub</a>
+      </div>
+      <p style="margin-top:48px;font-size:0.8rem;color:var(--muted);">
+        👁️ <span id="visitorCount">—</span> visits &nbsp;·&nbsp; © 2025 Dattatray Dagale
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    Made with <span style="color:#f472b6;">♥</span> by <strong>Dattatray Dagale</strong>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Blog Bubble -->
+  <div id="blog-bubble">
+    <button class="bubble-close" onclick="document.getElementById('blog-bubble').style.display='none'">×</button>
+    <p style="font-size:0.72rem;color:var(--cyan);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">New Post</p>
+    <p class="bubble-text">How India's Budget 2025 Impacts You</p>
+    <a href="https://dattatraydagale.blogspot.com/" target="_blank" class="bubble-link">Read Now →</a>
+  </div>
+
+  <!-- AOS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
   <script>
-    AOS.init({ once: true, duration: 800 });
-  </script>
-
-  <!-- 🌌 Galaxy Animation Script -->
-  <script>
-    const canvas = document.getElementById("galaxy-canvas");
-    const ctx = canvas.getContext("2d");
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let centerX = canvas.width / 2;
-    let centerY = canvas.height / 2;
-
-    window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      centerX = canvas.width / 2;
-      centerY = canvas.height / 2;
+    // ─── PRELOADER ───
+    window.addEventListener('load', () => {
+      setTimeout(() => { document.getElementById('preloader').classList.add('done'); }, 1700);
     });
 
-    const planets = [
-      { name: "Mercury", radius: 3, distance: 40, speed: 0.04, color: "#b1b1b1" },
-      { name: "Venus", radius: 5, distance: 60, speed: 0.03, color: "#e0c97f" },
-      { name: "Earth", radius: 5.5, distance: 80, speed: 0.025, color: "#3e8ed0" },
-      { name: "Mars", radius: 4.5, distance: 100, speed: 0.02, color: "#c1440e" },
-      { name: "Jupiter", radius: 10, distance: 130, speed: 0.015, color: "#d9a066" },
-      { name: "Saturn", radius: 9, distance: 160, speed: 0.012, color: "#e0c97f" },
-      { name: "Uranus", radius: 7, distance: 190, speed: 0.01, color: "#7dcfd8" },
-      { name: "Neptune", radius: 7, distance: 220, speed: 0.008, color: "#4763c2" }
-    ];
+    // ─── AOS ───
+    AOS.init({ once: true, duration: 700, offset: 60 });
 
-    let angles = Array(planets.length).fill(0);
-    const stars = Array.from({ length: 200 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 1.5,
-      opacity: Math.random()
-    }));
+    // ─── CURSOR ───
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+    (function animRing() {
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.left = rx+'px'; ring.style.top = ry+'px';
+      requestAnimationFrame(animRing);
+    })();
+    document.querySelectorAll('a,button,.service-card,.project-card,.cert-card,.stat-card').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
 
-    let comets = [];
+    // ─── NAVBAR ───
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+      document.getElementById('back-top').classList.toggle('show', window.scrollY > 300);
+      const prog = document.getElementById('scroll-progress');
+      prog.style.width = (window.scrollY / (document.documentElement.scrollHeight - innerHeight) * 100) + '%';
+    });
 
-    function spawnComet() {
-      if (Math.random() < 0.01) {
-        comets.push({
-          x: -50,
-          y: Math.random() * canvas.height,
-          vx: 4 + Math.random() * 2,
-          vy: -1 + Math.random() * 2,
-          radius: 2 + Math.random() * 2,
-          opacity: 1
-        });
-      }
-    }
-
-    function drawStars() {
-      stars.forEach(star => {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${Math.sin(Date.now() / 500 + star.x) * 0.5 + 0.5})`;
-        ctx.fill();
-      });
-    }
-
-    function drawSun() {
-      const gradient = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, 60);
-      gradient.addColorStop(0, "#fffacd");
-      gradient.addColorStop(1, "#ffaa00");
-
-      ctx.beginPath();
-      ctx.fillStyle = gradient;
-      ctx.shadowBlur = 50;
-      ctx.shadowColor = "#ffaa00";
-      ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    function drawOrbits() {
-      planets.forEach(planet => {
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, planet.distance, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(255,255,255,0.05)";
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      });
-    }
-
-    function drawPlanets() {
-      planets.forEach((planet, i) => {
-        angles[i] += planet.speed;
-        const x = centerX + planet.distance * Math.cos(angles[i]);
-        const y = centerY + planet.distance * Math.sin(angles[i]);
-
-        ctx.beginPath();
-        ctx.fillStyle = planet.color;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = planet.color;
-        ctx.arc(x, y, planet.radius, 0, Math.PI * 2);
-        ctx.fill();
-      });
-    }
-
-    function drawComets() {
-      comets.forEach((comet, i) => {
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(255,255,255,${comet.opacity})`;
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = "#ffffff";
-        ctx.arc(comet.x, comet.y, comet.radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.beginPath();
-        const grad = ctx.createLinearGradient(comet.x, comet.y, comet.x - 30, comet.y - 5);
-        grad.addColorStop(0, "rgba(255,255,255,0.4)");
-        grad.addColorStop(1, "rgba(255,255,255,0)");
-        ctx.fillStyle = grad;
-        ctx.fillRect(comet.x - 30, comet.y - 2, 30, 4);
-
-        comet.x += comet.vx;
-        comet.y += comet.vy;
-        comet.opacity -= 0.003;
-
-        if (comet.opacity <= 0 || comet.x > canvas.width + 50) {
-          comets.splice(i, 1);
+    // Active nav link
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('.nav-links a');
+    const observer  = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+e.target.id));
         }
       });
-    }
+    }, { threshold: 0.35 });
+    sections.forEach(s => observer.observe(s));
 
-    function animate() {
+    // ─── HAMBURGER ───
+    const ham = document.getElementById('hamburger');
+    const mob = document.getElementById('mobileMenu');
+    ham.addEventListener('click', () => mob.classList.toggle('open'));
+    function closeMenu() { mob.classList.remove('open'); }
+
+    // ─── HERO TYPING ───
+    const phrases = [
+      'Data Analyst @ Morningstar',
+      'Finance Expert',
+      'Content Creator',
+      'SSC CGL Aspirant',
+      'Open to Freelance'
+    ];
+    let pi = 0, ci = 0, deleting = false;
+    const typedEl = document.getElementById('hero-typed');
+    function typeLoop() {
+      const word = phrases[pi];
+      typedEl.textContent = deleting ? word.slice(0, ci--) : word.slice(0, ci++);
+      if (!deleting && ci > word.length) { setTimeout(() => { deleting = true; typeLoop(); }, 1600); return; }
+      if (deleting && ci < 0) { deleting = false; pi = (pi + 1) % phrases.length; ci = 0; }
+      setTimeout(typeLoop, deleting ? 40 : 75);
+    }
+    typeLoop();
+
+    // ─── STAT COUNTERS ───
+    const statObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const target = parseInt(el.dataset.count);
+        if (!target) return;
+        let current = 0;
+        const step = Math.ceil(target / 30);
+        const t = setInterval(() => {
+          current = Math.min(current + step, target);
+          el.textContent = current + '+';
+          if (current >= target) clearInterval(t);
+        }, 50);
+        statObs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-num[data-count]').forEach(el => statObs.observe(el));
+
+    // ─── SKILL BAR ANIMATION ───
+    const skillObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.skill-fill').forEach(bar => {
+            bar.style.transform = `scaleX(${bar.style.getPropertyValue('--w') || 1})`;
+            bar.classList.add('animated');
+          });
+          skillObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.skills-grid').forEach(el => skillObs.observe(el));
+
+    // ─── BLOG POSTS ───
+    function renderPosts(containerId, data) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      if (!data.feed.entry) { container.innerHTML = '<p style="color:var(--muted)">No posts found.</p>'; return; }
+      data.feed.entry.slice(0, 3).forEach(post => {
+        const title = post.title.$t;
+        const link  = post.link.find(l => l.rel === 'alternate').href;
+        const img   = post.media$thumbnail ? post.media$thumbnail.url.replace('s72-c','s600') : 'https://via.placeholder.com/600x300/0a0a1a/6366f1?text=Blog';
+        const card  = document.createElement('a');
+        card.href = link; card.target = '_blank'; card.className = 'blog-card';
+        card.innerHTML = `<div class="blog-img"><img src="${img}" alt="${title}" loading="lazy"/></div><div class="blog-body"><h3>${title}</h3><span class="read-more">Read More →</span></div>`;
+        container.appendChild(card);
+      });
+    }
+    function displayBlogPosts(data)  { renderPosts('blog-posts',   data); }
+    function displayBlogPosts2(data) { renderPosts('blog-posts-2', data); }
+    function displayBlogPosts3(data) { renderPosts('blog-posts-3', data); }
+
+    // ─── VISITOR COUNTER ───
+    const vKey = 'portfolioVisits';
+    const visits = (parseInt(localStorage.getItem(vKey) || '0') + 1);
+    localStorage.setItem(vKey, visits);
+    document.getElementById('visitorCount').textContent = visits.toLocaleString();
+
+    // ─── GALAXY ANIMATION ───
+    const canvas = document.getElementById('galaxy-canvas');
+    const ctx    = canvas.getContext('2d');
+    function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+    let cx = canvas.width/2, cy = canvas.height/2;
+    window.addEventListener('resize', () => { cx = canvas.width/2; cy = canvas.height/2; });
+
+    const planets = [
+      {r:3, d:50,  sp:0.04,  c:'#b1b1b1'},
+      {r:5, d:80,  sp:0.03,  c:'#e0c97f'},
+      {r:6, d:110, sp:0.022, c:'#3e8ed0'},
+      {r:5, d:140, sp:0.018, c:'#c1440e'},
+      {r:10,d:175, sp:0.013, c:'#d9a066'},
+      {r:9, d:210, sp:0.01,  c:'#e0c97f'},
+      {r:7, d:245, sp:0.008, c:'#7dcfd8'},
+      {r:7, d:280, sp:0.006, c:'#4763c2'}
+    ];
+    const ang   = Array(planets.length).fill(0);
+    const stars = Array.from({length:250}, () => ({
+      x: Math.random()*2000, y: Math.random()*1200,
+      r: Math.random()*1.4, o: Math.random()
+    }));
+    let comets = [];
+
+    function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawStars();
-      drawOrbits();
-      drawSun();
-      drawPlanets();
-      drawComets();
-      spawnComet();
-      requestAnimationFrame(animate);
+      // Stars
+      stars.forEach(s => {
+        ctx.beginPath(); ctx.arc(s.x%canvas.width, s.y%canvas.height, s.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255,255,255,${0.3 + 0.5*Math.abs(Math.sin(Date.now()/800+s.x))})`; ctx.fill();
+      });
+      // Orbits
+      planets.forEach(p => {
+        ctx.beginPath(); ctx.arc(cx, cy, p.d, 0, Math.PI*2);
+        ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 0.5; ctx.stroke();
+      });
+      // Sun
+      const sg = ctx.createRadialGradient(cx,cy,8,cx,cy,55);
+      sg.addColorStop(0,'#fffacd'); sg.addColorStop(1,'rgba(255,170,0,0)');
+      ctx.beginPath(); ctx.arc(cx,cy,28,0,Math.PI*2); ctx.fillStyle=sg; ctx.shadowBlur=60; ctx.shadowColor='#ffaa00'; ctx.fill(); ctx.shadowBlur=0;
+      // Planets
+      planets.forEach((p,i) => {
+        ang[i]+=p.sp;
+        const x=cx+p.d*Math.cos(ang[i]), y=cy+p.d*Math.sin(ang[i]);
+        ctx.beginPath(); ctx.arc(x,y,p.r,0,Math.PI*2);
+        ctx.fillStyle=p.c; ctx.shadowBlur=12; ctx.shadowColor=p.c; ctx.fill(); ctx.shadowBlur=0;
+      });
+      // Comets
+      if (Math.random()<0.008) comets.push({x:-60,y:Math.random()*canvas.height,vx:5+Math.random()*3,vy:-1+Math.random()*2,r:2+Math.random()*2,o:1});
+      comets=comets.filter(c=>{
+        ctx.beginPath(); ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(255,255,255,${c.o})`; ctx.fill();
+        const g=ctx.createLinearGradient(c.x,c.y,c.x-40,c.y);
+        g.addColorStop(0,`rgba(200,220,255,${c.o*0.5})`); g.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.fillStyle=g; ctx.fillRect(c.x-40,c.y-2,40,3);
+        c.x+=c.vx; c.y+=c.vy; c.o-=0.004;
+        return c.o>0 && c.x<canvas.width+80;
+      });
+      requestAnimationFrame(draw);
     }
-
-    animate();
+    draw();
   </script>
+  <script src="https://dattatraydagale.blogspot.com/feeds/posts/default?alt=json-in-script&callback=displayBlogPosts&max-results=3"></script>
+  <script src="https://dagaledattatray.blogspot.com/feeds/posts/default?alt=json-in-script&callback=displayBlogPosts2&max-results=3"></script>
+  <script src="https://marathieconomics.blogspot.com/feeds/posts/default?alt=json-in-script&callback=displayBlogPosts3&max-results=3"></script>
 </body>
-</html>
-
-
-
-</body>
-
-<!-- Footer -->
-<footer class="bg-gray-900 py-6 mt-12 text-center">
-  <p class="text-gray-400 text-sm">Made with <span class="text-red-500 text-lg">❤️</span> by <strong>Dattatray Dagale</strong></p>
-</footer>
-
-
 </html>

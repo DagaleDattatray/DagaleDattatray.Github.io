@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantitative Aptitude — SSC CGL | Dattatray Dagale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg-primary:#0a0e17;--bg-secondary:#111827;--bg-card:#1a2234;--bg-card-hover:#1f2b42;--accent:#3b82f6;--accent-dim:#2563eb;--accent-purple:#8b5cf6;--accent-gold:#f59e0b;--accent-green:#10b981;--accent-red:#ef4444;--accent-cyan:#06b6d4;--accent-orange:#f97316;--text-primary:#e8edf5;--text-secondary:#94a3b8;--text-dim:#64748b;--border:#1e293b;--border-light:#334155;--font-display:'DM Serif Display',Georgia,serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);line-height:1.7;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg-primary)}::-webkit-scrollbar-thumb{background:var(--accent-dim);border-radius:3px}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,23,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--font-display);font-size:1.1rem;color:var(--accent);text-decoration:none}
+.nav-logo span{color:var(--text-dim);font-style:italic}
+.nav-links{display:flex;gap:0.15rem;flex-wrap:wrap}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.72rem;font-weight:500;padding:0.3rem 0.55rem;border-radius:6px;transition:all 0.2s;letter-spacing:0.03em;text-transform:uppercase}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(59,130,246,0.08)}
+.nav-progress{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-purple));transition:width 0.15s;width:0%}
+.mobile-toggle{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer}
+
+/* PAGE HERO */
+.page-hero{padding:7rem 2rem 3rem;max-width:1200px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.page-hero-left{}
+.page-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.3rem 0.9rem;border:1px solid var(--accent-dim);border-radius:100px;font-size:0.7rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+.page-hero h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;margin-bottom:0.75rem}
+.page-hero h1 em{color:var(--accent);font-style:italic}
+.page-hero p{color:var(--text-secondary);font-size:1rem;max-width:600px;font-weight:300;line-height:1.8}
+.page-meta{display:flex;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.meta-item{font-size:0.75rem;color:var(--text-dim)}.meta-item strong{color:var(--accent);font-weight:600}
+
+/* SIDEBAR LAYOUT */
+.layout{display:grid;grid-template-columns:260px 1fr;gap:2.5rem;max-width:1200px;margin:0 auto;padding:2rem 2rem 5rem;align-items:start}
+.sidebar{position:sticky;top:80px}
+.sidebar-nav{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;overflow:hidden}
+.sidebar-nav-title{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)}
+.sidebar-nav a{display:block;padding:0.4rem 0.6rem;font-size:0.82rem;color:var(--text-secondary);text-decoration:none;border-radius:6px;transition:all 0.2s;margin-bottom:0.1rem}
+.sidebar-nav a:hover,.sidebar-nav a.active{color:var(--accent);background:rgba(59,130,246,0.08)}
+.sidebar-back{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.75rem;background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.15);border-radius:8px;font-size:0.78rem;color:var(--accent);text-decoration:none;margin-bottom:0.75rem;transition:all 0.2s}
+.sidebar-back:hover{background:rgba(59,130,246,0.12)}
+
+/* CONTENT */
+.content{}
+.chapter{margin-bottom:3.5rem;scroll-margin-top:80px}
+.chapter-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.chapter-num{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);background:rgba(59,130,246,0.1);padding:0.3rem 0.6rem;border-radius:6px;white-space:nowrap}
+.chapter-title{font-family:var(--font-display);font-size:1.75rem}
+.block{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:2rem;margin-bottom:1.25rem}
+.block h3{font-family:var(--font-display);font-size:1.3rem;margin-bottom:1rem;color:var(--text-primary)}
+.block h4{font-size:0.95rem;font-weight:600;color:var(--accent);margin:1.5rem 0 0.6rem}
+.block h4.purple{color:var(--accent-purple)}
+.block h4.green{color:var(--accent-green)}
+.block h4.gold{color:var(--accent-gold)}
+.block p{color:var(--text-secondary);margin-bottom:0.85rem;font-weight:300;font-size:0.93rem}
+.block ul,.block ol{color:var(--text-secondary);padding-left:1.25rem;margin-bottom:1rem;font-weight:300;font-size:0.92rem}
+.block li{margin-bottom:0.4rem}
+.block li::marker{color:var(--accent-dim)}
+strong{color:var(--text-primary);font-weight:600}
+
+.formula{background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:10px;padding:1rem 1.5rem;margin:1rem 0;font-family:var(--font-mono);font-size:0.88rem;color:var(--accent-cyan);text-align:center;overflow-x:auto}
+.formula.gold{color:var(--accent-gold)}
+.formula.green{color:var(--accent-green)}
+.formula.purple{color:var(--accent-purple)}
+.formula-label{font-family:var(--font-body);font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.35rem}
+
+.highlight{background:rgba(59,130,246,0.06);border-left:3px solid var(--accent);padding:1rem 1.3rem;border-radius:0 8px 8px 0;margin:1rem 0}
+.highlight.green{background:rgba(16,185,129,0.06);border-left-color:var(--accent-green)}
+.highlight.gold{background:rgba(245,158,11,0.06);border-left-color:var(--accent-gold)}
+.highlight.purple{background:rgba(139,92,246,0.06);border-left-color:var(--accent-purple)}
+.highlight.red{background:rgba(239,68,68,0.06);border-left-color:var(--accent-red)}
+.highlight p{margin-bottom:0;color:var(--text-primary);font-weight:400;font-size:0.88rem}
+
+.trick{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(59,130,246,0.05));border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:1.1rem 1.4rem;margin:1rem 0}
+.trick-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent-purple);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.4rem}
+.trick p{color:var(--text-primary);font-size:0.88rem;margin-bottom:0}
+
+.tbl-wrap{overflow-x:auto;margin:1rem 0;border-radius:10px;border:1px solid var(--border)}
+table.tbl{width:100%;border-collapse:collapse;font-size:0.85rem}
+table.tbl thead{background:var(--bg-secondary)}
+table.tbl th{padding:0.65rem 0.9rem;text-align:left;font-weight:600;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--accent);border-bottom:1px solid var(--border-light)}
+table.tbl td{padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);color:var(--text-secondary)}
+table.tbl tbody tr:hover{background:rgba(59,130,246,0.03)}
+table.tbl .rh{font-weight:500;color:var(--text-primary)}
+table.tbl .num{text-align:center;font-family:var(--font-mono);font-size:0.82rem}
+table.tbl .hl{color:var(--accent-green);font-weight:600}
+table.tbl .center{text-align:center}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:1rem 0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0}
+.mini-card{background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:1.1rem}
+.mini-card h5{font-size:0.82rem;font-weight:600;color:var(--accent);margin-bottom:0.4rem}
+.mini-card p,.mini-card li{font-size:0.8rem;color:var(--text-secondary);font-weight:300}
+.mini-card ul{padding-left:1rem}
+
+/* QUIZ */
+.quiz-wrap{background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:12px;padding:1.75rem;margin:1.5rem 0}
+.quiz-title{font-family:var(--font-display);font-size:1.05rem;color:var(--accent);margin-bottom:1.25rem}
+.quiz-q{margin-bottom:1.4rem}
+.quiz-q p{font-weight:500;color:var(--text-primary);margin-bottom:0.6rem;font-size:0.9rem}
+.quiz-q p small{display:block;font-size:0.72rem;color:var(--text-dim);font-weight:400;margin-top:0.15rem}
+.quiz-options{display:flex;flex-direction:column;gap:0.35rem}
+.quiz-option{padding:0.6rem 0.9rem;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:0.84rem;color:var(--text-secondary);transition:all 0.2s;text-align:left}
+.quiz-option:hover{border-color:var(--accent-dim);color:var(--text-primary)}
+.quiz-option.correct{border-color:var(--accent-green);background:rgba(16,185,129,0.08);color:var(--accent-green)}
+.quiz-option.wrong{border-color:var(--accent-red);background:rgba(239,68,68,0.06);color:var(--accent-red)}
+.quiz-explanation{display:none;margin-top:0.5rem;padding:0.6rem 0.85rem;background:rgba(16,185,129,0.06);border-left:3px solid var(--accent-green);border-radius:0 6px 6px 0;font-size:0.8rem;color:var(--text-secondary)}
+.quiz-q.answered .quiz-explanation{display:block}
+
+/* ACCORDION */
+.accordion{margin:1rem 0}
+.accordion-item{border:1px solid var(--border);border-radius:10px;margin-bottom:0.5rem;overflow:hidden}
+.accordion-trigger{width:100%;padding:0.9rem 1.25rem;background:var(--bg-secondary);border:none;color:var(--text-primary);font-family:var(--font-body);font-size:0.88rem;font-weight:500;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background 0.2s}
+.accordion-trigger:hover{background:var(--bg-card-hover)}
+.accordion-trigger::after{content:'+';font-size:1.1rem;color:var(--accent);transition:transform 0.3s;flex-shrink:0}
+.accordion-item.open .accordion-trigger::after{transform:rotate(45deg)}
+.accordion-content{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.accordion-inner{padding:1rem 1.25rem;color:var(--text-secondary);font-size:0.85rem;font-weight:300;line-height:1.8}
+.accordion-inner ul{padding-left:1rem}
+.accordion-inner li{margin-bottom:0.3rem}
+
+.btt{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:all 0.3s;z-index:900;box-shadow:0 4px 20px rgba(59,130,246,0.35)}
+.btt.show{opacity:1;transform:translateY(0)}
+.footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.8rem}
+.footer a{color:var(--accent);text-decoration:none}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s,transform 0.6s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}}
+@media(max-width:768px){.nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,14,23,0.97);backdrop-filter:blur(20px);flex-direction:column;padding:1rem;border-bottom:1px solid var(--border)}.nav-links.open{display:flex}.mobile-toggle{display:block}.grid2,.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="CGL.html" class="nav-logo">CGL <span>/ Maths</span></a>
+    <div class="nav-links">
+      <a href="#numsys">Numbers</a>
+      <a href="#percent">%</a>
+      <a href="#pl">P&amp;L</a>
+      <a href="#sici">SI/CI</a>
+      <a href="#ratio">Ratio</a>
+      <a href="#tw">T&amp;W</a>
+      <a href="#sdt">SDT</a>
+      <a href="#geometry">Geometry</a>
+      <a href="#mensuration">Mensuration</a>
+      <a href="#trig">Trig</a>
+      <a href="#algebra">Algebra</a>
+      <a href="#di">DI</a>
+    </div>
+    <button class="mobile-toggle" onclick="this.previousElementSibling.classList.toggle('open')">☰</button>
+  </div>
+  <div class="nav-progress" id="nprog"></div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-left">
+    <div class="page-badge">Module 01 · Quantitative Aptitude</div>
+    <h1>Maths for <em>SSC CGL</em></h1>
+    <p>Complete chapter-wise coverage with formulas, shortcut tricks (Aditya Ranjan sir approach), worked examples, and practice questions. Tier I: 25 Qs · Tier II: 90 min paper.</p>
+    <div class="page-meta">
+      <div class="meta-item"><strong>25 Qs</strong> Tier I</div>
+      <div class="meta-item"><strong>100 Qs</strong> Tier II Paper-I</div>
+      <div class="meta-item"><strong>–0.5</strong> Negative marking (T-I)</div>
+      <div class="meta-item"><strong>13</strong> Chapters covered</div>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <a href="CGL.html" class="sidebar-back">← Back to Hub</a>
+  <div class="sidebar-nav">
+    <div class="sidebar-nav-title">Chapters</div>
+    <a href="#numsys">01 · Number System</a>
+    <a href="#percent">02 · Percentage</a>
+    <a href="#pl">03 · Profit &amp; Loss</a>
+    <a href="#sici">04 · SI &amp; CI</a>
+    <a href="#ratio">05 · Ratio &amp; Proportion</a>
+    <a href="#tw">06 · Time &amp; Work</a>
+    <a href="#sdt">07 · Speed, Distance &amp; Time</a>
+    <a href="#geometry">08 · Geometry</a>
+    <a href="#mensuration">09 · Mensuration</a>
+    <a href="#trig">10 · Trigonometry</a>
+    <a href="#algebra">11 · Algebra</a>
+    <a href="#mixture">12 · Mixture &amp; Alligation</a>
+    <a href="#di">13 · Data Interpretation</a>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="content">
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 01 — NUMBER SYSTEM -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="numsys">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 01</span>
+    <h2 class="chapter-title">Number System</h2>
+  </div>
+
+  <div class="block">
+    <h3>Types of Numbers</h3>
+    <div class="grid2">
+      <div class="mini-card">
+        <h5>Natural Numbers (N)</h5>
+        <p>1, 2, 3, 4 ... (counting numbers, starts at 1)</p>
+      </div>
+      <div class="mini-card">
+        <h5>Whole Numbers (W)</h5>
+        <p>0, 1, 2, 3 ... (natural + zero)</p>
+      </div>
+      <div class="mini-card">
+        <h5>Integers (Z)</h5>
+        <p>...-3, -2, -1, 0, 1, 2, 3... (positive + negative + 0)</p>
+      </div>
+      <div class="mini-card">
+        <h5>Rational Numbers (Q)</h5>
+        <p>p/q form where q≠0. Includes all integers, fractions, terminating & recurring decimals.</p>
+      </div>
+      <div class="mini-card">
+        <h5>Irrational Numbers</h5>
+        <p>√2, √3, π, e — cannot be expressed as p/q. Non-terminating, non-recurring.</p>
+      </div>
+      <div class="mini-card">
+        <h5>Real Numbers (R)</h5>
+        <p>Rational ∪ Irrational. All numbers on the number line.</p>
+      </div>
+    </div>
+
+    <h4>Prime & Composite Numbers</h4>
+    <div class="highlight">
+      <p><strong>Prime:</strong> Exactly 2 factors (1 and itself). 2 is the only even prime. 1 is neither prime nor composite.</p>
+    </div>
+    <p>Primes up to 100: <strong>2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97</strong> — 25 primes total.</p>
+
+    <h4>Divisibility Rules</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Divisor</th><th>Rule</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">2</td><td>Last digit even (0,2,4,6,8)</td><td>348 ✓</td></tr>
+          <tr><td class="rh">3</td><td>Sum of digits divisible by 3</td><td>123 → 1+2+3=6 ✓</td></tr>
+          <tr><td class="rh">4</td><td>Last 2 digits divisible by 4</td><td>1324 → 24÷4 ✓</td></tr>
+          <tr><td class="rh">5</td><td>Last digit 0 or 5</td><td>745 ✓</td></tr>
+          <tr><td class="rh">6</td><td>Divisible by both 2 and 3</td><td>312 ✓</td></tr>
+          <tr><td class="rh">7</td><td>Double last digit, subtract from rest; repeat if needed</td><td>161 → 16-(2×1)=14 ✓</td></tr>
+          <tr><td class="rh">8</td><td>Last 3 digits divisible by 8</td><td>1256 → 256÷8 ✓</td></tr>
+          <tr><td class="rh">9</td><td>Sum of digits divisible by 9</td><td>729 → 7+2+9=18 ✓</td></tr>
+          <tr><td class="rh">11</td><td>(Sum of odd-position digits) – (Sum of even-position digits) = 0 or multiple of 11</td><td>1331 → (1+3)–(3+1)=0 ✓</td></tr>
+          <tr><td class="rh">25</td><td>Last 2 digits divisible by 25</td><td>1475 → 75÷25 ✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>HCF & LCM</h4>
+    <div class="formula"><span class="formula-label">Key Relation</span><br>HCF × LCM = Product of two numbers</div>
+    <div class="grid2">
+      <div class="mini-card">
+        <h5>HCF (GCD)</h5>
+        <ul>
+          <li>Largest number that divides all given numbers</li>
+          <li>HCF of fractions = HCF of numerators / LCM of denominators</li>
+        </ul>
+      </div>
+      <div class="mini-card">
+        <h5>LCM</h5>
+        <ul>
+          <li>Smallest number divisible by all given numbers</li>
+          <li>LCM of fractions = LCM of numerators / HCF of denominators</li>
+        </ul>
+      </div>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Aditya Ranjan Trick</div>
+      <p>For "largest number dividing a, b, c leaving same remainder r" → HCF of (a−b), (b−c), (a−c). For "leaving remainders r₁, r₂ …" → HCF of (a−r₁), (b−r₂), …</p>
+    </div>
+
+    <h4>Unit Digit Cyclicity</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Base</th><th>Cycle</th><th>Pattern</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">2</td><td>4</td><td>2,4,8,6,2,4,8,6...</td></tr>
+          <tr><td class="rh">3</td><td>4</td><td>3,9,7,1,3,9,7,1...</td></tr>
+          <tr><td class="rh">4</td><td>2</td><td>4,6,4,6...</td></tr>
+          <tr><td class="rh">7</td><td>4</td><td>7,9,3,1,7,9,3,1...</td></tr>
+          <tr><td class="rh">8</td><td>4</td><td>8,4,2,6,8,4,2,6...</td></tr>
+          <tr><td class="rh">0,1,5,6</td><td>1</td><td>Always same digit</td></tr>
+          <tr><td class="rh">9</td><td>2</td><td>9,1,9,1... (odd→9, even→1)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Quick Method</div>
+      <p>To find unit digit of a^n: find (n mod cycle). If remainder=0, use last value in cycle. Example: 7^53 → 53 mod 4 = 1 → unit digit = 7¹ = <strong>7</strong></p>
+    </div>
+  </div>
+
+  <div class="quiz-wrap">
+    <div class="quiz-title">Practice — Number System</div>
+    <div class="quiz-q" id="q-ns1">
+      <p>The HCF of two numbers is 11 and their LCM is 693. If one number is 77, what is the other?<small>SSC CGL 2019 pattern</small></p>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ns1')">A) 66</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'correct','q-ns1')">B) 99</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ns1')">C) 88</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ns1')">D) 110</button>
+      </div>
+      <div class="quiz-explanation">HCF × LCM = a × b → 11 × 693 = 77 × b → b = 7623/77 = <strong>99</strong></div>
+    </div>
+    <div class="quiz-q" id="q-ns2">
+      <p>What is the unit digit of 3^75?<small>Direct application of cyclicity</small></p>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ns2')">A) 1</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ns2')">B) 9</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'correct','q-ns2')">C) 7</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ns2')">D) 3</button>
+      </div>
+      <div class="quiz-explanation">3 has cycle 4. 75 mod 4 = 3. 3rd in cycle [3,9,7,1] = <strong>7</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 02 — PERCENTAGE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="percent">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 02</span>
+    <h2 class="chapter-title">Percentage</h2>
+  </div>
+  <div class="block">
+    <h3>Core Formulas</h3>
+    <div class="formula"><span class="formula-label">Percentage</span><br>x% of y = (x × y) / 100</div>
+    <div class="formula gold"><span class="formula-label">% Change</span><br>% Change = [(New − Old) / Old] × 100</div>
+    <div class="formula green"><span class="formula-label">% Increase then Decrease</span><br>Net % change = a + b + (ab/100)  [use –b for decrease]</div>
+
+    <h4>Fraction ↔ Percentage Conversions (Must memorise)</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Fraction</th><th>%</th><th>Fraction</th><th>%</th></tr></thead>
+        <tbody>
+          <tr><td>1/2</td><td class="num">50%</td><td>1/7</td><td class="num">14.28%</td></tr>
+          <tr><td>1/3</td><td class="num">33.33%</td><td>1/8</td><td class="num">12.5%</td></tr>
+          <tr><td>1/4</td><td class="num">25%</td><td>1/9</td><td class="num">11.11%</td></tr>
+          <tr><td>1/5</td><td class="num">20%</td><td>1/10</td><td class="num">10%</td></tr>
+          <tr><td>1/6</td><td class="num">16.67%</td><td>1/11</td><td class="num">9.09%</td></tr>
+          <tr><td>2/3</td><td class="num">66.67%</td><td>3/4</td><td class="num">75%</td></tr>
+          <tr><td>2/5</td><td class="num">40%</td><td>3/5</td><td class="num">60%</td></tr>
+          <tr><td>4/5</td><td class="num">80%</td><td>5/6</td><td class="num">83.33%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Key Relationships</h4>
+    <div class="highlight gold">
+      <p>If A is <strong>x% more</strong> than B → B is [x/(100+x)] × 100 % less than A<br>
+      If A is <strong>x% less</strong> than B → B is [x/(100−x)] × 100 % more than A</p>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Successive % Trick</div>
+      <p>Two successive discounts of a% and b% = Net discount = a + b − ab/100<br>
+      Example: 20% then 10% = 20+10−2 = <strong>28% net discount</strong></p>
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-title">Practice — Percentage</div>
+      <div class="quiz-q" id="q-per1">
+        <p>A number is increased by 20% and then decreased by 20%. Net change?<small>Successive % application</small></p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-per1')">A) No change</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-per1')">B) 4% decrease</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-per1')">C) 4% increase</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-per1')">D) 2% decrease</button>
+        </div>
+        <div class="quiz-explanation">Net = 20 + (−20) + (20×−20)/100 = 0 − 4 = <strong>−4% i.e. 4% decrease</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 03 — PROFIT & LOSS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="pl">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 03</span>
+    <h2 class="chapter-title">Profit &amp; Loss</h2>
+  </div>
+  <div class="block">
+    <h3>Fundamental Formulas</h3>
+    <div class="grid2">
+      <div>
+        <div class="formula"><span class="formula-label">Profit %</span><br>Profit% = (Profit / CP) × 100</div>
+        <div class="formula gold"><span class="formula-label">SP when profit%</span><br>SP = CP × (100 + P%) / 100</div>
+      </div>
+      <div>
+        <div class="formula green"><span class="formula-label">Loss %</span><br>Loss% = (Loss / CP) × 100</div>
+        <div class="formula purple"><span class="formula-label">SP when loss%</span><br>SP = CP × (100 − L%) / 100</div>
+      </div>
+    </div>
+    <div class="formula"><span class="formula-label">CP from SP</span><br>CP = SP × 100 / (100 + P%)  OR  CP = SP × 100 / (100 − L%)</div>
+
+    <h4>Discount Formulas</h4>
+    <div class="formula gold"><span class="formula-label">Discount</span><br>Discount = Marked Price (MP) − Selling Price (SP)<br>Discount% = (Discount / MP) × 100</div>
+    <div class="formula"><span class="formula-label">SP with discount</span><br>SP = MP × (100 − D%) / 100</div>
+    <div class="formula green"><span class="formula-label">Profit % on MP</span><br>P% = [(MP − CP) / CP] × 100</div>
+
+    <h4>Dishonest Dealer / False Weight</h4>
+    <div class="trick">
+      <div class="trick-label">⚡ Shortcut</div>
+      <p>Profit% = [(True weight − False weight) / False weight] × 100<br>
+      If a dealer uses 900g weight instead of 1kg: P% = (1000−900)/900 × 100 = <strong>11.11%</strong></p>
+    </div>
+
+    <h4>Two Items — Same CP/SP Situations</h4>
+    <div class="highlight red">
+      <p>Selling 2 items at same SP, one at x% profit and other at x% loss → <strong>Always a loss</strong> of (x/10)² % = x²/100 %</p>
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-title">Practice — Profit &amp; Loss</div>
+      <div class="quiz-q" id="q-pl1">
+        <p>A shopkeeper marks his goods 40% above cost price and gives 25% discount. Profit %?<small>MP and discount problem</small></p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-pl1')">A) 10%</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-pl1')">B) 15%</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-pl1')">C) 5%</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-pl1')">D) 12%</button>
+        </div>
+        <div class="quiz-explanation">Let CP=100, MP=140, SP=140×0.75=105 → Profit = <strong>5%</strong></div>
+      </div>
+      <div class="quiz-q" id="q-pl2">
+        <p>Two articles sold at Rs 990 each. One at 10% profit, other at 10% loss. Net result?<small>Classic SSC trap</small></p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-pl2')">A) No loss no gain</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-pl2')">B) Rs 18 profit</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-pl2')">C) Rs 20 loss</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-pl2')">D) Rs 18 loss</button>
+        </div>
+        <div class="quiz-explanation">Loss = x²/100 % = 100/100 = 1% on total SP (1980). CP total = 900+1100=2000. Loss = 2000−1980 = <strong>Rs 20</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 04 — SI & CI -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="sici">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 04</span>
+    <h2 class="chapter-title">Simple &amp; Compound Interest</h2>
+  </div>
+  <div class="block">
+    <h3>Simple Interest</h3>
+    <div class="formula"><span class="formula-label">SI Formula</span><br>SI = (P × R × T) / 100</div>
+    <div class="formula gold"><span class="formula-label">Amount</span><br>A = P + SI = P(1 + RT/100)</div>
+
+    <h3>Compound Interest</h3>
+    <div class="formula green"><span class="formula-label">CI Amount</span><br>A = P × (1 + R/100)ⁿ</div>
+    <div class="formula"><span class="formula-label">CI</span><br>CI = A − P = P[(1 + R/100)ⁿ − 1]</div>
+
+    <h4>Half-Yearly & Quarterly Compounding</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Type</th><th>Rate becomes</th><th>Time becomes</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Half-yearly</td><td>R/2</td><td>2n</td></tr>
+          <tr><td class="rh">Quarterly</td><td>R/4</td><td>4n</td></tr>
+          <tr><td class="rh">Monthly</td><td>R/12</td><td>12n</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Key SI vs CI Differences</h4>
+    <div class="highlight">
+      <p>For same P, R, T:<br>
+      CI − SI (2 years) = P(R/100)²<br>
+      CI − SI (3 years) = P(R/100)²(3 + R/100)</p>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Effective Rate Trick</div>
+      <p>10% CI for 2 years = 10+10+(10×10)/100 = <strong>21%</strong> effective rate. Use the successive % formula.</p>
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-title">Practice — SI &amp; CI</div>
+      <div class="quiz-q" id="q-ci1">
+        <p>At what rate % CI, Rs 800 amounts to Rs 882 in 2 years?</p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ci1')">A) 5.5%</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-ci1')">B) 5%</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ci1')">C) 4.5%</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ci1')">D) 6%</button>
+        </div>
+        <div class="quiz-explanation">882/800 = 1.1025 = (1+r)² → 1+r = 1.05 → r = <strong>5%</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 05 — RATIO & PROPORTION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="ratio">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 05</span>
+    <h2 class="chapter-title">Ratio &amp; Proportion</h2>
+  </div>
+  <div class="block">
+    <h3>Key Concepts</h3>
+    <div class="formula"><span class="formula-label">Proportion</span><br>a:b = c:d → ad = bc (product of means = product of extremes)</div>
+
+    <h4>Types of Ratios</h4>
+    <div class="grid3">
+      <div class="mini-card"><h5>Duplicate Ratio</h5><p>a²:b² (square of ratio a:b)</p></div>
+      <div class="mini-card"><h5>Sub-duplicate</h5><p>√a:√b</p></div>
+      <div class="mini-card"><h5>Triplicate</h5><p>a³:b³</p></div>
+      <div class="mini-card"><h5>Componendo</h5><p>(a+b):(a−b) from a:b</p></div>
+      <div class="mini-card"><h5>Dividendo</h5><p>(a−b):b</p></div>
+      <div class="mini-card"><h5>Componendo-Dividendo</h5><p>(a+b)/(a−b) = (c+d)/(c−d)</p></div>
+    </div>
+
+    <h4>Partnership</h4>
+    <div class="highlight">
+      <p><strong>Simple partnership:</strong> Profit ratio = ratio of capitals (same time)<br>
+      <strong>Compound partnership:</strong> Profit ratio = Capital × Time</p>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Partnership Trick</div>
+      <p>A invests ₹12000 for 6 months, B invests ₹8000 for 12 months. Profit ratio = (12000×6):(8000×12) = 72000:96000 = <strong>3:4</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 06 — TIME & WORK -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="tw">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 06</span>
+    <h2 class="chapter-title">Time &amp; Work</h2>
+  </div>
+  <div class="block">
+    <h3>Core Approach</h3>
+    <div class="highlight">
+      <p>If A can do work in <strong>n days</strong>, A's 1-day work = <strong>1/n</strong>. Assume total work = LCM of days for easier calculation.</p>
+    </div>
+    <div class="formula"><span class="formula-label">Combined Work</span><br>A+B together finish in = (a×b)/(a+b) days</div>
+
+    <h4>Pipes & Cisterns</h4>
+    <div class="highlight gold">
+      <p><strong>Inlet pipe</strong> fills → positive work. <strong>Outlet pipe</strong> drains → negative work.<br>
+      Net rate = Sum of all inlet rates − Sum of all outlet rates.</p>
+    </div>
+
+    <h4>Work & Wages</h4>
+    <div class="trick">
+      <div class="trick-label">⚡ Wages Trick</div>
+      <p>Wages are distributed in the ratio of work done. If A:B work ratio is 3:2, wages are also 3:2.</p>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-trigger">Worked Example: Efficiency Method</button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p><strong>Problem:</strong> A can finish in 12 days, B in 15 days, C in 20 days. A and B work for 3 days, then C joins. How many more days?</p>
+            <p><strong>Solution:</strong> LCM(12,15,20) = 60 = total work.<br>
+            A's rate = 5/day, B's rate = 4/day, C's rate = 3/day<br>
+            Work by A+B in 3 days = (5+4)×3 = 27<br>
+            Remaining = 60−27 = 33<br>
+            Rate of A+B+C = 5+4+3 = 12/day<br>
+            More days = 33/12 = <strong>2.75 days</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-title">Practice — Time &amp; Work</div>
+      <div class="quiz-q" id="q-tw1">
+        <p>A pipe fills a tank in 6 hours. A leak drains it in 12 hours. How long to fill with both?</p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-tw1')">A) 9 hrs</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-tw1')">B) 8 hrs</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-tw1')">C) 12 hrs</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-tw1')">D) 10 hrs</button>
+        </div>
+        <div class="quiz-explanation">Net rate = 1/6 − 1/12 = 2/12 − 1/12 = 1/12. Time = <strong>12 hours</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 07 — SPEED, DISTANCE, TIME -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="sdt">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 07</span>
+    <h2 class="chapter-title">Speed, Distance &amp; Time</h2>
+  </div>
+  <div class="block">
+    <h3>Core Formulas</h3>
+    <div class="grid3">
+      <div class="formula">Speed = Distance / Time</div>
+      <div class="formula gold">Distance = Speed × Time</div>
+      <div class="formula green">Time = Distance / Speed</div>
+    </div>
+
+    <h4>Unit Conversions</h4>
+    <div class="highlight">
+      <p>km/h → m/s: multiply by <strong>5/18</strong><br>
+      m/s → km/h: multiply by <strong>18/5</strong></p>
+    </div>
+
+    <h4>Trains</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Situation</th><th>Distance to cover</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Train crosses a pole/man</td><td>Length of train</td></tr>
+          <tr><td class="rh">Train crosses a platform/bridge</td><td>Length of train + Length of platform</td></tr>
+          <tr><td class="rh">Two trains same direction</td><td>Sum of lengths / |S1−S2|</td></tr>
+          <tr><td class="rh">Two trains opposite direction</td><td>Sum of lengths / (S1+S2)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Boats & Streams</h4>
+    <div class="formula"><span class="formula-label">Speed upstream</span><br>Speed upstream = Boat speed − Stream speed</div>
+    <div class="formula gold"><span class="formula-label">Speed downstream</span><br>Speed downstream = Boat speed + Stream speed</div>
+    <div class="trick">
+      <div class="trick-label">⚡ Reverse Formula</div>
+      <p>Boat speed = (downstream + upstream) / 2<br>
+      Stream speed = (downstream − upstream) / 2</p>
+    </div>
+
+    <h4>Average Speed</h4>
+    <div class="formula purple"><span class="formula-label">Same distance at different speeds</span><br>Avg Speed = 2ab/(a+b)  [harmonic mean, NOT arithmetic mean!]</div>
+    <div class="trick">
+      <div class="trick-label">⚡ Common Mistake Trap</div>
+      <p>Going 60 km/h, returning 40 km/h → Average ≠ 50. Average = 2×60×40/100 = <strong>48 km/h</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 08 — GEOMETRY -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="geometry">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 08</span>
+    <h2 class="chapter-title">Geometry</h2>
+  </div>
+  <div class="block">
+    <h3>Lines & Angles</h3>
+    <div class="grid2">
+      <div class="mini-card"><h5>Supplementary Angles</h5><p>Sum = 180°</p></div>
+      <div class="mini-card"><h5>Complementary Angles</h5><p>Sum = 90°</p></div>
+      <div class="mini-card"><h5>Vertically Opposite</h5><p>Always equal</p></div>
+      <div class="mini-card"><h5>Transversal</h5><p>Alternate interior = equal (parallel lines). Co-interior = 180°.</p></div>
+    </div>
+
+    <h3>Triangles</h3>
+    <div class="highlight">
+      <p>Sum of angles = 180°. Exterior angle = sum of two non-adjacent interior angles.</p>
+    </div>
+    <h4>Important Triangle Properties</h4>
+    <ul>
+      <li><strong>Centroid (G):</strong> Intersection of medians. Divides each median in 2:1 from vertex.</li>
+      <li><strong>Incentre (I):</strong> Intersection of angle bisectors. Equidistant from all three sides.</li>
+      <li><strong>Circumcentre (O):</strong> Intersection of perpendicular bisectors. Equidistant from all vertices.</li>
+      <li><strong>Orthocentre (H):</strong> Intersection of altitudes.</li>
+      <li><strong>For equilateral triangle:</strong> G, I, O, H all coincide.</li>
+    </ul>
+
+    <h4>Pythagoras Theorem & Triples</h4>
+    <div class="formula"><span class="formula-label">Pythagoras</span><br>a² + b² = c²  (c = hypotenuse)</div>
+    <p>Common Pythagorean triples: <strong>(3,4,5), (5,12,13), (8,15,17), (7,24,25), (9,40,41)</strong> — memorise multiples too.</p>
+
+    <h3>Circles</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Property</th><th>Statement</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Angle at centre</td><td>Twice the angle at circumference on same arc</td></tr>
+          <tr><td class="rh">Angles in same segment</td><td>Equal</td></tr>
+          <tr><td class="rh">Angle in semicircle</td><td>Always 90°</td></tr>
+          <tr><td class="rh">Cyclic quadrilateral</td><td>Opposite angles sum to 180°</td></tr>
+          <tr><td class="rh">Tangent-radius</td><td>Always perpendicular</td></tr>
+          <tr><td class="rh">Tangents from external point</td><td>Equal length</td></tr>
+          <tr><td class="rh">Chord-tangent angle</td><td>= Angle in alternate segment (Tangent-Chord theorem)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 09 — MENSURATION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="mensuration">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 09</span>
+    <h2 class="chapter-title">Mensuration</h2>
+  </div>
+  <div class="block">
+    <h3>2D Shapes</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Shape</th><th>Area</th><th>Perimeter</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Square (side a)</td><td class="num">a²</td><td class="num">4a</td></tr>
+          <tr><td class="rh">Rectangle (l×b)</td><td class="num">l×b</td><td class="num">2(l+b)</td></tr>
+          <tr><td class="rh">Triangle</td><td class="num">½ × base × height</td><td class="num">a+b+c</td></tr>
+          <tr><td class="rh">Equilateral △ (side a)</td><td class="num">(√3/4)a²</td><td class="num">3a</td></tr>
+          <tr><td class="rh">Circle (radius r)</td><td class="num">πr²</td><td class="num">2πr</td></tr>
+          <tr><td class="rh">Trapezium</td><td class="num">½(a+b)×h</td><td class="num">a+b+c+d</td></tr>
+          <tr><td class="rh">Rhombus (diagonals d1,d2)</td><td class="num">½×d1×d2</td><td class="num">4×side</td></tr>
+          <tr><td class="rh">Parallelogram</td><td class="num">base × height</td><td class="num">2(a+b)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>3D Shapes</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Shape</th><th>Volume</th><th>Lateral SA</th><th>Total SA</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Cube (a)</td><td class="num">a³</td><td class="num">4a²</td><td class="num">6a²</td></tr>
+          <tr><td class="rh">Cuboid (l,b,h)</td><td class="num">lbh</td><td class="num">2h(l+b)</td><td class="num">2(lb+bh+hl)</td></tr>
+          <tr><td class="rh">Cylinder (r,h)</td><td class="num">πr²h</td><td class="num">2πrh</td><td class="num">2πr(r+h)</td></tr>
+          <tr><td class="rh">Cone (r,h,l)</td><td class="num">⅓πr²h</td><td class="num">πrl</td><td class="num">πr(r+l)</td></tr>
+          <tr><td class="rh">Sphere (r)</td><td class="num">⁴⁄₃πr³</td><td class="num">—</td><td class="num">4πr²</td></tr>
+          <tr><td class="rh">Hemisphere (r)</td><td class="num">⅔πr³</td><td class="num">2πr²</td><td class="num">3πr²</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="highlight gold"><p>Slant height of cone: l = √(r² + h²)</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 10 — TRIGONOMETRY -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="trig">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 10</span>
+    <h2 class="chapter-title">Trigonometry</h2>
+  </div>
+  <div class="block">
+    <h3>Trigonometric Ratios</h3>
+    <div class="formula"><span class="formula-label">Basic Ratios (SOH CAH TOA)</span><br>sin θ = P/H · cos θ = B/H · tan θ = P/B<br>cosec θ = H/P · sec θ = H/B · cot θ = B/P</div>
+
+    <h4>Standard Angle Values</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>θ</th><th>sin</th><th>cos</th><th>tan</th><th>cosec</th><th>sec</th><th>cot</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">0°</td><td>0</td><td>1</td><td>0</td><td>∞</td><td>1</td><td>∞</td></tr>
+          <tr><td class="rh">30°</td><td>1/2</td><td>√3/2</td><td>1/√3</td><td>2</td><td>2/√3</td><td>√3</td></tr>
+          <tr><td class="rh">45°</td><td>1/√2</td><td>1/√2</td><td>1</td><td>√2</td><td>√2</td><td>1</td></tr>
+          <tr><td class="rh">60°</td><td>√3/2</td><td>1/2</td><td>√3</td><td>2/√3</td><td>2</td><td>1/√3</td></tr>
+          <tr><td class="rh">90°</td><td>1</td><td>0</td><td>∞</td><td>1</td><td>∞</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ sin Memory Trick</div>
+      <p>sin 0°, 30°, 45°, 60°, 90° = √(0/4), √(1/4), √(2/4), √(3/4), √(4/4) = 0, 1/2, 1/√2, √3/2, 1</p>
+    </div>
+
+    <h4>Key Identities</h4>
+    <div class="grid3">
+      <div class="formula">sin²θ + cos²θ = 1</div>
+      <div class="formula gold">1 + tan²θ = sec²θ</div>
+      <div class="formula green">1 + cot²θ = cosec²θ</div>
+    </div>
+
+    <h4>Heights & Distances</h4>
+    <div class="highlight">
+      <p><strong>Angle of Elevation:</strong> Looking UP. tan θ = height / horizontal distance<br>
+      <strong>Angle of Depression:</strong> Looking DOWN. Angle of depression = angle of elevation (alternate angles)</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 11 — ALGEBRA -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="algebra">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 11</span>
+    <h2 class="chapter-title">Algebra</h2>
+  </div>
+  <div class="block">
+    <h3>Important Identities</h3>
+    <div class="grid2">
+      <div class="formula">(a+b)² = a²+2ab+b²</div>
+      <div class="formula gold">(a−b)² = a²−2ab+b²</div>
+      <div class="formula green">(a+b)(a−b) = a²−b²</div>
+      <div class="formula purple">(a+b)³ = a³+3a²b+3ab²+b³</div>
+      <div class="formula">(a−b)³ = a³−3a²b+3ab²−b³</div>
+      <div class="formula gold">a³+b³ = (a+b)(a²−ab+b²)</div>
+      <div class="formula green">a³−b³ = (a−b)(a²+ab+b²)</div>
+      <div class="formula purple">a³+b³+c³−3abc = (a+b+c)(a²+b²+c²−ab−bc−ca)</div>
+    </div>
+    <div class="highlight">
+      <p>If a+b+c = 0, then a³+b³+c³ = <strong>3abc</strong></p>
+    </div>
+
+    <h4>Key SSC CGL Algebra Questions</h4>
+    <div class="trick">
+      <div class="trick-label">⚡ x + 1/x = k type</div>
+      <p>If x + 1/x = 3:<br>
+      x² + 1/x² = (x+1/x)² − 2 = 9−2 = 7<br>
+      x³ + 1/x³ = (x+1/x)³ − 3(x+1/x) = 27−9 = 18<br>
+      x⁴ + 1/x⁴ = (x²+1/x²)² − 2 = 49−2 = 47</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 12 — MIXTURE & ALLIGATION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="mixture">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 12</span>
+    <h2 class="chapter-title">Mixture &amp; Alligation</h2>
+  </div>
+  <div class="block">
+    <h3>Rule of Alligation</h3>
+    <div class="highlight">
+      <p>Cheaper : Dearer = (Mean price − Cheaper price) : (Dearer price − Mean price)</p>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Cross Method</div>
+      <p>Draw a cross. Write cheaper (c) at top-left, dearer (d) at top-right, mean (m) in centre.<br>
+      Ratio = (d−m) : (m−c)<br>
+      Example: Mix ₹60/kg and ₹90/kg to get ₹80/kg<br>
+      Ratio = (90−80):(80−60) = 10:20 = <strong>1:2</strong></p>
+    </div>
+
+    <h4>Repeated Dilution</h4>
+    <div class="formula"><span class="formula-label">After n replacements</span><br>Remaining pure = P × (1 − r/V)ⁿ<br>(P=initial, r=removed each time, V=total volume)</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CH 13 — DATA INTERPRETATION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter reveal" id="di">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 13</span>
+    <h2 class="chapter-title">Data Interpretation</h2>
+  </div>
+  <div class="block">
+    <h3>Types of DI Questions</h3>
+    <div class="grid2">
+      <div class="mini-card"><h5>Bar Charts</h5><p>Compare values, find % change between years, ratio between categories.</p></div>
+      <div class="mini-card"><h5>Line Graphs</h5><p>Find trends, % increase/decrease, max/min rate of change.</p></div>
+      <div class="mini-card"><h5>Pie Charts</h5><p>Central angle = (value/total)×360. % share = (value/total)×100.</p></div>
+      <div class="mini-card"><h5>Tables</h5><p>Row/column sums, averages, percentage comparisons across rows/columns.</p></div>
+    </div>
+
+    <h4>DI Approach</h4>
+    <ul>
+      <li>Read all questions first, then analyse the chart</li>
+      <li>Approximate: 33% ≈ ⅓, 25% = ¼ — use fractions for speed</li>
+      <li>For % change: (New−Old)/Old×100. Check sign (increase/decrease)</li>
+      <li>For ratios: simplify before calculating</li>
+      <li>Don't calculate exact values if options are far apart — estimate</li>
+    </ul>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Speed Tip</div>
+      <p>For Pie chart with total = 1200: 30° slice = (30/360)×1200 = <strong>100</strong>. Always: (degrees/360) × total.</p>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<footer class="footer">
+  <p><a href="CGL.html">← Back to CGL Hub</a> · Quantitative Aptitude — SSC CGL · Built by <a href="index.html">Dattatray Dagale</a></p>
+</footer>
+
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('nprog').style.width=pct+'%';
+  document.getElementById('btt').classList.toggle('show',h.scrollTop>400);
+});
+
+// Sidebar active link
+const chapters=document.querySelectorAll('.chapter');
+const sideLinks=document.querySelectorAll('.sidebar-nav a');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      sideLinks.forEach(l=>l.classList.remove('active'));
+      const id=e.target.id;
+      const active=document.querySelector('.sidebar-nav a[href="#'+id+'"]');
+      if(active)active.classList.add('active');
+    }
+  });
+},{threshold:0.3});
+chapters.forEach(c=>obs.observe(c));
+
+// Scroll reveal
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target);}});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+// Quiz
+function checkAnswer(btn,result,qId){
+  const q=document.getElementById(qId);
+  if(q.classList.contains('answered'))return;
+  q.classList.add('answered');
+  q.querySelectorAll('.quiz-option').forEach(b=>b.disabled=true);
+  btn.classList.add(result);
+  if(result==='wrong'){
+    q.querySelectorAll('.quiz-option').forEach(b=>{if(b.getAttribute('onclick').includes("'correct'"))b.classList.add('correct');});
+  }
+}
+
+// Accordion
+document.querySelectorAll('.accordion-trigger').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.parentElement;
+    const content=item.querySelector('.accordion-content');
+    const isOpen=item.classList.contains('open');
+    item.classList.toggle('open');
+    content.style.maxHeight=isOpen?'0':content.scrollHeight+'px';
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Awareness — SSC CGL | Dattatray Dagale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg-primary:#0a0e17;--bg-secondary:#111827;--bg-card:#1a2234;--bg-card-hover:#1f2b42;--accent:#06b6d4;--accent-dim:#0891b2;--accent-blue:#3b82f6;--accent-purple:#8b5cf6;--accent-gold:#f59e0b;--accent-green:#10b981;--accent-red:#ef4444;--text-primary:#e8edf5;--text-secondary:#94a3b8;--text-dim:#64748b;--border:#1e293b;--border-light:#334155;--font-display:'DM Serif Display',Georgia,serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);line-height:1.7;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg-primary)}::-webkit-scrollbar-thumb{background:var(--accent-dim);border-radius:3px}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,23,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--font-display);font-size:1.1rem;color:var(--accent);text-decoration:none}
+.nav-logo span{color:var(--text-dim);font-style:italic}
+.nav-links{display:flex;gap:0.15rem;flex-wrap:wrap}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.72rem;font-weight:500;padding:0.3rem 0.55rem;border-radius:6px;transition:all 0.2s;letter-spacing:0.03em;text-transform:uppercase}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(6,182,212,0.08)}
+.nav-progress{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-blue));transition:width 0.15s;width:0%}
+.mobile-toggle{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer}
+.page-hero{padding:7rem 2rem 3rem;max-width:1200px;margin:0 auto}
+.page-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.3rem 0.9rem;border:1px solid var(--accent-dim);border-radius:100px;font-size:0.7rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+.page-hero h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;margin-bottom:0.75rem}
+.page-hero h1 em{color:var(--accent);font-style:italic}
+.page-hero p{color:var(--text-secondary);font-size:1rem;max-width:600px;font-weight:300;line-height:1.8}
+.page-meta{display:flex;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.meta-item{font-size:0.75rem;color:var(--text-dim)}.meta-item strong{color:var(--accent);font-weight:600}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:2.5rem;max-width:1200px;margin:0 auto;padding:2rem 2rem 5rem;align-items:start}
+.sidebar{position:sticky;top:80px}
+.sidebar-nav{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.sidebar-nav-title{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)}
+.sidebar-nav a{display:block;padding:0.4rem 0.6rem;font-size:0.82rem;color:var(--text-secondary);text-decoration:none;border-radius:6px;transition:all 0.2s;margin-bottom:0.1rem}
+.sidebar-nav a:hover,.sidebar-nav a.active{color:var(--accent);background:rgba(6,182,212,0.08)}
+.sidebar-back{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.75rem;background:rgba(6,182,212,0.07);border:1px solid rgba(6,182,212,0.15);border-radius:8px;font-size:0.78rem;color:var(--accent);text-decoration:none;margin-bottom:0.75rem;transition:all 0.2s}
+.sidebar-back:hover{background:rgba(6,182,212,0.12)}
+.chapter{margin-bottom:3.5rem;scroll-margin-top:80px}
+.chapter-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.chapter-num{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);background:rgba(6,182,212,0.1);padding:0.3rem 0.6rem;border-radius:6px;white-space:nowrap}
+.chapter-title{font-family:var(--font-display);font-size:1.75rem}
+.block{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:2rem;margin-bottom:1.25rem}
+.block h3{font-family:var(--font-display);font-size:1.3rem;margin-bottom:1rem}
+.block h4{font-size:0.95rem;font-weight:600;color:var(--accent);margin:1.5rem 0 0.6rem}
+.block h4.blue{color:var(--accent-blue)}.block h4.gold{color:var(--accent-gold)}.block h4.green{color:var(--accent-green)}.block h4.purple{color:var(--accent-purple)}
+.block p{color:var(--text-secondary);margin-bottom:0.85rem;font-weight:300;font-size:0.93rem}
+.block ul,.block ol{color:var(--text-secondary);padding-left:1.25rem;margin-bottom:1rem;font-weight:300;font-size:0.92rem}
+.block li{margin-bottom:0.4rem}.block li::marker{color:var(--accent-dim)}
+strong{color:var(--text-primary);font-weight:600}
+.highlight{background:rgba(6,182,212,0.06);border-left:3px solid var(--accent);padding:1rem 1.3rem;border-radius:0 8px 8px 0;margin:1rem 0}
+.highlight.gold{background:rgba(245,158,11,0.06);border-left-color:var(--accent-gold)}
+.highlight.green{background:rgba(16,185,129,0.06);border-left-color:var(--accent-green)}
+.highlight.blue{background:rgba(59,130,246,0.06);border-left-color:var(--accent-blue)}
+.highlight p{margin-bottom:0;color:var(--text-primary);font-weight:400;font-size:0.88rem}
+.code-block{background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:10px;padding:1rem 1.5rem;margin:1rem 0;font-family:var(--font-mono);font-size:0.85rem;color:var(--accent);overflow-x:auto}
+.tbl-wrap{overflow-x:auto;margin:1rem 0;border-radius:10px;border:1px solid var(--border)}
+table.tbl{width:100%;border-collapse:collapse;font-size:0.85rem}
+table.tbl thead{background:var(--bg-secondary)}
+table.tbl th{padding:0.65rem 0.9rem;text-align:left;font-weight:600;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--accent);border-bottom:1px solid var(--border-light)}
+table.tbl td{padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);color:var(--text-secondary)}
+table.tbl tbody tr:hover{background:rgba(6,182,212,0.03)}
+table.tbl .rh{font-weight:500;color:var(--text-primary)}
+table.tbl .mono{font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-gold)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:1rem 0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0}
+.mini-card{background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:1.1rem}
+.mini-card h5{font-size:0.82rem;font-weight:600;color:var(--accent);margin-bottom:0.4rem}
+.mini-card p,.mini-card li{font-size:0.8rem;color:var(--text-secondary);font-weight:300}
+.mini-card ul{padding-left:1rem}
+.shortcut-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0.6rem;margin:1rem 0}
+.shortcut-item{display:flex;align-items:center;gap:0.75rem;background:var(--bg-secondary);border:1px solid var(--border);border-radius:8px;padding:0.6rem 0.9rem}
+.shortcut-key{font-family:var(--font-mono);font-size:0.75rem;color:var(--accent);background:rgba(6,182,212,0.1);padding:0.2rem 0.5rem;border-radius:4px;white-space:nowrap;min-width:80px;text-align:center}
+.shortcut-desc{font-size:0.8rem;color:var(--text-secondary)}
+.quiz-wrap{background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:12px;padding:1.75rem;margin:1.5rem 0}
+.quiz-title{font-family:var(--font-display);font-size:1.05rem;color:var(--accent);margin-bottom:1.25rem}
+.quiz-q{margin-bottom:1.4rem}
+.quiz-q p{font-weight:500;color:var(--text-primary);margin-bottom:0.6rem;font-size:0.9rem}
+.quiz-q p small{display:block;font-size:0.72rem;color:var(--text-dim);font-weight:400;margin-top:0.15rem}
+.quiz-options{display:flex;flex-direction:column;gap:0.35rem}
+.quiz-option{padding:0.6rem 0.9rem;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:0.84rem;color:var(--text-secondary);transition:all 0.2s;text-align:left;font-family:var(--font-body)}
+.quiz-option:hover{border-color:var(--accent-dim);color:var(--text-primary)}
+.quiz-option.correct{border-color:var(--accent-green);background:rgba(16,185,129,0.08);color:var(--accent-green)}
+.quiz-option.wrong{border-color:var(--accent-red);background:rgba(239,68,68,0.06);color:var(--accent-red)}
+.quiz-explanation{display:none;margin-top:0.5rem;padding:0.6rem 0.85rem;background:rgba(16,185,129,0.06);border-left:3px solid var(--accent-green);border-radius:0 6px 6px 0;font-size:0.8rem;color:var(--text-secondary)}
+.quiz-q.answered .quiz-explanation{display:block}
+.btt{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:all 0.3s;z-index:900;box-shadow:0 4px 20px rgba(6,182,212,0.35)}
+.btt.show{opacity:1;transform:translateY(0)}
+.footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.8rem}
+.footer a{color:var(--accent);text-decoration:none}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s,transform 0.6s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}}
+@media(max-width:768px){.nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,14,23,0.97);backdrop-filter:blur(20px);flex-direction:column;padding:1rem;border-bottom:1px solid var(--border)}.nav-links.open{display:flex}.mobile-toggle{display:block}.grid2,.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="CGL.html" class="nav-logo">CGL <span>/ Computer</span></a>
+    <div class="nav-links">
+      <a href="#basics">Basics</a>
+      <a href="#hardware">Hardware</a>
+      <a href="#software">Software</a>
+      <a href="#os">OS</a>
+      <a href="#internet">Internet</a>
+      <a href="#msoffice">MS Office</a>
+      <a href="#numsystem">Number Systems</a>
+      <a href="#security">Security</a>
+    </div>
+    <button class="mobile-toggle" onclick="this.previousElementSibling.classList.toggle('open')">☰</button>
+  </div>
+  <div class="nav-progress" id="nprog"></div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-badge">Module 06 · Computer Awareness</div>
+  <h1>Computer Awareness for <em>SSC CGL</em></h1>
+  <p>Computer generations, hardware, software, operating systems, internet and networking, MS Office shortcuts, number system conversions — everything exam-relevant.</p>
+  <div class="page-meta">
+    <div class="meta-item"><strong>Easy</strong> to score section</div>
+    <div class="meta-item"><strong>Learn in</strong> 3–4 days</div>
+    <div class="meta-item"><strong>8</strong> Chapters</div>
+  </div>
+</div>
+
+<div class="layout">
+<aside class="sidebar">
+  <a href="CGL.html" class="sidebar-back">← Back to Hub</a>
+  <div class="sidebar-nav">
+    <div class="sidebar-nav-title">Chapters</div>
+    <a href="#basics">01 · Computer Basics &amp; Generations</a>
+    <a href="#hardware">02 · Hardware</a>
+    <a href="#software">03 · Software</a>
+    <a href="#memory">04 · Memory &amp; Storage</a>
+    <a href="#os">05 · Operating System</a>
+    <a href="#internet">06 · Internet &amp; Networking</a>
+    <a href="#msoffice">07 · MS Office Shortcuts</a>
+    <a href="#numsystem">08 · Number Systems</a>
+  </div>
+</aside>
+
+<main class="content">
+
+<!-- BASICS & GENERATIONS -->
+<div class="chapter reveal" id="basics">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 01</span>
+    <h2 class="chapter-title">Computer Basics &amp; Generations</h2>
+  </div>
+  <div class="block">
+    <h3>What is a Computer?</h3>
+    <p>An electronic device that processes data according to instructions (programs). Full cycle: <strong>Input → Process → Output → Storage</strong></p>
+    <div class="highlight">
+      <p>IPO Cycle: Input (keyboard, mouse) → Processing (CPU) → Output (monitor, printer) → Storage (HDD, RAM)</p>
+    </div>
+
+    <h3>Generations of Computers</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Generation</th><th>Period</th><th>Technology</th><th>Examples</th><th>Characteristics</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">1st</td><td class="mono">1940–56</td><td>Vacuum Tubes</td><td>ENIAC, UNIVAC</td><td>Huge size, high power, low speed, machine language</td></tr>
+          <tr><td class="rh">2nd</td><td class="mono">1956–63</td><td>Transistors</td><td>IBM 1401</td><td>Smaller, faster, less heat, assembly language</td></tr>
+          <tr><td class="rh">3rd</td><td class="mono">1964–71</td><td>Integrated Circuits (IC)</td><td>IBM 360 series</td><td>Even smaller, high-level languages (COBOL, FORTRAN), time-sharing</td></tr>
+          <tr><td class="rh">4th</td><td class="mono">1971–present</td><td>Microprocessors (VLSI)</td><td>Intel 4004, PC, Mac</td><td>Personal computers, GUI, internet</td></tr>
+          <tr><td class="rh">5th</td><td class="mono">Present+</td><td>AI / ULSI</td><td>AI systems</td><td>Artificial intelligence, voice recognition, parallel processing</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Types of Computers by Size</h4>
+    <div class="grid2">
+      <div class="mini-card"><h5>Supercomputer</h5><p>Fastest, most expensive. Used in weather forecasting, nuclear research. India's: PARAM series (C-DAC).</p></div>
+      <div class="mini-card"><h5>Mainframe</h5><p>Large, multi-user systems. Used by banks, airlines, government. IBM Z-series.</p></div>
+      <div class="mini-card"><h5>Minicomputer</h5><p>Mid-sized. Used by departments. DEC PDP series.</p></div>
+      <div class="mini-card"><h5>Microcomputer / Personal Computer</h5><p>Desktop, laptop, tablet. Most common. Based on microprocessor.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- HARDWARE -->
+<div class="chapter reveal" id="hardware">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 02</span>
+    <h2 class="chapter-title">Hardware</h2>
+  </div>
+  <div class="block">
+    <h3>Input Devices</h3>
+    <div class="grid3">
+      <div class="mini-card"><h5>Keyboard</h5><p>Primary text input. QWERTY layout standard.</p></div>
+      <div class="mini-card"><h5>Mouse</h5><p>Pointing device. Left click, right click, scroll.</p></div>
+      <div class="mini-card"><h5>Scanner</h5><p>Converts physical documents to digital.</p></div>
+      <div class="mini-card"><h5>Microphone</h5><p>Audio input.</p></div>
+      <div class="mini-card"><h5>Webcam</h5><p>Video/image input.</p></div>
+      <div class="mini-card"><h5>Joystick</h5><p>Used for games/aircraft simulation.</p></div>
+      <div class="mini-card"><h5>Light pen</h5><p>Draws on screen directly.</p></div>
+      <div class="mini-card"><h5>Barcode reader</h5><p>Reads barcodes (shops, libraries).</p></div>
+      <div class="mini-card"><h5>OCR</h5><p>Optical Character Recognition — reads printed text.</p></div>
+    </div>
+
+    <h3>Output Devices</h3>
+    <div class="grid3">
+      <div class="mini-card"><h5>Monitor</h5><p>Primary visual output. CRT (old), LCD, LED, OLED.</p></div>
+      <div class="mini-card"><h5>Printer</h5><p>Impact (Dot matrix), Non-impact (Inkjet, Laser). Laser = fastest, best quality.</p></div>
+      <div class="mini-card"><h5>Speakers</h5><p>Audio output.</p></div>
+      <div class="mini-card"><h5>Plotter</h5><p>Draws diagrams, engineering drawings. Large format.</p></div>
+      <div class="mini-card"><h5>Projector</h5><p>Displays on large screen.</p></div>
+      <div class="mini-card"><h5>Headphones</h5><p>Personal audio output.</p></div>
+    </div>
+
+    <h3>CPU — Central Processing Unit</h3>
+    <p>"Brain of the computer." Contains:</p>
+    <div class="grid3">
+      <div class="mini-card"><h5>ALU (Arithmetic Logic Unit)</h5><p>Performs arithmetic (+,-,×,÷) and logic (AND, OR, NOT) operations.</p></div>
+      <div class="mini-card"><h5>Control Unit (CU)</h5><p>Directs and coordinates all computer operations. Fetches, decodes, executes instructions.</p></div>
+      <div class="mini-card"><h5>Registers</h5><p>Temporary, fastest storage inside CPU. Stores data being processed right now.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- SOFTWARE -->
+<div class="chapter reveal" id="software">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 03</span>
+    <h2 class="chapter-title">Software</h2>
+  </div>
+  <div class="block">
+    <h3>Types of Software</h3>
+    <div class="grid2">
+      <div class="mini-card">
+        <h5>System Software</h5>
+        <p>Manages hardware resources. Runs in background.</p>
+        <ul>
+          <li>Operating System (Windows, Linux, macOS)</li>
+          <li>Device Drivers</li>
+          <li>Utility programs (Antivirus, Disk cleanup)</li>
+          <li>Language Translators</li>
+        </ul>
+      </div>
+      <div class="mini-card">
+        <h5>Application Software</h5>
+        <p>Designed for end-user tasks.</p>
+        <ul>
+          <li>Word processors (MS Word)</li>
+          <li>Spreadsheets (MS Excel)</li>
+          <li>Databases (MS Access, MySQL)</li>
+          <li>Presentation (MS PowerPoint)</li>
+          <li>Web browsers (Chrome, Firefox)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4>Language Translators</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Translator</th><th>Function</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Compiler</td><td>Translates entire high-level program to machine code at once</td><td>C, C++ compilers</td></tr>
+          <tr><td class="rh">Interpreter</td><td>Translates and executes one line at a time</td><td>Python, JavaScript</td></tr>
+          <tr><td class="rh">Assembler</td><td>Translates assembly language to machine language</td><td>NASM, MASM</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Programming Languages (Generation)</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Generation</th><th>Language</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">1GL</td><td>Machine Language</td><td>Binary (0s and 1s) — directly understood by CPU</td></tr>
+          <tr><td class="rh">2GL</td><td>Assembly Language</td><td>MOV, ADD — uses mnemonics, needs assembler</td></tr>
+          <tr><td class="rh">3GL</td><td>High-Level Language</td><td>C, COBOL, FORTRAN, Pascal</td></tr>
+          <tr><td class="rh">4GL</td><td>Very High-Level Language</td><td>SQL, MATLAB, R — closer to natural language</td></tr>
+          <tr><td class="rh">5GL</td><td>AI/Natural Language</td><td>Prolog, Mercury — AI and constraint programming</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- MEMORY -->
+<div class="chapter reveal" id="memory">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 04</span>
+    <h2 class="chapter-title">Memory &amp; Storage</h2>
+  </div>
+  <div class="block">
+    <h3>Memory Hierarchy</h3>
+    <div class="highlight">
+      <p>Fastest to slowest / Smallest to largest:<br>
+      <strong>Registers → Cache → RAM → ROM → HDD/SSD → Optical disc → Magnetic tape</strong></p>
+    </div>
+
+    <h3>Primary Memory (Internal)</h3>
+    <div class="grid2">
+      <div class="mini-card">
+        <h5>RAM — Random Access Memory</h5>
+        <ul>
+          <li>Volatile — data lost when power off</li>
+          <li>Read &amp; Write</li>
+          <li>Two types: DRAM (Dynamic), SRAM (Static)</li>
+          <li>Working memory of computer</li>
+        </ul>
+      </div>
+      <div class="mini-card">
+        <h5>ROM — Read Only Memory</h5>
+        <ul>
+          <li>Non-volatile — retains data permanently</li>
+          <li>Read only (mostly)</li>
+          <li>Types: PROM, EPROM, EEPROM</li>
+          <li>Contains BIOS (Basic Input Output System)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Storage Units</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Unit</th><th>Abbreviation</th><th>Size</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Bit</td><td class="mono">b</td><td>Smallest unit (0 or 1)</td></tr>
+          <tr><td class="rh">Nibble</td><td class="mono">—</td><td>4 bits</td></tr>
+          <tr><td class="rh">Byte</td><td class="mono">B</td><td>8 bits</td></tr>
+          <tr><td class="rh">Kilobyte</td><td class="mono">KB</td><td>1024 Bytes</td></tr>
+          <tr><td class="rh">Megabyte</td><td class="mono">MB</td><td>1024 KB</td></tr>
+          <tr><td class="rh">Gigabyte</td><td class="mono">GB</td><td>1024 MB</td></tr>
+          <tr><td class="rh">Terabyte</td><td class="mono">TB</td><td>1024 GB</td></tr>
+          <tr><td class="rh">Petabyte</td><td class="mono">PB</td><td>1024 TB</td></tr>
+          <tr><td class="rh">Exabyte</td><td class="mono">EB</td><td>1024 PB</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Secondary Storage</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Type</th><th>Technology</th><th>Typical Capacity</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">HDD (Hard Disk Drive)</td><td>Magnetic, spinning platters</td><td>500GB – 4TB</td></tr>
+          <tr><td class="rh">SSD (Solid State Drive)</td><td>Flash memory, no moving parts</td><td>128GB – 4TB</td></tr>
+          <tr><td class="rh">CD-ROM</td><td>Optical, laser read</td><td>700MB</td></tr>
+          <tr><td class="rh">DVD</td><td>Optical, dual layer</td><td>4.7GB – 17GB</td></tr>
+          <tr><td class="rh">Blu-ray</td><td>Optical, blue laser</td><td>25GB – 100GB</td></tr>
+          <tr><td class="rh">Pen Drive / USB Flash</td><td>Flash memory</td><td>4GB – 256GB</td></tr>
+          <tr><td class="rh">SD Card</td><td>Flash memory</td><td>2GB – 1TB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- OPERATING SYSTEM -->
+<div class="chapter reveal" id="os">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 05</span>
+    <h2 class="chapter-title">Operating System</h2>
+  </div>
+  <div class="block">
+    <h3>What is an OS?</h3>
+    <p>System software that acts as interface between user and hardware. Manages all resources.</p>
+
+    <h4>Functions of OS</h4>
+    <ul>
+      <li><strong>Process management</strong> — manages running programs</li>
+      <li><strong>Memory management</strong> — allocates/deallocates RAM</li>
+      <li><strong>File management</strong> — organizes data in files and folders</li>
+      <li><strong>Device management</strong> — manages I/O devices via drivers</li>
+      <li><strong>Security &amp; access control</strong> — user accounts, passwords</li>
+    </ul>
+
+    <h4>Types of OS</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Type</th><th>Description</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Batch OS</td><td>Jobs processed in batches without user interaction</td><td>Early mainframe systems</td></tr>
+          <tr><td class="rh">Time-sharing OS</td><td>Multiple users share CPU time; fast switching</td><td>UNIX</td></tr>
+          <tr><td class="rh">Distributed OS</td><td>Multiple computers appear as one system</td><td>Google's Borg, Apache Mesos</td></tr>
+          <tr><td class="rh">Real-time OS (RTOS)</td><td>Processes in fixed time; used in critical systems</td><td>VxWorks, FreeRTOS</td></tr>
+          <tr><td class="rh">Network OS</td><td>Manages network resources</td><td>Windows Server, Novell NetWare</td></tr>
+          <tr><td class="rh">Mobile OS</td><td>For smartphones/tablets</td><td>Android (Google), iOS (Apple)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Popular Operating Systems</h4>
+    <div class="grid3">
+      <div class="mini-card"><h5>Windows</h5><p>Microsoft. GUI-based. Most used desktop OS. Windows 11 latest.</p></div>
+      <div class="mini-card"><h5>macOS</h5><p>Apple. Unix-based. For Mac computers. Very secure.</p></div>
+      <div class="mini-card"><h5>Linux</h5><p>Open-source. Many distros (Ubuntu, Fedora, Debian). Used in servers.</p></div>
+      <div class="mini-card"><h5>Android</h5><p>Google. Linux-based. Most used mobile OS globally.</p></div>
+      <div class="mini-card"><h5>iOS</h5><p>Apple. For iPhone/iPad. Closed ecosystem.</p></div>
+      <div class="mini-card"><h5>Chrome OS</h5><p>Google. Linux-based. For Chromebooks. Cloud-focused.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTERNET & NETWORKING -->
+<div class="chapter reveal" id="internet">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 06</span>
+    <h2 class="chapter-title">Internet &amp; Networking</h2>
+  </div>
+  <div class="block">
+    <h3>Network Types</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Type</th><th>Full Name</th><th>Range</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">PAN</td><td>Personal Area Network</td><td>~10m</td><td>Bluetooth, USB</td></tr>
+          <tr><td class="rh">LAN</td><td>Local Area Network</td><td>Building/Campus</td><td>Office network, school lab</td></tr>
+          <tr><td class="rh">MAN</td><td>Metropolitan Area Network</td><td>City</td><td>Cable TV network</td></tr>
+          <tr><td class="rh">WAN</td><td>Wide Area Network</td><td>Country/World</td><td>Internet, SWIFT banking</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Network Topologies</h4>
+    <div class="grid3">
+      <div class="mini-card"><h5>Bus</h5><p>All devices on a single cable. Simple but failure of main cable = failure of whole network.</p></div>
+      <div class="mini-card"><h5>Star</h5><p>All devices connect to central hub/switch. Most common. Easy to add devices.</p></div>
+      <div class="mini-card"><h5>Ring</h5><p>Devices in a circular chain. Token passing. Failure at one point affects all.</p></div>
+      <div class="mini-card"><h5>Mesh</h5><p>Every device connected to every other. Most reliable but expensive.</p></div>
+      <div class="mini-card"><h5>Tree</h5><p>Hierarchical. Combination of bus and star. Used in enterprise networks.</p></div>
+      <div class="mini-card"><h5>Hybrid</h5><p>Combination of any two or more topologies. Most modern networks.</p></div>
+    </div>
+
+    <h4>Key Internet Terms</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">HTTP</td><td>HyperText Transfer Protocol — foundation of web browsing</td></tr>
+          <tr><td class="rh">HTTPS</td><td>HTTP + SSL/TLS encryption — secure web browsing</td></tr>
+          <tr><td class="rh">FTP</td><td>File Transfer Protocol — transferring files between computers</td></tr>
+          <tr><td class="rh">SMTP</td><td>Simple Mail Transfer Protocol — sending emails</td></tr>
+          <tr><td class="rh">POP3</td><td>Post Office Protocol 3 — receiving emails (downloads to device)</td></tr>
+          <tr><td class="rh">IMAP</td><td>Internet Message Access Protocol — receiving emails (syncs with server)</td></tr>
+          <tr><td class="rh">DNS</td><td>Domain Name System — translates domain names to IP addresses</td></tr>
+          <tr><td class="rh">IP Address</td><td>Unique address of a device on network. IPv4 (32-bit), IPv6 (128-bit)</td></tr>
+          <tr><td class="rh">Router</td><td>Connects different networks; determines best path for data</td></tr>
+          <tr><td class="rh">Modem</td><td>Modulator-Demodulator — converts digital ↔ analog signals for ISP</td></tr>
+          <tr><td class="rh">ISP</td><td>Internet Service Provider — company providing internet access</td></tr>
+          <tr><td class="rh">URL</td><td>Uniform Resource Locator — full web address</td></tr>
+          <tr><td class="rh">HTML</td><td>HyperText Markup Language — language for web pages</td></tr>
+          <tr><td class="rh">WWW</td><td>World Wide Web — information system on the internet (≠ internet itself)</td></tr>
+          <tr><td class="rh">Browser</td><td>Software to access web. Chrome, Firefox, Safari, Edge.</td></tr>
+          <tr><td class="rh">Search Engine</td><td>Google, Bing, Yahoo — index and search web content</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- MS OFFICE SHORTCUTS -->
+<div class="chapter reveal" id="msoffice">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 07</span>
+    <h2 class="chapter-title">MS Office Shortcuts</h2>
+  </div>
+  <div class="block">
+    <h3>MS Word</h3>
+    <div class="shortcut-grid">
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + N</span><span class="shortcut-desc">New document</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + O</span><span class="shortcut-desc">Open document</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + S</span><span class="shortcut-desc">Save document</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + P</span><span class="shortcut-desc">Print</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + Z</span><span class="shortcut-desc">Undo</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + Y</span><span class="shortcut-desc">Redo</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + A</span><span class="shortcut-desc">Select all</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + C</span><span class="shortcut-desc">Copy</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + X</span><span class="shortcut-desc">Cut</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + V</span><span class="shortcut-desc">Paste</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + F</span><span class="shortcut-desc">Find</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + H</span><span class="shortcut-desc">Find and Replace</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + B</span><span class="shortcut-desc">Bold</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + I</span><span class="shortcut-desc">Italic</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + U</span><span class="shortcut-desc">Underline</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + E</span><span class="shortcut-desc">Center align</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + L</span><span class="shortcut-desc">Left align</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + R</span><span class="shortcut-desc">Right align</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + J</span><span class="shortcut-desc">Justify align</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + K</span><span class="shortcut-desc">Insert hyperlink</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">F7</span><span class="shortcut-desc">Spell check</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + Home</span><span class="shortcut-desc">Go to beginning</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + End</span><span class="shortcut-desc">Go to end</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + Enter</span><span class="shortcut-desc">Insert page break</span></div>
+    </div>
+
+    <h3>MS Excel</h3>
+    <div class="shortcut-grid">
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + ;</span><span class="shortcut-desc">Insert current date</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + Shift + ;</span><span class="shortcut-desc">Insert current time</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">F2</span><span class="shortcut-desc">Edit active cell</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">F4</span><span class="shortcut-desc">Absolute cell reference ($)</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Alt + Enter</span><span class="shortcut-desc">New line within cell</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + `</span><span class="shortcut-desc">Toggle formulas/values</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + Shift + L</span><span class="shortcut-desc">Toggle AutoFilter</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Alt + =</span><span class="shortcut-desc">AutoSum</span></div>
+    </div>
+
+    <h3>MS PowerPoint</h3>
+    <div class="shortcut-grid">
+      <div class="shortcut-item"><span class="shortcut-key">F5</span><span class="shortcut-desc">Start slideshow from beginning</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Shift + F5</span><span class="shortcut-desc">Start from current slide</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + M</span><span class="shortcut-desc">Insert new slide</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl + D</span><span class="shortcut-desc">Duplicate slide</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Esc</span><span class="shortcut-desc">End slideshow</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">B</span><span class="shortcut-desc">Blank screen (during show)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- NUMBER SYSTEMS -->
+<div class="chapter reveal" id="numsystem">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 08</span>
+    <h2 class="chapter-title">Number Systems</h2>
+  </div>
+  <div class="block">
+    <h3>Types of Number Systems</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>System</th><th>Base</th><th>Digits Used</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Binary</td><td>2</td><td>0, 1</td></tr>
+          <tr><td class="rh">Octal</td><td>8</td><td>0 – 7</td></tr>
+          <tr><td class="rh">Decimal</td><td>10</td><td>0 – 9</td></tr>
+          <tr><td class="rh">Hexadecimal</td><td>16</td><td>0–9 and A(10), B(11), C(12), D(13), E(14), F(15)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Binary Conversions</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Decimal</th><th>Binary</th><th>Decimal</th><th>Binary</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td class="mono">0000</td><td>8</td><td class="mono">1000</td></tr>
+          <tr><td>1</td><td class="mono">0001</td><td>9</td><td class="mono">1001</td></tr>
+          <tr><td>2</td><td class="mono">0010</td><td>10</td><td class="mono">1010</td></tr>
+          <tr><td>3</td><td class="mono">0011</td><td>11</td><td class="mono">1011</td></tr>
+          <tr><td>4</td><td class="mono">0100</td><td>12</td><td class="mono">1100</td></tr>
+          <tr><td>5</td><td class="mono">0101</td><td>13</td><td class="mono">1101</td></tr>
+          <tr><td>6</td><td class="mono">0110</td><td>14</td><td class="mono">1110</td></tr>
+          <tr><td>7</td><td class="mono">0111</td><td>15</td><td class="mono">1111</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Decimal → Binary Conversion</h4>
+    <div class="highlight">
+      <p>Divide by 2 repeatedly, write remainders bottom to top.<br>
+      Example: 13 → 13÷2=6 R<strong>1</strong>, 6÷2=3 R<strong>0</strong>, 3÷2=1 R<strong>1</strong>, 1÷2=0 R<strong>1</strong> → Read bottom to top: <strong>1101</strong></p>
+    </div>
+
+    <h4>Binary → Decimal Conversion</h4>
+    <div class="code-block">
+      1101 = 1×2³ + 1×2² + 0×2¹ + 1×2⁰
+           = 8  +  4  +  0  +  1  = 13
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-title">Practice — Computer</div>
+      <div class="quiz-q" id="q-comp1">
+        <p>Which key combination is used to open the Find and Replace dialog in MS Word?<small>Direct shortcut question</small></p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-comp1')">A) Ctrl + F</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-comp1')">B) Ctrl + H</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-comp1')">C) Ctrl + G</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-comp1')">D) Ctrl + R</button>
+        </div>
+        <div class="quiz-explanation"><strong>Ctrl + H</strong> opens Find and Replace. Ctrl + F opens Find only.</div>
+      </div>
+      <div class="quiz-q" id="q-comp2">
+        <p>The decimal equivalent of binary number 1010 is?</p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-comp2')">A) 8</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-comp2')">B) 12</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-comp2')">C) 10</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-comp2')">D) 14</button>
+        </div>
+        <div class="quiz-explanation">1010 = 1×8 + 0×4 + 1×2 + 0×1 = 8+0+2+0 = <strong>10</strong></div>
+      </div>
+      <div class="quiz-q" id="q-comp3">
+        <p>RAM is an example of which type of memory?<small>Memory classification</small></p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-comp3')">A) Non-volatile memory</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-comp3')">B) Secondary memory</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-comp3')">C) Volatile primary memory</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-comp3')">D) Read-only memory</button>
+        </div>
+        <div class="quiz-explanation">RAM is <strong>volatile primary memory</strong> — data is lost when power goes off. It's the working memory of a computer.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<footer class="footer">
+  <p><a href="CGL.html">← Back to CGL Hub</a> · Computer Awareness — SSC CGL · Built by <a href="index.html">Dattatray Dagale</a></p>
+</footer>
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;document.getElementById('nprog').style.width=pct+'%';document.getElementById('btt').classList.toggle('show',h.scrollTop>400);});
+const chapters=document.querySelectorAll('.chapter');const sideLinks=document.querySelectorAll('.sidebar-nav a');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){sideLinks.forEach(l=>l.classList.remove('active'));const active=document.querySelector('.sidebar-nav a[href="#'+e.target.id+'"]');if(active)active.classList.add('active');}});},{threshold:0.3});chapters.forEach(c=>obs.observe(c));
+const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target);}});},{threshold:0.08});document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+function checkAnswer(btn,result,qId){const q=document.getElementById(qId);if(q.classList.contains('answered'))return;q.classList.add('answered');q.querySelectorAll('.quiz-option').forEach(b=>b.disabled=true);btn.classList.add(result);if(result==='wrong'){q.querySelectorAll('.quiz-option').forEach(b=>{if(b.getAttribute('onclick').includes("'correct'"))b.classList.add('correct');});}}
+</script>
+</body>
+</html>

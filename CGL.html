@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSC CGL — Complete Course Hub | Dattatray Dagale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-card: #1a2234;
+  --bg-card-hover: #1f2b42;
+  --accent: #3b82f6;
+  --accent-dim: #2563eb;
+  --accent-purple: #8b5cf6;
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --accent-red: #ef4444;
+  --accent-cyan: #06b6d4;
+  --accent-orange: #f97316;
+  --text-primary: #e8edf5;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
+  --border: #1e293b;
+  --border-light: #334155;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);line-height:1.7;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--accent-dim);border-radius:3px}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,23,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--font-display);font-size:1.1rem;color:var(--accent);text-decoration:none}
+.nav-logo span{color:var(--text-dim);font-style:italic}
+.nav-links{display:flex;gap:0.15rem}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.75rem;font-weight:500;padding:0.35rem 0.65rem;border-radius:6px;transition:all 0.2s;letter-spacing:0.03em;text-transform:uppercase}
+.nav-links a:hover{color:var(--accent);background:rgba(59,130,246,0.08)}
+.mobile-toggle{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:6rem 2rem 4rem;margin-top:64px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(59,130,246,0.12),transparent),radial-gradient(ellipse 60% 40% at 80% 60%,rgba(139,92,246,0.06),transparent),radial-gradient(ellipse 50% 50% at 20% 80%,rgba(16,185,129,0.04),transparent)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black,transparent)}
+.hero-content{position:relative;text-align:center;max-width:900px;animation:fadeUp 1s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.4rem 1rem;border:1px solid var(--accent-dim);border-radius:100px;font-size:0.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:2rem}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,4.5rem);line-height:1.1;margin-bottom:1.5rem}
+.hero h1 em{color:var(--accent);font-style:italic}
+.hero-sub{font-size:1.1rem;color:var(--text-secondary);max-width:620px;margin:0 auto 2.5rem;font-weight:300;line-height:1.8}
+.hero-stats{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;margin-bottom:3rem}
+.hero-stat-num{font-family:var(--font-display);font-size:2rem;color:var(--accent)}
+.hero-stat-label{font-size:0.75rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-top:0.25rem}
+.scroll-cue{display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--text-dim);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;margin-top:1rem;animation:bob 2s infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+/* SUBJECT GRID */
+.subjects-section{max-width:1200px;margin:0 auto;padding:5rem 2rem}
+.section-header{margin-bottom:3rem;text-align:center}
+.section-number{font-family:var(--font-mono);font-size:0.75rem;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;display:block}
+.section-title{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:1rem}
+.section-desc{color:var(--text-secondary);font-size:1rem;max-width:600px;margin:0 auto;font-weight:300}
+
+.subject-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.5rem}
+.subject-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;text-decoration:none;color:inherit;transition:all 0.35s;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:1rem}
+.subject-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--card-accent-a,rgba(59,130,246,0.05)),transparent 60%);transition:opacity 0.35s}
+.subject-card:hover{border-color:var(--card-border,var(--accent-dim));transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.subject-card:hover::before{opacity:2}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.card-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.card-num{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);letter-spacing:0.12em;text-transform:uppercase;margin-top:0.25rem}
+.card-title{font-family:var(--font-display);font-size:1.4rem;margin-bottom:0.3rem}
+.card-subtitle{font-size:0.78rem;color:var(--text-dim);font-weight:400}
+.card-desc{font-size:0.87rem;color:var(--text-secondary);line-height:1.65;font-weight:300}
+.card-topics{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.25rem}
+.topic-pill{font-size:0.65rem;padding:0.2rem 0.6rem;border-radius:100px;font-weight:500;letter-spacing:0.04em}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:1rem;border-top:1px solid var(--border)}
+.card-count{font-size:0.75rem;color:var(--text-dim)}
+.card-cta{font-size:0.78rem;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:0.35rem;transition:gap 0.2s}
+.subject-card:hover .card-cta{gap:0.6rem}
+
+/* Maths */
+.card-maths{--card-accent-a:rgba(59,130,246,0.07);--card-border:#2563eb}
+.card-maths .card-icon{background:rgba(59,130,246,0.12);color:#3b82f6}
+.card-maths .topic-pill{background:rgba(59,130,246,0.1);color:#3b82f6}
+/* GS */
+.card-gs{--card-accent-a:rgba(16,185,129,0.07);--card-border:#059669}
+.card-gs .card-icon{background:rgba(16,185,129,0.12);color:#10b981}
+.card-gs .topic-pill{background:rgba(16,185,129,0.1);color:#10b981}
+/* English */
+.card-english{--card-accent-a:rgba(245,158,11,0.07);--card-border:#d97706}
+.card-english .card-icon{background:rgba(245,158,11,0.12);color:#f59e0b}
+.card-english .topic-pill{background:rgba(245,158,11,0.1);color:#f59e0b}
+/* Reasoning */
+.card-reasoning{--card-accent-a:rgba(139,92,246,0.07);--card-border:#7c3aed}
+.card-reasoning .card-icon{background:rgba(139,92,246,0.12);color:#8b5cf6}
+.card-reasoning .topic-pill{background:rgba(139,92,246,0.1);color:#8b5cf6}
+/* Static GK */
+.card-sgk{--card-accent-a:rgba(239,68,68,0.07);--card-border:#dc2626}
+.card-sgk .card-icon{background:rgba(239,68,68,0.12);color:#ef4444}
+.card-sgk .topic-pill{background:rgba(239,68,68,0.1);color:#ef4444}
+/* Computer */
+.card-comp{--card-accent-a:rgba(6,182,212,0.07);--card-border:#0891b2}
+.card-comp .card-icon{background:rgba(6,182,212,0.12);color:#06b6d4}
+.card-comp .topic-pill{background:rgba(6,182,212,0.1);color:#06b6d4}
+
+/* EXAM INFO BAND */
+.info-band{background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3rem 2rem}
+.info-inner{max-width:1200px;margin:0 auto}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+.info-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+.info-card-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.5rem}
+.info-card-val{font-family:var(--font-display);font-size:1.5rem;color:var(--accent);margin-bottom:0.3rem}
+.info-card-note{font-size:0.78rem;color:var(--text-secondary);font-weight:300}
+
+/* STRATEGY SECTION */
+.strategy-section{max-width:1200px;margin:0 auto;padding:4rem 2rem}
+.strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+.strategy-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+.strategy-step{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem}
+.strategy-card h4{font-family:var(--font-display);font-size:1.15rem;margin-bottom:0.5rem}
+.strategy-card p{font-size:0.83rem;color:var(--text-secondary);font-weight:300;line-height:1.7}
+
+/* FOOTER */
+.footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.8rem}
+.footer a{color:var(--accent);text-decoration:none}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.7s,transform 0.7s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,14,23,0.97);backdrop-filter:blur(20px);flex-direction:column;padding:1rem;border-bottom:1px solid var(--border)}
+  .nav-links.open{display:flex}
+  .mobile-toggle{display:block}
+  .hero-stats{gap:1.5rem}
+  .subject-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Dattatray <span>/ CGL</span></a>
+    <div class="nav-links">
+      <a href="cgl-maths.html">Maths</a>
+      <a href="cgl-gs.html">GS</a>
+      <a href="cgl-english.html">English</a>
+      <a href="cgl-reasoning.html">Reasoning</a>
+      <a href="cgl-staticgk.html">Static GK</a>
+      <a href="cgl-computer.html">Computer</a>
+    </div>
+    <button class="mobile-toggle" onclick="this.previousElementSibling.classList.toggle('open')">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">SSC CGL — Complete Preparation Hub</div>
+    <h1>Crack SSC CGL with <em>Confidence</em></h1>
+    <p class="hero-sub">6 in-depth subject modules — each with tricks, formulas, solved examples, PYQs and practice quizzes. Structured like top educators teach it.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">6</div>
+        <div class="hero-stat-label">Subjects</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">150+</div>
+        <div class="hero-stat-label">Topics</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">400+</div>
+        <div class="hero-stat-label">Practice Qs</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Tier I &amp; II</div>
+        <div class="hero-stat-label">Coverage</div>
+      </div>
+    </div>
+    <div class="scroll-cue">↓ Choose your subject</div>
+  </div>
+</section>
+
+<!-- EXAM INFO BAND -->
+<div class="info-band">
+  <div class="info-inner">
+    <div class="info-grid">
+      <div class="info-card reveal">
+        <div class="info-card-label">Tier I</div>
+        <div class="info-card-val">200 marks</div>
+        <div class="info-card-note">60 min · 100 Qs · GS + Reasoning + Maths + English</div>
+      </div>
+      <div class="info-card reveal">
+        <div class="info-card-label">Tier II</div>
+        <div class="info-card-val">Paper I &amp; II</div>
+        <div class="info-card-note">Maths (90 min) + English &amp; Comprehension (60 min)</div>
+      </div>
+      <div class="info-card reveal">
+        <div class="info-card-label">Negative Marking</div>
+        <div class="info-card-val">–0.50</div>
+        <div class="info-card-note">Per wrong answer in Tier I · –1 in Tier II Paper I</div>
+      </div>
+      <div class="info-card reveal">
+        <div class="info-card-label">Vacancies</div>
+        <div class="info-card-val">17,000+</div>
+        <div class="info-card-note">Group B &amp; C posts · Inspector, Auditor, Assistant</div>
+      </div>
+      <div class="info-card reveal">
+        <div class="info-card-label">Cut-off (General)</div>
+        <div class="info-card-val">~140–160</div>
+        <div class="info-card-note">Tier I out of 200 · varies by year &amp; post preference</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUBJECT CARDS -->
+<section class="subjects-section">
+  <div class="section-header reveal">
+    <span class="section-number">// 06 Modules</span>
+    <h2 class="section-title">Pick Your Subject</h2>
+    <p class="section-desc">Each module is a complete standalone course — go deep on one subject at a time.</p>
+  </div>
+
+  <div class="subject-grid">
+
+    <!-- MATHS -->
+    <a href="cgl-maths.html" class="subject-card card-maths reveal">
+      <div class="card-top">
+        <div>
+          <div class="card-num">Module 01</div>
+          <div class="card-title">Quantitative Aptitude</div>
+          <div class="card-subtitle">Aditya Ranjan sir approach</div>
+        </div>
+        <div class="card-icon">∑</div>
+      </div>
+      <p class="card-desc">The highest-scoring subject if prepared well. Master every chapter from Number System to Data Interpretation with shortcut tricks and formula sheets.</p>
+      <div class="card-topics">
+        <span class="topic-pill">Number System</span>
+        <span class="topic-pill">% &amp; P&amp;L</span>
+        <span class="topic-pill">SI/CI</span>
+        <span class="topic-pill">Geometry</span>
+        <span class="topic-pill">Trig</span>
+        <span class="topic-pill">Algebra</span>
+        <span class="topic-pill">DI</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-count">13 chapters · 80+ quizzes</span>
+        <span class="card-cta">Start studying →</span>
+      </div>
+    </a>
+
+    <!-- GS -->
+    <a href="cgl-gs.html" class="subject-card card-gs reveal">
+      <div class="card-top">
+        <div>
+          <div class="card-num">Module 02</div>
+          <div class="card-title">General Studies</div>
+          <div class="card-subtitle">Parmar sir approach</div>
+        </div>
+        <div class="card-icon">🌐</div>
+      </div>
+      <p class="card-desc">History, Geography, Polity, Economy, Science and Environment — the widest module. Covered topic by topic with key facts, timelines, and tables.</p>
+      <div class="card-topics">
+        <span class="topic-pill">History</span>
+        <span class="topic-pill">Geography</span>
+        <span class="topic-pill">Polity</span>
+        <span class="topic-pill">Economy</span>
+        <span class="topic-pill">Science</span>
+        <span class="topic-pill">Environment</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-count">6 sub-subjects · 70+ quizzes</span>
+        <span class="card-cta">Start studying →</span>
+      </div>
+    </a>
+
+    <!-- ENGLISH -->
+    <a href="cgl-english.html" class="subject-card card-english reveal">
+      <div class="card-top">
+        <div>
+          <div class="card-num">Module 03</div>
+          <div class="card-title">English Language</div>
+          <div class="card-subtitle">Grammar + Vocabulary + RC</div>
+        </div>
+        <div class="card-icon">A</div>
+      </div>
+      <p class="card-desc">Grammar rules, tense charts, active/passive, vocabulary with roots, idioms, reading comprehension strategies and error detection patterns.</p>
+      <div class="card-topics">
+        <span class="topic-pill">Grammar</span>
+        <span class="topic-pill">Tenses</span>
+        <span class="topic-pill">Vocabulary</span>
+        <span class="topic-pill">Idioms</span>
+        <span class="topic-pill">RC</span>
+        <span class="topic-pill">Error Detection</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-count">8 chapters · 60+ quizzes</span>
+        <span class="card-cta">Start studying →</span>
+      </div>
+    </a>
+
+    <!-- REASONING -->
+    <a href="cgl-reasoning.html" class="subject-card card-reasoning reveal">
+      <div class="card-top">
+        <div>
+          <div class="card-num">Module 04</div>
+          <div class="card-title">General Intelligence</div>
+          <div class="card-subtitle">Reasoning &amp; Logic</div>
+        </div>
+        <div class="card-icon">⬡</div>
+      </div>
+      <p class="card-desc">Step-by-step solved examples for every reasoning type. Series, Analogy, Coding-Decoding, Syllogism, Puzzles — each with approach methods and tricks.</p>
+      <div class="card-topics">
+        <span class="topic-pill">Series</span>
+        <span class="topic-pill">Analogy</span>
+        <span class="topic-pill">Coding</span>
+        <span class="topic-pill">Syllogism</span>
+        <span class="topic-pill">Blood Relations</span>
+        <span class="topic-pill">Puzzles</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-count">10 types · 60+ quizzes</span>
+        <span class="card-cta">Start studying →</span>
+      </div>
+    </a>
+
+    <!-- STATIC GK -->
+    <a href="cgl-staticgk.html" class="subject-card card-sgk reveal">
+      <div class="card-top">
+        <div>
+          <div class="card-num">Module 05</div>
+          <div class="card-title">Static General Knowledge</div>
+          <div class="card-subtitle">Facts, Tables &amp; Lists</div>
+        </div>
+        <div class="card-icon">★</div>
+      </div>
+      <p class="card-desc">Comprehensive reference tables — Countries/Capitals/Currencies, National &amp; International Awards, Sports records, Organizations, Books &amp; Authors.</p>
+      <div class="card-topics">
+        <span class="topic-pill">Countries</span>
+        <span class="topic-pill">Awards</span>
+        <span class="topic-pill">Sports</span>
+        <span class="topic-pill">Orgs</span>
+        <span class="topic-pill">Books &amp; Authors</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-count">5 sections · 50+ quizzes</span>
+        <span class="card-cta">Start studying →</span>
+      </div>
+    </a>
+
+    <!-- COMPUTER -->
+    <a href="cgl-computer.html" class="subject-card card-comp reveal">
+      <div class="card-top">
+        <div>
+          <div class="card-num">Module 06</div>
+          <div class="card-title">Computer Awareness</div>
+          <div class="card-subtitle">Fundamentals + MS Office</div>
+        </div>
+        <div class="card-icon">⌨</div>
+      </div>
+      <p class="card-desc">Computer generations, memory hierarchy, OS concepts, networking, internet, MS Office shortcuts and number system conversions — all exam-relevant.</p>
+      <div class="card-topics">
+        <span class="topic-pill">Hardware</span>
+        <span class="topic-pill">OS</span>
+        <span class="topic-pill">Internet</span>
+        <span class="topic-pill">MS Office</span>
+        <span class="topic-pill">Networking</span>
+        <span class="topic-pill">Number Systems</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-count">6 chapters · 40+ quizzes</span>
+        <span class="card-cta">Start studying →</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section class="strategy-section">
+  <div class="section-header reveal">
+    <span class="section-number">// Study Plan</span>
+    <h2 class="section-title">Recommended Strategy</h2>
+    <p class="section-desc">How to approach your CGL prep for maximum marks in minimum time.</p>
+  </div>
+  <div class="strategy-grid">
+    <div class="strategy-card reveal">
+      <div class="strategy-step">Week 1–4</div>
+      <h4>Build the Base</h4>
+      <p>Start with Maths (Number System → %) and GS (History → Polity). These take the longest to internalize. Do 1 chapter per day.</p>
+    </div>
+    <div class="strategy-card reveal">
+      <div class="strategy-step">Week 5–7</div>
+      <h4>Reasoning + English</h4>
+      <p>Reasoning is quick wins — spend 2 days per topic, solve 20 questions each. English: grammar rules first, vocab daily (10 words/day).</p>
+    </div>
+    <div class="strategy-card reveal">
+      <div class="strategy-step">Week 8</div>
+      <h4>Static GK + Computer</h4>
+      <p>These are memory-based. Read tables daily, revise the next morning. Computer shortcuts can be learned in 3 days.</p>
+    </div>
+    <div class="strategy-card reveal">
+      <div class="strategy-step">Week 9–12</div>
+      <h4>Revision + Mocks</h4>
+      <p>Revise all formula sheets and notes. Attempt full-length mocks every alternate day. Analyse every mistake.</p>
+    </div>
+    <div class="strategy-card reveal">
+      <div class="strategy-step">Ongoing</div>
+      <h4>Daily Targets</h4>
+      <p>25 Maths Qs + 15 Reasoning Qs + 10 English Qs + 10 GS facts every single day. Consistency beats intensity.</p>
+    </div>
+    <div class="strategy-card reveal">
+      <div class="strategy-step">Exam Day</div>
+      <h4>Order of Attempt</h4>
+      <p>Reasoning (fastest) → English → GS → Maths (last, time-consuming). Never leave any section untouched.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Built by <a href="index.html">Dattatray Dagale</a> · SSC CGL Complete Course · Good luck 🎯</p>
+</footer>
+
+<script>
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reasoning — SSC CGL | Dattatray Dagale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg-primary:#0a0e17;--bg-secondary:#111827;--bg-card:#1a2234;--bg-card-hover:#1f2b42;--accent:#8b5cf6;--accent-dim:#7c3aed;--accent-blue:#3b82f6;--accent-gold:#f59e0b;--accent-green:#10b981;--accent-red:#ef4444;--accent-cyan:#06b6d4;--text-primary:#e8edf5;--text-secondary:#94a3b8;--text-dim:#64748b;--border:#1e293b;--border-light:#334155;--font-display:'DM Serif Display',Georgia,serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);line-height:1.7;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg-primary)}::-webkit-scrollbar-thumb{background:var(--accent-dim);border-radius:3px}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,23,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--font-display);font-size:1.1rem;color:var(--accent);text-decoration:none}
+.nav-logo span{color:var(--text-dim);font-style:italic}
+.nav-links{display:flex;gap:0.15rem;flex-wrap:wrap}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.72rem;font-weight:500;padding:0.3rem 0.55rem;border-radius:6px;transition:all 0.2s;letter-spacing:0.03em;text-transform:uppercase}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(139,92,246,0.08)}
+.nav-progress{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-blue));transition:width 0.15s;width:0%}
+.mobile-toggle{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer}
+.page-hero{padding:7rem 2rem 3rem;max-width:1200px;margin:0 auto}
+.page-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.3rem 0.9rem;border:1px solid var(--accent-dim);border-radius:100px;font-size:0.7rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+.page-hero h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;margin-bottom:0.75rem}
+.page-hero h1 em{color:var(--accent);font-style:italic}
+.page-hero p{color:var(--text-secondary);font-size:1rem;max-width:600px;font-weight:300;line-height:1.8}
+.page-meta{display:flex;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.meta-item{font-size:0.75rem;color:var(--text-dim)}.meta-item strong{color:var(--accent);font-weight:600}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:2.5rem;max-width:1200px;margin:0 auto;padding:2rem 2rem 5rem;align-items:start}
+.sidebar{position:sticky;top:80px}
+.sidebar-nav{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.sidebar-nav-title{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)}
+.sidebar-nav a{display:block;padding:0.4rem 0.6rem;font-size:0.82rem;color:var(--text-secondary);text-decoration:none;border-radius:6px;transition:all 0.2s;margin-bottom:0.1rem}
+.sidebar-nav a:hover,.sidebar-nav a.active{color:var(--accent);background:rgba(139,92,246,0.08)}
+.sidebar-back{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.75rem;background:rgba(139,92,246,0.07);border:1px solid rgba(139,92,246,0.15);border-radius:8px;font-size:0.78rem;color:var(--accent);text-decoration:none;margin-bottom:0.75rem;transition:all 0.2s}
+.sidebar-back:hover{background:rgba(139,92,246,0.12)}
+.chapter{margin-bottom:3.5rem;scroll-margin-top:80px}
+.chapter-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.chapter-num{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);background:rgba(139,92,246,0.1);padding:0.3rem 0.6rem;border-radius:6px;white-space:nowrap}
+.chapter-title{font-family:var(--font-display);font-size:1.75rem}
+.block{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:2rem;margin-bottom:1.25rem}
+.block h3{font-family:var(--font-display);font-size:1.3rem;margin-bottom:1rem}
+.block h4{font-size:0.95rem;font-weight:600;color:var(--accent);margin:1.5rem 0 0.6rem}
+.block h4.blue{color:var(--accent-blue)}.block h4.gold{color:var(--accent-gold)}.block h4.green{color:var(--accent-green)}
+.block p{color:var(--text-secondary);margin-bottom:0.85rem;font-weight:300;font-size:0.93rem}
+.block ul,.block ol{color:var(--text-secondary);padding-left:1.25rem;margin-bottom:1rem;font-weight:300;font-size:0.92rem}
+.block li{margin-bottom:0.4rem}.block li::marker{color:var(--accent-dim)}
+strong{color:var(--text-primary);font-weight:600}
+.highlight{background:rgba(139,92,246,0.06);border-left:3px solid var(--accent);padding:1rem 1.3rem;border-radius:0 8px 8px 0;margin:1rem 0}
+.highlight.blue{background:rgba(59,130,246,0.06);border-left-color:var(--accent-blue)}
+.highlight.gold{background:rgba(245,158,11,0.06);border-left-color:var(--accent-gold)}
+.highlight.green{background:rgba(16,185,129,0.06);border-left-color:var(--accent-green)}
+.highlight p{margin-bottom:0;color:var(--text-primary);font-weight:400;font-size:0.88rem}
+.trick{background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(59,130,246,0.05));border:1px solid rgba(139,92,246,0.25);border-radius:10px;padding:1.1rem 1.4rem;margin:1rem 0}
+.trick-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.4rem}
+.trick p{color:var(--text-primary);font-size:0.88rem;margin-bottom:0}
+.solved{background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:10px;padding:1.4rem;margin:1.25rem 0}
+.solved-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent-gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.6rem}
+.solved-q{font-weight:500;color:var(--text-primary);font-size:0.9rem;margin-bottom:0.75rem}
+.solved-steps{font-size:0.85rem;color:var(--text-secondary);font-weight:300;line-height:1.9}
+.solved-steps strong{color:var(--accent-green)}
+.tbl-wrap{overflow-x:auto;margin:1rem 0;border-radius:10px;border:1px solid var(--border)}
+table.tbl{width:100%;border-collapse:collapse;font-size:0.85rem}
+table.tbl thead{background:var(--bg-secondary)}
+table.tbl th{padding:0.65rem 0.9rem;text-align:left;font-weight:600;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--accent);border-bottom:1px solid var(--border-light)}
+table.tbl td{padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);color:var(--text-secondary)}
+table.tbl tbody tr:hover{background:rgba(139,92,246,0.03)}
+table.tbl .rh{font-weight:500;color:var(--text-primary)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:1rem 0}
+.mini-card{background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:1.1rem}
+.mini-card h5{font-size:0.82rem;font-weight:600;color:var(--accent);margin-bottom:0.4rem}
+.mini-card p,.mini-card li{font-size:0.8rem;color:var(--text-secondary);font-weight:300}
+.mini-card ul{padding-left:1rem}
+.quiz-wrap{background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:12px;padding:1.75rem;margin:1.5rem 0}
+.quiz-title{font-family:var(--font-display);font-size:1.05rem;color:var(--accent);margin-bottom:1.25rem}
+.quiz-q{margin-bottom:1.4rem}
+.quiz-q p{font-weight:500;color:var(--text-primary);margin-bottom:0.6rem;font-size:0.9rem}
+.quiz-q p small{display:block;font-size:0.72rem;color:var(--text-dim);font-weight:400;margin-top:0.15rem}
+.quiz-options{display:flex;flex-direction:column;gap:0.35rem}
+.quiz-option{padding:0.6rem 0.9rem;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:0.84rem;color:var(--text-secondary);transition:all 0.2s;text-align:left;font-family:var(--font-body)}
+.quiz-option:hover{border-color:var(--accent-dim);color:var(--text-primary)}
+.quiz-option.correct{border-color:var(--accent-green);background:rgba(16,185,129,0.08);color:var(--accent-green)}
+.quiz-option.wrong{border-color:var(--accent-red);background:rgba(239,68,68,0.06);color:var(--accent-red)}
+.quiz-explanation{display:none;margin-top:0.5rem;padding:0.6rem 0.85rem;background:rgba(16,185,129,0.06);border-left:3px solid var(--accent-green);border-radius:0 6px 6px 0;font-size:0.8rem;color:var(--text-secondary)}
+.quiz-q.answered .quiz-explanation{display:block}
+.btt{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:all 0.3s;z-index:900;box-shadow:0 4px 20px rgba(139,92,246,0.35)}
+.btt.show{opacity:1;transform:translateY(0)}
+.footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.8rem}
+.footer a{color:var(--accent);text-decoration:none}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s,transform 0.6s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}}
+@media(max-width:768px){.nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,14,23,0.97);backdrop-filter:blur(20px);flex-direction:column;padding:1rem;border-bottom:1px solid var(--border)}.nav-links.open{display:flex}.mobile-toggle{display:block}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="CGL.html" class="nav-logo">CGL <span>/ Reasoning</span></a>
+    <div class="nav-links">
+      <a href="#series">Series</a>
+      <a href="#analogy">Analogy</a>
+      <a href="#coding">Coding</a>
+      <a href="#bloodrel">Blood Relations</a>
+      <a href="#syllogism">Syllogism</a>
+      <a href="#direction">Direction</a>
+      <a href="#ranking">Ranking</a>
+      <a href="#matrix">Matrix</a>
+      <a href="#venn">Venn</a>
+      <a href="#mirror">Mirror</a>
+    </div>
+    <button class="mobile-toggle" onclick="this.previousElementSibling.classList.toggle('open')">☰</button>
+  </div>
+  <div class="nav-progress" id="nprog"></div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-badge">Module 04 · General Intelligence &amp; Reasoning</div>
+  <h1>Reasoning for <em>SSC CGL</em></h1>
+  <p>Every type with step-by-step solved examples, approach methods, and shortcut tricks. Reasoning is the fastest scoring section — master it first.</p>
+  <div class="page-meta">
+    <div class="meta-item"><strong>25 Qs</strong> Tier I</div>
+    <div class="meta-item"><strong>Fastest</strong> scoring section</div>
+    <div class="meta-item"><strong>10</strong> Types covered</div>
+  </div>
+</div>
+
+<div class="layout">
+<aside class="sidebar">
+  <a href="CGL.html" class="sidebar-back">← Back to Hub</a>
+  <div class="sidebar-nav">
+    <div class="sidebar-nav-title">Topic Types</div>
+    <a href="#series">01 · Number/Letter Series</a>
+    <a href="#analogy">02 · Analogy</a>
+    <a href="#coding">03 · Coding-Decoding</a>
+    <a href="#bloodrel">04 · Blood Relations</a>
+    <a href="#syllogism">05 · Syllogism</a>
+    <a href="#direction">06 · Direction Sense</a>
+    <a href="#ranking">07 · Ranking &amp; Order</a>
+    <a href="#matrix">08 · Matrix / Figure</a>
+    <a href="#venn">09 · Venn Diagrams</a>
+    <a href="#mirror">10 · Mirror &amp; Water Image</a>
+  </div>
+</aside>
+
+<main class="content">
+
+<!-- SERIES -->
+<div class="chapter reveal" id="series">
+  <div class="chapter-header">
+    <span class="chapter-num">Type 01</span>
+    <h2 class="chapter-title">Number &amp; Letter Series</h2>
+  </div>
+  <div class="block">
+    <h3>Types of Series Patterns</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Pattern Type</th><th>Example</th><th>Logic</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Arithmetic</td><td>2, 5, 8, 11, ?</td><td>+3 each time → 14</td></tr>
+          <tr><td class="rh">Geometric</td><td>3, 6, 12, 24, ?</td><td>×2 each time → 48</td></tr>
+          <tr><td class="rh">Squares</td><td>1, 4, 9, 16, 25, ?</td><td>1², 2², 3²... → 36</td></tr>
+          <tr><td class="rh">Cubes</td><td>1, 8, 27, 64, ?</td><td>1³, 2³, 3³... → 125</td></tr>
+          <tr><td class="rh">Fibonacci-type</td><td>2, 3, 5, 8, 13, ?</td><td>Each = sum of previous two → 21</td></tr>
+          <tr><td class="rh">Difference pattern</td><td>1, 2, 4, 7, 11, ?</td><td>Diff: +1,+2,+3,+4... → 16</td></tr>
+          <tr><td class="rh">Prime numbers</td><td>2, 3, 5, 7, 11, 13, ?</td><td>Next prime → 17</td></tr>
+          <tr><td class="rh">Mixed operation</td><td>5, 12, 26, 54, ?</td><td>×2+2 → 110</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Letter Series Approach</h4>
+    <div class="highlight">
+      <p><strong>Alphabet positions:</strong> A=1, B=2 ... Z=26. EJOTY trick: E=5, J=10, O=15, T=20, Y=25. Memorise these 5 → derive all others.</p>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Opposite Letters</div>
+      <p>A↔Z, B↔Y, C↔X ... (sum = 27). If A=1, opposite = 27−1 = 26 = Z. Quick: A-Z, B-Y, C-X, D-W, E-V, F-U, G-T, H-S, I-R, J-Q, K-P, L-O, M-N</p>
+    </div>
+
+    <div class="solved">
+      <div class="solved-label">Solved Example</div>
+      <div class="solved-q">B, D, G, K, P, ?</div>
+      <div class="solved-steps">
+        B(2) → D(4): +2<br>
+        D(4) → G(7): +3<br>
+        G(7) → K(11): +4<br>
+        K(11) → P(16): +5<br>
+        P(16) → ?(16+6=22): <strong>V</strong>
+      </div>
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-title">Practice — Series</div>
+      <div class="quiz-q" id="q-ser1">
+        <p>Find the missing term: 3, 7, 15, 31, 63, ?<small>CGL-level difficulty</small></p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ser1')">A) 121</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-ser1')">B) 127</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ser1')">C) 125</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ser1')">D) 124</button>
+        </div>
+        <div class="quiz-explanation">Pattern: ×2+1 each time. 3→7(×2+1)→15→31→63→<strong>127</strong></div>
+      </div>
+      <div class="quiz-q" id="q-ser2">
+        <p>Find odd one out: 8, 27, 64, 100, 125<small>Number property</small></p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ser2')">A) 27</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-ser2')">B) 100</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ser2')">C) 64</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-ser2')">D) 125</button>
+        </div>
+        <div class="quiz-explanation">8=2³, 27=3³, 64=4³, <strong>100=10² (square, not cube!)</strong>, 125=5³. 100 is the odd one out.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALOGY -->
+<div class="chapter reveal" id="analogy">
+  <div class="chapter-header">
+    <span class="chapter-num">Type 02</span>
+    <h2 class="chapter-title">Analogy</h2>
+  </div>
+  <div class="block">
+    <h3>Types of Analogies</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Relationship Type</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Tool : User</td><td>Scalpel : Surgeon :: Chisel : Carpenter</td></tr>
+          <tr><td class="rh">Young one</td><td>Cat : Kitten :: Horse : Foal</td></tr>
+          <tr><td class="rh">Habitat</td><td>Lion : Den :: Bee : Hive</td></tr>
+          <tr><td class="rh">Product : Material</td><td>Shoe : Leather :: Paper : Wood</td></tr>
+          <tr><td class="rh">Worker : Workplace</td><td>Teacher : School :: Doctor : Hospital</td></tr>
+          <tr><td class="rh">Part : Whole</td><td>Leaf : Tree :: Chapter : Book</td></tr>
+          <tr><td class="rh">Cause : Effect</td><td>Fire : Ash :: Flood : Damage</td></tr>
+          <tr><td class="rh">Antonym pair</td><td>Hot : Cold :: Fast : Slow</td></tr>
+          <tr><td class="rh">Number pattern</td><td>6 : 36 :: 8 : 64 (n : n²)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="solved">
+      <div class="solved-label">Solved Example</div>
+      <div class="solved-q">ACEG : BDFH :: PRTV : ?</div>
+      <div class="solved-steps">
+        ACEG: A(1), C(3), E(5), G(7) — odd positions<br>
+        BDFH: B(2), D(4), F(6), H(8) — even positions (each +1)<br>
+        PRTV: P(16), R(18), T(20), V(22)<br>
+        Each +1: Q(17), S(19), U(21), W(23) = <strong>QSUW</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CODING-DECODING -->
+<div class="chapter reveal" id="coding">
+  <div class="chapter-header">
+    <span class="chapter-num">Type 03</span>
+    <h2 class="chapter-title">Coding-Decoding</h2>
+  </div>
+  <div class="block">
+    <h3>Types of Coding</h3>
+    <h4>Letter Shift Coding</h4>
+    <div class="solved">
+      <div class="solved-label">Solved Example</div>
+      <div class="solved-q">If CAT = ECV, what is DOG?</div>
+      <div class="solved-steps">
+        C(3)+2=E(5) ✓, A(1)+2=C(3) ✓, T(20)+2=V(22) ✓<br>
+        Pattern: each letter +2<br>
+        D(4)+2=F(6), O(15)+2=Q(17), G(7)+2=I(9) = <strong>FQI</strong>
+      </div>
+    </div>
+
+    <h4>Reverse Coding</h4>
+    <div class="trick">
+      <div class="trick-label">⚡ Reverse Alphabet Coding</div>
+      <p>A↔Z, B↔Y ... (use the opposite letter rule). If DOOR is coded as WLLC → each letter replaced by its opposite.<br>
+      D(4)→W(23), O(15)→L(12), O(15)→L(12), R(18)→I(9) ✓</p>
+    </div>
+
+    <h4>Number for Letter Coding</h4>
+    <div class="solved">
+      <div class="solved-label">Solved Example</div>
+      <div class="solved-q">If POLICE = 123456, PELICAN = ?</div>
+      <div class="solved-steps">
+        P=1, O=2, L=3, I=4, C=5, E=6<br>
+        P=1, E=6, L=3, I=4, C=5, A=?, N=?<br>
+        A and N have no code assigned. Only known letters: <strong>163451 _ _</strong><br>
+        (In CGL, such questions usually have all letters from original word — check options!)
+      </div>
+    </div>
+
+    <h4>Word-coded Conditions</h4>
+    <div class="highlight">
+      <p>When symbols replace operations or words replace numbers — always establish the pattern from the given example, then apply consistently. Never assume; always derive from the example.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BLOOD RELATIONS -->
+<div class="chapter reveal" id="bloodrel">
+  <div class="chapter-header">
+    <span class="chapter-num">Type 04</span>
+    <h2 class="chapter-title">Blood Relations</h2>
+  </div>
+  <div class="block">
+    <h3>Family Tree Symbols</h3>
+    <div class="highlight">
+      <p>Always draw a family tree. Use □ for male, ○ for female, = for married couple, | or / for parent-child, — for siblings.</p>
+    </div>
+
+    <h4>Key Relations</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Relation</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Uncle</td><td>Father's/Mother's brother OR father's/mother's sister's husband</td></tr>
+          <tr><td class="rh">Aunt</td><td>Father's/Mother's sister OR father's/mother's brother's wife</td></tr>
+          <tr><td class="rh">Nephew</td><td>Brother's/Sister's son</td></tr>
+          <tr><td class="rh">Niece</td><td>Brother's/Sister's daughter</td></tr>
+          <tr><td class="rh">Maternal uncle</td><td>Mother's brother (Mama)</td></tr>
+          <tr><td class="rh">Paternal uncle</td><td>Father's brother (Chacha/Tau)</td></tr>
+          <tr><td class="rh">Cousin</td><td>Uncle's or aunt's child</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="solved">
+      <div class="solved-label">Solved Example</div>
+      <div class="solved-q">A is B's sister. C is B's mother. D is C's father. E is D's mother. How is A related to D?</div>
+      <div class="solved-steps">
+        A (female) ← sister → B<br>
+        C (female) = B's mother → C is also A's mother<br>
+        D = C's father → D is A's grandfather (maternal)<br>
+        Answer: <strong>A is D's granddaughter</strong>
+      </div>
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-title">Practice — Blood Relations</div>
+      <div class="quiz-q" id="q-br1">
+        <p>Pointing to a man in a photograph, a woman says "His mother's only daughter is my mother." How is the woman related to the man?<small>Classic CGL question</small></p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-br1')">A) Mother</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-br1')">B) Niece</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-br1')">C) Aunt</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-br1')">D) Daughter</button>
+        </div>
+        <div class="quiz-explanation">Man's mother's only daughter = Man's sister. This sister is the woman's mother. So the man is the woman's maternal uncle → the woman is the man's <strong>niece</strong>.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SYLLOGISM -->
+<div class="chapter reveal" id="syllogism">
+  <div class="chapter-header">
+    <span class="chapter-num">Type 05</span>
+    <h2 class="chapter-title">Syllogism</h2>
+  </div>
+  <div class="block">
+    <h3>Venn Diagram Method</h3>
+    <div class="highlight">
+      <p>Always draw Venn diagrams. Never assume anything beyond what the statements say. "Some" means at least one; "All" means 100%; "No" means zero overlap.</p>
+    </div>
+
+    <h4>Standard Conclusions Table</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Statement 1</th><th>Statement 2</th><th>Definite Conclusion</th></tr></thead>
+        <tbody>
+          <tr><td>All A are B</td><td>All B are C</td><td>All A are C ✓</td></tr>
+          <tr><td>All A are B</td><td>No B is C</td><td>No A is C ✓</td></tr>
+          <tr><td>Some A are B</td><td>All B are C</td><td>Some A are C ✓</td></tr>
+          <tr><td>Some A are B</td><td>No B is C</td><td>Some A are not C ✓</td></tr>
+          <tr><td>All A are B</td><td>Some B are C</td><td>No definite conclusion about A and C</td></tr>
+          <tr><td>Some A are B</td><td>Some B are C</td><td>No definite conclusion</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="solved">
+      <div class="solved-label">Solved Example</div>
+      <div class="solved-q">Statements: All cats are dogs. Some dogs are rats. Conclusions: I. Some cats are rats. II. Some rats are cats.</div>
+      <div class="solved-steps">
+        Statement 1: All cats are inside "dogs" circle<br>
+        Statement 2: Some dogs are also in "rats" circle<br>
+        Can we guarantee cats are in the "some dogs that are rats" part? NO — the "some dogs = rats" may be entirely outside the "cats" group.<br>
+        Conclusion I: <strong>Does NOT follow</strong><br>
+        Conclusion II: <strong>Does NOT follow</strong>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Either-Or Conclusion</div>
+      <p>When neither conclusion I nor II alone follows, but they are complementary (one positive, one negative about same pair), check if "Either I or II follows" applies. This happens when statements give no definite answer and conclusions exhaust all possibilities.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DIRECTION SENSE -->
+<div class="chapter reveal" id="direction">
+  <div class="chapter-header">
+    <span class="chapter-num">Type 06</span>
+    <h2 class="chapter-title">Direction Sense</h2>
+  </div>
+  <div class="block">
+    <h3>Direction Framework</h3>
+    <div class="highlight">
+      <p>North is UP, South is DOWN, East is RIGHT, West is LEFT. Always draw on paper as you read each step. Final answer = straight-line distance (use Pythagoras if needed).</p>
+    </div>
+
+    <h4>Turns</h4>
+    <div class="grid2">
+      <div class="mini-card"><h5>Clockwise (Right Turn)</h5><ul><li>N → E → S → W → N</li><li>Facing North, turn right → face East</li></ul></div>
+      <div class="mini-card"><h5>Anti-clockwise (Left Turn)</h5><ul><li>N → W → S → E → N</li><li>Facing North, turn left → face West</li></ul></div>
+    </div>
+
+    <div class="solved">
+      <div class="solved-label">Solved Example</div>
+      <div class="solved-q">Ram walks 10m North, then 6m East, then 3m South, then 4m West. How far is he from start?</div>
+      <div class="solved-steps">
+        Net North-South: 10−3 = 7m North<br>
+        Net East-West: 6−4 = 2m East<br>
+        Distance = √(7² + 2²) = √(49+4) = √53 ≈ <strong>7.28m</strong><br>
+        (In MCQ context, √53 or exact radical will be the option)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RANKING -->
+<div class="chapter reveal" id="ranking">
+  <div class="chapter-header">
+    <span class="chapter-num">Type 07</span>
+    <h2 class="chapter-title">Ranking &amp; Order</h2>
+  </div>
+  <div class="block">
+    <h3>Key Formulas</h3>
+    <div class="highlight gold">
+      <p>Total = Rank from top + Rank from bottom − 1<br>
+      Rank from bottom = Total − Rank from top + 1</p>
+    </div>
+    <div class="solved">
+      <div class="solved-label">Solved Example</div>
+      <div class="solved-q">In a row of 50 students, Rahul is 15th from the left. What is his rank from the right?</div>
+      <div class="solved-steps">
+        Rank from right = 50 − 15 + 1 = <strong>36th</strong>
+      </div>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Interchange Position Type</div>
+      <p>If A and B interchange, A now has B's original rank. No change in total count. Just read who's at what position carefully.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MATRIX -->
+<div class="chapter reveal" id="matrix">
+  <div class="chapter-header">
+    <span class="chapter-num">Type 08</span>
+    <h2 class="chapter-title">Matrix &amp; Figure Questions</h2>
+  </div>
+  <div class="block">
+    <h3>Approach</h3>
+    <ul>
+      <li><strong>Figure Matrix:</strong> Find the relationship between figures in each row (or column). Apply the same rule to find the missing figure.</li>
+      <li><strong>Number Matrix:</strong> Check row totals, column totals, diagonal patterns, or operation between cells.</li>
+      <li>Check both rows AND columns before deciding the rule.</li>
+    </ul>
+    <div class="solved">
+      <div class="solved-label">Solved Example — Number Matrix</div>
+      <div class="solved-q">Matrix: [4, 5, 20] / [3, 6, 18] / [5, 7, ?]</div>
+      <div class="solved-steps">
+        Row 1: 4 × 5 = 20 ✓<br>
+        Row 2: 3 × 6 = 18 ✓<br>
+        Rule: col1 × col2 = col3<br>
+        Row 3: 5 × 7 = <strong>35</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VENN DIAGRAM -->
+<div class="chapter reveal" id="venn">
+  <div class="chapter-header">
+    <span class="chapter-num">Type 09</span>
+    <h2 class="chapter-title">Venn Diagrams</h2>
+  </div>
+  <div class="block">
+    <h3>Types of Questions</h3>
+    <h4>Type 1 — Which diagram represents the relation?</h4>
+    <p>Identify if groups have: complete overlap (A inside B), partial overlap (intersecting circles), or no overlap (separate circles).</p>
+    <ul>
+      <li>Doctors : Humans : Animals → Humans completely inside Animals, Doctors partially overlap Humans</li>
+      <li>Men : Women : Humans → Men and Women separately inside Humans, no overlap with each other</li>
+    </ul>
+
+    <h4>Type 2 — Data from Venn diagram</h4>
+    <div class="highlight green">
+      <p>Only A = A − (A∩B) − (A∩C) + (A∩B∩C)<br>
+      Only A and B (not C) = (A∩B) − (A∩B∩C)<br>
+      At least one = A + B + C − (A∩B) − (B∩C) − (A∩C) + (A∩B∩C)</p>
+    </div>
+  </div>
+</div>
+
+<!-- MIRROR / WATER IMAGE -->
+<div class="chapter reveal" id="mirror">
+  <div class="chapter-header">
+    <span class="chapter-num">Type 10</span>
+    <h2 class="chapter-title">Mirror &amp; Water Image</h2>
+  </div>
+  <div class="block">
+    <h3>Rules</h3>
+    <div class="grid2">
+      <div class="mini-card">
+        <h5>Mirror Image (Vertical mirror)</h5>
+        <ul>
+          <li>Left ↔ Right flipped</li>
+          <li>Up/Down remains same</li>
+          <li>Clock: 3 o'clock position becomes 9 o'clock</li>
+          <li>Letters: A, H, I, M, O, T, U, V, W, X, Y are symmetric (same as mirror)</li>
+        </ul>
+      </div>
+      <div class="mini-card">
+        <h5>Water Image (Horizontal mirror)</h5>
+        <ul>
+          <li>Up ↔ Down flipped</li>
+          <li>Left/Right remains same</li>
+          <li>Clock: 12 o'clock becomes 6 o'clock</li>
+          <li>Think of reflection in water — only top/bottom flips</li>
+        </ul>
+      </div>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Clock Mirror Trick</div>
+      <p>Mirror image time = 11:60 − actual time (if time has minutes) OR 12:00 − actual time (if no minutes).<br>
+      Example: Mirror of 4:20 = 11:60 − 4:20 = <strong>7:40</strong></p>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<footer class="footer">
+  <p><a href="CGL.html">← Back to CGL Hub</a> · Reasoning — SSC CGL · Built by <a href="index.html">Dattatray Dagale</a></p>
+</footer>
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;document.getElementById('nprog').style.width=pct+'%';document.getElementById('btt').classList.toggle('show',h.scrollTop>400);});
+const chapters=document.querySelectorAll('.chapter');const sideLinks=document.querySelectorAll('.sidebar-nav a');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){sideLinks.forEach(l=>l.classList.remove('active'));const active=document.querySelector('.sidebar-nav a[href="#'+e.target.id+'"]');if(active)active.classList.add('active');}});},{threshold:0.3});chapters.forEach(c=>obs.observe(c));
+const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target);}});},{threshold:0.08});document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+function checkAnswer(btn,result,qId){const q=document.getElementById(qId);if(q.classList.contains('answered'))return;q.classList.add('answered');q.querySelectorAll('.quiz-option').forEach(b=>b.disabled=true);btn.classList.add(result);if(result==='wrong'){q.querySelectorAll('.quiz-option').forEach(b=>{if(b.getAttribute('onclick').includes("'correct'"))b.classList.add('correct');});}}
+</script>
+</body>
+</html>

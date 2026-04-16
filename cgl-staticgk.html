@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Static GK — SSC CGL | Dattatray Dagale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg-primary:#0a0e17;--bg-secondary:#111827;--bg-card:#1a2234;--bg-card-hover:#1f2b42;--accent:#ef4444;--accent-dim:#dc2626;--accent-blue:#3b82f6;--accent-purple:#8b5cf6;--accent-gold:#f59e0b;--accent-green:#10b981;--accent-cyan:#06b6d4;--text-primary:#e8edf5;--text-secondary:#94a3b8;--text-dim:#64748b;--border:#1e293b;--border-light:#334155;--font-display:'DM Serif Display',Georgia,serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);line-height:1.7;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg-primary)}::-webkit-scrollbar-thumb{background:var(--accent-dim);border-radius:3px}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,23,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--font-display);font-size:1.1rem;color:var(--accent);text-decoration:none}
+.nav-logo span{color:var(--text-dim);font-style:italic}
+.nav-links{display:flex;gap:0.15rem;flex-wrap:wrap}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.72rem;font-weight:500;padding:0.3rem 0.55rem;border-radius:6px;transition:all 0.2s;letter-spacing:0.03em;text-transform:uppercase}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(239,68,68,0.08)}
+.nav-progress{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-gold));transition:width 0.15s;width:0%}
+.mobile-toggle{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer}
+.page-hero{padding:7rem 2rem 3rem;max-width:1200px;margin:0 auto}
+.page-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.3rem 0.9rem;border:1px solid var(--accent-dim);border-radius:100px;font-size:0.7rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+.page-hero h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;margin-bottom:0.75rem}
+.page-hero h1 em{color:var(--accent);font-style:italic}
+.page-hero p{color:var(--text-secondary);font-size:1rem;max-width:600px;font-weight:300;line-height:1.8}
+.page-meta{display:flex;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.meta-item{font-size:0.75rem;color:var(--text-dim)}.meta-item strong{color:var(--accent);font-weight:600}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:2.5rem;max-width:1200px;margin:0 auto;padding:2rem 2rem 5rem;align-items:start}
+.sidebar{position:sticky;top:80px}
+.sidebar-nav{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.sidebar-nav-title{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)}
+.sidebar-nav a{display:block;padding:0.4rem 0.6rem;font-size:0.82rem;color:var(--text-secondary);text-decoration:none;border-radius:6px;transition:all 0.2s;margin-bottom:0.1rem}
+.sidebar-nav a:hover,.sidebar-nav a.active{color:var(--accent);background:rgba(239,68,68,0.08)}
+.sidebar-back{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.75rem;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.15);border-radius:8px;font-size:0.78rem;color:var(--accent);text-decoration:none;margin-bottom:0.75rem;transition:all 0.2s}
+.sidebar-back:hover{background:rgba(239,68,68,0.12)}
+.chapter{margin-bottom:3.5rem;scroll-margin-top:80px}
+.chapter-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.chapter-num{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);background:rgba(239,68,68,0.1);padding:0.3rem 0.6rem;border-radius:6px;white-space:nowrap}
+.chapter-title{font-family:var(--font-display);font-size:1.75rem}
+.block{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:2rem;margin-bottom:1.25rem}
+.block h3{font-family:var(--font-display);font-size:1.3rem;margin-bottom:1rem}
+.block h4{font-size:0.95rem;font-weight:600;color:var(--accent);margin:1.5rem 0 0.6rem}
+.block h4.blue{color:var(--accent-blue)}.block h4.gold{color:var(--accent-gold)}.block h4.green{color:var(--accent-green)}.block h4.purple{color:var(--accent-purple)}
+.block p{color:var(--text-secondary);margin-bottom:0.85rem;font-weight:300;font-size:0.93rem}
+.block ul,.block ol{color:var(--text-secondary);padding-left:1.25rem;margin-bottom:1rem;font-weight:300;font-size:0.92rem}
+.block li{margin-bottom:0.4rem}.block li::marker{color:var(--accent-dim)}
+strong{color:var(--text-primary);font-weight:600}
+.highlight{background:rgba(239,68,68,0.05);border-left:3px solid var(--accent);padding:1rem 1.3rem;border-radius:0 8px 8px 0;margin:1rem 0}
+.highlight.gold{background:rgba(245,158,11,0.06);border-left-color:var(--accent-gold)}
+.highlight.blue{background:rgba(59,130,246,0.06);border-left-color:var(--accent-blue)}
+.highlight.green{background:rgba(16,185,129,0.06);border-left-color:var(--accent-green)}
+.highlight p{margin-bottom:0;color:var(--text-primary);font-weight:400;font-size:0.88rem}
+.tbl-wrap{overflow-x:auto;margin:1rem 0;border-radius:10px;border:1px solid var(--border)}
+table.tbl{width:100%;border-collapse:collapse;font-size:0.85rem}
+table.tbl thead{background:var(--bg-secondary)}
+table.tbl th{padding:0.65rem 0.9rem;text-align:left;font-weight:600;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--accent);border-bottom:1px solid var(--border-light)}
+table.tbl td{padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);color:var(--text-secondary)}
+table.tbl tbody tr:hover{background:rgba(239,68,68,0.03)}
+table.tbl .rh{font-weight:500;color:var(--text-primary)}
+.quiz-wrap{background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:12px;padding:1.75rem;margin:1.5rem 0}
+.quiz-title{font-family:var(--font-display);font-size:1.05rem;color:var(--accent);margin-bottom:1.25rem}
+.quiz-q{margin-bottom:1.4rem}
+.quiz-q p{font-weight:500;color:var(--text-primary);margin-bottom:0.6rem;font-size:0.9rem}
+.quiz-q p small{display:block;font-size:0.72rem;color:var(--text-dim);font-weight:400;margin-top:0.15rem}
+.quiz-options{display:flex;flex-direction:column;gap:0.35rem}
+.quiz-option{padding:0.6rem 0.9rem;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:0.84rem;color:var(--text-secondary);transition:all 0.2s;text-align:left;font-family:var(--font-body)}
+.quiz-option:hover{border-color:var(--accent-dim);color:var(--text-primary)}
+.quiz-option.correct{border-color:var(--accent-green);background:rgba(16,185,129,0.08);color:var(--accent-green)}
+.quiz-option.wrong{border-color:var(--accent-red,#ef4444);background:rgba(239,68,68,0.06);color:#ef4444}
+.quiz-explanation{display:none;margin-top:0.5rem;padding:0.6rem 0.85rem;background:rgba(16,185,129,0.06);border-left:3px solid var(--accent-green);border-radius:0 6px 6px 0;font-size:0.8rem;color:var(--text-secondary)}
+.quiz-q.answered .quiz-explanation{display:block}
+.btt{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:all 0.3s;z-index:900;box-shadow:0 4px 20px rgba(239,68,68,0.35)}
+.btt.show{opacity:1;transform:translateY(0)}
+.footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.8rem}
+.footer a{color:var(--accent);text-decoration:none}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s,transform 0.6s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}}
+@media(max-width:768px){.nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,14,23,0.97);backdrop-filter:blur(20px);flex-direction:column;padding:1rem;border-bottom:1px solid var(--border)}.nav-links.open{display:flex}.mobile-toggle{display:block}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="CGL.html" class="nav-logo">CGL <span>/ Static GK</span></a>
+    <div class="nav-links">
+      <a href="#countries">Countries</a>
+      <a href="#india">India Facts</a>
+      <a href="#awards">Awards</a>
+      <a href="#sports">Sports</a>
+      <a href="#orgs">Organizations</a>
+      <a href="#books">Books &amp; Authors</a>
+    </div>
+    <button class="mobile-toggle" onclick="this.previousElementSibling.classList.toggle('open')">☰</button>
+  </div>
+  <div class="nav-progress" id="nprog"></div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-badge">Module 05 · Static General Knowledge</div>
+  <h1>Static GK for <em>SSC CGL</em></h1>
+  <p>Comprehensive reference tables for Countries/Capitals/Currencies, India facts, National and International Awards, Sports records, Organizations, and Books &amp; Authors.</p>
+  <div class="page-meta">
+    <div class="meta-item"><strong>Memory-based</strong> section</div>
+    <div class="meta-item"><strong>Read daily</strong> Revise next morning</div>
+  </div>
+</div>
+
+<div class="layout">
+<aside class="sidebar">
+  <a href="CGL.html" class="sidebar-back">← Back to Hub</a>
+  <div class="sidebar-nav">
+    <div class="sidebar-nav-title">Sections</div>
+    <a href="#countries">01 · Countries / Capitals / Currencies</a>
+    <a href="#india">02 · India — Key Facts</a>
+    <a href="#awards">03 · National Awards</a>
+    <a href="#intlawards">04 · International Awards</a>
+    <a href="#sports">05 · Sports Records &amp; Trophies</a>
+    <a href="#orgs">06 · International Organizations</a>
+    <a href="#books">07 · Books &amp; Authors</a>
+  </div>
+</aside>
+
+<main class="content">
+
+<!-- COUNTRIES -->
+<div class="chapter reveal" id="countries">
+  <div class="chapter-header">
+    <span class="chapter-num">Section 01</span>
+    <h2 class="chapter-title">Countries, Capitals &amp; Currencies</h2>
+  </div>
+  <div class="block">
+    <h3>Asia</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Country</th><th>Capital</th><th>Currency</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">India</td><td>New Delhi</td><td>Indian Rupee (INR)</td></tr>
+          <tr><td class="rh">China</td><td>Beijing</td><td>Renminbi / Yuan (CNY)</td></tr>
+          <tr><td class="rh">Japan</td><td>Tokyo</td><td>Yen (JPY)</td></tr>
+          <tr><td class="rh">Pakistan</td><td>Islamabad</td><td>Pakistani Rupee (PKR)</td></tr>
+          <tr><td class="rh">Bangladesh</td><td>Dhaka</td><td>Taka (BDT)</td></tr>
+          <tr><td class="rh">Sri Lanka</td><td>Sri Jayawardenepura Kotte (legislative) / Colombo (commercial)</td><td>Sri Lankan Rupee (LKR)</td></tr>
+          <tr><td class="rh">Nepal</td><td>Kathmandu</td><td>Nepalese Rupee (NPR)</td></tr>
+          <tr><td class="rh">Bhutan</td><td>Thimphu</td><td>Ngultrum (BTN)</td></tr>
+          <tr><td class="rh">Myanmar</td><td>Naypyidaw</td><td>Kyat (MMK)</td></tr>
+          <tr><td class="rh">Afghanistan</td><td>Kabul</td><td>Afghani (AFN)</td></tr>
+          <tr><td class="rh">Iran</td><td>Tehran</td><td>Iranian Rial (IRR)</td></tr>
+          <tr><td class="rh">Iraq</td><td>Baghdad</td><td>Iraqi Dinar (IQD)</td></tr>
+          <tr><td class="rh">Israel</td><td>Jerusalem</td><td>New Shekel (ILS)</td></tr>
+          <tr><td class="rh">Saudi Arabia</td><td>Riyadh</td><td>Saudi Riyal (SAR)</td></tr>
+          <tr><td class="rh">UAE</td><td>Abu Dhabi</td><td>UAE Dirham (AED)</td></tr>
+          <tr><td class="rh">Thailand</td><td>Bangkok</td><td>Baht (THB)</td></tr>
+          <tr><td class="rh">Indonesia</td><td>Jakarta (moving to Nusantara)</td><td>Rupiah (IDR)</td></tr>
+          <tr><td class="rh">South Korea</td><td>Seoul</td><td>Won (KRW)</td></tr>
+          <tr><td class="rh">North Korea</td><td>Pyongyang</td><td>North Korean Won (KPW)</td></tr>
+          <tr><td class="rh">Russia</td><td>Moscow</td><td>Ruble (RUB)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Europe</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Country</th><th>Capital</th><th>Currency</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">UK</td><td>London</td><td>Pound Sterling (GBP)</td></tr>
+          <tr><td class="rh">France</td><td>Paris</td><td>Euro (EUR)</td></tr>
+          <tr><td class="rh">Germany</td><td>Berlin</td><td>Euro (EUR)</td></tr>
+          <tr><td class="rh">Italy</td><td>Rome</td><td>Euro (EUR)</td></tr>
+          <tr><td class="rh">Spain</td><td>Madrid</td><td>Euro (EUR)</td></tr>
+          <tr><td class="rh">Switzerland</td><td>Bern</td><td>Swiss Franc (CHF)</td></tr>
+          <tr><td class="rh">Sweden</td><td>Stockholm</td><td>Swedish Krona (SEK)</td></tr>
+          <tr><td class="rh">Norway</td><td>Oslo</td><td>Norwegian Krone (NOK)</td></tr>
+          <tr><td class="rh">Denmark</td><td>Copenhagen</td><td>Danish Krone (DKK)</td></tr>
+          <tr><td class="rh">Poland</td><td>Warsaw</td><td>Polish Zloty (PLN)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Americas &amp; Africa</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Country</th><th>Capital</th><th>Currency</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">USA</td><td>Washington D.C.</td><td>US Dollar (USD)</td></tr>
+          <tr><td class="rh">Canada</td><td>Ottawa</td><td>Canadian Dollar (CAD)</td></tr>
+          <tr><td class="rh">Brazil</td><td>Brasília</td><td>Brazilian Real (BRL)</td></tr>
+          <tr><td class="rh">Argentina</td><td>Buenos Aires</td><td>Argentine Peso (ARS)</td></tr>
+          <tr><td class="rh">Mexico</td><td>Mexico City</td><td>Mexican Peso (MXN)</td></tr>
+          <tr><td class="rh">South Africa</td><td>Pretoria (admin) / Cape Town (legislative)</td><td>Rand (ZAR)</td></tr>
+          <tr><td class="rh">Egypt</td><td>Cairo</td><td>Egyptian Pound (EGP)</td></tr>
+          <tr><td class="rh">Nigeria</td><td>Abuja</td><td>Naira (NGN)</td></tr>
+          <tr><td class="rh">Kenya</td><td>Nairobi</td><td>Kenyan Shilling (KES)</td></tr>
+          <tr><td class="rh">Australia</td><td>Canberra</td><td>Australian Dollar (AUD)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- INDIA FACTS -->
+<div class="chapter reveal" id="india">
+  <div class="chapter-header">
+    <span class="chapter-num">Section 02</span>
+    <h2 class="chapter-title">India — Key Facts</h2>
+  </div>
+  <div class="block">
+    <h3>National Symbols</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Symbol</th><th>Name</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">National Animal</td><td>Bengal Tiger (Panthera tigris tigris)</td><td>Replaced Lion in 1973</td></tr>
+          <tr><td class="rh">National Bird</td><td>Indian Peacock (Pavo cristatus)</td><td>Declared 1963</td></tr>
+          <tr><td class="rh">National Flower</td><td>Lotus (Nelumbo nucifera)</td><td>—</td></tr>
+          <tr><td class="rh">National Tree</td><td>Indian Banyan (Ficus benghalensis)</td><td>—</td></tr>
+          <tr><td class="rh">National Fruit</td><td>Mango (Mangifera indica)</td><td>—</td></tr>
+          <tr><td class="rh">National River</td><td>Ganga</td><td>—</td></tr>
+          <tr><td class="rh">National Aquatic Animal</td><td>River Dolphin (Gangetic)</td><td>—</td></tr>
+          <tr><td class="rh">National Reptile</td><td>King Cobra</td><td>—</td></tr>
+          <tr><td class="rh">National Heritage Animal</td><td>Elephant</td><td>—</td></tr>
+          <tr><td class="rh">National Emblem</td><td>Lion Capital of Ashoka (Sarnath)</td><td>Adopted Jan 26, 1950</td></tr>
+          <tr><td class="rh">National Anthem</td><td>Jana Gana Mana</td><td>Composed by Rabindranath Tagore; duration 52 sec</td></tr>
+          <tr><td class="rh">National Song</td><td>Vande Mataram</td><td>From Anandamath by Bankimchandra Chattopadhyay</td></tr>
+          <tr><td class="rh">National Calendar</td><td>Saka Calendar</td><td>Adopted 1957; Chaitra is first month</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Superlatives of India</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Category</th><th>Name</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Largest state (area)</td><td>Rajasthan</td></tr>
+          <tr><td class="rh">Smallest state (area)</td><td>Goa</td></tr>
+          <tr><td class="rh">Most populous state</td><td>Uttar Pradesh</td></tr>
+          <tr><td class="rh">Least populous state</td><td>Sikkim</td></tr>
+          <tr><td class="rh">Longest river</td><td>Ganga (2525 km)</td></tr>
+          <tr><td class="rh">Longest road</td><td>NH-44 (Srinagar to Kanyakumari)</td></tr>
+          <tr><td class="rh">Highest peak</td><td>Kangchenjunga (8586m) — in India</td></tr>
+          <tr><td class="rh">Largest lake (freshwater)</td><td>Wular Lake (J&amp;K)</td></tr>
+          <tr><td class="rh">Largest lake (saltwater)</td><td>Chilika Lake (Odisha)</td></tr>
+          <tr><td class="rh">Longest dam</td><td>Hirakud Dam (Odisha)</td></tr>
+          <tr><td class="rh">Highest dam</td><td>Tehri Dam (Uttarakhand)</td></tr>
+          <tr><td class="rh">Largest desert</td><td>Thar Desert (Rajasthan)</td></tr>
+          <tr><td class="rh">Largest delta</td><td>Sundarbans (W Bengal + Bangladesh)</td></tr>
+          <tr><td class="rh">Driest place</td><td>Jaisalmer (Rajasthan)</td></tr>
+          <tr><td class="rh">Wettest place</td><td>Mawsynram (Meghalaya)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- NATIONAL AWARDS -->
+<div class="chapter reveal" id="awards">
+  <div class="chapter-header">
+    <span class="chapter-num">Section 03</span>
+    <h2 class="chapter-title">National Awards of India</h2>
+  </div>
+  <div class="block">
+    <h3>Civilian Honours</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Award</th><th>Field</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Bharat Ratna</td><td>Highest civilian award — art, science, literature, public service</td><td>Instituted 1954. C. Rajagopalachari, S. Radhakrishnan, C.V. Raman — first recipients</td></tr>
+          <tr><td class="rh">Padma Vibhushan</td><td>Exceptional &amp; distinguished service</td><td>Second highest civilian award</td></tr>
+          <tr><td class="rh">Padma Bhushan</td><td>Distinguished service of high order</td><td>Third highest civilian award</td></tr>
+          <tr><td class="rh">Padma Shri</td><td>Distinguished service</td><td>Fourth highest civilian award</td></tr>
+          <tr><td class="rh">Jnanpith Award</td><td>Highest literary award</td><td>Given by Bharatiya Jnanpith; for Indian language literature</td></tr>
+          <tr><td class="rh">Sahitya Akademi Award</td><td>Literature</td><td>Given by Sahitya Akademi; 24 languages recognized</td></tr>
+          <tr><td class="rh">Dada Saheb Phalke Award</td><td>Highest film award</td><td>Given at National Film Awards; named after cinema pioneer</td></tr>
+          <tr><td class="rh">Sangeet Natak Akademi Award</td><td>Performing arts</td><td>Music, dance, drama</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Gallantry Awards (Military)</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Award</th><th>When Given</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Param Vir Chakra (PVC)</td><td>Highest wartime gallantry; "in the face of enemy"</td></tr>
+          <tr><td class="rh">Maha Vir Chakra (MVC)</td><td>Second highest wartime gallantry</td></tr>
+          <tr><td class="rh">Vir Chakra (VC)</td><td>Third highest wartime gallantry</td></tr>
+          <tr><td class="rh">Ashok Chakra</td><td>Highest peacetime gallantry (equivalent to PVC)</td></tr>
+          <tr><td class="rh">Kirti Chakra</td><td>Second highest peacetime gallantry</td></tr>
+          <tr><td class="rh">Shaurya Chakra</td><td>Third highest peacetime gallantry</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Sports Awards</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Award</th><th>Given for</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Major Dhyan Chand Khel Ratna</td><td>Highest sports honour; renamed 2021 from Rajiv Gandhi Khel Ratna</td></tr>
+          <tr><td class="rh">Arjuna Award</td><td>Outstanding performance over 4 years; instituted 1961</td></tr>
+          <tr><td class="rh">Dronacharya Award</td><td>Excellence in sports coaching; instituted 1985</td></tr>
+          <tr><td class="rh">Dhyan Chand Award</td><td>Lifetime contribution to sports; instituted 2002</td></tr>
+          <tr><td class="rh">Maulana Abul Kalam Azad Trophy</td><td>Overall best university in sports</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- INTERNATIONAL AWARDS -->
+<div class="chapter reveal" id="intlawards">
+  <div class="chapter-header">
+    <span class="chapter-num">Section 04</span>
+    <h2 class="chapter-title">International Awards</h2>
+  </div>
+  <div class="block">
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Award</th><th>Field</th><th>Given by</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Nobel Prize</td><td>Physics, Chemistry, Medicine, Literature, Peace, Economics</td><td>Royal Swedish Academy / Norwegian Nobel Committee</td><td>Annual</td></tr>
+          <tr><td class="rh">Pulitzer Prize</td><td>Journalism, Literature, Music (USA)</td><td>Columbia University</td><td>Annual</td></tr>
+          <tr><td class="rh">Booker Prize</td><td>Best novel in English</td><td>Booker Prize Foundation</td><td>Annual</td></tr>
+          <tr><td class="rh">Oscar (Academy Award)</td><td>Films</td><td>Academy of Motion Picture Arts and Sciences (AMPAS)</td><td>Annual</td></tr>
+          <tr><td class="rh">Grammy Award</td><td>Music</td><td>Recording Academy (NARAS)</td><td>Annual</td></tr>
+          <tr><td class="rh">Magsaysay Award</td><td>Asian leaders in public service</td><td>Ramon Magsaysay Award Foundation, Philippines</td><td>Annual</td></tr>
+          <tr><td class="rh">Man Booker International</td><td>Fiction translated into English</td><td>Booker Prize Foundation</td><td>Annual</td></tr>
+          <tr><td class="rh">Templeton Prize</td><td>Spiritual progress</td><td>John Templeton Foundation</td><td>Annual</td></tr>
+          <tr><td class="rh">Abel Prize</td><td>Mathematics</td><td>Norwegian Academy of Science</td><td>Annual</td></tr>
+          <tr><td class="rh">Fields Medal</td><td>Mathematics (under 40)</td><td>International Mathematical Union</td><td>Every 4 years</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Indians who won International Awards (Notable)</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Person</th><th>Award</th><th>Year</th><th>Field</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Rabindranath Tagore</td><td>Nobel Prize</td><td>1913</td><td>Literature (first non-European)</td></tr>
+          <tr><td class="rh">C.V. Raman</td><td>Nobel Prize</td><td>1930</td><td>Physics (Raman Effect)</td></tr>
+          <tr><td class="rh">Mother Teresa</td><td>Nobel Prize</td><td>1979</td><td>Peace</td></tr>
+          <tr><td class="rh">Amartya Sen</td><td>Nobel Prize</td><td>1998</td><td>Economics</td></tr>
+          <tr><td class="rh">Kailash Satyarthi</td><td>Nobel Prize</td><td>2014</td><td>Peace</td></tr>
+          <tr><td class="rh">Abhijit Banerjee</td><td>Nobel Prize</td><td>2019</td><td>Economics (jointly)</td></tr>
+          <tr><td class="rh">Arundhati Roy</td><td>Booker Prize</td><td>1997</td><td>The God of Small Things</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SPORTS -->
+<div class="chapter reveal" id="sports">
+  <div class="chapter-header">
+    <span class="chapter-num">Section 05</span>
+    <h2 class="chapter-title">Sports — Trophies, Terms &amp; Records</h2>
+  </div>
+  <div class="block">
+    <h3>Sports Trophies &amp; Tournaments</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Trophy / Tournament</th><th>Sport</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Durand Cup</td><td>Football</td><td>Oldest football tournament in Asia (1888)</td></tr>
+          <tr><td class="rh">Santosh Trophy</td><td>Football</td><td>National football championship</td></tr>
+          <tr><td class="rh">Ranji Trophy</td><td>Cricket</td><td>National first-class cricket championship</td></tr>
+          <tr><td class="rh">Deodhar Trophy</td><td>Cricket</td><td>Domestic One Day cricket</td></tr>
+          <tr><td class="rh">Irani Cup</td><td>Cricket</td><td>Reigning Ranji Trophy champion vs Rest of India</td></tr>
+          <tr><td class="rh">Davis Cup</td><td>Tennis</td><td>International team tennis, men</td></tr>
+          <tr><td class="rh">Fed Cup (Billie Jean King)</td><td>Tennis</td><td>International team tennis, women</td></tr>
+          <tr><td class="rh">Thomas Cup</td><td>Badminton</td><td>Men's world team championship</td></tr>
+          <tr><td class="rh">Uber Cup</td><td>Badminton</td><td>Women's world team championship</td></tr>
+          <tr><td class="rh">Sudirman Cup</td><td>Badminton</td><td>Mixed team world championship</td></tr>
+          <tr><td class="rh">FIFA World Cup</td><td>Football</td><td>Every 4 years; Jules Rimet trophy (original)</td></tr>
+          <tr><td class="rh">Ashes</td><td>Cricket</td><td>England vs Australia series</td></tr>
+          <tr><td class="rh">Ryder Cup</td><td>Golf</td><td>USA vs Europe</td></tr>
+          <tr><td class="rh">Agha Khan Cup</td><td>Hockey</td><td>International field hockey</td></tr>
+          <tr><td class="rh">Dhyan Chand Trophy</td><td>Hockey</td><td>Named after hockey legend</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Number of Players per Team</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Sport</th><th>Players</th><th>Sport</th><th>Players</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Football (Soccer)</td><td>11</td><td class="rh">Hockey</td><td>11</td></tr>
+          <tr><td class="rh">Cricket</td><td>11</td><td class="rh">Baseball</td><td>9</td></tr>
+          <tr><td class="rh">Basketball</td><td>5</td><td class="rh">Volleyball</td><td>6</td></tr>
+          <tr><td class="rh">Water Polo</td><td>7</td><td class="rh">Polo</td><td>4</td></tr>
+          <tr><td class="rh">Kabaddi</td><td>7</td><td class="rh">Kho-Kho</td><td>9</td></tr>
+          <tr><td class="rh">Rugby Union</td><td>15</td><td class="rh">Rugby League</td><td>13</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ORGANIZATIONS -->
+<div class="chapter reveal" id="orgs">
+  <div class="chapter-header">
+    <span class="chapter-num">Section 06</span>
+    <h2 class="chapter-title">International Organizations</h2>
+  </div>
+  <div class="block">
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Organization</th><th>Full Name</th><th>HQ</th><th>Head</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">UN</td><td>United Nations</td><td>New York, USA</td><td>Secretary-General</td></tr>
+          <tr><td class="rh">UNESCO</td><td>UN Educational, Scientific and Cultural Org.</td><td>Paris, France</td><td>Director-General</td></tr>
+          <tr><td class="rh">UNICEF</td><td>UN Children's Fund</td><td>New York, USA</td><td>Executive Director</td></tr>
+          <tr><td class="rh">WHO</td><td>World Health Organization</td><td>Geneva, Switzerland</td><td>Director-General</td></tr>
+          <tr><td class="rh">WTO</td><td>World Trade Organization</td><td>Geneva, Switzerland</td><td>Director-General</td></tr>
+          <tr><td class="rh">IMF</td><td>International Monetary Fund</td><td>Washington D.C., USA</td><td>Managing Director</td></tr>
+          <tr><td class="rh">World Bank</td><td>International Bank for Reconstruction &amp; Development</td><td>Washington D.C., USA</td><td>President</td></tr>
+          <tr><td class="rh">NATO</td><td>North Atlantic Treaty Organization</td><td>Brussels, Belgium</td><td>Secretary-General</td></tr>
+          <tr><td class="rh">ASEAN</td><td>Assoc. of Southeast Asian Nations</td><td>Jakarta, Indonesia</td><td>Secretary-General</td></tr>
+          <tr><td class="rh">SAARC</td><td>South Asian Assoc. for Regional Cooperation</td><td>Kathmandu, Nepal</td><td>Secretary-General</td></tr>
+          <tr><td class="rh">ICC</td><td>International Cricket Council</td><td>Dubai, UAE</td><td>Chairman</td></tr>
+          <tr><td class="rh">IOC</td><td>International Olympic Committee</td><td>Lausanne, Switzerland</td><td>President</td></tr>
+          <tr><td class="rh">Interpol</td><td>International Criminal Police Organization</td><td>Lyon, France</td><td>Secretary-General</td></tr>
+          <tr><td class="rh">ILO</td><td>International Labour Organization</td><td>Geneva, Switzerland</td><td>Director-General</td></tr>
+          <tr><td class="rh">OPEC</td><td>Organization of Petroleum Exporting Countries</td><td>Vienna, Austria</td><td>Secretary-General</td></tr>
+          <tr><td class="rh">BRICS</td><td>Brazil, Russia, India, China, South Africa</td><td>—</td><td>Rotating presidency</td></tr>
+          <tr><td class="rh">G20</td><td>Group of Twenty</td><td>—</td><td>Rotating presidency</td></tr>
+          <tr><td class="rh">SCO</td><td>Shanghai Cooperation Organisation</td><td>Beijing, China</td><td>Secretary-General</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKS & AUTHORS -->
+<div class="chapter reveal" id="books">
+  <div class="chapter-header">
+    <span class="chapter-num">Section 07</span>
+    <h2 class="chapter-title">Books &amp; Authors</h2>
+  </div>
+  <div class="block">
+    <h3>Indian Authors</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Book</th><th>Author</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Arthashastra</td><td>Kautilya (Chanakya)</td><td>Ancient treatise on statecraft, economics, military</td></tr>
+          <tr><td class="rh">Indica</td><td>Megasthenes</td><td>Account of Mauryan India by Greek ambassador</td></tr>
+          <tr><td class="rh">Gitanjali</td><td>Rabindranath Tagore</td><td>Nobel Prize (1913); collection of devotional poems</td></tr>
+          <tr><td class="rh">Discovery of India</td><td>Jawaharlal Nehru</td><td>Written in Ahmednagar Fort (1944)</td></tr>
+          <tr><td class="rh">My Experiments with Truth</td><td>Mahatma Gandhi</td><td>Autobiography</td></tr>
+          <tr><td class="rh">Wings of Fire</td><td>A.P.J. Abdul Kalam</td><td>Autobiography</td></tr>
+          <tr><td class="rh">Ignited Minds</td><td>A.P.J. Abdul Kalam</td><td>—</td></tr>
+          <tr><td class="rh">The God of Small Things</td><td>Arundhati Roy</td><td>Booker Prize 1997</td></tr>
+          <tr><td class="rh">Midnight's Children</td><td>Salman Rushdie</td><td>Booker Prize 1981; Booker of Bookers 1993, 2008</td></tr>
+          <tr><td class="rh">Train to Pakistan</td><td>Khushwant Singh</td><td>Partition novel</td></tr>
+          <tr><td class="rh">Anandamath</td><td>Bankimchandra Chattopadhyay</td><td>Contains "Vande Mataram"</td></tr>
+          <tr><td class="rh">Poverty and Un-British Rule in India</td><td>Dadabhai Naoroji</td><td>Drain theory of Indian poverty</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>World Authors (Frequently Asked)</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Book</th><th>Author</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">The Republic</td><td>Plato</td></tr>
+          <tr><td class="rh">1984 / Animal Farm</td><td>George Orwell</td></tr>
+          <tr><td class="rh">A Brief History of Time</td><td>Stephen Hawking</td></tr>
+          <tr><td class="rh">The Origin of Species</td><td>Charles Darwin</td></tr>
+          <tr><td class="rh">Wealth of Nations</td><td>Adam Smith</td></tr>
+          <tr><td class="rh">The Communist Manifesto</td><td>Karl Marx &amp; Friedrich Engels</td></tr>
+          <tr><td class="rh">War and Peace</td><td>Leo Tolstoy</td></tr>
+          <tr><td class="rh">Harry Potter (series)</td><td>J.K. Rowling</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-title">Practice — Static GK</div>
+      <div class="quiz-q" id="q-gk1">
+        <p>What is the currency of Japan?<small>Direct recall</small></p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-gk1')">A) Won</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-gk1')">B) Yen</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-gk1')">C) Yuan</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-gk1')">D) Ringgit</button>
+        </div>
+        <div class="quiz-explanation">Japan's currency is the <strong>Yen (JPY)</strong>. Won = South/North Korea. Yuan = China. Ringgit = Malaysia.</div>
+      </div>
+      <div class="quiz-q" id="q-gk2">
+        <p>The book "Wings of Fire" is an autobiography of which personality?</p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-gk2')">A) Jawaharlal Nehru</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-gk2')">B) Mahatma Gandhi</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'correct','q-gk2')">C) A.P.J. Abdul Kalam</button>
+          <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-gk2')">D) Narendra Modi</button>
+        </div>
+        <div class="quiz-explanation">"Wings of Fire" is the autobiography of <strong>Dr. A.P.J. Abdul Kalam</strong>, former President of India and missile scientist.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<footer class="footer">
+  <p><a href="CGL.html">← Back to CGL Hub</a> · Static GK — SSC CGL · Built by <a href="index.html">Dattatray Dagale</a></p>
+</footer>
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;document.getElementById('nprog').style.width=pct+'%';document.getElementById('btt').classList.toggle('show',h.scrollTop>400);});
+const chapters=document.querySelectorAll('.chapter');const sideLinks=document.querySelectorAll('.sidebar-nav a');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){sideLinks.forEach(l=>l.classList.remove('active'));const active=document.querySelector('.sidebar-nav a[href="#'+e.target.id+'"]');if(active)active.classList.add('active');}});},{threshold:0.3});chapters.forEach(c=>obs.observe(c));
+const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target);}});},{threshold:0.08});document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+function checkAnswer(btn,result,qId){const q=document.getElementById(qId);if(q.classList.contains('answered'))return;q.classList.add('answered');q.querySelectorAll('.quiz-option').forEach(b=>b.disabled=true);btn.classList.add(result);if(result==='wrong'){q.querySelectorAll('.quiz-option').forEach(b=>{if(b.getAttribute('onclick').includes("'correct'"))b.classList.add('correct');});}}
+</script>
+</body>
+</html>

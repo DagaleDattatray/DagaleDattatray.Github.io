@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>General Studies — SSC CGL | Dattatray Dagale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg-primary:#0a0e17;--bg-secondary:#111827;--bg-card:#1a2234;--bg-card-hover:#1f2b42;--accent:#10b981;--accent-dim:#059669;--accent-blue:#3b82f6;--accent-purple:#8b5cf6;--accent-gold:#f59e0b;--accent-red:#ef4444;--accent-cyan:#06b6d4;--accent-orange:#f97316;--text-primary:#e8edf5;--text-secondary:#94a3b8;--text-dim:#64748b;--border:#1e293b;--border-light:#334155;--font-display:'DM Serif Display',Georgia,serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);line-height:1.7;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg-primary)}::-webkit-scrollbar-thumb{background:var(--accent-dim);border-radius:3px}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,23,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--font-display);font-size:1.1rem;color:var(--accent);text-decoration:none}
+.nav-logo span{color:var(--text-dim);font-style:italic}
+.nav-links{display:flex;gap:0.15rem;flex-wrap:wrap}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.72rem;font-weight:500;padding:0.3rem 0.55rem;border-radius:6px;transition:all 0.2s;letter-spacing:0.03em;text-transform:uppercase}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(16,185,129,0.08)}
+.nav-progress{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-blue));transition:width 0.15s;width:0%}
+.mobile-toggle{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer}
+.page-hero{padding:7rem 2rem 3rem;max-width:1200px;margin:0 auto}
+.page-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.3rem 0.9rem;border:1px solid var(--accent-dim);border-radius:100px;font-size:0.7rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+.page-hero h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;margin-bottom:0.75rem}
+.page-hero h1 em{color:var(--accent);font-style:italic}
+.page-hero p{color:var(--text-secondary);font-size:1rem;max-width:600px;font-weight:300;line-height:1.8}
+.page-meta{display:flex;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.meta-item{font-size:0.75rem;color:var(--text-dim)}.meta-item strong{color:var(--accent);font-weight:600}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:2.5rem;max-width:1200px;margin:0 auto;padding:2rem 2rem 5rem;align-items:start}
+.sidebar{position:sticky;top:80px}
+.sidebar-nav{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;overflow:hidden}
+.sidebar-nav-title{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)}
+.sidebar-nav a{display:block;padding:0.4rem 0.6rem;font-size:0.82rem;color:var(--text-secondary);text-decoration:none;border-radius:6px;transition:all 0.2s;margin-bottom:0.1rem}
+.sidebar-nav a:hover,.sidebar-nav a.active{color:var(--accent);background:rgba(16,185,129,0.08)}
+.sidebar-back{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.75rem;background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.15);border-radius:8px;font-size:0.78rem;color:var(--accent);text-decoration:none;margin-bottom:0.75rem;transition:all 0.2s}
+.sidebar-back:hover{background:rgba(16,185,129,0.12)}
+.chapter{margin-bottom:3.5rem;scroll-margin-top:80px}
+.chapter-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.chapter-num{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);background:rgba(16,185,129,0.1);padding:0.3rem 0.6rem;border-radius:6px;white-space:nowrap}
+.chapter-title{font-family:var(--font-display);font-size:1.75rem}
+.block{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:2rem;margin-bottom:1.25rem}
+.block h3{font-family:var(--font-display);font-size:1.3rem;margin-bottom:1rem}
+.block h4{font-size:0.95rem;font-weight:600;color:var(--accent);margin:1.5rem 0 0.6rem}
+.block h4.blue{color:var(--accent-blue)}.block h4.gold{color:var(--accent-gold)}.block h4.purple{color:var(--accent-purple)}.block h4.red{color:var(--accent-red)}
+.block p{color:var(--text-secondary);margin-bottom:0.85rem;font-weight:300;font-size:0.93rem}
+.block ul,.block ol{color:var(--text-secondary);padding-left:1.25rem;margin-bottom:1rem;font-weight:300;font-size:0.92rem}
+.block li{margin-bottom:0.4rem}
+.block li::marker{color:var(--accent-dim)}
+strong{color:var(--text-primary);font-weight:600}
+.highlight{background:rgba(16,185,129,0.06);border-left:3px solid var(--accent);padding:1rem 1.3rem;border-radius:0 8px 8px 0;margin:1rem 0}
+.highlight.blue{background:rgba(59,130,246,0.06);border-left-color:var(--accent-blue)}
+.highlight.gold{background:rgba(245,158,11,0.06);border-left-color:var(--accent-gold)}
+.highlight.purple{background:rgba(139,92,246,0.06);border-left-color:var(--accent-purple)}
+.highlight.red{background:rgba(239,68,68,0.06);border-left-color:var(--accent-red)}
+.highlight p{margin-bottom:0;color:var(--text-primary);font-weight:400;font-size:0.88rem}
+.tbl-wrap{overflow-x:auto;margin:1rem 0;border-radius:10px;border:1px solid var(--border)}
+table.tbl{width:100%;border-collapse:collapse;font-size:0.85rem}
+table.tbl thead{background:var(--bg-secondary)}
+table.tbl th{padding:0.65rem 0.9rem;text-align:left;font-weight:600;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--accent);border-bottom:1px solid var(--border-light)}
+table.tbl td{padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);color:var(--text-secondary)}
+table.tbl tbody tr:hover{background:rgba(16,185,129,0.03)}
+table.tbl .rh{font-weight:500;color:var(--text-primary)}
+table.tbl .yr{font-family:var(--font-mono);font-size:0.8rem;color:var(--accent-gold)}
+table.tbl .center{text-align:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:1rem 0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0}
+.mini-card{background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:1.1rem}
+.mini-card h5{font-size:0.82rem;font-weight:600;color:var(--accent);margin-bottom:0.4rem}
+.mini-card p,.mini-card li{font-size:0.8rem;color:var(--text-secondary);font-weight:300}
+.mini-card ul{padding-left:1rem}
+.timeline{position:relative;padding-left:1.5rem;margin:1rem 0}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(var(--accent),var(--accent-blue))}
+.tl-item{position:relative;padding:0.75rem 0 0.75rem 1rem;border-bottom:1px dashed var(--border)}
+.tl-item::before{content:'';position:absolute;left:-1.45rem;top:1.2rem;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg-primary)}
+.tl-year{font-family:var(--font-mono);font-size:0.72rem;color:var(--accent-gold);font-weight:600;margin-bottom:0.2rem}
+.tl-title{font-size:0.88rem;font-weight:500;color:var(--text-primary);margin-bottom:0.2rem}
+.tl-desc{font-size:0.8rem;color:var(--text-secondary);font-weight:300}
+.quiz-wrap{background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:12px;padding:1.75rem;margin:1.5rem 0}
+.quiz-title{font-family:var(--font-display);font-size:1.05rem;color:var(--accent);margin-bottom:1.25rem}
+.quiz-q{margin-bottom:1.4rem}
+.quiz-q p{font-weight:500;color:var(--text-primary);margin-bottom:0.6rem;font-size:0.9rem}
+.quiz-q p small{display:block;font-size:0.72rem;color:var(--text-dim);font-weight:400;margin-top:0.15rem}
+.quiz-options{display:flex;flex-direction:column;gap:0.35rem}
+.quiz-option{padding:0.6rem 0.9rem;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:0.84rem;color:var(--text-secondary);transition:all 0.2s;text-align:left}
+.quiz-option:hover{border-color:var(--accent-dim);color:var(--text-primary)}
+.quiz-option.correct{border-color:var(--accent);background:rgba(16,185,129,0.08);color:var(--accent)}
+.quiz-option.wrong{border-color:var(--accent-red);background:rgba(239,68,68,0.06);color:var(--accent-red)}
+.quiz-explanation{display:none;margin-top:0.5rem;padding:0.6rem 0.85rem;background:rgba(16,185,129,0.06);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:0.8rem;color:var(--text-secondary)}
+.quiz-q.answered .quiz-explanation{display:block}
+.accordion{margin:1rem 0}
+.accordion-item{border:1px solid var(--border);border-radius:10px;margin-bottom:0.5rem;overflow:hidden}
+.accordion-trigger{width:100%;padding:0.9rem 1.25rem;background:var(--bg-secondary);border:none;color:var(--text-primary);font-family:var(--font-body);font-size:0.88rem;font-weight:500;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background 0.2s}
+.accordion-trigger:hover{background:var(--bg-card-hover)}
+.accordion-trigger::after{content:'+';font-size:1.1rem;color:var(--accent);transition:transform 0.3s;flex-shrink:0}
+.accordion-item.open .accordion-trigger::after{transform:rotate(45deg)}
+.accordion-content{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.accordion-inner{padding:1rem 1.25rem;color:var(--text-secondary);font-size:0.85rem;font-weight:300;line-height:1.8}
+.accordion-inner ul{padding-left:1rem}.accordion-inner li{margin-bottom:0.3rem}
+.btt{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:all 0.3s;z-index:900;box-shadow:0 4px 20px rgba(16,185,129,0.35)}
+.btt.show{opacity:1;transform:translateY(0)}
+.footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.8rem}
+.footer a{color:var(--accent);text-decoration:none}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s,transform 0.6s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}}
+@media(max-width:768px){.nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,14,23,0.97);backdrop-filter:blur(20px);flex-direction:column;padding:1rem;border-bottom:1px solid var(--border)}.nav-links.open{display:flex}.mobile-toggle{display:block}.grid2,.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="CGL.html" class="nav-logo">CGL <span>/ General Studies</span></a>
+    <div class="nav-links">
+      <a href="#history">History</a>
+      <a href="#geography">Geography</a>
+      <a href="#polity">Polity</a>
+      <a href="#economy">Economy</a>
+      <a href="#science">Science</a>
+      <a href="#environment">Environment</a>
+    </div>
+    <button class="mobile-toggle" onclick="this.previousElementSibling.classList.toggle('open')">☰</button>
+  </div>
+  <div class="nav-progress" id="nprog"></div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-badge">Module 02 · General Studies</div>
+  <h1>GS for <em>SSC CGL</em></h1>
+  <p>History, Geography, Polity, Economy, Science and Environment — the widest subject in the exam. Structured like Parmar sir's approach: key facts, timelines, tables, and logic.</p>
+  <div class="page-meta">
+    <div class="meta-item"><strong>25 Qs</strong> Tier I</div>
+    <div class="meta-item"><strong>6</strong> Sub-subjects</div>
+    <div class="meta-item"><strong>Most</strong> unpredictable section</div>
+  </div>
+</div>
+
+<div class="layout">
+<aside class="sidebar">
+  <a href="CGL.html" class="sidebar-back">← Back to Hub</a>
+  <div class="sidebar-nav">
+    <div class="sidebar-nav-title">Sub-Subjects</div>
+    <a href="#history">01 · History</a>
+    <a href="#geography">02 · Geography</a>
+    <a href="#polity">03 · Polity</a>
+    <a href="#economy">04 · Economy</a>
+    <a href="#science">05 · Science</a>
+    <a href="#environment">06 · Environment</a>
+  </div>
+</aside>
+
+<main class="content">
+
+<!-- ═══ HISTORY ═══ -->
+<div class="chapter reveal" id="history">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 01</span>
+    <h2 class="chapter-title">History</h2>
+  </div>
+
+  <div class="block">
+    <h3>Ancient India</h3>
+    <h4>Indus Valley Civilization</h4>
+    <ul>
+      <li>Dates: <strong>3300–1300 BCE</strong> (Mature phase: 2600–1900 BCE)</li>
+      <li>Key sites: Harappa (Punjab, Pakistan), Mohenjo-daro (Sindh), Lothal (Gujarat — first dockyard), Dholavira (Gujarat — largest in India), Kalibangan (Rajasthan — fire altars)</li>
+      <li>Characteristics: Town planning, grid layout, drainage system, standardised weights, no iron use</li>
+      <li>Decline theories: Climate change / flood / Aryan invasion (Aryan theory disputed)</li>
+    </ul>
+
+    <h4>Vedic Period</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Period</th><th>Time</th><th>Key Features</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Early Vedic (Rigvedic)</td><td class="yr">1500–1000 BCE</td><td>Pastoral, nomadic, Rigveda composed, Sapta Sindhu region</td></tr>
+          <tr><td class="rh">Later Vedic</td><td class="yr">1000–600 BCE</td><td>Agricultural, varna system rigid, Sama, Yajur, Atharva Vedas, Mahajanapadas</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Mauryan Empire</h4>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">321 BCE</div><div class="tl-title">Chandragupta Maurya founds empire</div><div class="tl-desc">Defeated Dhana Nanda (last Nanda king) with Chanakya's guidance. Capital: Pataliputra.</div></div>
+      <div class="tl-item"><div class="tl-year">305 BCE</div><div class="tl-title">Defeat of Seleucus Nicator</div><div class="tl-desc">Chandragupta defeats Alexander's general. Megasthenes sent as ambassador — wrote Indica.</div></div>
+      <div class="tl-item"><div class="tl-year">273–232 BCE</div><div class="tl-title">Ashoka the Great</div><div class="tl-desc">Kalinga war (261 BCE) transformed him. Spread Buddhism. Erected pillars, rock edicts (Brahmi script). Dhamma policy.</div></div>
+      <div class="tl-item"><div class="tl-year">185 BCE</div><div class="tl-title">End of Maurya Empire</div><div class="tl-desc">Brihadratha killed by Pushyamitra Shunga (general). Shunga dynasty begins.</div></div>
+    </div>
+
+    <h4>Gupta Empire — Golden Age</h4>
+    <ul>
+      <li><strong>Chandragupta I</strong> (320–335 CE) — Founded empire, married Lichchhavi princess Kumaradevi</li>
+      <li><strong>Samudragupta</strong> (335–375 CE) — "Napoleon of India", Allahabad Pillar inscription by Harisena</li>
+      <li><strong>Chandragupta II / Vikramaditya</strong> (375–415 CE) — Conquered Sakas, Fa-Hien visited, Nine Gems (Navratna) including Kalidasa</li>
+      <li>Achievements: Aryabhata (zero, Earth rotation), Varahamihira, iron pillar (Delhi — no rust)</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>Medieval India</h3>
+    <h4>Delhi Sultanate (1206–1526)</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Dynasty</th><th>Period</th><th>Key Rulers</th><th>Notable</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Slave (Mamluk)</td><td class="yr">1206–1290</td><td>Qutb-ud-din Aibak, Iltutmish, Razia Sultana, Balban</td><td>Qutb Minar, first woman ruler</td></tr>
+          <tr><td class="rh">Khilji</td><td class="yr">1290–1320</td><td>Alauddin Khilji</td><td>Market reforms, price control, repelled Mongols, Malik Kafur southern expedition</td></tr>
+          <tr><td class="rh">Tughlaq</td><td class="yr">1320–1414</td><td>Ghiyasuddin, Muhammad bin Tughlaq, Firoz Shah</td><td>Capital shifted to Daulatabad, token currency, Ibn Battuta visited</td></tr>
+          <tr><td class="rh">Sayyid</td><td class="yr">1414–1451</td><td>Khizr Khan</td><td>Weak dynasty, Timur's aftermath</td></tr>
+          <tr><td class="rh">Lodi</td><td class="yr">1451–1526</td><td>Ibrahim Lodi</td><td>Ended at 1st Battle of Panipat (1526)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Mughal Empire (1526–1857)</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Emperor</th><th>Reign</th><th>Key Contributions</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Babur</td><td class="yr">1526–1530</td><td>1st Battle of Panipat (1526) vs Ibrahim Lodi. Introduced artillery. Wrote Baburnama.</td></tr>
+          <tr><td class="rh">Humayun</td><td class="yr">1530–1556</td><td>Defeated by Sher Shah Suri, went into exile in Persia. Reconquered India 1555.</td></tr>
+          <tr><td class="rh">Akbar</td><td class="yr">1556–1605</td><td>2nd Battle of Panipat (1556). Din-i-Ilahi, Navratnas (Birbal, Tansen, Todar Mal, Abul Fazl etc.), Fatehpur Sikri, Mansabdari system</td></tr>
+          <tr><td class="rh">Jahangir</td><td class="yr">1605–1627</td><td>Nur Jahan influence. Thomas Roe (British envoy). Known for justice chain.</td></tr>
+          <tr><td class="rh">Shah Jahan</td><td class="yr">1627–1658</td><td>Taj Mahal, Red Fort, Jama Masjid. "Golden Age" of Mughal architecture.</td></tr>
+          <tr><td class="rh">Aurangzeb</td><td class="yr">1658–1707</td><td>Expanded empire to max, Jaziya reimposed, banned music. Decline after death.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Modern India &amp; Freedom Struggle</h3>
+    <h4>Important Events Timeline</h4>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">1757</div><div class="tl-title">Battle of Plassey</div><div class="tl-desc">Clive vs Siraj-ud-Daulah. British victory, foundation of British rule.</div></div>
+      <div class="tl-item"><div class="tl-year">1764</div><div class="tl-title">Battle of Buxar</div><div class="tl-desc">British vs combined Nawabs. Treaty of Allahabad 1765 — Diwani rights to EIC.</div></div>
+      <div class="tl-item"><div class="tl-year">1857</div><div class="tl-title">Revolt of 1857 — First War of Independence</div><div class="tl-desc">Mangal Pandey spark. Centres: Meerut, Delhi (Bahadur Shah Zafar), Kanpur (Nana Sahib), Jhansi (Lakshmi Bai), Lucknow (Begum Hazrat Mahal). Crushed; Crown rule begins.</div></div>
+      <div class="tl-item"><div class="tl-year">1885</div><div class="tl-title">INC Founded</div><div class="tl-desc">A.O. Hume, Dadabhai Naoroji, Dinshaw Wacha. First session — Bombay.</div></div>
+      <div class="tl-item"><div class="tl-year">1905</div><div class="tl-title">Partition of Bengal</div><div class="tl-desc">Lord Curzon. Swadeshi Movement launched. Annulled 1911.</div></div>
+      <div class="tl-item"><div class="tl-year">1919</div><div class="tl-title">Jallianwala Bagh Massacre</div><div class="tl-desc">April 13. General Dyer. Rabindranath Tagore renounced knighthood.</div></div>
+      <div class="tl-item"><div class="tl-year">1920–22</div><div class="tl-title">Non-Cooperation Movement</div><div class="tl-desc">Gandhi. Withdrawn after Chauri Chaura (1922) violence.</div></div>
+      <div class="tl-item"><div class="tl-year">1930</div><div class="tl-title">Civil Disobedience / Dandi March</div><div class="tl-desc">March 12 – April 5. Gandhi walked 240 miles to break Salt Law.</div></div>
+      <div class="tl-item"><div class="tl-year">1942</div><div class="tl-title">Quit India Movement</div><div class="tl-desc">August 8. "Do or Die". Gandhi, Nehru, Patel arrested. Aruna Asaf Ali hoisted flag.</div></div>
+      <div class="tl-item"><div class="tl-year">1947</div><div class="tl-title">Independence</div><div class="tl-desc">August 15. Partition — India and Pakistan. Mountbatten last Viceroy.</div></div>
+    </div>
+
+    <h4>Important Social Reform Movements</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Reformer</th><th>Movement / Work</th><th>Period</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Raja Ram Mohan Roy</td><td>Brahmo Samaj (1828), banned Sati (1829)</td><td class="yr">1772–1833</td></tr>
+          <tr><td class="rh">Dayananda Saraswati</td><td>Arya Samaj (1875), Shuddhi movement</td><td class="yr">1824–1883</td></tr>
+          <tr><td class="rh">Swami Vivekananda</td><td>Ramakrishna Mission (1897), Chicago speech 1893</td><td class="yr">1863–1902</td></tr>
+          <tr><td class="rh">Jyotirao Phule</td><td>Satyashodhak Samaj (1873), women/lower caste education</td><td class="yr">1827–1890</td></tr>
+          <tr><td class="rh">B.R. Ambedkar</td><td>Drafted Constitution, anti-caste, Mahad Satyagraha</td><td class="yr">1891–1956</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="quiz-wrap">
+    <div class="quiz-title">Practice — History</div>
+    <div class="quiz-q" id="q-h1">
+      <p>Which Mughal emperor introduced the Mansabdari system?<small>Direct fact question</small></p>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-h1')">A) Babur</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'correct','q-h1')">B) Akbar</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-h1')">C) Jahangir</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-h1')">D) Shah Jahan</button>
+      </div>
+      <div class="quiz-explanation">Akbar introduced the <strong>Mansabdari system</strong> — a grading system for military/civil officers based on rank (mansab).</div>
+    </div>
+    <div class="quiz-q" id="q-h2">
+      <p>The Dandi March of 1930 was launched to protest against?</p>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-h2')">A) Partition of Bengal</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-h2')">B) Rowlatt Act</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'correct','q-h2')">C) Salt tax</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-h2')">D) Jallianwala Bagh massacre</button>
+      </div>
+      <div class="quiz-explanation">Gandhi marched 240 miles to Dandi to make salt from seawater, defying the British <strong>Salt Law / Salt Tax</strong>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GEOGRAPHY ═══ -->
+<div class="chapter reveal" id="geography">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 02</span>
+    <h2 class="chapter-title">Geography</h2>
+  </div>
+
+  <div class="block">
+    <h3>Physical Geography of India</h3>
+    <h4>Major Physiographic Divisions</h4>
+    <div class="grid2">
+      <div class="mini-card"><h5>The Himalayas</h5><ul><li>Greater Himalayas (Himadri) — avg 6000m</li><li>Lesser Himalayas (Himachal) — Shimla, Mussoorie</li><li>Outer Himalayas (Shivalik) — foothills</li><li>Highest peak in India: Kangchenjunga (8586m)</li></ul></div>
+      <div class="mini-card"><h5>Northern Plains</h5><ul><li>Formed by Ganga, Indus, Brahmaputra rivers</li><li>Bhabar, Terai, Bhangar, Khadar zones</li><li>Most fertile agricultural land</li></ul></div>
+      <div class="mini-card"><h5>Peninsular Plateau</h5><ul><li>Oldest landmass (Gondwana)</li><li>Deccan Plateau: basalt/lava soil (regur)</li><li>Western Ghats (Sahyadri): continuous range</li><li>Eastern Ghats: discontinuous, lower</li></ul></div>
+      <div class="mini-card"><h5>Coastal Plains</h5><ul><li>Western: narrower, submerged coast</li><li>Eastern: wider, emergent coast</li><li>Chilika Lake (Odisha) — largest coastal lagoon</li></ul></div>
+    </div>
+
+    <h4>Rivers of India</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>River</th><th>Origin</th><th>Flows into</th><th>Tributaries / Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Ganga</td><td>Gangotri glacier</td><td>Bay of Bengal</td><td>Yamuna, Son, Ghaghra, Kosi. Longest river in India (2525 km)</td></tr>
+          <tr><td class="rh">Indus</td><td>Tibet (near Mansarovar)</td><td>Arabian Sea</td><td>Jhelum, Chenab, Ravi, Beas, Sutlej. Longest river of the subcontinent</td></tr>
+          <tr><td class="rh">Brahmaputra</td><td>Chemayungdung glacier (Tibet — called Tsangpo)</td><td>Bay of Bengal</td><td>Dibang, Lohit, Subansiri. World's widest river valley</td></tr>
+          <tr><td class="rh">Godavari</td><td>Nasik (Western Ghats)</td><td>Bay of Bengal</td><td>"Dakshin Ganga" — longest peninsular river (1465 km)</td></tr>
+          <tr><td class="rh">Krishna</td><td>Mahabaleshwar</td><td>Bay of Bengal</td><td>Tungabhadra, Bhima</td></tr>
+          <tr><td class="rh">Narmada</td><td>Amarkantak Plateau</td><td>Arabian Sea</td><td>Flows through rift valley (westward). Marble Rocks at Jabalpur.</td></tr>
+          <tr><td class="rh">Tapti (Tapi)</td><td>Satpura range (Betul, MP)</td><td>Arabian Sea</td><td>Flows westward through rift valley like Narmada</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Climate of India</h4>
+    <div class="highlight">
+      <p>India has a <strong>monsoon type of climate</strong> with 4 seasons: Winter (Dec–Feb), Pre-monsoon/Summer (Mar–May), Southwest Monsoon (Jun–Sep), Retreating Monsoon/Post-monsoon (Oct–Nov)</p>
+    </div>
+    <ul>
+      <li><strong>Mawsynram</strong> (Meghalaya) — wettest place in the world</li>
+      <li><strong>Jaisalmer</strong> (Rajasthan) — driest place in India</li>
+      <li>Southwest monsoon enters India via <strong>Kerala</strong> (around June 1)</li>
+      <li>Bay of Bengal branch — hits NE India first</li>
+      <li>Arabian Sea branch — hits Western Ghats and Konkan coast</li>
+    </ul>
+
+    <h4>Soil Types</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Soil Type</th><th>Where Found</th><th>Crops</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Alluvial</td><td>Indo-Gangetic plains, river deltas</td><td>Wheat, rice, sugarcane, cotton</td></tr>
+          <tr><td class="rh">Black (Regur)</td><td>Deccan Plateau (Maharashtra, MP)</td><td>Cotton — holds moisture</td></tr>
+          <tr><td class="rh">Red &amp; Yellow</td><td>Eastern Deccan (AP, Odisha, Tamil Nadu)</td><td>Rice, wheat, millet</td></tr>
+          <tr><td class="rh">Laterite</td><td>Western &amp; Eastern Ghats, NE India</td><td>Tea, coffee, cashew</td></tr>
+          <tr><td class="rh">Arid / Desert</td><td>Rajasthan, Punjab &amp; Haryana dry areas</td><td>Bajra, jowar (after irrigation)</td></tr>
+          <tr><td class="rh">Forest/Mountain</td><td>Himalayan region</td><td>Tea, coffee, spices, tropical fruits</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="quiz-wrap">
+    <div class="quiz-title">Practice — Geography</div>
+    <div class="quiz-q" id="q-geo1">
+      <p>Which is the longest river in Peninsular India?<small>Frequently asked</small></p>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-geo1')">A) Krishna</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'correct','q-geo1')">B) Godavari</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-geo1')">C) Narmada</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-geo1')">D) Kaveri</button>
+      </div>
+      <div class="quiz-explanation"><strong>Godavari</strong> (1465 km) is the longest peninsular river, called "Dakshin Ganga".</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POLITY ═══ -->
+<div class="chapter reveal" id="polity">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 03</span>
+    <h2 class="chapter-title">Indian Polity</h2>
+  </div>
+
+  <div class="block">
+    <h3>The Constitution</h3>
+    <div class="highlight blue">
+      <p>Adopted: <strong>November 26, 1949</strong> (Constitution Day). Enforced: <strong>January 26, 1950</strong>.<br>
+      Dr. B.R. Ambedkar — Chairman of Drafting Committee. Drafting took 2 years 11 months 18 days.</p>
+    </div>
+    <div class="grid3">
+      <div class="mini-card"><h5>Original Constitution</h5><p>395 Articles, 8 Schedules, 22 Parts</p></div>
+      <div class="mini-card"><h5>Current Constitution</h5><p>~470 Articles, 12 Schedules, 25 Parts (post-amendments)</p></div>
+      <div class="mini-card"><h5>Preamble</h5><p>Added "Secular" and "Socialist" by <strong>42nd Amendment (1976)</strong></p></div>
+    </div>
+
+    <h4>Fundamental Rights (Part III, Articles 12–35)</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Right</th><th>Articles</th><th>Key Points</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Right to Equality</td><td>14–18</td><td>Equality before law, no discrimination, abolish untouchability (Art 17)</td></tr>
+          <tr><td class="rh">Right to Freedom</td><td>19–22</td><td>6 freedoms (speech, assembly, movement etc.), protection against arrest</td></tr>
+          <tr><td class="rh">Right against Exploitation</td><td>23–24</td><td>No trafficking, forced labour, no child labour below 14</td></tr>
+          <tr><td class="rh">Freedom of Religion</td><td>25–28</td><td>Freedom of conscience, religion, manage religious affairs</td></tr>
+          <tr><td class="rh">Cultural &amp; Educational</td><td>29–30</td><td>Minorities can establish and administer educational institutions</td></tr>
+          <tr><td class="rh">Right to Constitutional Remedies</td><td>32</td><td>"Heart and Soul of Constitution" (Ambedkar). 5 writs.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="highlight">
+      <p><strong>5 Writs:</strong> Habeas Corpus (produce the body), Mandamus (we command), Prohibition (stop inferior court), Certiorari (quash inferior court order), Quo Warranto (by what authority)</p>
+    </div>
+
+    <h4>Important Articles to Remember</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Article</th><th>Subject</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Art 1</td><td>India = Union of States (not federation)</td></tr>
+          <tr><td class="rh">Art 13</td><td>Laws inconsistent with FRs = void</td></tr>
+          <tr><td class="rh">Art 21</td><td>Right to Life and Personal Liberty (most expanded by judiciary)</td></tr>
+          <tr><td class="rh">Art 32</td><td>Right to Constitutional Remedies (SC)</td></tr>
+          <tr><td class="rh">Art 44</td><td>Uniform Civil Code (DPSP)</td></tr>
+          <tr><td class="rh">Art 51A</td><td>Fundamental Duties (added by 42nd Amendment)</td></tr>
+          <tr><td class="rh">Art 72</td><td>Presidential pardoning power</td></tr>
+          <tr><td class="rh">Art 110</td><td>Money Bill definition</td></tr>
+          <tr><td class="rh">Art 123</td><td>Presidential Ordinance making power</td></tr>
+          <tr><td class="rh">Art 226</td><td>High Court writ jurisdiction</td></tr>
+          <tr><td class="rh">Art 280</td><td>Finance Commission</td></tr>
+          <tr><td class="rh">Art 324</td><td>Election Commission</td></tr>
+          <tr><td class="rh">Art 356</td><td>President's Rule in states</td></tr>
+          <tr><td class="rh">Art 368</td><td>Amendment procedure</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Constitutional Amendments — SSC Favourites</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Amendment</th><th>Year</th><th>Key Change</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">1st</td><td class="yr">1951</td><td>Added 9th Schedule (land reform laws protection)</td></tr>
+          <tr><td class="rh">42nd</td><td class="yr">1976</td><td>"Mini Constitution" — added Socialist, Secular, Integrity to Preamble; Fundamental Duties (Art 51A)</td></tr>
+          <tr><td class="rh">44th</td><td class="yr">1978</td><td>Restored Art 20 &amp; 21 as non-suspendable, removed Right to Property from FRs (Art 300A)</td></tr>
+          <tr><td class="rh">52nd</td><td class="yr">1985</td><td>Anti-defection law (10th Schedule)</td></tr>
+          <tr><td class="rh">61st</td><td class="yr">1989</td><td>Voting age 21 → 18</td></tr>
+          <tr><td class="rh">73rd</td><td class="yr">1992</td><td>Panchayati Raj (11th Schedule, 29 subjects)</td></tr>
+          <tr><td class="rh">74th</td><td class="yr">1992</td><td>Municipalities / Urban Local Bodies (12th Schedule)</td></tr>
+          <tr><td class="rh">86th</td><td class="yr">2002</td><td>Right to Education (Art 21A), free &amp; compulsory for 6–14 age</td></tr>
+          <tr><td class="rh">101st</td><td class="yr">2016</td><td>GST introduced</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="quiz-wrap">
+    <div class="quiz-title">Practice — Polity</div>
+    <div class="quiz-q" id="q-pol1">
+      <p>Which article of the Indian Constitution deals with the Right to Constitutional Remedies?<small>Very frequently asked</small></p>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-pol1')">A) Article 19</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-pol1')">B) Article 21</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'correct','q-pol1')">C) Article 32</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-pol1')">D) Article 226</button>
+      </div>
+      <div class="quiz-explanation"><strong>Article 32</strong> — Right to Constitutional Remedies (SC). Called "Heart and Soul of Constitution" by Ambedkar. Art 226 is for High Courts.</div>
+    </div>
+    <div class="quiz-q" id="q-pol2">
+      <p>The words "Socialist" and "Secular" were added to the Preamble by which amendment?</p>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-pol2')">A) 44th Amendment</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'correct','q-pol2')">B) 42nd Amendment</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-pol2')">C) 52nd Amendment</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-pol2')">D) 1st Amendment</button>
+      </div>
+      <div class="quiz-explanation"><strong>42nd Amendment (1976)</strong> — added Socialist, Secular, Integrity. Also added Fundamental Duties. Called "Mini Constitution".</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ECONOMY ═══ -->
+<div class="chapter reveal" id="economy">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 04</span>
+    <h2 class="chapter-title">Indian Economy</h2>
+  </div>
+
+  <div class="block">
+    <h3>Key Concepts</h3>
+    <div class="grid2">
+      <div class="mini-card"><h5>GDP</h5><p>Gross Domestic Product — total monetary value of goods and services produced within a country in a year.</p></div>
+      <div class="mini-card"><h5>GNP</h5><p>GDP + Net income from abroad. GNP = GDP + (earnings by residents abroad − earnings by foreigners in India)</p></div>
+      <div class="mini-card"><h5>NNP</h5><p>GNP − Depreciation. "Net National Product" = National Income (at market price)</p></div>
+      <div class="mini-card"><h5>Per Capita Income</h5><p>National Income / Population. Indicator of living standard.</p></div>
+    </div>
+
+    <h4>Five Year Plans → NITI Aayog</h4>
+    <div class="highlight gold">
+      <p>Planning Commission (1950) replaced by <strong>NITI Aayog</strong> (National Institution for Transforming India) on January 1, 2015. First Chairman: PM Narendra Modi. CEO: Amitabh Kant (initially).</p>
+    </div>
+
+    <h4>Important Economic Bodies</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Body</th><th>Head / HQ</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">RBI</td><td>Governor / Mumbai</td><td>Monetary policy, currency, banking regulator. Est. 1935, nationalised 1949.</td></tr>
+          <tr><td class="rh">SEBI</td><td>Chairman / Mumbai</td><td>Stock market regulator. Est. 1988, statutory body 1992.</td></tr>
+          <tr><td class="rh">NABARD</td><td>Chairman / Mumbai</td><td>Agricultural &amp; rural development credit. Est. 1982.</td></tr>
+          <tr><td class="rh">SIDBI</td><td>CMD / Lucknow</td><td>Small Industries Development Bank. Est. 1990.</td></tr>
+          <tr><td class="rh">EXIM Bank</td><td>MD / Mumbai</td><td>Export-Import financing. Est. 1982.</td></tr>
+          <tr><td class="rh">GST Council</td><td>Finance Minister (chair)</td><td>GST rates and policy. 101st Amendment 2016.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Budget Terms</h4>
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-trigger">Revenue vs Capital Budget</button>
+        <div class="accordion-content"><div class="accordion-inner">
+          <p><strong>Revenue Budget:</strong> Day-to-day govt income (taxes) and expenditure (salaries, subsidies). Revenue deficit = Revenue expenditure − Revenue receipts.</p>
+          <p><strong>Capital Budget:</strong> Long-term assets, borrowings, repayments. Fiscal Deficit = Total expenditure − Total receipts (excl. borrowings). Primary Deficit = Fiscal Deficit − Interest payments.</p>
+        </div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-trigger">Types of Taxes</button>
+        <div class="accordion-content"><div class="accordion-inner">
+          <ul>
+            <li><strong>Direct Tax:</strong> Paid directly by person who bears it. Income tax, corporate tax, wealth tax.</li>
+            <li><strong>Indirect Tax:</strong> Collected by intermediary, passed to buyer. GST (replaced VAT, excise, service tax).</li>
+            <li><strong>Progressive tax:</strong> Higher income → higher rate (income tax slabs).</li>
+            <li><strong>Regressive tax:</strong> Same rate regardless of income (most indirect taxes).</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCIENCE ═══ -->
+<div class="chapter reveal" id="science">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 05</span>
+    <h2 class="chapter-title">General Science</h2>
+  </div>
+
+  <div class="block">
+    <h3>Physics — Key Topics</h3>
+    <h4>Laws of Motion (Newton)</h4>
+    <ul>
+      <li><strong>1st Law (Inertia):</strong> Body remains at rest or uniform motion unless external force acts</li>
+      <li><strong>2nd Law:</strong> F = ma (Force = mass × acceleration)</li>
+      <li><strong>3rd Law:</strong> Every action has equal and opposite reaction</li>
+    </ul>
+    <div class="highlight">
+      <p><strong>Momentum</strong> = mass × velocity. <strong>Conservation of momentum:</strong> Total momentum before = Total momentum after (no external force)</p>
+    </div>
+
+    <h4>Important Physics Facts for SSC</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Concept</th><th>Value / Explanation</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Speed of light</td><td>3 × 10⁸ m/s (in vacuum)</td></tr>
+          <tr><td class="rh">Speed of sound in air</td><td>343 m/s at 20°C</td></tr>
+          <tr><td class="rh">Acceleration due to gravity (g)</td><td>9.8 m/s² (approx 10)</td></tr>
+          <tr><td class="rh">Atmospheric pressure</td><td>1 atm = 101.325 kPa = 760 mmHg</td></tr>
+          <tr><td class="rh">Ultrasonic frequency</td><td>Above 20,000 Hz</td></tr>
+          <tr><td class="rh">Infrasonic frequency</td><td>Below 20 Hz</td></tr>
+          <tr><td class="rh">SI unit of force</td><td>Newton (N)</td></tr>
+          <tr><td class="rh">SI unit of power</td><td>Watt (W) = J/s</td></tr>
+          <tr><td class="rh">SI unit of energy</td><td>Joule (J)</td></tr>
+          <tr><td class="rh">SI unit of pressure</td><td>Pascal (Pa)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Light — Key Points</h4>
+    <ul>
+      <li>Reflection laws: angle of incidence = angle of reflection</li>
+      <li>Refraction: bends toward normal when entering denser medium</li>
+      <li><strong>Total Internal Reflection:</strong> Basis of optical fiber; occurs above critical angle in denser medium</li>
+      <li>Rainbow: dispersion + internal reflection in water droplets</li>
+      <li>Human eye defects: Myopia (concave lens), Hypermetropia (convex), Astigmatism (cylindrical)</li>
+    </ul>
+
+    <h3>Chemistry — Key Topics</h3>
+    <h4>Elements & Compounds</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Substance</th><th>Chemical formula</th><th>Common name</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Water</td><td>H₂O</td><td>—</td></tr>
+          <tr><td class="rh">Common salt</td><td>NaCl</td><td>Sodium chloride</td></tr>
+          <tr><td class="rh">Baking soda</td><td>NaHCO₃</td><td>Sodium bicarbonate</td></tr>
+          <tr><td class="rh">Washing soda</td><td>Na₂CO₃·10H₂O</td><td>Sodium carbonate</td></tr>
+          <tr><td class="rh">Plaster of Paris</td><td>CaSO₄·½H₂O</td><td>Calcium sulphate hemihydrate</td></tr>
+          <tr><td class="rh">Bleaching powder</td><td>Ca(OCl)Cl</td><td>Calcium oxychloride</td></tr>
+          <tr><td class="rh">Caustic soda</td><td>NaOH</td><td>Sodium hydroxide</td></tr>
+          <tr><td class="rh">Caustic potash</td><td>KOH</td><td>Potassium hydroxide</td></tr>
+          <tr><td class="rh">Vinegar</td><td>CH₃COOH (5% solution)</td><td>Acetic acid</td></tr>
+          <tr><td class="rh">Marble/Limestone</td><td>CaCO₃</td><td>Calcium carbonate</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Biology — Key Topics</h3>
+    <h4>Human Body Systems</h4>
+    <div class="grid2">
+      <div class="mini-card"><h5>Digestive System</h5><ul><li>Saliva — amylase (starch → sugar)</li><li>Stomach — pepsin (protein digestion), HCl</li><li>Small intestine — main absorption site</li><li>Liver — bile production, largest gland</li></ul></div>
+      <div class="mini-card"><h5>Circulatory System</h5><ul><li>Heart: 4 chambers (2 atria, 2 ventricles)</li><li>RBC — no nucleus, 120-day lifespan</li><li>WBC — immune defence, nucleus present</li><li>Platelets — clotting. Blood type: A, B, AB, O</li><li>AB = universal recipient; O = universal donor</li></ul></div>
+      <div class="mini-card"><h5>Vitamins</h5><ul><li>A — Night blindness (retinol)</li><li>B₁ — Beriberi (thiamine)</li><li>B₁₂ — Pernicious anaemia (cobalamin)</li><li>C — Scurvy (ascorbic acid)</li><li>D — Rickets (calciferol) — from sunlight</li><li>K — Blood clotting (phylloquinone)</li></ul></div>
+      <div class="mini-card"><h5>Diseases &amp; Pathogens</h5><ul><li>Malaria — Plasmodium (protozoa), Anopheles mosquito</li><li>Dengue — Aedes mosquito, virus</li><li>TB — Mycobacterium tuberculosis (bacteria)</li><li>Cholera — Vibrio cholerae (bacteria)</li><li>Rabies — Rhabdovirus (virus)</li></ul></div>
+    </div>
+  </div>
+
+  <div class="quiz-wrap">
+    <div class="quiz-title">Practice — Science</div>
+    <div class="quiz-q" id="q-sci1">
+      <p>Deficiency of Vitamin C causes which disease?<small>Direct fact</small></p>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-sci1')">A) Rickets</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-sci1')">B) Beriberi</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'correct','q-sci1')">C) Scurvy</button>
+        <button class="quiz-option" onclick="checkAnswer(this,'wrong','q-sci1')">D) Night blindness</button>
+      </div>
+      <div class="quiz-explanation">Vitamin C (Ascorbic acid) deficiency → <strong>Scurvy</strong> (bleeding gums, weak blood vessels)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ENVIRONMENT ═══ -->
+<div class="chapter reveal" id="environment">
+  <div class="chapter-header">
+    <span class="chapter-num">Chapter 06</span>
+    <h2 class="chapter-title">Environment &amp; Ecology</h2>
+  </div>
+
+  <div class="block">
+    <h3>Ecology Basics</h3>
+    <div class="grid2">
+      <div class="mini-card"><h5>Ecosystem</h5><p>Biotic (living) + Abiotic (non-living) components interacting as a system.</p></div>
+      <div class="mini-card"><h5>Food Chain</h5><p>Producer → Primary consumer → Secondary → Tertiary. Energy: 10% rule (only 10% passes to next level).</p></div>
+      <div class="mini-card"><h5>Biosphere Reserves</h5><p>18 in India. UNESCO recognises 12. Nilgiri (1986) — first BR. Sundarbans, Nanda Devi, Gulf of Mannar notable.</p></div>
+      <div class="mini-card"><h5>Biodiversity Hotspots</h5><p>4 in India: Western Ghats + Sri Lanka, Eastern Himalayas, Indo-Burma, Sundaland.</p></div>
+    </div>
+
+    <h4>Environmental Issues &amp; Acts</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Act / Agreement</th><th>Year</th><th>About</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Environment Protection Act</td><td class="yr">1986</td><td>Umbrella legislation; empowers Central Govt. After Bhopal gas tragedy.</td></tr>
+          <tr><td class="rh">Forest Conservation Act</td><td class="yr">1980</td><td>Prevents diversion of forest land for non-forest use without prior approval.</td></tr>
+          <tr><td class="rh">Wildlife Protection Act</td><td class="yr">1972</td><td>Protected species lists, bans hunting. Amended multiple times.</td></tr>
+          <tr><td class="rh">Kyoto Protocol</td><td class="yr">1997</td><td>GHG reduction targets for developed countries. India not included in targets.</td></tr>
+          <tr><td class="rh">Paris Agreement</td><td class="yr">2015</td><td>Limit global temp rise to 1.5°C above pre-industrial. NDCs by all countries.</td></tr>
+          <tr><td class="rh">Montreal Protocol</td><td class="yr">1987</td><td>Phase out ozone-depleting substances (CFCs). Most successful env. treaty.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Global Warming &amp; Greenhouse Gases</h4>
+    <div class="highlight red">
+      <p>Main greenhouse gases: CO₂ (highest in terms of contribution), CH₄ (methane — 25x more potent), N₂O, Ozone, CFCs. <strong>CO₂ most abundant GHG but CH₄ more potent per molecule.</strong></p>
+    </div>
+    <ul>
+      <li>Ozone layer: Stratosphere. Absorbs UV-B radiation.</li>
+      <li>Ozone depleting substances: CFCs (chlorofluorocarbons), HCFCs, Halons</li>
+      <li>Acid rain: caused by SO₂ and NO₂ combining with rainwater → H₂SO₄, HNO₃</li>
+      <li>Eutrophication: excess nutrients (nitrates, phosphates) → algal bloom → O₂ depletion</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+</div>
+
+<footer class="footer">
+  <p><a href="CGL.html">← Back to CGL Hub</a> · General Studies — SSC CGL · Built by <a href="index.html">Dattatray Dagale</a></p>
+</footer>
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('nprog').style.width=pct+'%';
+  document.getElementById('btt').classList.toggle('show',h.scrollTop>400);
+});
+const chapters=document.querySelectorAll('.chapter');
+const sideLinks=document.querySelectorAll('.sidebar-nav a');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){sideLinks.forEach(l=>l.classList.remove('active'));const active=document.querySelector('.sidebar-nav a[href="#'+e.target.id+'"]');if(active)active.classList.add('active');}});},{threshold:0.3});
+chapters.forEach(c=>obs.observe(c));
+const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target);}});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+function checkAnswer(btn,result,qId){
+  const q=document.getElementById(qId);
+  if(q.classList.contains('answered'))return;
+  q.classList.add('answered');
+  q.querySelectorAll('.quiz-option').forEach(b=>b.disabled=true);
+  btn.classList.add(result);
+  if(result==='wrong'){q.querySelectorAll('.quiz-option').forEach(b=>{if(b.getAttribute('onclick').includes("'correct'"))b.classList.add('correct');});}
+}
+document.querySelectorAll('.accordion-trigger').forEach(btn=>{
+  btn.addEventListener('click',()=>{const item=btn.parentElement;const content=item.querySelector('.accordion-content');const isOpen=item.classList.contains('open');item.classList.toggle('open');content.style.maxHeight=isOpen?'0':content.scrollHeight+'px';});
+});
+</script>
+</body>
+</html>

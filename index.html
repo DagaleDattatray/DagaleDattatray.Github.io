@@ -198,31 +198,79 @@
 
     /* ─── LIGHT MODE ─── */
     body.light-mode {
-      --bg: #f8fafc; --bg2: #f1f5f9; --card: rgba(0,0,0,0.03);
-      --border: rgba(0,0,0,0.08); --text: #0f172a;
-      --subtle: #475569; --muted: #94a3b8;
+      --bg: #f8fafc; --bg2: #f1f5f9;
+      --card: rgba(0,0,0,0.025);
+      --border: rgba(0,0,0,0.09);
+      --text: #0f172a;
+      --subtle: #334155;
+      --muted: #64748b;
+      --cyan: #0284c7;
+      --mint: #059669;
       background: #f8fafc; color: #0f172a;
     }
-    body.light-mode #galaxy-canvas { opacity: 0.18; }
-    body.light-mode body::after { background: rgba(248,250,252,0.7); }
-    body.light-mode header.scrolled { background: rgba(248,250,252,0.9); border-color: rgba(0,0,0,0.08); }
-    body.light-mode .mobile-menu { background: rgba(248,250,252,0.98); }
+    body.light-mode::after { background: rgba(248,250,252,0.72); }
+    body.light-mode #galaxy-canvas { opacity: 0.12; }
+    body.light-mode header { background: rgba(248,250,252,0.95); }
+    body.light-mode header.scrolled { background: rgba(248,250,252,0.97); border-color: rgba(0,0,0,0.09); }
+    body.light-mode .nav-logo { filter: none; }
+    body.light-mode .nav-links a { color: #475569; }
+    body.light-mode .nav-links a:hover,
+    body.light-mode .nav-links a.active { color: #0f172a; background: rgba(99,102,241,0.08); }
+    body.light-mode .mobile-menu { background: rgba(248,250,252,0.99); }
     body.light-mode .mobile-menu a { color: #0f172a; }
-    body.light-mode .glass { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.08); }
+    body.light-mode .glass,
     body.light-mode .exp-card,
     body.light-mode .service-card,
     body.light-mode .project-card,
     body.light-mode .cert-card,
     body.light-mode .stat-card,
     body.light-mode .dc-card,
-    body.light-mode .blog-card { background: #ffffff; border-color: rgba(0,0,0,0.08); }
+    body.light-mode .blog-card { background: #ffffff; border-color: rgba(0,0,0,0.09); box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
+    /* section-label // text */
+    body.light-mode .section-label { color: #0284c7; }
+    body.light-mode .section-label::before { opacity: 0.6; }
+    /* hero */
+    body.light-mode .hero-role { color: #475569; }
+    body.light-mode .hero-typed { color: #0284c7; }
+    body.light-mode .hero-typed::after { border-color: #0284c7; }
+    body.light-mode .hero-tag { color: #059669; background: rgba(5,150,105,0.08); border-color: rgba(5,150,105,0.25); }
+    body.light-mode .status-pulse { background: #059669; }
+    body.light-mode .hero-social a { background: #f1f5f9; border-color: rgba(0,0,0,0.1); color: #475569; }
+    body.light-mode .hero-badge { background: rgba(255,255,255,0.95); border-color: rgba(0,0,0,0.1); color: #0f172a; }
+    body.light-mode .hero-badge span { color: #059669; }
+    /* stats */
+    body.light-mode .stat-label { color: #64748b; }
+    /* tags & chips */
+    body.light-mode .tag { background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.18); color: #334155; }
+    body.light-mode .skill-pill { background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.18); color: #334155; }
+    body.light-mode .topic-chip { background: #f1f5f9; color: #475569; }
+    /* exp period badge */
+    body.light-mode .exp-period { color: #0284c7; background: rgba(2,132,199,0.08); border-color: rgba(2,132,199,0.2); }
+    body.light-mode .exp-list li { color: #475569; }
+    body.light-mode .exp-list li::before { color: #6366f1; }
+    body.light-mode .exp-company { color: #64748b; }
+    /* skills */
     body.light-mode .skill-bar { background: rgba(0,0,0,0.08); }
-    body.light-mode #back-top { background: var(--indigo); }
-    body.light-mode .nav-links a { color: #475569; }
-    body.light-mode .nav-links a:hover,
-    body.light-mode .nav-links a.active { color: #0f172a; }
-    body.light-mode #themeToggle { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.12); color: #0f172a; }
+    body.light-mode .skill-pct { color: #64748b; }
+    body.light-mode .skill-group h3 { color: #0284c7; }
+    /* project cats */
+    body.light-mode .project-cat { opacity: 1; }
+    body.light-mode .project-card p { color: #475569; }
+    body.light-mode .project-link { color: #6366f1; }
+    /* certs */
+    body.light-mode .cert-issuer { color: #64748b; }
+    body.light-mode .cert-link { color: #6366f1; }
+    /* service cards */
+    body.light-mode .service-card p { color: #475569; }
+    /* blog */
+    body.light-mode .blog-body h3 { color: #0f172a; }
+    body.light-mode .read-more { color: #6366f1; }
+    /* misc */
+    body.light-mode .preloader-logo { filter: none; }
+    body.light-mode #scroll-progress { opacity: 1; }
+    body.light-mode #themeToggle { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: #0f172a; }
     body.light-mode .hamburger span { background: #0f172a; }
+    body.light-mode #back-top { background: #6366f1; }
     .mobile-menu {
       display: none; position: fixed; inset: 0; background: rgba(5,5,15,0.97);
       backdrop-filter: blur(20px); z-index: 490; flex-direction: column;

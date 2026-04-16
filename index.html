@@ -183,6 +183,46 @@
     .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 1px; transition: all 0.3s; }
+
+    /* ─── THEME TOGGLE ─── */
+    #themeToggle {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text); font-size: 1rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    #themeToggle:hover { background: rgba(255,255,255,0.12); transform: scale(1.08); }
+
+    /* ─── LIGHT MODE ─── */
+    body.light-mode {
+      --bg: #f8fafc; --bg2: #f1f5f9; --card: rgba(0,0,0,0.03);
+      --border: rgba(0,0,0,0.08); --text: #0f172a;
+      --subtle: #475569; --muted: #94a3b8;
+      background: #f8fafc; color: #0f172a;
+    }
+    body.light-mode #galaxy-canvas { opacity: 0.18; }
+    body.light-mode body::after { background: rgba(248,250,252,0.7); }
+    body.light-mode header.scrolled { background: rgba(248,250,252,0.9); border-color: rgba(0,0,0,0.08); }
+    body.light-mode .mobile-menu { background: rgba(248,250,252,0.98); }
+    body.light-mode .mobile-menu a { color: #0f172a; }
+    body.light-mode .glass { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.08); }
+    body.light-mode .exp-card,
+    body.light-mode .service-card,
+    body.light-mode .project-card,
+    body.light-mode .cert-card,
+    body.light-mode .stat-card,
+    body.light-mode .dc-card,
+    body.light-mode .blog-card { background: #ffffff; border-color: rgba(0,0,0,0.08); }
+    body.light-mode .skill-bar { background: rgba(0,0,0,0.08); }
+    body.light-mode #back-top { background: var(--indigo); }
+    body.light-mode .nav-links a { color: #475569; }
+    body.light-mode .nav-links a:hover,
+    body.light-mode .nav-links a.active { color: #0f172a; }
+    body.light-mode #themeToggle { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.12); color: #0f172a; }
+    body.light-mode .hamburger span { background: #0f172a; }
     .mobile-menu {
       display: none; position: fixed; inset: 0; background: rgba(5,5,15,0.97);
       backdrop-filter: blur(20px); z-index: 490; flex-direction: column;
@@ -610,6 +650,7 @@
       <a href="#contact">Contact</a>
     </nav>
     <a href="https://www.linkedin.com/in/dattatraydagale/" target="_blank" class="nav-cta">Resume ↗</a>
+    <button id="themeToggle" title="Toggle dark/light mode" aria-label="Toggle theme">🌙</button>
     <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
   </header>
 
@@ -1309,6 +1350,16 @@
       });
     }, { threshold: 0.35 });
     sections.forEach(s => observer.observe(s));
+
+    // ─── THEME TOGGLE ───
+    const themeBtn = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') { document.body.classList.add('light-mode'); themeBtn.textContent = '☀️'; }
+    themeBtn.addEventListener('click', () => {
+      const isLight = document.body.classList.toggle('light-mode');
+      themeBtn.textContent = isLight ? '☀️' : '🌙';
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
 
     // ─── HAMBURGER ───
     const ham = document.getElementById('hamburger');

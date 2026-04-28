@@ -1079,12 +1079,106 @@ tbody tr:hover {{ background: rgba(88,166,255,0.04); }}
 }}
 .toast.show {{ opacity: 1; transform: translateY(0); }}
 
+/* MOBILE MENU BUTTON */
+.mobile-menu-btn {{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 18px;
+  color: var(--text);
+  margin-left: auto;
+}}
+
+/* MOBILE DRAWER OVERLAY */
+.drawer-overlay {{
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 200;
+  backdrop-filter: blur(2px);
+}}
+.drawer-overlay.open {{ display: block; }}
+
+/* MOBILE DRAWER */
+.mobile-drawer {{
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 300px;
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+}}
+.mobile-drawer.open {{ transform: translateX(0); }}
+.drawer-header {{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--accent);
+}}
+.drawer-close {{
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+}}
+.drawer-search {{
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}}
+.drawer-search input {{
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+}}
+.drawer-search input:focus {{ border-color: var(--accent); }}
+.drawer-nav {{
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}}
+.drawer-nav::-webkit-scrollbar {{ width: 4px; }}
+.drawer-nav::-webkit-scrollbar-thumb {{ background: var(--border); border-radius: 2px; }}
+
 @media (max-width: 700px) {{
-  :root {{ --sidebar-width: 0px; }}
   .sidebar {{ display: none; }}
-  .week-content, .week-header, .week-nav {{ padding-left: 20px; padding-right: 20px; }}
-  .home-cards {{ padding: 20px; }}
-  .home-hero {{ padding: 28px 20px 20px; }}
+  .mobile-menu-btn {{ display: flex; }}
+  .shortcuts-hint {{ display: none; }}
+
+  .week-content, .week-header, .week-nav {{ padding-left: 18px; padding-right: 18px; }}
+  .home-cards {{ padding: 16px; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 10px; }}
+  .home-hero {{ padding: 24px 18px 20px; }}
+  .home-hero h1 {{ font-size: 24px; }}
+  .week-main-title {{ font-size: 20px; }}
+  .week-content h2.section-heading {{ font-size: 16px; }}
+  .code-block pre {{ padding: 12px; }}
+  .code-block pre code {{ font-size: 12px; }}
+  .week-nav {{ flex-wrap: wrap; gap: 8px; }}
+  .complete-btn {{ margin-left: 0; width: 100%; justify-content: center; }}
 }}
 </style>
 </head>
@@ -1097,6 +1191,24 @@ tbody tr:hover {{ background: rgba(88,166,255,0.04); }}
   </div>
   <span class="progress-label" id="progress-label">0 / 23</span>
   <span class="shortcuts-hint">← → navigate &nbsp;|&nbsp; / search</span>
+  <button class="mobile-menu-btn" onclick="openDrawer()" aria-label="Open menu">☰</button>
+</div>
+
+<!-- Mobile drawer overlay -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<!-- Mobile drawer -->
+<div class="mobile-drawer" id="mobile-drawer">
+  <div class="drawer-header">
+    <span>SQL Mastery</span>
+    <button class="drawer-close" onclick="closeDrawer()">×</button>
+  </div>
+  <div class="drawer-search">
+    <input type="text" placeholder="Search weeks..." oninput="filterWeeks(this.value)" id="drawer-search-input">
+  </div>
+  <nav class="drawer-nav" id="drawer-nav">
+    {sidebar_html}
+  </nav>
 </div>
 
 <div class="layout">
@@ -1144,6 +1256,7 @@ function showWeek(n) {{
   }}
   currentWeek = n;
   document.getElementById('main').scrollTop = 0;
+  closeDrawer();
   hljs.highlightAll();
 }}
 
@@ -1217,6 +1330,18 @@ function showToast(msg) {{
   setTimeout(() => t.classList.remove('show'), 2500);
 }}
 
+function openDrawer() {{
+  document.getElementById('mobile-drawer').classList.add('open');
+  document.getElementById('drawer-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}}
+
+function closeDrawer() {{
+  document.getElementById('mobile-drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}}
+
 function filterWeeks(q) {{
   const query = q.toLowerCase().trim();
   document.querySelectorAll('.week-link').forEach(link => {{
@@ -1225,6 +1350,7 @@ function filterWeeks(q) {{
     link.style.display = (!query || title.includes(query) || num.includes(query)) ? '' : 'none';
   }});
 }}
+
 
 function togglePhase(header) {{
   const weeks = header.nextElementSibling;

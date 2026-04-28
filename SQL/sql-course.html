@@ -625,12 +625,106 @@ tbody tr:hover { background: rgba(88,166,255,0.04); }
 }
 .toast.show { opacity: 1; transform: translateY(0); }
 
+/* MOBILE MENU BUTTON */
+.mobile-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 18px;
+  color: var(--text);
+  margin-left: auto;
+}
+
+/* MOBILE DRAWER OVERLAY */
+.drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 200;
+  backdrop-filter: blur(2px);
+}
+.drawer-overlay.open { display: block; }
+
+/* MOBILE DRAWER */
+.mobile-drawer {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 300px;
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+}
+.mobile-drawer.open { transform: translateX(0); }
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--accent);
+}
+.drawer-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+}
+.drawer-search {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.drawer-search input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+}
+.drawer-search input:focus { border-color: var(--accent); }
+.drawer-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+.drawer-nav::-webkit-scrollbar { width: 4px; }
+.drawer-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
 @media (max-width: 700px) {
-  :root { --sidebar-width: 0px; }
   .sidebar { display: none; }
-  .week-content, .week-header, .week-nav { padding-left: 20px; padding-right: 20px; }
-  .home-cards { padding: 20px; }
-  .home-hero { padding: 28px 20px 20px; }
+  .mobile-menu-btn { display: flex; }
+  .shortcuts-hint { display: none; }
+
+  .week-content, .week-header, .week-nav { padding-left: 18px; padding-right: 18px; }
+  .home-cards { padding: 16px; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 10px; }
+  .home-hero { padding: 24px 18px 20px; }
+  .home-hero h1 { font-size: 24px; }
+  .week-main-title { font-size: 20px; }
+  .week-content h2.section-heading { font-size: 16px; }
+  .code-block pre { padding: 12px; }
+  .code-block pre code { font-size: 12px; }
+  .week-nav { flex-wrap: wrap; gap: 8px; }
+  .complete-btn { margin-left: 0; width: 100%; justify-content: center; }
 }
 </style>
 </head>
@@ -643,6 +737,203 @@ tbody tr:hover { background: rgba(88,166,255,0.04); }
   </div>
   <span class="progress-label" id="progress-label">0 / 23</span>
   <span class="shortcuts-hint">← → navigate &nbsp;|&nbsp; / search</span>
+  <button class="mobile-menu-btn" onclick="openDrawer()" aria-label="Open menu">☰</button>
+</div>
+
+<!-- Mobile drawer overlay -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<!-- Mobile drawer -->
+<div class="mobile-drawer" id="mobile-drawer">
+  <div class="drawer-header">
+    <span>SQL Mastery</span>
+    <button class="drawer-close" onclick="closeDrawer()">×</button>
+  </div>
+  <div class="drawer-search">
+    <input type="text" placeholder="Search weeks..." oninput="filterWeeks(this.value)" id="drawer-search-input">
+  </div>
+  <nav class="drawer-nav" id="drawer-nav">
+    
+            <div class="phase-group" data-phase="1">
+              <div class="phase-header" onclick="togglePhase(this)">
+                <span>Phase 1 — Foundations</span>
+                <span class="phase-arrow">▼</span>
+              </div>
+              <div class="phase-weeks">
+                <div class="week-link" data-week="1" onclick="showWeek(1)">
+                  <input type="checkbox" class="week-check" id="check-1"
+                    onchange="markComplete(1, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W01</span>
+                  <span class="week-link-title">What is SQL + Databases</span>
+                  
+                </div>
+                <div class="week-link" data-week="2" onclick="showWeek(2)">
+                  <input type="checkbox" class="week-check" id="check-2"
+                    onchange="markComplete(2, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W02</span>
+                  <span class="week-link-title">Filtering Data</span>
+                  
+                </div>
+                <div class="week-link" data-week="3" onclick="showWeek(3)">
+                  <input type="checkbox" class="week-check" id="check-3"
+                    onchange="markComplete(3, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W03</span>
+                  <span class="week-link-title">Aggregate Functions</span>
+                  
+                </div>
+                <div class="week-link" data-week="4" onclick="showWeek(4)">
+                  <input type="checkbox" class="week-check" id="check-4"
+                    onchange="markComplete(4, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W04</span>
+                  <span class="week-link-title">GROUP BY + HAVING</span>
+                  
+                </div>
+                <div class="week-link" data-week="5" onclick="showWeek(5)">
+                  <input type="checkbox" class="week-check" id="check-5"
+                    onchange="markComplete(5, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W05</span>
+                  <span class="week-link-title">Subqueries</span>
+                  
+                </div>
+                <div class="week-link" data-week="6" onclick="showWeek(6)">
+                  <input type="checkbox" class="week-check" id="check-6"
+                    onchange="markComplete(6, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W06</span>
+                  <span class="week-link-title">NULL Values</span>
+                  
+                </div>
+                <div class="week-link" data-week="7" onclick="showWeek(7)">
+                  <input type="checkbox" class="week-check" id="check-7"
+                    onchange="markComplete(7, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W07</span>
+                  <span class="week-link-title">Mini Project 1</span>
+                  <span class="badge badge-project">PROJECT</span>
+                </div></div></div>
+            <div class="phase-group" data-phase="2">
+              <div class="phase-header" onclick="togglePhase(this)">
+                <span>Phase 2 — Intermediate</span>
+                <span class="phase-arrow">▼</span>
+              </div>
+              <div class="phase-weeks">
+                <div class="week-link" data-week="8" onclick="showWeek(8)">
+                  <input type="checkbox" class="week-check" id="check-8"
+                    onchange="markComplete(8, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W08</span>
+                  <span class="week-link-title">JOINs — INNER & LEFT</span>
+                  
+                </div>
+                <div class="week-link" data-week="9" onclick="showWeek(9)">
+                  <input type="checkbox" class="week-check" id="check-9"
+                    onchange="markComplete(9, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W09</span>
+                  <span class="week-link-title">JOINs — RIGHT, FULL & CROSS</span>
+                  
+                </div>
+                <div class="week-link" data-week="10" onclick="showWeek(10)">
+                  <input type="checkbox" class="week-check" id="check-10"
+                    onchange="markComplete(10, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W10</span>
+                  <span class="week-link-title">String Functions</span>
+                  
+                </div>
+                <div class="week-link" data-week="11" onclick="showWeek(11)">
+                  <input type="checkbox" class="week-check" id="check-11"
+                    onchange="markComplete(11, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W11</span>
+                  <span class="week-link-title">Date & Time Functions</span>
+                  
+                </div>
+                <div class="week-link" data-week="12" onclick="showWeek(12)">
+                  <input type="checkbox" class="week-check" id="check-12"
+                    onchange="markComplete(12, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W12</span>
+                  <span class="week-link-title">CASE Statements</span>
+                  
+                </div>
+                <div class="week-link" data-week="13" onclick="showWeek(13)">
+                  <input type="checkbox" class="week-check" id="check-13"
+                    onchange="markComplete(13, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W13</span>
+                  <span class="week-link-title">Views</span>
+                  
+                </div>
+                <div class="week-link" data-week="14" onclick="showWeek(14)">
+                  <input type="checkbox" class="week-check" id="check-14"
+                    onchange="markComplete(14, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W14</span>
+                  <span class="week-link-title">Stored Procedures</span>
+                  
+                </div>
+                <div class="week-link" data-week="15" onclick="showWeek(15)">
+                  <input type="checkbox" class="week-check" id="check-15"
+                    onchange="markComplete(15, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W15</span>
+                  <span class="week-link-title">Mini Project 2</span>
+                  <span class="badge badge-project">PROJECT</span>
+                </div></div></div>
+            <div class="phase-group" data-phase="3">
+              <div class="phase-header" onclick="togglePhase(this)">
+                <span>Phase 3 — Advanced</span>
+                <span class="phase-arrow">▼</span>
+              </div>
+              <div class="phase-weeks">
+                <div class="week-link" data-week="16" onclick="showWeek(16)">
+                  <input type="checkbox" class="week-check" id="check-16"
+                    onchange="markComplete(16, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W16</span>
+                  <span class="week-link-title">Window Functions — Ranking</span>
+                  
+                </div>
+                <div class="week-link" data-week="17" onclick="showWeek(17)">
+                  <input type="checkbox" class="week-check" id="check-17"
+                    onchange="markComplete(17, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W17</span>
+                  <span class="week-link-title">Window Functions — LAG/LEAD</span>
+                  
+                </div>
+                <div class="week-link" data-week="18" onclick="showWeek(18)">
+                  <input type="checkbox" class="week-check" id="check-18"
+                    onchange="markComplete(18, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W18</span>
+                  <span class="week-link-title">CTEs</span>
+                  
+                </div>
+                <div class="week-link" data-week="19" onclick="showWeek(19)">
+                  <input type="checkbox" class="week-check" id="check-19"
+                    onchange="markComplete(19, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W19</span>
+                  <span class="week-link-title">Indexes & Performance</span>
+                  
+                </div>
+                <div class="week-link" data-week="20" onclick="showWeek(20)">
+                  <input type="checkbox" class="week-check" id="check-20"
+                    onchange="markComplete(20, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W20</span>
+                  <span class="week-link-title">Transactions & ACID</span>
+                  
+                </div>
+                <div class="week-link" data-week="21" onclick="showWeek(21)">
+                  <input type="checkbox" class="week-check" id="check-21"
+                    onchange="markComplete(21, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W21</span>
+                  <span class="week-link-title">Advanced Subqueries</span>
+                  
+                </div>
+                <div class="week-link" data-week="22" onclick="showWeek(22)">
+                  <input type="checkbox" class="week-check" id="check-22"
+                    onchange="markComplete(22, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W22</span>
+                  <span class="week-link-title">Interview Prep</span>
+                  <span class="badge badge-interview">INTERVIEW</span>
+                </div>
+                <div class="week-link" data-week="23" onclick="showWeek(23)">
+                  <input type="checkbox" class="week-check" id="check-23"
+                    onchange="markComplete(23, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W23</span>
+                  <span class="week-link-title">Capstone Project</span>
+                  <span class="badge badge-capstone">CAPSTONE</span>
+                </div></div></div>
+  </nav>
 </div>
 
 <div class="layout">
@@ -5217,6 +5508,7 @@ function showWeek(n) {
   }
   currentWeek = n;
   document.getElementById('main').scrollTop = 0;
+  closeDrawer();
   hljs.highlightAll();
 }
 
@@ -5290,6 +5582,18 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
+function openDrawer() {
+  document.getElementById('mobile-drawer').classList.add('open');
+  document.getElementById('drawer-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  document.getElementById('mobile-drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 function filterWeeks(q) {
   const query = q.toLowerCase().trim();
   document.querySelectorAll('.week-link').forEach(link => {
@@ -5298,6 +5602,7 @@ function filterWeeks(q) {
     link.style.display = (!query || title.includes(query) || num.includes(query)) ? '' : 'none';
   });
 }
+
 
 function togglePhase(header) {
   const weeks = header.nextElementSibling;

@@ -532,6 +532,19 @@ body {{
   color: var(--text-muted);
   white-space: nowrap;
 }}
+.portfolio-link {{
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}}
+.portfolio-link:hover {{ color: var(--accent); }}
+.header-divider {{
+  color: var(--border);
+  font-size: 14px;
+}}
 .shortcuts-hint {{
   font-size: 11px;
   color: var(--text-muted);
@@ -1169,6 +1182,8 @@ tbody tr:hover {{ background: rgba(88,166,255,0.04); }}
   .mobile-menu-btn {{ display: flex; }}
   .shortcuts-hint {{ display: none; }}
 
+  .portfolio-link {{ font-size: 11px; }}
+  .header-divider {{ display: none; }}
   .week-content, .week-header, .week-nav {{ padding-left: 18px; padding-right: 18px; }}
   .home-cards {{ padding: 16px; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 10px; }}
   .home-hero {{ padding: 24px 18px 20px; }}
@@ -1185,6 +1200,8 @@ tbody tr:hover {{ background: rgba(88,166,255,0.04); }}
 <body>
 
 <div class="header">
+  <a class="portfolio-link" href="https://dagaledattatray.github.io/" target="_blank">← Portfolio</a>
+  <span class="header-divider">|</span>
   <span class="header-logo" onclick="showHome()">SQL Mastery</span>
   <div class="progress-bar-wrap">
     <div class="progress-bar-fill" id="progress-fill"></div>

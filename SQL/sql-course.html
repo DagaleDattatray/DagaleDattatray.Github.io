@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Mastery Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d1117;
+  --sidebar: #161b22;
+  --card: #1c2128;
+  --border: #30363d;
+  --accent: #58a6ff;
+  --green: #3fb950;
+  --orange: #d29922;
+  --red: #f85149;
+  --purple: #bc8cff;
+  --text: #e6edf3;
+  --text-muted: #8b949e;
+  --sidebar-width: 280px;
+}
+
+html, body { height: 100%; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* HEADER */
+.header {
+  height: 56px;
+  background: var(--sidebar);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 16px;
+  flex-shrink: 0;
+  z-index: 100;
+}
+.header-logo {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--accent);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.progress-bar-wrap {
+  flex: 1;
+  max-width: 300px;
+  background: var(--border);
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+.progress-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.shortcuts-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+/* LAYOUT */
+.layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.search-wrap {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.search-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-input:focus { border-color: var(--accent); }
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 16px;
+}
+.sidebar-nav::-webkit-scrollbar { width: 4px; }
+.sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+.sidebar-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.phase-group { border-bottom: 1px solid var(--border); }
+.phase-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+}
+.phase-header:hover { color: var(--text); }
+.phase-arrow { transition: transform 0.2s; font-size: 10px; }
+.phase-header.collapsed .phase-arrow { transform: rotate(-90deg); }
+.phase-weeks { }
+.phase-weeks.collapsed { display: none; }
+
+.week-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  border-left: 3px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+.week-link:hover { background: rgba(88,166,255,0.06); }
+.week-link.active {
+  background: rgba(88,166,255,0.1);
+  border-left-color: var(--accent);
+}
+.week-link.done .week-link-num { color: var(--green); }
+.week-link.done .week-link-title { color: var(--text-muted); }
+.week-check { accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+.week-link-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  min-width: 28px;
+}
+.week-link-title { flex: 1; }
+.week-link[style*="display:none"] { display: none !important; }
+
+.badge { font-size: 9px; font-weight: 700; padding: 2px 5px; border-radius: 3px; }
+.badge-project { background: rgba(188,140,255,0.2); color: var(--purple); }
+.badge-interview { background: rgba(210,153,34,0.2); color: var(--orange); }
+.badge-capstone { background: rgba(248,81,73,0.15); color: var(--red); }
+
+/* MAIN */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
+.main::-webkit-scrollbar { width: 6px; }
+.main::-webkit-scrollbar-track { background: transparent; }
+.main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* HOME */
+.home-hero {
+  padding: 48px 40px 32px;
+  border-bottom: 1px solid var(--border);
+}
+.home-hero h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.home-hero p {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+.home-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 400px;
+}
+.home-progress-bar {
+  flex: 1;
+  background: var(--border);
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.home-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--green));
+  border-radius: 4px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  padding: 32px 40px;
+}
+.home-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+.home-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.home-card.phase1:hover { border-color: var(--accent); }
+.home-card.phase2:hover { border-color: var(--green); }
+.home-card.phase3:hover { border-color: var(--purple); }
+.home-card-week {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.home-card.phase1 .home-card-week { color: var(--accent); }
+.home-card.phase2 .home-card-week { color: var(--green); }
+.home-card.phase3 .home-card-week { color: var(--purple); }
+.home-card-title {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.home-card-dot {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background 0.2s;
+}
+.home-card-dot.done { background: var(--green); }
+
+/* WEEK SECTION */
+.week-section { display: none; }
+.week-section.visible { display: block; }
+.week-header {
+  padding: 32px 40px 24px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(88,166,255,0.03) 0%, transparent 100%);
+}
+.week-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.week-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--card);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.week-type-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+}
+.week-type-badge.lesson { background: rgba(88,166,255,0.15); color: var(--accent); }
+.week-type-badge.project { background: rgba(188,140,255,0.15); color: var(--purple); }
+.week-type-badge.interview { background: rgba(210,153,34,0.15); color: var(--orange); }
+.week-type-badge.capstone { background: rgba(248,81,73,0.12); color: var(--red); }
+.week-main-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.week-content {
+  padding: 32px 40px;
+  max-width: 860px;
+}
+
+/* CONTENT ELEMENTS */
+.week-content h1.week-title { display: none; }
+.week-content h2.section-heading {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 28px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.week-content h3.sub-heading {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 20px 0 8px;
+}
+.week-content h4.sub-sub-heading {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 16px 0 6px;
+}
+.week-content p {
+  margin: 8px 0;
+  color: var(--text);
+  line-height: 1.7;
+}
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 20px 0;
+}
+.spacer { height: 4px; }
+.bullet-item {
+  padding: 4px 0 4px 16px;
+  color: var(--text);
+  line-height: 1.6;
+}
+.bullet-item.indent { padding-left: 32px; color: var(--text-muted); }
+.exercise-item {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  align-items: flex-start;
+}
+.ex-num {
+  min-width: 24px;
+  height: 24px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ex-text { line-height: 1.6; }
+.inline-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  background: rgba(88,166,255,0.1);
+  color: var(--accent);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid rgba(88,166,255,0.2);
+}
+
+/* CODE BLOCKS */
+.code-block {
+  margin: 14px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  background: #161b22;
+  border-bottom: 1px solid var(--border);
+}
+.code-lang {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.copy-btn {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, color 0.15s;
+}
+.copy-btn:hover { background: var(--border); color: var(--text); }
+.copy-btn.copied { color: var(--green); border-color: var(--green); }
+.code-block pre {
+  margin: 0;
+  padding: 16px;
+  overflow-x: auto;
+  background: var(--bg);
+}
+.code-block pre code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  background: transparent !important;
+}
+
+/* TABLES */
+.table-wrap {
+  overflow-x: auto;
+  margin: 14px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+thead { background: var(--card); }
+th {
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 9px 14px;
+  border-bottom: 1px solid rgba(48,54,61,0.5);
+  color: var(--text);
+}
+tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: rgba(88,166,255,0.04); }
+
+/* WEEK NAV */
+.week-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 40px 48px;
+  border-top: 1px solid var(--border);
+}
+.nav-btn {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.15s, border-color 0.15s;
+}
+.nav-btn:hover { background: var(--border); }
+.complete-btn {
+  background: rgba(63,185,80,0.1);
+  border-color: var(--green);
+  color: var(--green);
+  margin-left: auto;
+}
+.complete-btn:hover { background: rgba(63,185,80,0.2); }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--card);
+  border: 1px solid var(--green);
+  color: var(--green);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+  z-index: 1000;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 700px) {
+  :root { --sidebar-width: 0px; }
+  .sidebar { display: none; }
+  .week-content, .week-header, .week-nav { padding-left: 20px; padding-right: 20px; }
+  .home-cards { padding: 20px; }
+  .home-hero { padding: 28px 20px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header-logo" onclick="showHome()">SQL Mastery</span>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+  <span class="progress-label" id="progress-label">0 / 23</span>
+  <span class="shortcuts-hint">← → navigate &nbsp;|&nbsp; / search</span>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="search-wrap">
+      <input class="search-input" id="search-input" type="text" placeholder="/ Search weeks..." oninput="filterWeeks(this.value)">
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav">
+      
+            <div class="phase-group" data-phase="1">
+              <div class="phase-header" onclick="togglePhase(this)">
+                <span>Phase 1 — Foundations</span>
+                <span class="phase-arrow">▼</span>
+              </div>
+              <div class="phase-weeks">
+                <div class="week-link" data-week="1" onclick="showWeek(1)">
+                  <input type="checkbox" class="week-check" id="check-1"
+                    onchange="markComplete(1, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W01</span>
+                  <span class="week-link-title">What is SQL + Databases</span>
+                  
+                </div>
+                <div class="week-link" data-week="2" onclick="showWeek(2)">
+                  <input type="checkbox" class="week-check" id="check-2"
+                    onchange="markComplete(2, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W02</span>
+                  <span class="week-link-title">Filtering Data</span>
+                  
+                </div>
+                <div class="week-link" data-week="3" onclick="showWeek(3)">
+                  <input type="checkbox" class="week-check" id="check-3"
+                    onchange="markComplete(3, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W03</span>
+                  <span class="week-link-title">Aggregate Functions</span>
+                  
+                </div>
+                <div class="week-link" data-week="4" onclick="showWeek(4)">
+                  <input type="checkbox" class="week-check" id="check-4"
+                    onchange="markComplete(4, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W04</span>
+                  <span class="week-link-title">GROUP BY + HAVING</span>
+                  
+                </div>
+                <div class="week-link" data-week="5" onclick="showWeek(5)">
+                  <input type="checkbox" class="week-check" id="check-5"
+                    onchange="markComplete(5, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W05</span>
+                  <span class="week-link-title">Subqueries</span>
+                  
+                </div>
+                <div class="week-link" data-week="6" onclick="showWeek(6)">
+                  <input type="checkbox" class="week-check" id="check-6"
+                    onchange="markComplete(6, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W06</span>
+                  <span class="week-link-title">NULL Values</span>
+                  
+                </div>
+                <div class="week-link" data-week="7" onclick="showWeek(7)">
+                  <input type="checkbox" class="week-check" id="check-7"
+                    onchange="markComplete(7, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W07</span>
+                  <span class="week-link-title">Mini Project 1</span>
+                  <span class="badge badge-project">PROJECT</span>
+                </div></div></div>
+            <div class="phase-group" data-phase="2">
+              <div class="phase-header" onclick="togglePhase(this)">
+                <span>Phase 2 — Intermediate</span>
+                <span class="phase-arrow">▼</span>
+              </div>
+              <div class="phase-weeks">
+                <div class="week-link" data-week="8" onclick="showWeek(8)">
+                  <input type="checkbox" class="week-check" id="check-8"
+                    onchange="markComplete(8, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W08</span>
+                  <span class="week-link-title">JOINs — INNER & LEFT</span>
+                  
+                </div>
+                <div class="week-link" data-week="9" onclick="showWeek(9)">
+                  <input type="checkbox" class="week-check" id="check-9"
+                    onchange="markComplete(9, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W09</span>
+                  <span class="week-link-title">JOINs — RIGHT, FULL & CROSS</span>
+                  
+                </div>
+                <div class="week-link" data-week="10" onclick="showWeek(10)">
+                  <input type="checkbox" class="week-check" id="check-10"
+                    onchange="markComplete(10, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W10</span>
+                  <span class="week-link-title">String Functions</span>
+                  
+                </div>
+                <div class="week-link" data-week="11" onclick="showWeek(11)">
+                  <input type="checkbox" class="week-check" id="check-11"
+                    onchange="markComplete(11, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W11</span>
+                  <span class="week-link-title">Date & Time Functions</span>
+                  
+                </div>
+                <div class="week-link" data-week="12" onclick="showWeek(12)">
+                  <input type="checkbox" class="week-check" id="check-12"
+                    onchange="markComplete(12, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W12</span>
+                  <span class="week-link-title">CASE Statements</span>
+                  
+                </div>
+                <div class="week-link" data-week="13" onclick="showWeek(13)">
+                  <input type="checkbox" class="week-check" id="check-13"
+                    onchange="markComplete(13, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W13</span>
+                  <span class="week-link-title">Views</span>
+                  
+                </div>
+                <div class="week-link" data-week="14" onclick="showWeek(14)">
+                  <input type="checkbox" class="week-check" id="check-14"
+                    onchange="markComplete(14, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W14</span>
+                  <span class="week-link-title">Stored Procedures</span>
+                  
+                </div>
+                <div class="week-link" data-week="15" onclick="showWeek(15)">
+                  <input type="checkbox" class="week-check" id="check-15"
+                    onchange="markComplete(15, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W15</span>
+                  <span class="week-link-title">Mini Project 2</span>
+                  <span class="badge badge-project">PROJECT</span>
+                </div></div></div>
+            <div class="phase-group" data-phase="3">
+              <div class="phase-header" onclick="togglePhase(this)">
+                <span>Phase 3 — Advanced</span>
+                <span class="phase-arrow">▼</span>
+              </div>
+              <div class="phase-weeks">
+                <div class="week-link" data-week="16" onclick="showWeek(16)">
+                  <input type="checkbox" class="week-check" id="check-16"
+                    onchange="markComplete(16, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W16</span>
+                  <span class="week-link-title">Window Functions — Ranking</span>
+                  
+                </div>
+                <div class="week-link" data-week="17" onclick="showWeek(17)">
+                  <input type="checkbox" class="week-check" id="check-17"
+                    onchange="markComplete(17, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W17</span>
+                  <span class="week-link-title">Window Functions — LAG/LEAD</span>
+                  
+                </div>
+                <div class="week-link" data-week="18" onclick="showWeek(18)">
+                  <input type="checkbox" class="week-check" id="check-18"
+                    onchange="markComplete(18, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W18</span>
+                  <span class="week-link-title">CTEs</span>
+                  
+                </div>
+                <div class="week-link" data-week="19" onclick="showWeek(19)">
+                  <input type="checkbox" class="week-check" id="check-19"
+                    onchange="markComplete(19, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W19</span>
+                  <span class="week-link-title">Indexes & Performance</span>
+                  
+                </div>
+                <div class="week-link" data-week="20" onclick="showWeek(20)">
+                  <input type="checkbox" class="week-check" id="check-20"
+                    onchange="markComplete(20, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W20</span>
+                  <span class="week-link-title">Transactions & ACID</span>
+                  
+                </div>
+                <div class="week-link" data-week="21" onclick="showWeek(21)">
+                  <input type="checkbox" class="week-check" id="check-21"
+                    onchange="markComplete(21, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W21</span>
+                  <span class="week-link-title">Advanced Subqueries</span>
+                  
+                </div>
+                <div class="week-link" data-week="22" onclick="showWeek(22)">
+                  <input type="checkbox" class="week-check" id="check-22"
+                    onchange="markComplete(22, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W22</span>
+                  <span class="week-link-title">Interview Prep</span>
+                  <span class="badge badge-interview">INTERVIEW</span>
+                </div>
+                <div class="week-link" data-week="23" onclick="showWeek(23)">
+                  <input type="checkbox" class="week-check" id="check-23"
+                    onchange="markComplete(23, this.checked)" onclick="event.stopPropagation()">
+                  <span class="week-link-num">W23</span>
+                  <span class="week-link-title">Capstone Project</span>
+                  <span class="badge badge-capstone">CAPSTONE</span>
+                </div></div></div>
+    </nav>
+  </aside>
+
+  <main class="main" id="main">
+    
+    <section id="home" class="week-section">
+      <div class="home-hero">
+        <h1>SQL Mastery Course</h1>
+        <p>23 weeks · 3 phases · From zero to job-ready</p>
+        <div class="home-progress-wrap">
+          <div class="home-progress-bar"><div class="home-progress-fill" id="home-fill"></div></div>
+          <span id="home-count">0 / 23 complete</span>
+        </div>
+      </div>
+      <div class="home-cards">
+        <div class="home-card phase1" onclick="showWeek(1)">
+          <div class="home-card-week">W01</div>
+          <div class="home-card-title">What is SQL + Databases</div>
+          <div class="home-card-dot" id="dot-1"></div>
+        </div>
+        <div class="home-card phase1" onclick="showWeek(2)">
+          <div class="home-card-week">W02</div>
+          <div class="home-card-title">Filtering Data</div>
+          <div class="home-card-dot" id="dot-2"></div>
+        </div>
+        <div class="home-card phase1" onclick="showWeek(3)">
+          <div class="home-card-week">W03</div>
+          <div class="home-card-title">Aggregate Functions</div>
+          <div class="home-card-dot" id="dot-3"></div>
+        </div>
+        <div class="home-card phase1" onclick="showWeek(4)">
+          <div class="home-card-week">W04</div>
+          <div class="home-card-title">GROUP BY + HAVING</div>
+          <div class="home-card-dot" id="dot-4"></div>
+        </div>
+        <div class="home-card phase1" onclick="showWeek(5)">
+          <div class="home-card-week">W05</div>
+          <div class="home-card-title">Subqueries</div>
+          <div class="home-card-dot" id="dot-5"></div>
+        </div>
+        <div class="home-card phase1" onclick="showWeek(6)">
+          <div class="home-card-week">W06</div>
+          <div class="home-card-title">NULL Values</div>
+          <div class="home-card-dot" id="dot-6"></div>
+        </div>
+        <div class="home-card phase1" onclick="showWeek(7)">
+          <div class="home-card-week">W07</div>
+          <div class="home-card-title">Mini Project 1</div>
+          <div class="home-card-dot" id="dot-7"></div>
+        </div>
+        <div class="home-card phase2" onclick="showWeek(8)">
+          <div class="home-card-week">W08</div>
+          <div class="home-card-title">JOINs — INNER & LEFT</div>
+          <div class="home-card-dot" id="dot-8"></div>
+        </div>
+        <div class="home-card phase2" onclick="showWeek(9)">
+          <div class="home-card-week">W09</div>
+          <div class="home-card-title">JOINs — RIGHT, FULL & CROSS</div>
+          <div class="home-card-dot" id="dot-9"></div>
+        </div>
+        <div class="home-card phase2" onclick="showWeek(10)">
+          <div class="home-card-week">W10</div>
+          <div class="home-card-title">String Functions</div>
+          <div class="home-card-dot" id="dot-10"></div>
+        </div>
+        <div class="home-card phase2" onclick="showWeek(11)">
+          <div class="home-card-week">W11</div>
+          <div class="home-card-title">Date & Time Functions</div>
+          <div class="home-card-dot" id="dot-11"></div>
+        </div>
+        <div class="home-card phase2" onclick="showWeek(12)">
+          <div class="home-card-week">W12</div>
+          <div class="home-card-title">CASE Statements</div>
+          <div class="home-card-dot" id="dot-12"></div>
+        </div>
+        <div class="home-card phase2" onclick="showWeek(13)">
+          <div class="home-card-week">W13</div>
+          <div class="home-card-title">Views</div>
+          <div class="home-card-dot" id="dot-13"></div>
+        </div>
+        <div class="home-card phase2" onclick="showWeek(14)">
+          <div class="home-card-week">W14</div>
+          <div class="home-card-title">Stored Procedures</div>
+          <div class="home-card-dot" id="dot-14"></div>
+        </div>
+        <div class="home-card phase2" onclick="showWeek(15)">
+          <div class="home-card-week">W15</div>
+          <div class="home-card-title">Mini Project 2</div>
+          <div class="home-card-dot" id="dot-15"></div>
+        </div>
+        <div class="home-card phase3" onclick="showWeek(16)">
+          <div class="home-card-week">W16</div>
+          <div class="home-card-title">Window Functions — Ranking</div>
+          <div class="home-card-dot" id="dot-16"></div>
+        </div>
+        <div class="home-card phase3" onclick="showWeek(17)">
+          <div class="home-card-week">W17</div>
+          <div class="home-card-title">Window Functions — LAG/LEAD</div>
+          <div class="home-card-dot" id="dot-17"></div>
+        </div>
+        <div class="home-card phase3" onclick="showWeek(18)">
+          <div class="home-card-week">W18</div>
+          <div class="home-card-title">CTEs</div>
+          <div class="home-card-dot" id="dot-18"></div>
+        </div>
+        <div class="home-card phase3" onclick="showWeek(19)">
+          <div class="home-card-week">W19</div>
+          <div class="home-card-title">Indexes & Performance</div>
+          <div class="home-card-dot" id="dot-19"></div>
+        </div>
+        <div class="home-card phase3" onclick="showWeek(20)">
+          <div class="home-card-week">W20</div>
+          <div class="home-card-title">Transactions & ACID</div>
+          <div class="home-card-dot" id="dot-20"></div>
+        </div>
+        <div class="home-card phase3" onclick="showWeek(21)">
+          <div class="home-card-week">W21</div>
+          <div class="home-card-title">Advanced Subqueries</div>
+          <div class="home-card-dot" id="dot-21"></div>
+        </div>
+        <div class="home-card phase3" onclick="showWeek(22)">
+          <div class="home-card-week">W22</div>
+          <div class="home-card-title">Interview Prep</div>
+          <div class="home-card-dot" id="dot-22"></div>
+        </div>
+        <div class="home-card phase3" onclick="showWeek(23)">
+          <div class="home-card-week">W23</div>
+          <div class="home-card-title">Capstone Project</div>
+          <div class="home-card-dot" id="dot-23"></div>
+        </div></div>
+    </section>
+    
+    <section id="week-1" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 1</span>
+          <span class="week-type-badge lesson">PHASE 1</span>
+        </div>
+        <h1 class="week-main-title">What is SQL + Databases</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 1 — What is SQL + Databases</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">Key Concepts</h2>
+<div class="bullet-item">• A <strong>database</strong> is an organized collection of data stored in <strong>tables</strong></div>
+<div class="bullet-item">• A <strong>table</strong> has <strong>columns</strong> (categories) and <strong>rows</strong> (data)</div>
+<div class="bullet-item">• <strong>SQL</strong> is the language used to query (ask questions of) a database</div>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">Core Syntax</h2>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        
+        <button class="nav-btn complete-btn" onclick="markComplete(1, true); document.getElementById('check-1').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(2)">Week 2 →</button>
+      </div>
+    </section>
+    <section id="week-2" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 2</span>
+          <span class="week-type-badge lesson">PHASE 1</span>
+        </div>
+        <h1 class="week-main-title">Filtering Data</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 2 — Filtering Data</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• <code class="inline-code">SELECT</code>, <code class="inline-code">FROM</code>, <code class="inline-code">WHERE</code>, <code class="inline-code">ORDER BY</code></div>
+<div class="bullet-item">• Filtering with a single condition: <code class="inline-code">WHERE salary &gt; 50000</code></div>
+<div class="spacer"></div>
+<p>This week you go deeper — combining conditions and using powerful filter tools.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">Combining Conditions</h2>
+<div class="spacer"></div>
+<h3 class="sub-heading">AND — both conditions must be true</h3>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(1)">← Week 1</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(2, true); document.getElementById('check-2').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(3)">Week 3 →</button>
+      </div>
+    </section>
+    <section id="week-3" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 3</span>
+          <span class="week-type-badge lesson">PHASE 1</span>
+        </div>
+        <h1 class="week-main-title">Aggregate Functions</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 3 — Aggregate Functions</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• SELECT, FROM, WHERE, ORDER BY</div>
+<div class="bullet-item">• Filtering with AND, OR, NOT, IN, BETWEEN, LIKE</div>
+<div class="spacer"></div>
+<p>This week you learn to <strong>summarize</strong> data — count rows, add up values, find averages.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">The 5 Core Aggregate Functions</h2>
+<div class="spacer"></div>
+<div class="table-wrap"><table><thead><tr><th>Function</th><th>What it does</th></tr></thead><tbody><tr><td>`COUNT()`</td><td>Count number of rows</td></tr><tr><td>`SUM()`</td><td>Add up values</td></tr><tr><td>`AVG()`</td><td>Calculate average</td></tr><tr><td>`MIN()`</td><td>Find the lowest value</td></tr><tr><td>`MAX()`</td><td>Find the highest value</td></tr></tbody></table></div>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">COUNT</h2>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(2)">← Week 2</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(3, true); document.getElementById('check-3').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(4)">Week 4 →</button>
+      </div>
+    </section>
+    <section id="week-4" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 4</span>
+          <span class="week-type-badge lesson">PHASE 1</span>
+        </div>
+        <h1 class="week-main-title">GROUP BY + HAVING</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 4 — GROUP BY + HAVING</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• COUNT, SUM, AVG, MIN, MAX</div>
+<div class="bullet-item">• Using WHERE to filter before aggregating</div>
+<div class="spacer"></div>
+<p>This week you learn to <strong>group data</strong> — get aggregates per department, per city, per category.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">GROUP BY — Aggregates Per Group</h2>
+<div class="spacer"></div>
+<p>Without GROUP BY, aggregates return one row for the whole table.</p>
+<p>With GROUP BY, you get one row <strong>per group</strong>.</p>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(3)">← Week 3</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(4, true); document.getElementById('check-4').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(5)">Week 5 →</button>
+      </div>
+    </section>
+    <section id="week-5" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 5</span>
+          <span class="week-type-badge lesson">PHASE 1</span>
+        </div>
+        <h1 class="week-main-title">Subqueries</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 5 — String + Date Functions</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• GROUP BY, HAVING, aggregate functions</div>
+<div class="spacer"></div>
+<p>This week you learn to <strong>clean and transform</strong> text and date values inside queries.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">String Functions</h2>
+<div class="spacer"></div>
+<h3 class="sub-heading">UPPER and LOWER — change case</h3>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(4)">← Week 4</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(5, true); document.getElementById('check-5').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(6)">Week 6 →</button>
+      </div>
+    </section>
+    <section id="week-6" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 6</span>
+          <span class="week-type-badge lesson">PHASE 1</span>
+        </div>
+        <h1 class="week-main-title">NULL Values</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 6 — NULL Handling</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• Aggregate functions, GROUP BY, string and date functions</div>
+<div class="spacer"></div>
+<p>This week you tackle <strong>NULL</strong> — the most misunderstood thing in SQL.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">What is NULL?</h2>
+<div class="spacer"></div>
+<p>NULL means <strong>unknown</strong> or <strong>missing</strong> — it is not zero, not an empty string, not "N/A". It is the absence of a value.</p>
+<div class="spacer"></div>
+<p>Real examples of NULL:</p>
+<div class="bullet-item">• An employee with no manager (they're the CEO)</div>
+<div class="bullet-item">• A product with no discount set</div>
+<div class="bullet-item">• A customer who hasn't entered their phone number</div>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">NULL breaks normal comparisons</h2>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(5)">← Week 5</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(6, true); document.getElementById('check-6').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(7)">Week 7 →</button>
+      </div>
+    </section>
+    <section id="week-7" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 7</span>
+          <span class="week-type-badge project">PROJECT</span>
+        </div>
+        <h1 class="week-main-title">Mini Project 1</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 7 — Mini Project 1: Sales Data Analysis</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What This Tests</h2>
+<p>Everything from Phase 1:</p>
+<div class="bullet-item">• SELECT, FROM, WHERE, ORDER BY</div>
+<div class="bullet-item">• AND, OR, IN, BETWEEN, LIKE</div>
+<div class="bullet-item">• COUNT, SUM, AVG, MIN, MAX</div>
+<div class="bullet-item">• GROUP BY, HAVING</div>
+<div class="bullet-item">• String + Date functions</div>
+<div class="bullet-item">• NULL handling</div>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">The Dataset</h2>
+<div class="spacer"></div>
+<p>You're a data analyst at a retail company. You have two tables:</p>
+<div class="spacer"></div>
+<h3 class="sub-heading">Table: <code class="inline-code">sales</code></h3>
+<div class="table-wrap"><table><thead><tr><th>sale_id</th><th>product</th><th>category</th><th>amount</th><th>sale_date</th><th>rep_id</th></tr></thead><tbody><tr><td>1</td><td>Laptop</td><td>Electronics</td><td>85000</td><td>2024-01-15</td><td>101</td></tr><tr><td>2</td><td>Phone</td><td>Electronics</td><td>45000</td><td>2024-01-20</td><td>102</td></tr><tr><td>3</td><td>Desk</td><td>Furniture</td><td>12000</td><td>2024-02-05</td><td>101</td></tr><tr><td>4</td><td>Chair</td><td>Furniture</td><td>8000</td><td>2024-02-10</td><td>103</td></tr><tr><td>5</td><td>Tablet</td><td>Electronics</td><td>30000</td><td>2024-03-01</td><td>102</td></tr><tr><td>6</td><td>Monitor</td><td>Electronics</td><td>22000</td><td>2024-03-15</td><td>101</td></tr><tr><td>7</td><td>Keyboard</td><td>Electronics</td><td>5000</td><td>2024-04-02</td><td>103</td></tr><tr><td>8</td><td>Sofa</td><td>Furniture</td><td>35000</td><td>2024-04-18</td><td>102</td></tr><tr><td>9</td><td>TV</td><td>Electronics</td><td>55000</td><td>2024-05-10</td><td>NULL</td></tr><tr><td>10</td><td>Bookshelf</td><td>Furniture</td><td>9500</td><td>2024-05-25</td><td>103</td></tr></tbody></table></div>
+<div class="spacer"></div>
+<h3 class="sub-heading">Table: <code class="inline-code">reps</code></h3>
+<div class="table-wrap"><table><thead><tr><th>rep_id</th><th>rep_name</th><th>region</th></tr></thead><tbody><tr><td>101</td><td>Dattatray</td><td>West</td></tr><tr><td>102</td><td>Priya</td><td>East</td></tr><tr><td>103</td><td>Rahul</td><td>North</td></tr></tbody></table></div>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">Setup SQL (run this first in DB Browser)</h2>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(6)">← Week 6</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(7, true); document.getElementById('check-7').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(8)">Week 8 →</button>
+      </div>
+    </section>
+    <section id="week-8" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 8</span>
+          <span class="week-type-badge lesson">PHASE 2</span>
+        </div>
+        <h1 class="week-main-title">JOINs — INNER & LEFT</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 8 — JOINs Part 1: INNER JOIN + LEFT JOIN</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• All of Phase 1: SELECT, filter, aggregate, GROUP BY, NULL handling</div>
+<div class="spacer"></div>
+<p>This week you learn the most important skill in SQL — <strong>combining data from multiple tables</strong>.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">Why JOINs?</h2>
+<div class="spacer"></div>
+<p>Real databases never store everything in one table. Data is split across tables to avoid repetition:</p>
+<div class="spacer"></div>
+<div class="bullet-item">• <code class="inline-code">orders</code> table has order details + customer_id</div>
+<div class="bullet-item">• <code class="inline-code">customers</code> table has customer names + addresses</div>
+<div class="spacer"></div>
+<p>To see an order with the customer's name, you need to <strong>JOIN</strong> the two tables.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">The Tables We'll Use</h2>
+<div class="spacer"></div>
+<h3 class="sub-heading"><code class="inline-code">orders</code></h3>
+<div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th><th>product</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>Laptop</td><td>85000</td></tr><tr><td>2</td><td>2</td><td>Phone</td><td>45000</td></tr><tr><td>3</td><td>1</td><td>Monitor</td><td>22000</td></tr><tr><td>4</td><td>3</td><td>Tablet</td><td>30000</td></tr><tr><td>5</td><td>99</td><td>Keyboard</td><td>5000</td></tr></tbody></table></div>
+<div class="spacer"></div>
+<h3 class="sub-heading"><code class="inline-code">customers</code></h3>
+<div class="table-wrap"><table><thead><tr><th>customer_id</th><th>name</th><th>city</th></tr></thead><tbody><tr><td>1</td><td>Dattatray</td><td>Mumbai</td></tr><tr><td>2</td><td>Priya</td><td>Delhi</td></tr><tr><td>3</td><td>Rahul</td><td>Pune</td></tr><tr><td>4</td><td>Sneha</td><td>Bangalore</td></tr></tbody></table></div>
+<div class="spacer"></div>
+<p>Note: Order 5 has customer_id 99 (no matching customer). Customer 4 (Sneha) has no orders.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">INNER JOIN — only matching rows from both tables</h2>
+<div class="spacer"></div>
+<p>Returns rows where the join condition matches in <strong>both</strong> tables.</p>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(7)">← Week 7</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(8, true); document.getElementById('check-8').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(9)">Week 9 →</button>
+      </div>
+    </section>
+    <section id="week-9" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 9</span>
+          <span class="week-type-badge lesson">PHASE 2</span>
+        </div>
+        <h1 class="week-main-title">JOINs — RIGHT, FULL & CROSS</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 9 — JOINs Part 2: RIGHT JOIN, FULL OUTER JOIN, Self Joins, Multi-table JOINs</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• INNER JOIN — only matching rows</div>
+<div class="bullet-item">• LEFT JOIN — all left rows + matching right rows</div>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">RIGHT JOIN — all rows from right table</h2>
+<div class="spacer"></div>
+<p>Same as LEFT JOIN but flipped. Returns all rows from the <strong>right</strong> table, and matches from the left.</p>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(8)">← Week 8</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(9, true); document.getElementById('check-9').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(10)">Week 10 →</button>
+      </div>
+    </section>
+    <section id="week-10" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 10</span>
+          <span class="week-type-badge lesson">PHASE 2</span>
+        </div>
+        <h1 class="week-main-title">String Functions</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 10 — Subqueries</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• JOINs — combining tables</div>
+<div class="bullet-item">• GROUP BY + HAVING — aggregating groups</div>
+<div class="spacer"></div>
+<p>A <strong>subquery</strong> is a query inside another query. It lets you use the result of one query as input to another.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">Subquery in WHERE</h2>
+<div class="spacer"></div>
+<p>Answer questions like: "Show employees who earn more than the average salary."</p>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(9)">← Week 9</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(10, true); document.getElementById('check-10').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(11)">Week 11 →</button>
+      </div>
+    </section>
+    <section id="week-11" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 11</span>
+          <span class="week-type-badge lesson">PHASE 2</span>
+        </div>
+        <h1 class="week-main-title">Date & Time Functions</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 11 — CASE WHEN</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• Subqueries, JOINs, aggregations</div>
+<div class="spacer"></div>
+<p><code class="inline-code">CASE WHEN</code> is SQL's if/else. It lets you add <strong>conditional logic</strong> inside a query.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">Basic Syntax</h2>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(10)">← Week 10</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(11, true); document.getElementById('check-11').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(12)">Week 12 →</button>
+      </div>
+    </section>
+    <section id="week-12" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 12</span>
+          <span class="week-type-badge lesson">PHASE 2</span>
+        </div>
+        <h1 class="week-main-title">CASE Statements</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 12 — UNION, INTERSECT, EXCEPT</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• JOINs combine columns side-by-side</div>
+<div class="bullet-item">• UNION and friends stack results <strong>on top of each other</strong></div>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">UNION — combine rows from two queries</h2>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(11)">← Week 11</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(12, true); document.getElementById('check-12').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(13)">Week 13 →</button>
+      </div>
+    </section>
+    <section id="week-13" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 13</span>
+          <span class="week-type-badge lesson">PHASE 2</span>
+        </div>
+        <h1 class="week-main-title">Views</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 13 — INSERT, UPDATE, DELETE</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• All SELECT-based querying</div>
+<div class="bullet-item">• You've been reading data — now you'll write it</div>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">INSERT — add new rows</h2>
+<div class="spacer"></div>
+<h3 class="sub-heading">Insert a single row</h3>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(12)">← Week 12</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(13, true); document.getElementById('check-13').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(14)">Week 14 →</button>
+      </div>
+    </section>
+    <section id="week-14" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 14</span>
+          <span class="week-type-badge lesson">PHASE 2</span>
+        </div>
+        <h1 class="week-main-title">Stored Procedures</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 14 — CREATE TABLE + Constraints</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• INSERT, UPDATE, DELETE</div>
+<div class="bullet-item">• How to query and modify data</div>
+<div class="spacer"></div>
+<p>This week you learn to <strong>design</strong> tables from scratch — and enforce rules on the data.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">CREATE TABLE</h2>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(13)">← Week 13</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(14, true); document.getElementById('check-14').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(15)">Week 15 →</button>
+      </div>
+    </section>
+    <section id="week-15" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 15</span>
+          <span class="week-type-badge project">PROJECT</span>
+        </div>
+        <h1 class="week-main-title">Mini Project 2</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 15 — Mini Project 2: Financial Data Analysis</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What This Tests</h2>
+<p>Everything from Phase 2:</p>
+<div class="bullet-item">• INNER JOIN, LEFT JOIN, multi-table JOINs</div>
+<div class="bullet-item">• Subqueries in WHERE, FROM, SELECT</div>
+<div class="bullet-item">• CASE WHEN — conditional logic</div>
+<div class="bullet-item">• UNION, INTERSECT, EXCEPT</div>
+<div class="bullet-item">• INSERT, UPDATE, DELETE</div>
+<div class="bullet-item">• CREATE TABLE + constraints</div>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">The Dataset: Personal Finance Tracker</h2>
+<div class="spacer"></div>
+<p>You're building and querying a personal finance database.</p>
+<div class="spacer"></div>
+<h3 class="sub-heading">Schema</h3>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(14)">← Week 14</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(15, true); document.getElementById('check-15').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(16)">Week 16 →</button>
+      </div>
+    </section>
+    <section id="week-16" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 16</span>
+          <span class="week-type-badge lesson">PHASE 3</span>
+        </div>
+        <h1 class="week-main-title">Window Functions — Ranking</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 16 — Window Functions Part 1: ROW_NUMBER, RANK, DENSE_RANK</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• Aggregates with GROUP BY collapse rows into one row per group</div>
+<div class="bullet-item">• Window functions are different — they <strong>add a computed column without collapsing rows</strong></div>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">What is a Window Function?</h2>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(15)">← Week 15</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(16, true); document.getElementById('check-16').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(17)">Week 17 →</button>
+      </div>
+    </section>
+    <section id="week-17" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 17</span>
+          <span class="week-type-badge lesson">PHASE 3</span>
+        </div>
+        <h1 class="week-main-title">Window Functions — LAG/LEAD</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 17 — Window Functions Part 2: LAG, LEAD, Running Totals</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• ROW_NUMBER, RANK, DENSE_RANK</div>
+<div class="bullet-item">• PARTITION BY and ORDER BY inside OVER()</div>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">LAG — look at the previous row's value</h2>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(16)">← Week 16</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(17, true); document.getElementById('check-17').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(18)">Week 18 →</button>
+      </div>
+    </section>
+    <section id="week-18" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 18</span>
+          <span class="week-type-badge lesson">PHASE 3</span>
+        </div>
+        <h1 class="week-main-title">CTEs</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 18 — CTEs (Common Table Expressions)</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• Subqueries — queries inside queries</div>
+<div class="bullet-item">• Window functions</div>
+<div class="spacer"></div>
+<p>A <strong>CTE</strong> is a named, temporary result set defined with <code class="inline-code">WITH</code>. It makes complex queries readable.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">Basic CTE Syntax</h2>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(17)">← Week 17</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(18, true); document.getElementById('check-18').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(19)">Week 19 →</button>
+      </div>
+    </section>
+    <section id="week-19" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 19</span>
+          <span class="week-type-badge lesson">PHASE 3</span>
+        </div>
+        <h1 class="week-main-title">Indexes & Performance</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 19 — Indexes + Query Performance</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• All SQL querying techniques</div>
+<div class="bullet-item">• CTEs and window functions</div>
+<div class="spacer"></div>
+<p>This week you learn <strong>why queries go slow</strong> — and how to fix them.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">Why Queries Slow Down</h2>
+<div class="spacer"></div>
+<p>When you run <code class="inline-code">SELECT * FROM orders WHERE customer_id = 42</code>, the database has two choices:</p>
+<div class="spacer"></div>
+<div class="exercise-item"><span class="ex-num">1</span><span class="ex-text"><strong>Full table scan</strong> — read every single row and check if customer_id = 42</span></div>
+<div class="exercise-item"><span class="ex-num">2</span><span class="ex-text"><strong>Index lookup</strong> — jump directly to rows where customer_id = 42</span></div>
+<div class="spacer"></div>
+<p>Without an index, the database always does a full table scan. With millions of rows, this is slow.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">What is an Index?</h2>
+<div class="spacer"></div>
+<p>An index is a separate data structure (like a book's index) that maps column values to row locations. The database can jump straight to matching rows.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">CREATE INDEX</h2>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(18)">← Week 18</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(19, true); document.getElementById('check-19').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(20)">Week 20 →</button>
+      </div>
+    </section>
+    <section id="week-20" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 20</span>
+          <span class="week-type-badge lesson">PHASE 3</span>
+        </div>
+        <h1 class="week-main-title">Transactions & ACID</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 20 — Views + Stored Procedures</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• CTEs for reusable in-query logic</div>
+<div class="bullet-item">• Indexes for performance</div>
+<div class="spacer"></div>
+<p>This week you learn to save query logic permanently — <strong>views</strong> for reusable queries, <strong>stored procedures</strong> for reusable programs.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">Views — saved SELECT queries</h2>
+<div class="spacer"></div>
+<p>A view is a stored SELECT query that you can use like a table.</p>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(19)">← Week 19</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(20, true); document.getElementById('check-20').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(21)">Week 21 →</button>
+      </div>
+    </section>
+    <section id="week-21" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 21</span>
+          <span class="week-type-badge lesson">PHASE 3</span>
+        </div>
+        <h1 class="week-main-title">Advanced Subqueries</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 21 — Advanced Aggregations: ROLLUP, CUBE, GROUPING SETS</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What You Already Know</h2>
+<div class="bullet-item">• GROUP BY, HAVING</div>
+<div class="bullet-item">• Window functions</div>
+<div class="bullet-item">• CTEs</div>
+<div class="spacer"></div>
+<p>These three operators extend GROUP BY to produce <strong>subtotals and grand totals</strong> in a single query.</p>
+<div class="spacer"></div>
+<p>&gt; Note: SQLite has limited support for these. Full support in PostgreSQL and MySQL. This lesson prepares you for those environments.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">The Problem They Solve</h2>
+<div class="spacer"></div>
+<p>You want a report with:</p>
+<div class="bullet-item">• Revenue per region per product</div>
+<div class="bullet-item">• Subtotal per region</div>
+<div class="bullet-item">• Grand total for all regions</div>
+<div class="spacer"></div>
+<p>Without ROLLUP, you'd need 3 separate queries and UNION them. ROLLUP does it in one.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">ROLLUP — hierarchical subtotals</h2>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(20)">← Week 20</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(21, true); document.getElementById('check-21').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(22)">Week 22 →</button>
+      </div>
+    </section>
+    <section id="week-22" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 22</span>
+          <span class="week-type-badge interview">INTERVIEW PREP</span>
+        </div>
+        <h1 class="week-main-title">Interview Prep</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 22 — SQL Interview Prep</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">The Most Common SQL Interview Questions</h2>
+<div class="spacer"></div>
+<p>Categorized by type. Each one appears frequently at companies like Flipkart, Swiggy, Zepto, Goldman Sachs, JP Morgan, and top tech firms.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">Category 1: Basic Filtering + Aggregation</h2>
+<div class="spacer"></div>
+<h3 class="sub-heading">Q1. Find the second highest salary</h3>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(21)">← Week 21</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(22, true); document.getElementById('check-22').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        <button class="nav-btn" onclick="showWeek(23)">Week 23 →</button>
+      </div>
+    </section>
+    <section id="week-23" class="week-section" style="display:none">
+      <div class="week-header">
+        <div class="week-meta">
+          <span class="week-number">Week 23</span>
+          <span class="week-type-badge capstone">CAPSTONE</span>
+        </div>
+        <h1 class="week-main-title">Capstone Project</h1>
+      </div>
+      <div class="week-content">
+        <h1 class="week-title">Week 23 — Capstone Project: Stock Market + Finance Analysis</h1>
+<div class="spacer"></div>
+<h2 class="section-heading">What This Tests</h2>
+<p>Everything across all 3 phases:</p>
+<div class="bullet-item">• All querying, filtering, aggregation</div>
+<div class="bullet-item">• JOINs, subqueries, CTEs</div>
+<div class="bullet-item">• Window functions (ROW_NUMBER, RANK, LAG, running totals)</div>
+<div class="bullet-item">• CASE WHEN, NULL handling</div>
+<div class="bullet-item">• Table design</div>
+<div class="spacer"></div>
+<p>This is your <strong>portfolio project</strong> — write it clean, use CTEs, comment your thinking.</p>
+<div class="spacer"></div>
+<hr class="section-divider">
+<div class="spacer"></div>
+<h2 class="section-heading">The Dataset: Market + Fundamentals</h2>
+<div class="spacer"></div>
+<h3 class="sub-heading">Schema</h3>
+<div class="spacer"></div>
+      </div>
+      <div class="week-nav">
+        <button class="nav-btn" onclick="showWeek(22)">← Week 22</button>
+        <button class="nav-btn complete-btn" onclick="markComplete(23, true); document.getElementById('check-23').checked=true; updateProgress()">
+          ✓ Mark Complete
+        </button>
+        
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let currentWeek = 0;
+const TOTAL = 23;
+
+function showHome() {
+  document.querySelectorAll('.week-section').forEach(s => s.style.display = 'none');
+  document.getElementById('home').style.display = 'block';
+  document.querySelectorAll('.week-link').forEach(l => l.classList.remove('active'));
+  currentWeek = 0;
+  document.getElementById('main').scrollTop = 0;
+  updateHomeDots();
+}
+
+function showWeek(n) {
+  if (n < 1 || n > TOTAL) return;
+  document.querySelectorAll('.week-section').forEach(s => s.style.display = 'none');
+  const sec = document.getElementById('week-' + n);
+  if (sec) { sec.style.display = 'block'; }
+  document.querySelectorAll('.week-link').forEach(l => l.classList.remove('active'));
+  const link = document.querySelector('.week-link[data-week="' + n + '"]');
+  if (link) {
+    link.classList.add('active');
+    link.scrollIntoView({block: 'nearest', behavior: 'smooth'});
+  }
+  currentWeek = n;
+  document.getElementById('main').scrollTop = 0;
+  hljs.highlightAll();
+}
+
+function markComplete(n, done) {
+  const key = 'week-done-' + n;
+  if (done) { localStorage.setItem(key, '1'); }
+  else { localStorage.removeItem(key); }
+  const link = document.querySelector('.week-link[data-week="' + n + '"]');
+  if (link) { link.classList.toggle('done', done); }
+  const dot = document.getElementById('dot-' + n);
+  if (dot) { dot.classList.toggle('done', done); }
+  updateProgress();
+  if (done) { showToast('Week ' + n + ' marked complete ✓'); }
+}
+
+function updateProgress() {
+  let done = 0;
+  for (let i = 1; i <= TOTAL; i++) {
+    if (localStorage.getItem('week-done-' + i)) done++;
+  }
+  const pct = Math.round((done / TOTAL) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = done + ' / ' + TOTAL;
+  const hf = document.getElementById('home-fill');
+  if (hf) hf.style.width = pct + '%';
+  const hc = document.getElementById('home-count');
+  if (hc) hc.textContent = done + ' / ' + TOTAL + ' complete';
+}
+
+function updateHomeDots() {
+  for (let i = 1; i <= TOTAL; i++) {
+    const dot = document.getElementById('dot-' + i);
+    if (dot) dot.classList.toggle('done', !!localStorage.getItem('week-done-' + i));
+  }
+}
+
+function loadProgress() {
+  for (let i = 1; i <= TOTAL; i++) {
+    const done = !!localStorage.getItem('week-done-' + i);
+    const check = document.getElementById('check-' + i);
+    if (check) check.checked = done;
+    const link = document.querySelector('.week-link[data-week="' + i + '"]');
+    if (link) link.classList.toggle('done', done);
+  }
+  updateProgress();
+  updateHomeDots();
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  const text = pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function filterWeeks(q) {
+  const query = q.toLowerCase().trim();
+  document.querySelectorAll('.week-link').forEach(link => {
+    const title = link.querySelector('.week-link-title').textContent.toLowerCase();
+    const num = link.querySelector('.week-link-num').textContent.toLowerCase();
+    link.style.display = (!query || title.includes(query) || num.includes(query)) ? '' : 'none';
+  });
+}
+
+function togglePhase(header) {
+  const weeks = header.nextElementSibling;
+  const collapsed = weeks.classList.toggle('collapsed');
+  header.classList.toggle('collapsed', collapsed);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowRight') showWeek(currentWeek + 1);
+  if (e.key === 'ArrowLeft') { if (currentWeek <= 1) showHome(); else showWeek(currentWeek - 1); }
+  if (e.key === '/') { e.preventDefault(); document.getElementById('search-input').focus(); }
+  if (e.key === 'Escape') { document.getElementById('search-input').blur(); }
+});
+
+// Init
+loadProgress();
+showHome();
+hljs.highlightAll();
+</script>
+</body>
+</html>

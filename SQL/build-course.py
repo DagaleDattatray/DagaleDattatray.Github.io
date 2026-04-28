@@ -39,157 +39,302 @@ WEEKS = [
 
 PHASE_NAMES = {1: "Phase 1 — Foundations", 2: "Phase 2 — Intermediate", 3: "Phase 3 — Advanced"}
 
+# Section headings that get special callout styling
+CALLOUT_SECTIONS = {
+    "what you already know":  ("callout-recap",    "📌 What You Already Know"),
+    "key things to remember": ("callout-tip",      "💡 Key Things to Remember"),
+    "next week":              ("callout-next",     "→ Next Week"),
+    "interview tips":         ("callout-tip",      "💡 Interview Tips"),
+    "setup sql":              ("callout-setup",    "🛠 Setup SQL — Run This First"),
+    "try it":                 ("callout-tryit",    "▶ Try It in DB Browser"),
+}
+
+_answer_toggle_id = [0]
+
 
 def escape_html(text):
     return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+def process_inline(text):
+    """Apply inline markdown: bold, inline code, italic."""
+    # Bold
+    text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+    # Inline code (must run before italic to avoid conflicts)
+    text = re.sub(r'`([^`]+)`', r'<code class="inline-code">\1</code>', text)
+    # Italic
+    text = re.sub(r'\*(.+?)\*', r'<em>\1</em>', text)
+    return text
+
+
+def render_table(table_lines):
+    if not table_lines:
+        return ""
+    out = '<div class="table-wrap"><table>'
+    for ti, trow in enumerate(table_lines):
+        cells = [c.strip() for c in trow.strip().strip("|").split("|")]
+        if ti == 0:
+            out += "<thead><tr>" + "".join(
+                f"<th>{process_inline(escape_html(c))}</th>" for c in cells
+            ) + "</tr></thead><tbody>"
+        elif ti == 1 and all(
+            not c.strip().replace("-","").replace(":","").strip() for c in cells
+        ):
+            continue
+        else:
+            out += "<tr>" + "".join(
+                f"<td>{process_inline(escape_html(c))}</td>" for c in cells
+            ) + "</tr>"
+    out += "</tbody></table></div>"
+    return out
+
+
+def render_code_block(code_lines, lang, in_answers):
+    code_content = escape_html("\n".join(code_lines))
+    lang_label = lang.upper() if lang else "SQL"
+    lang_class = lang if lang else "sql"
+    inner = (
+        f'<div class="code-block">'
+        f'<div class="code-header">'
+        f'<span class="code-lang">{lang_label}</span>'
+        f'<button class="copy-btn" onclick="copyCode(this)">Copy</button>'
+        f'</div>'
+        f'<pre><code class="language-{lang_class}">{code_content}</code></pre>'
+        f'</div>'
+    )
+    if in_answers:
+        _answer_toggle_id[0] += 1
+        tid = _answer_toggle_id[0]
+        return (
+            f'<div class="answers-wrap" id="ans-wrap-{tid}">'
+            f'<button class="show-answers-btn" onclick="toggleAnswers({tid})">Show Answers</button>'
+            f'<div class="answers-content" id="ans-{tid}" style="display:none">'
+            f'{inner}'
+            f'</div></div>'
+        )
+    return inner
+
+
 def md_to_html(md_text):
-    """Convert markdown to HTML sections."""
     lines = md_text.split("\n")
-    html_parts = []
-    i = 0
+    out = []
+
+    # State
     in_code = False
     code_lines = []
     code_lang = ""
     in_table = False
     table_lines = []
+    bullet_buffer = []      # consecutive bullet items
+    numbered_buffer = []    # consecutive numbered items
+    current_section = ""    # tracks the current h2 section name
     in_answers = False
-    answer_buffer = []
-    exercise_num = [0]
+    in_callout = False
+    callout_type = ""
+    callout_title = ""
+    callout_items = []
+
+    def flush_bullets():
+        if not bullet_buffer:
+            return
+        items = "".join(f"<li>{process_inline(escape_html(b))}</li>" for b in bullet_buffer)
+        out.append(f'<ul class="content-list">{items}</ul>')
+        bullet_buffer.clear()
+
+    def flush_numbered():
+        if not numbered_buffer:
+            return
+        items = "".join(
+            f'<li><span class="ex-text">{process_inline(escape_html(t))}</span></li>'
+            for t in numbered_buffer
+        )
+        out.append(f'<ol class="exercise-list">{items}</ol>')
+        numbered_buffer.clear()
 
     def flush_table():
         nonlocal in_table, table_lines
-        if not table_lines:
-            return ""
-        out = '<div class="table-wrap"><table>'
-        for ti, trow in enumerate(table_lines):
-            cells = [c.strip() for c in trow.strip().strip("|").split("|")]
-            if ti == 0:
-                out += "<thead><tr>" + "".join(f"<th>{escape_html(c)}</th>" for c in cells) + "</tr></thead><tbody>"
-            elif ti == 1 and all(set(c.replace("-","").replace(":","").strip()) == set() or set(c.strip()) <= {'-',':'} for c in cells):
-                continue
-            else:
-                out += "<tr>" + "".join(f"<td>{escape_html(c)}</td>" for c in cells) + "</tr>"
-        out += "</tbody></table></div>"
+        if table_lines:
+            out.append(render_table(table_lines))
         table_lines = []
         in_table = False
-        return out
 
-    def process_inline(text):
-        # Bold
-        text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
-        # Inline code
-        text = re.sub(r'`([^`]+)`', r'<code class="inline-code">\1</code>', text)
-        # Italic
-        text = re.sub(r'\*(.+?)\*', r'<em>\1</em>', text)
-        return text
+    def flush_callout():
+        nonlocal in_callout, callout_items, callout_type, callout_title
+        if not in_callout:
+            return
+        items_html = "".join(
+            f"<li>{process_inline(escape_html(item))}</li>" for item in callout_items
+        )
+        out.append(
+            f'<div class="callout {callout_type}">'
+            f'<div class="callout-title">{callout_title}</div>'
+            f'<ul>{items_html}</ul>'
+            f'</div>'
+        )
+        in_callout = False
+        callout_items = []
+        callout_type = ""
+        callout_title = ""
 
+    i = 0
     while i < len(lines):
         line = lines[i]
+        stripped = line.strip()
 
-        # Code block start
-        if line.strip().startswith("```"):
+        # ── CODE BLOCK ────────────────────────────────────────────
+        if stripped.startswith("```"):
+            flush_bullets()
+            flush_numbered()
             if in_table:
-                html_parts.append(flush_table())
-            lang = line.strip()[3:].strip()
-            code_lang = lang if lang else "sql"
-            code_lines = []
-            in_code = True
-            i += 1
-            continue
-
-        # Code block end
-        if in_code:
-            if line.strip() == "```":
-                code_content = escape_html("\n".join(code_lines))
-                html_parts.append(
-                    f'<div class="code-block"><div class="code-header">'
-                    f'<span class="code-lang">{code_lang.upper()}</span>'
-                    f'<button class="copy-btn" onclick="copyCode(this)">Copy</button></div>'
-                    f'<pre><code class="language-{code_lang}">{code_content}</code></pre></div>'
-                )
+                flush_table()
+            if in_callout:
+                flush_callout()
+            if in_code:
+                # closing fence
+                out.append(render_code_block(code_lines, code_lang, in_answers))
                 in_code = False
                 code_lines = []
+                code_lang = ""
             else:
-                code_lines.append(line)
+                # opening fence
+                in_code = True
+                code_lang = stripped[3:].strip() or "sql"
             i += 1
             continue
 
-        # Table rows
-        if line.strip().startswith("|"):
-            if not in_table:
-                in_table = True
+        if in_code:
+            code_lines.append(line)
+            i += 1
+            continue
+
+        # ── TABLE ─────────────────────────────────────────────────
+        if stripped.startswith("|"):
+            flush_bullets()
+            flush_numbered()
+            if in_callout:
+                flush_callout()
+            in_table = True
             table_lines.append(line)
             i += 1
             continue
         elif in_table:
-            html_parts.append(flush_table())
+            flush_table()
 
-        # Horizontal rule
-        if line.strip() in ("---", "***", "___"):
-            html_parts.append('<hr class="section-divider">')
-            i += 1
-            continue
-
-        # Headings
-        if line.startswith("# "):
-            html_parts.append(f'<h1 class="week-title">{process_inline(escape_html(line[2:]))}</h1>')
-            i += 1
-            continue
-        if line.startswith("## "):
-            html_parts.append(f'<h2 class="section-heading">{process_inline(escape_html(line[3:]))}</h2>')
-            i += 1
-            continue
-        if line.startswith("### "):
-            html_parts.append(f'<h3 class="sub-heading">{process_inline(escape_html(line[4:]))}</h3>')
-            i += 1
-            continue
-        if line.startswith("#### "):
-            html_parts.append(f'<h4 class="sub-sub-heading">{process_inline(escape_html(line[5:]))}</h4>')
+        # ── HR ────────────────────────────────────────────────────
+        if stripped in ("---", "***", "___"):
+            flush_bullets()
+            flush_numbered()
+            if in_callout:
+                flush_callout()
+            out.append('<hr class="section-divider">')
+            in_answers = False
             i += 1
             continue
 
-        # Numbered list items (practice exercises detection)
-        m = re.match(r'^(\d+)\.\s+(.*)', line)
-        if m:
-            num = int(m.group(1))
-            content = m.group(2)
-            html_parts.append(
-                f'<div class="exercise-item"><span class="ex-num">{num}</span>'
-                f'<span class="ex-text">{process_inline(escape_html(content))}</span></div>'
-            )
+        # ── HEADINGS ──────────────────────────────────────────────
+        h_match = re.match(r'^(#{1,4})\s+(.*)', line)
+        if h_match:
+            flush_bullets()
+            flush_numbered()
+            if in_callout:
+                flush_callout()
+            level = len(h_match.group(1))
+            title = h_match.group(2).strip()
+            title_lower = title.lower()
+
+            if level == 1:
+                # Main week title — hidden (shown in week header instead)
+                out.append(f'<h1 class="week-title-hidden">{escape_html(title)}</h1>')
+                i += 1
+                continue
+
+            if level == 2:
+                current_section = title_lower
+                in_answers = (title_lower == "answers")
+
+                # Check if this h2 triggers a callout block
+                callout_key = next((k for k in CALLOUT_SECTIONS if k in title_lower), None)
+                if callout_key:
+                    in_callout = True
+                    callout_type, callout_title = CALLOUT_SECTIONS[callout_key]
+                    callout_items = []
+                    i += 1
+                    continue
+                else:
+                    in_callout = False
+                    out.append(f'<h2 class="section-heading">{process_inline(escape_html(title))}</h2>')
+                    i += 1
+                    continue
+
+            if level == 3:
+                # Q&A style (interview prep) — special styling
+                if re.match(r'^Q\d+\.', title):
+                    out.append(f'<div class="interview-q"><span class="q-label">Q</span>{process_inline(escape_html(title[title.index(".")+1:].strip()))}</div>')
+                else:
+                    out.append(f'<h3 class="sub-heading">{process_inline(escape_html(title))}</h3>')
+                i += 1
+                continue
+
+            if level == 4:
+                out.append(f'<h4 class="sub-sub-heading">{process_inline(escape_html(title))}</h4>')
+                i += 1
+                continue
+
+        # ── BULLET ITEMS ──────────────────────────────────────────
+        bullet_match = re.match(r'^(\s*)[-*]\s+(.*)', line)
+        if bullet_match:
+            flush_numbered()
+            content = bullet_match.group(2)
+            indent = len(bullet_match.group(1))
+            if in_callout:
+                callout_items.append(content)
+            elif indent >= 2:
+                # sub-bullet: flush main bullets first
+                flush_bullets()
+                out.append(f'<ul class="content-list sub-list"><li>{process_inline(escape_html(content))}</li></ul>')
+            else:
+                bullet_buffer.append(content)
             i += 1
             continue
 
-        # Bullet list items
-        if line.startswith("- ") or line.startswith("* "):
-            content = line[2:]
-            html_parts.append(f'<div class="bullet-item">• {process_inline(escape_html(content))}</div>')
+        # ── NUMBERED ITEMS ────────────────────────────────────────
+        num_match = re.match(r'^(\d+)\.\s+(.*)', line)
+        if num_match:
+            flush_bullets()
+            if in_callout:
+                callout_items.append(num_match.group(2))
+            else:
+                numbered_buffer.append(num_match.group(2))
             i += 1
             continue
 
-        # Indented bullet
-        if line.startswith("  - ") or line.startswith("  * "):
-            content = line[4:]
-            html_parts.append(f'<div class="bullet-item indent">◦ {process_inline(escape_html(content))}</div>')
+        # ── EMPTY LINE ────────────────────────────────────────────
+        if stripped == "":
+            flush_bullets()
+            flush_numbered()
+            # Don't flush callout on empty lines — let it accumulate
+            out.append('<div class="spacer"></div>')
             i += 1
             continue
 
-        # Empty line
-        if line.strip() == "":
-            html_parts.append('<div class="spacer"></div>')
-            i += 1
-            continue
-
-        # Paragraph
-        html_parts.append(f'<p>{process_inline(escape_html(line))}</p>')
+        # ── PARAGRAPH ─────────────────────────────────────────────
+        flush_bullets()
+        flush_numbered()
+        if in_callout:
+            # Paragraph inside callout section — treat as a regular paragraph after the callout
+            flush_callout()
+        out.append(f'<p>{process_inline(escape_html(stripped))}</p>')
         i += 1
 
+    # Flush anything remaining
+    flush_bullets()
+    flush_numbered()
     if in_table:
-        html_parts.append(flush_table())
+        flush_table()
+    if in_callout:
+        flush_callout()
 
-    return "\n".join(html_parts)
+    return "\n".join(out)
 
 
 def read_week(filename):
@@ -235,8 +380,12 @@ def build_sidebar():
 
 
 def build_week_section(week_num, filename, title, wtype, phase):
+    # Reset answer toggle ID per week
+    _answer_toggle_id[0] = week_num * 100
+
     md = read_week(filename)
     content_html = md_to_html(md)
+
     type_badge = ""
     if wtype == "project":
         type_badge = '<span class="week-type-badge project">PROJECT</span>'
@@ -264,7 +413,7 @@ def build_week_section(week_num, filename, title, wtype, phase):
       </div>
       <div class="week-nav">
         {prev_nav}
-        <button class="nav-btn complete-btn" onclick="markComplete({week_num}, true); document.getElementById('check-{week_num}').checked=true; updateProgress()">
+        <button class="nav-btn complete-btn" onclick="markComplete({week_num}, true); document.getElementById('check-{week_num}').checked=true;">
           ✓ Mark Complete
         </button>
         {next_nav}
@@ -329,7 +478,7 @@ def build_html():
   --purple: #bc8cff;
   --text: #e6edf3;
   --text-muted: #8b949e;
-  --sidebar-width: 280px;
+  --sidebar-width: 290px;
 }}
 
 html, body {{ height: 100%; }}
@@ -341,12 +490,12 @@ body {{
   flex-direction: column;
   overflow: hidden;
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.7;
 }}
 
 /* HEADER */
 .header {{
-  height: 56px;
+  height: 54px;
   background: var(--sidebar);
   border-bottom: 1px solid var(--border);
   display: flex;
@@ -365,7 +514,7 @@ body {{
 }}
 .progress-bar-wrap {{
   flex: 1;
-  max-width: 300px;
+  max-width: 280px;
   background: var(--border);
   height: 6px;
   border-radius: 3px;
@@ -426,7 +575,7 @@ body {{
 .sidebar-nav {{
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 16px;
+  padding-bottom: 20px;
 }}
 .sidebar-nav::-webkit-scrollbar {{ width: 4px; }}
 .sidebar-nav::-webkit-scrollbar-track {{ background: transparent; }}
@@ -450,7 +599,6 @@ body {{
 .phase-header:hover {{ color: var(--text); }}
 .phase-arrow {{ transition: transform 0.2s; font-size: 10px; }}
 .phase-header.collapsed .phase-arrow {{ transform: rotate(-90deg); }}
-.phase-weeks {{ }}
 .phase-weeks.collapsed {{ display: none; }}
 
 .week-link {{
@@ -469,7 +617,7 @@ body {{
   border-left-color: var(--accent);
 }}
 .week-link.done .week-link-num {{ color: var(--green); }}
-.week-link.done .week-link-title {{ color: var(--text-muted); }}
+.week-link.done .week-link-title {{ color: var(--text-muted); text-decoration: line-through; }}
 .week-check {{ accent-color: var(--green); cursor: pointer; flex-shrink: 0; }}
 .week-link-num {{
   font-size: 11px;
@@ -479,7 +627,6 @@ body {{
   min-width: 28px;
 }}
 .week-link-title {{ flex: 1; }}
-.week-link[style*="display:none"] {{ display: none !important; }}
 
 .badge {{ font-size: 9px; font-weight: 700; padding: 2px 5px; border-radius: 3px; }}
 .badge-project {{ background: rgba(188,140,255,0.2); color: var(--purple); }}
@@ -490,7 +637,6 @@ body {{
 .main {{
   flex: 1;
   overflow-y: auto;
-  padding: 0;
 }}
 .main::-webkit-scrollbar {{ width: 6px; }}
 .main::-webkit-scrollbar-track {{ background: transparent; }}
@@ -498,7 +644,7 @@ body {{
 
 /* HOME */
 .home-hero {{
-  padding: 48px 40px 32px;
+  padding: 48px 44px 32px;
   border-bottom: 1px solid var(--border);
 }}
 .home-hero h1 {{
@@ -534,9 +680,9 @@ body {{
 }}
 .home-cards {{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
   gap: 12px;
-  padding: 32px 40px;
+  padding: 32px 44px;
 }}
 .home-card {{
   background: var(--card);
@@ -547,33 +693,23 @@ body {{
   transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
   position: relative;
 }}
-.home-card:hover {{
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-}}
+.home-card:hover {{ transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }}
 .home-card.phase1:hover {{ border-color: var(--accent); }}
 .home-card.phase2:hover {{ border-color: var(--green); }}
 .home-card.phase3:hover {{ border-color: var(--purple); }}
 .home-card-week {{
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  color: var(--text-muted);
   margin-bottom: 6px;
 }}
 .home-card.phase1 .home-card-week {{ color: var(--accent); }}
 .home-card.phase2 .home-card-week {{ color: var(--green); }}
 .home-card.phase3 .home-card-week {{ color: var(--purple); }}
-.home-card-title {{
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.4;
-}}
+.home-card-title {{ font-size: 13px; font-weight: 500; line-height: 1.4; }}
 .home-card-dot {{
   position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 8px;
-  height: 8px;
+  top: 12px; right: 12px;
+  width: 8px; height: 8px;
   border-radius: 50%;
   background: var(--border);
   transition: background 0.2s;
@@ -582,9 +718,9 @@ body {{
 
 /* WEEK SECTION */
 .week-section {{ display: none; }}
-.week-section.visible {{ display: block; }}
+
 .week-header {{
-  padding: 32px 40px 24px;
+  padding: 32px 44px 24px;
   border-bottom: 1px solid var(--border);
   background: linear-gradient(180deg, rgba(88,166,255,0.03) 0%, transparent 100%);
 }}
@@ -606,7 +742,7 @@ body {{
 .week-type-badge {{
   font-size: 10px;
   font-weight: 700;
-  padding: 3px 8px;
+  padding: 3px 9px;
   border-radius: 4px;
   letter-spacing: 0.06em;
 }}
@@ -614,65 +750,87 @@ body {{
 .week-type-badge.project {{ background: rgba(188,140,255,0.15); color: var(--purple); }}
 .week-type-badge.interview {{ background: rgba(210,153,34,0.15); color: var(--orange); }}
 .week-type-badge.capstone {{ background: rgba(248,81,73,0.12); color: var(--red); }}
-.week-main-title {{
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--text);
-}}
+.week-main-title {{ font-size: 26px; font-weight: 700; color: var(--text); }}
 
 .week-content {{
-  padding: 32px 40px;
-  max-width: 860px;
+  padding: 32px 44px 16px;
+  max-width: 880px;
 }}
 
+.week-title-hidden {{ display: none; }}
+
 /* CONTENT ELEMENTS */
-.week-content h1.week-title {{ display: none; }}
 .week-content h2.section-heading {{
   font-size: 18px;
   font-weight: 600;
   color: var(--text);
-  margin: 28px 0 12px;
-  padding-bottom: 8px;
+  margin: 32px 0 14px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--border);
 }}
 .week-content h3.sub-heading {{
   font-size: 15px;
   font-weight: 600;
   color: var(--accent);
-  margin: 20px 0 8px;
+  margin: 22px 0 10px;
 }}
 .week-content h4.sub-sub-heading {{
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-muted);
   margin: 16px 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }}
 .week-content p {{
-  margin: 8px 0;
+  margin: 10px 0;
   color: var(--text);
-  line-height: 1.7;
+  line-height: 1.75;
 }}
 .section-divider {{
   border: none;
   border-top: 1px solid var(--border);
-  margin: 20px 0;
+  margin: 24px 0;
 }}
 .spacer {{ height: 4px; }}
-.bullet-item {{
-  padding: 4px 0 4px 16px;
-  color: var(--text);
-  line-height: 1.6;
-}}
-.bullet-item.indent {{ padding-left: 32px; color: var(--text-muted); }}
-.exercise-item {{
+
+/* LISTS */
+.content-list {{
+  margin: 10px 0 10px 0;
+  padding-left: 20px;
   display: flex;
-  gap: 10px;
-  padding: 8px 0;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 6px;
 }}
-.ex-num {{
-  min-width: 24px;
-  height: 24px;
+.content-list li {{
+  color: var(--text);
+  line-height: 1.65;
+  padding-left: 4px;
+}}
+.content-list li::marker {{ color: var(--accent); }}
+.sub-list {{ margin-left: 20px; }}
+.sub-list li::marker {{ color: var(--text-muted); }}
+
+/* EXERCISE LIST */
+.exercise-list {{
+  margin: 10px 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}}
+.exercise-list li {{
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  counter-increment: exercise-counter;
+}}
+.exercise-list {{  counter-reset: exercise-counter; }}
+.exercise-list li::before {{
+  content: counter(exercise-counter);
+  min-width: 26px;
+  height: 26px;
   background: var(--accent);
   color: var(--bg);
   border-radius: 50%;
@@ -682,9 +840,11 @@ body {{
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 1px;
 }}
-.ex-text {{ line-height: 1.6; }}
+.ex-text {{ line-height: 1.65; }}
+
+/* INLINE CODE */
 .inline-code {{
   font-family: 'JetBrains Mono', monospace;
   font-size: 13px;
@@ -743,6 +903,107 @@ body {{
   background: transparent !important;
 }}
 
+/* ANSWERS TOGGLE */
+.answers-wrap {{ margin: 14px 0; }}
+.show-answers-btn {{
+  background: rgba(63,185,80,0.1);
+  border: 1px solid var(--green);
+  color: var(--green);
+  padding: 9px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.15s;
+  width: 100%;
+  text-align: left;
+}}
+.show-answers-btn:hover {{ background: rgba(63,185,80,0.18); }}
+.answers-content {{ margin-top: 8px; }}
+
+/* CALLOUT BOXES */
+.callout {{
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-left: 4px solid;
+}}
+.callout ul {{
+  margin-top: 10px;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}}
+.callout ul li {{ line-height: 1.65; }}
+.callout-title {{
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 4px;
+}}
+
+.callout-recap {{
+  background: rgba(88,166,255,0.07);
+  border-color: var(--accent);
+}}
+.callout-recap .callout-title {{ color: var(--accent); }}
+.callout-recap ul li::marker {{ color: var(--accent); }}
+
+.callout-tip {{
+  background: rgba(210,153,34,0.08);
+  border-color: var(--orange);
+}}
+.callout-tip .callout-title {{ color: var(--orange); }}
+.callout-tip ul li::marker {{ color: var(--orange); }}
+
+.callout-next {{
+  background: rgba(63,185,80,0.07);
+  border-color: var(--green);
+}}
+.callout-next .callout-title {{ color: var(--green); }}
+.callout-next ul li::marker {{ color: var(--green); }}
+
+.callout-setup {{
+  background: rgba(188,140,255,0.07);
+  border-color: var(--purple);
+}}
+.callout-setup .callout-title {{ color: var(--purple); }}
+
+.callout-tryit {{
+  background: rgba(88,166,255,0.05);
+  border-color: var(--accent);
+  font-style: italic;
+}}
+.callout-tryit .callout-title {{ color: var(--accent); }}
+
+/* INTERVIEW Q STYLE */
+.interview-q {{
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 20px 0 8px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+}}
+.q-label {{
+  min-width: 26px;
+  height: 26px;
+  background: rgba(188,140,255,0.2);
+  color: var(--purple);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}}
+
 /* TABLES */
 .table-wrap {{
   overflow-x: auto;
@@ -750,11 +1011,7 @@ body {{
   border-radius: 8px;
   border: 1px solid var(--border);
 }}
-table {{
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}}
+table {{ width: 100%; border-collapse: collapse; font-size: 13px; }}
 thead {{ background: var(--card); }}
 th {{
   padding: 10px 14px;
@@ -778,8 +1035,9 @@ tbody tr:hover {{ background: rgba(88,166,255,0.04); }}
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 24px 40px 48px;
+  padding: 20px 44px 48px;
   border-top: 1px solid var(--border);
+  margin-top: 24px;
 }}
 .nav-btn {{
   background: var(--card);
@@ -805,8 +1063,7 @@ tbody tr:hover {{ background: rgba(88,166,255,0.04); }}
 /* TOAST */
 .toast {{
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 24px; right: 24px;
   background: var(--card);
   border: 1px solid var(--green);
   color: var(--green);
@@ -845,7 +1102,8 @@ tbody tr:hover {{ background: rgba(88,166,255,0.04); }}
 <div class="layout">
   <aside class="sidebar">
     <div class="search-wrap">
-      <input class="search-input" id="search-input" type="text" placeholder="/ Search weeks..." oninput="filterWeeks(this.value)">
+      <input class="search-input" id="search-input" type="text"
+        placeholder="/ Search weeks..." oninput="filterWeeks(this.value)">
     </div>
     <nav class="sidebar-nav" id="sidebar-nav">
       {sidebar_html}
@@ -877,7 +1135,7 @@ function showWeek(n) {{
   if (n < 1 || n > TOTAL) return;
   document.querySelectorAll('.week-section').forEach(s => s.style.display = 'none');
   const sec = document.getElementById('week-' + n);
-  if (sec) {{ sec.style.display = 'block'; }}
+  if (sec) sec.style.display = 'block';
   document.querySelectorAll('.week-link').forEach(l => l.classList.remove('active'));
   const link = document.querySelector('.week-link[data-week="' + n + '"]');
   if (link) {{
@@ -889,16 +1147,25 @@ function showWeek(n) {{
   hljs.highlightAll();
 }}
 
+function toggleAnswers(id) {{
+  const content = document.getElementById('ans-' + id);
+  const btn = document.querySelector('#ans-wrap-' + id + ' .show-answers-btn');
+  const visible = content.style.display !== 'none';
+  content.style.display = visible ? 'none' : 'block';
+  btn.textContent = visible ? 'Show Answers' : 'Hide Answers';
+  if (!visible) hljs.highlightAll();
+}}
+
 function markComplete(n, done) {{
   const key = 'week-done-' + n;
-  if (done) {{ localStorage.setItem(key, '1'); }}
-  else {{ localStorage.removeItem(key); }}
+  if (done) localStorage.setItem(key, '1');
+  else localStorage.removeItem(key);
   const link = document.querySelector('.week-link[data-week="' + n + '"]');
-  if (link) {{ link.classList.toggle('done', done); }}
+  if (link) link.classList.toggle('done', done);
   const dot = document.getElementById('dot-' + n);
-  if (dot) {{ dot.classList.toggle('done', done); }}
+  if (dot) dot.classList.toggle('done', done);
   updateProgress();
-  if (done) {{ showToast('Week ' + n + ' marked complete ✓'); }}
+  if (done) showToast('Week ' + n + ' marked complete ✓');
 }}
 
 function updateProgress() {{
@@ -936,8 +1203,7 @@ function loadProgress() {{
 
 function copyCode(btn) {{
   const pre = btn.closest('.code-block').querySelector('pre');
-  const text = pre.innerText;
-  navigator.clipboard.writeText(text).then(() => {{
+  navigator.clipboard.writeText(pre.innerText).then(() => {{
     btn.textContent = 'Copied!';
     btn.classList.add('copied');
     setTimeout(() => {{ btn.textContent = 'Copy'; btn.classList.remove('copied'); }}, 2000);
@@ -962,8 +1228,8 @@ function filterWeeks(q) {{
 
 function togglePhase(header) {{
   const weeks = header.nextElementSibling;
-  const collapsed = weeks.classList.toggle('collapsed');
-  header.classList.toggle('collapsed', collapsed);
+  weeks.classList.toggle('collapsed');
+  header.classList.toggle('collapsed');
 }}
 
 document.addEventListener('keydown', e => {{
@@ -971,10 +1237,9 @@ document.addEventListener('keydown', e => {{
   if (e.key === 'ArrowRight') showWeek(currentWeek + 1);
   if (e.key === 'ArrowLeft') {{ if (currentWeek <= 1) showHome(); else showWeek(currentWeek - 1); }}
   if (e.key === '/') {{ e.preventDefault(); document.getElementById('search-input').focus(); }}
-  if (e.key === 'Escape') {{ document.getElementById('search-input').blur(); }}
+  if (e.key === 'Escape') document.getElementById('search-input').blur();
 }});
 
-// Init
 loadProgress();
 showHome();
 hljs.highlightAll();
@@ -990,4 +1255,4 @@ if __name__ == "__main__":
         f.write(html)
     size_kb = os.path.getsize(OUTPUT) // 1024
     print(f"Done! → sql-course.html ({size_kb} KB)")
-    print(f"Open in browser: open '{OUTPUT}'")
+    print(f"Open: open '{OUTPUT}'")
